@@ -1,5 +1,9 @@
-# The `my-package` Package
+# The `likhita-patra` Package
+
+<!-- markdownlint-disable MD033 -->
+<!-- Using inline HTML to center align version information -->
 <div align="center">Version 0.1.0</div>
+<!-- markdownlint-enable MD033 -->
 
 A short description about the project and/or client.
 
