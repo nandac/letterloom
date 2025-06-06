@@ -1,9 +1,5 @@
-# The `likhita-patra` Package
-
-<!-- markdownlint-disable MD033 -->
-<!-- Using inline HTML to center align version information -->
+# The `my-package` Package
 <div align="center">Version 0.1.0</div>
-<!-- markdownlint-enable MD033 -->
 
 A short description about the project and/or client.
 
@@ -40,9 +36,20 @@ These instructions will get you a copy of the project up and running on the typs
 #my-func()
 ```
 
+<<<<<<< HEAD
 ### Installation
 
 A step by step guide that will tell you how to get the development environment up and running. This should example how to clone the repo and where to (maybe a link to the typst documentation on it), along with any pre-requisite software and installation steps.
+=======
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./thumbnail-dark.svg">
+  <img src="./thumbnail-light.svg">
+</picture>
+
+### Installation
+
+A step by step guide that will tell you how to get the development environment up and running. This should explain how to clone the repo and where to (maybe a link to the typst documentation on it), along with any pre-requisite software and installation steps.
+>>>>>>> upstream/main
 
 ```
 $ First step

@@ -1,26 +1,33 @@
 # for a description of available keys, see https://github.com/typst/packages/?tab=readme-ov-file#package-format
 
 [package]
-name = "likhita-patra"
+name = ""
 version = "0.1.0"
-entrypoint = "src/likhita-patra.typ"
-authors = ["Nandakumar Chandrasekhar"]
+entrypoint = "src/lib.typ"
+authors = []
 license = "Unlicense"
-description = "A Typst template for writing letters containing multiple signatures, images, footnotes and enclosures."
-repository = "https://github.com/nandac/likhita-patra"
-keywords = ["letter", "templates", "signatures", "footers", "personal", "formal", "professional"]
-categories = ["office", "layout"]
-compiler = "0.12.0"
+description = ""
+homepage = ""
+repository = ""
+keywords = []
+categories = []
+disciplines = []
+# compiler = ""
 exclude = [
-	".github",
-	"docs",
-	"scripts",
-	"tests",
-	".typstignore",
-	"Justfile",
+  ".github",
+  "docs",
+  "scripts",
+  "tests",
+  ".typstignore",
+  "Justfile",
+  "thumbnail-dark.svg",
+  "thumbnail-light.svg",
 ]
 
-[template]
-path = "template"
-entrypoint = "main.typ"
-thumbnail = "thumbnail.png"
+# [template]
+# path = "template"
+# entrypoint = "main.typ"
+# thumbnail = "thumbnail.png"
+
+# [tool.mytool]
+# foo = "bar"
