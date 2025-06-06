@@ -1,4 +1,4 @@
-#import "@preview/easy-letter:0.1.0": *
+#import "@preview/easy-letter:0.1.0": easy-letter
 
 // Sender
 #let sender = (
@@ -6,7 +6,7 @@
   address: "The Lodge
 Cheswick Village
 Middle Upton
-Bristol BS16 1GU",
+Bristol BS16 1GU"
 )
 
 // Receiver
@@ -15,7 +15,7 @@ Bristol BS16 1GU",
   address: "Midtown Lane
 Cheswick Village
 Stoke Gifford
-Bristol BS16 1GU",
+Bristol BS16 1GU"
 )
 
 // Supports a maximum of three signatures
@@ -35,15 +35,14 @@ Bristol BS16 1GU",
 )
 
 #let enclosures = (
-  // Keep the comma so that the entire string is taken as a list item
-  [Photograph of storm damage to an oak tree.],
+  "Photograph of storm damage to an oak tree."
 )
 
 #let figures = (
   (
-    image: image("storm-damage-597217_1280.jpg", width: 80%),
-    caption: [Storm Damaged Oak Tree.#footnote[Image courtesy of user 127071 at #link("https://pixabay.com/photos/storm-damage-oak-tree-break-597217/")[Pixabay].]],
-  ),
+    image: image("images/storm-damage-597217_1280.jpg", width: 80%),
+    caption: [Storm Damaged Oak Tree.#footnote[Image courtesy of user 127071 at #link("https://pixabay.com/photos/storm-damage-oak-tree-break-597217/")[Pixabay].]]
+  )
 )
 
 #let footer =  (
@@ -65,9 +64,7 @@ Bristol BS16 1GU",
 #show: easy-letter.with(
   sender: sender,
   receiver: receiver,
-  date: datetime.today().display(
-    "[day padding: 0] [month repr: long] [year repr: full]"
-  ), // Current date in the format day month year e.g. 01 January 1970
+  date: datetime.today().display("[year]-[month]-[day]"),
   salutation: "Gentlemen,",
   subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate",
   closing: "Sincerely yours,",
@@ -75,9 +72,9 @@ Bristol BS16 1GU",
   enclosures: enclosures,
   cc: "Mr Jethro Tull",
   figures: figures,
-  footer, footer,
-  link_color: maroon,
-  number_pages: true,
+  footer: footer,
+  link-color: maroon,
+  number-pages: true
 )
 
 We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
@@ -86,6 +83,6 @@ Your specific task would be to render the grove safe to human traffic while at t
 
 Since this estate is jointly owned by the Dimbleby family, the signatures of all three of us appear in this letter to avoid any legal wrangles in the future.
 
-Kindly contact our Head Groundsman, Mr Jethro Tull, on #box(fill:black, stroke:black, [0117-12345678.]) to fix an appointment to view the trees and give a quotation for the contemplated work.
+Kindly contact our Head Groundsman, Mr Jethro Tull, on 0117-12345678. to fix an appointment to view the trees and give a quotation for the contemplated work.
 
 Thank you kindly.

@@ -3,7 +3,7 @@
 [package]
 name = "easy-letter"
 version = "0.1.0"
-entrypoint = "src/easy-letter.typ"
+entrypoint = "src/lib.typ"
 authors = ["Nandakumar Chandrasekhar"]
 license = "Unlicense"
 description = "A simple Typst template for writing letters containing multiple signatures, images, footnotes and enclosures."
