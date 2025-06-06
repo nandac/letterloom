@@ -1,18 +1,18 @@
 # for a description of available keys, see https://github.com/typst/packages/?tab=readme-ov-file#package-format
 
 [package]
-name = ""
+name = "easy-letter"
 version = "0.1.0"
-entrypoint = "src/lib.typ"
-authors = []
+entrypoint = "src/easy-letter.typ"
+authors = ["Nandakumar Chandrasekhar"]
 license = "Unlicense"
-description = ""
-homepage = ""
-repository = ""
-keywords = []
-categories = []
-disciplines = []
-# compiler = ""
+description = "A simple Typst template for writing letters containing multiple signatures, images, footnotes and enclosures."
+homepage = "https://github.com/nandac/easy-letter"
+repository = "https://github.com/nandac/easy-letter"
+keywords = ["letter"]
+categories = ["office", "layout"]
+disciplines = ["communication"]
+compiler = "0.13.0"
 exclude = [
   ".github",
   "docs",
@@ -24,10 +24,10 @@ exclude = [
   "thumbnail-light.svg",
 ]
 
-# [template]
-# path = "template"
-# entrypoint = "main.typ"
-# thumbnail = "thumbnail.png"
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"
 
 # [tool.mytool]
 # foo = "bar"

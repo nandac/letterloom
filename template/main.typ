@@ -1,4 +1,4 @@
-#import "@preview/likhita-patra:1.0.0": likhita-patra
+#import "@preview/easy-letter:0.1.0": *
 
 // Sender
 #let sender = (
@@ -62,7 +62,7 @@ Bristol BS16 1GU",
   ),
 )
 
-#show: likhita-patra.with(
+#show: easy-letter.with(
   sender: sender,
   receiver: receiver,
   date: datetime.today().display(

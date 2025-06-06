@@ -1,4 +1,4 @@
-#import "/src/lib.typ" as my-package
+#import "/src/easy-letter.typ" as package
 
 // TODO real tests
 #assert(true)

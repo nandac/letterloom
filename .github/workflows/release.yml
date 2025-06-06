@@ -42,6 +42,7 @@ jobs:
 
       - name: Build package
         run: |
+          just install-preview
           just doc
           just package out
 

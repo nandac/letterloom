@@ -37,11 +37,7 @@ jobs:
         id: setup-typst
         uses: typst-community/setup-typst@v3
         with:
-<<<<<<< HEAD
-          typst-version: ${{ matrix.typst-version }}
-=======
           typst-version: ${{ matrix.typst-version.typst }}
->>>>>>> upstream/main
 
       - name: Run test suite
         run: just test

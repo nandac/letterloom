@@ -1,15 +1,4 @@
-// likhita-patra.typ
-// Author: Nandakumar Chandrasekhar
-// email: navanitachora@gmail.com
-// First Written: 31 December 2023
-// Last Modified: 22 January 2025
-
-// Ensure that the selected fonts:
-// (a) are available locally on your system
-// (b) have the applicable leading, inter-line-spacing, etc.
-
-// Function that constructs the letter
-#let likhita-patra(
+#let easy-letter(
   sender: (
     name: none,
     address: none
