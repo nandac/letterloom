@@ -1,7 +1,7 @@
 # The `easy-letter` Package
 <div align="center">Version 0.1.0</div>
 
-A short description about the project and/or client.
+A simple Typst template for writing letters with multiple signatures, images, footnotes and enclosures.
 
 ## Template adaptation checklist
 
@@ -27,13 +27,33 @@ A short description about the project and/or client.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on the typst web app. Perhaps a short code example on importing the package and a very simple teaser usage.
+These instructions will get you a copy of the project up and running on the typst web app.
 
 ```typ
 #import "@preview/easy-letter:0.1.0": *
 
-#show: my-show-rule.with()
-#my-func()
+#show: easy-letter.with(
+  sender: (
+    name: "My Name",
+    address: [My Address \
+              My Town \
+              My County \
+              My Postcode]
+  ),
+  receiver: (
+    name: "Your Name",
+    address: [Your Address \
+              Your Town \
+              Your County \
+              Your Postcode]
+  ),
+  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+  salutation: "Dear Name,",
+  subject: "Subject of Letter",
+  closing: "Yours sincerely,"
+)
+
+The text of your letter should be added here.
 ```
 
 <picture>

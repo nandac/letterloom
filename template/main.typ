@@ -1,21 +1,21 @@
-#import "@preview/easy-letter:0.1.0": easy-letter
+#import "@preview/easy-letter:0.1.0": *
 
 // Sender
 #let sender = (
   name: "The Dimbleby Family",
-  address: "The Lodge
-Cheswick Village
-Middle Upton
-Bristol BS16 1GU"
+  address: [The Lodge \
+            Cheswick Village \
+            Middle Upton \
+            Bristol BS16 1GU]
 )
 
 // Receiver
 #let receiver = (
   name: "Evergreen Tree Surgeons",
-  address: "Midtown Lane
-Cheswick Village
-Stoke Gifford
-Bristol BS16 1GU"
+  address: [Midtown Lane \
+            Cheswick Village \
+            Stoke Gifford \
+            Bristol BS16 1GU]
 )
 
 // Supports a maximum of three signatures
@@ -35,21 +35,20 @@ Bristol BS16 1GU"
 )
 
 #let enclosures = (
-  "Photograph of storm damage to an oak tree."
+  "Photograph of storm damaged oak tree."
 )
 
 #let figures = (
   (
-    image: image("images/storm-damage-597217_1280.jpg", width: 80%),
-    caption: [Storm Damaged Oak Tree.#footnote[Image courtesy of user 127071 at #link("https://pixabay.com/photos/storm-damage-oak-tree-break-597217/")[Pixabay].]]
+    image: image("images/storm-damaged-oak-tree.jpg", width: 80%),
+    caption: "Storm Damaged Oak Tree."
   )
 )
 
 #let footer =  (
-  // Type is one of string, email or link
   (
     content: "+44-117-555-5555",
-    type: "string",
+    type: "string", // Type is one of string, email or link
   ),
   (
     content: "dimblebyfamily@dimbleby.org",
@@ -58,13 +57,13 @@ Bristol BS16 1GU"
   (
     content:"https://dimbleby.org",
     type: "link",
-  ),
+  )
 )
 
 #show: easy-letter.with(
   sender: sender,
   receiver: receiver,
-  date: datetime.today().display("[year]-[month]-[day]"),
+  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
   salutation: "Gentlemen,",
   subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate",
   closing: "Sincerely yours,",

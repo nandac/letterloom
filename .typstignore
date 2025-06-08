@@ -6,7 +6,7 @@
 # - patterns must match file/directory names from the beginning: `x.typ` will not match `src/x.typ`
 # - `*` in patterns works, but also matches directory separators: `*.typ` _will_ match `src/x.typ`
 # .git and .typstignore are excluded automatically
-
+.DS_Store
 .github
 scripts
 tests
