@@ -28,5 +28,3 @@
 )
 
 The text of your letter should be added here.
-
-#align(center)[_a thumbnail showing the package's output_]
