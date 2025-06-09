@@ -47,7 +47,7 @@ The `easy-letter` package addresses these challenges by providing an accessible 
 
 == Usage
 
-The following example demonstrates how to use the `easy-letter` package with the minimum required options to generate a complete letter:
+The following example demonstrates how to generate a letter using the `easy-letter` package with the minimum required options:
 
 ```typ
 #import "@preview/easy-letter:0.1.0": *
@@ -76,7 +76,7 @@ The following example demonstrates how to use the `easy-letter` package with the
 The text of your letter should be added here.
 ```
 
-The following sections will describe the full range of mandatory and optional parameters available to the `easy-letter` package.
+The `easy-letter` package has a number of parameters that can be used to customize the appearance of the letter. The following sections will describe the full range of mandatory and optional parameters available to the `easy-letter` package.
 
 === Required Parameters
 
@@ -116,7 +116,7 @@ The following sections will describe the full range of mandatory and optional pa
 
 - `date: str`
 
-  The date of the letter sent in as a string.
+  The date of the letter. Any string or datetime string may be used.
 
   Example:
   ```typ
@@ -129,7 +129,7 @@ The following sections will describe the full range of mandatory and optional pa
 
 - `salutation: str`
 
-  The salutation of the letter sent in as a string.
+  The salutation of the letter.
 
   Example:
   ```typ
@@ -186,7 +186,7 @@ The following sections will describe the full range of mandatory and optional pa
 
 - `enclosures: array`
 
-  The enclosures or attachments related to the letter sent in as an array of strings,
+  List of enclosures or attachments related to the letter. Each item in the list is a string.
 
   Default: `()`
 
@@ -199,7 +199,7 @@ The following sections will describe the full range of mandatory and optional pa
 
 - `enclosures_title: str`
 
-  The title of the enclosures or attachments related to the letter sent in as a string. This allows the title of the enclosure to be changed from the default `encl:` in cases where the language of the letter is not English.
+  The title of the enclosures or attachments list. This allows the title of the enclosure list to be changed from the default `encl:` which is useful when the language of the letter is not English.
 
   Default: `encl:`
 
@@ -230,7 +230,7 @@ The following sections will describe the full range of mandatory and optional pa
 
   The footer of the letter sent in as an array of dictionaries with the following keys:
   - `content: str` the content of the footer.
-  - `type: str` data type one of `string`, `email` or `link` the default is `string`.
+  - `type: str` data type one of `string`, `email` or `link`.
 
   Default: `()`
 
@@ -265,7 +265,7 @@ The following sections will describe the full range of mandatory and optional pa
 
 - `paper-size: str`
 
-  The size of the paper of the letter sent in as a string.
+  The paper size of the letter. Any of the paper sizes supported by Typst may be used.
 
   Default: `a4`
 
@@ -291,18 +291,18 @@ The following sections will describe the full range of mandatory and optional pa
 
 - `main-font: str`
 
-  The main font of the letter sent in as a string.
+  The font used for the main body of the letter.
 
   Default: `Libertinus Serif`
 
   Example:
   ```typ
-  margins: (top: 20mm, left: 20mm, bottom: 20mm, right: 20mm)
+  main-font: "Noto Serif"
   ```
 
 - `main-font-size: length`
 
-  The size of the main font of the letter sent in as a length.
+  The font size for the main body of the letter.
 
   Default: `11pt`
 
@@ -313,21 +313,91 @@ The following sections will describe the full range of mandatory and optional pa
 
 - `footer-font: str`
 
-  The footer font of the letter sent in as a string.
+  The font used for the footer of the letter.
 
   Default: `DejaVu Sans Mono`
 
   Example:
   ```typ
-  footer-font: "DejaVu Sans Mono"
+  footer-font: "Fira Mono"
+  ```
+
+- `footer-font-size: length`
+
+  The font size for the footer of the letter.
+
+  Default: `7pt`
+
+  Example:
+  ```typ
+  footer-font-size: 7pt
   ```
 
 - `caption-font: str`
 
-  The caption font of the letter sent in as a string.
+  The font used for the captions of figures in the letter.
+
+  Default: `Libertinus Serif`
+
   Example:
-  paragraph: (
-    leading: 0.8em, // Space between adjacent lines in a paragraph; tuned to the font used
-    spacing: 1.8em, // Space between paragraphs
-  ),
-  link-color: blue
+  ```typ
+  caption-font: "Source Sans Pro"
+  ```
+
+- `caption-font-size: length`
+
+  The font size for the captions of figures in the letter.
+
+  Default: `9pt`
+
+  Example:
+  ```typ
+  caption-font-size: 9pt
+  ```
+
+- `footnote-font: str`
+
+  The font used for the footnotes in the letter.
+
+  Default: `Libertinus Serif`
+
+
+  Example:
+  ```typ
+  footnote-font: "Noto Serif"
+  ```
+
+- `footnote-font-size: length`
+
+  The font size for the footnotes in the letter.
+
+  Default: `8pt`
+
+  Example:
+  ```typ
+  footnote-font-size: 8pt
+  ```
+
+- `paragraph: dict`
+
+  The paragraph spacing and leading for the letter sent in as a dictionary with the following keys:
+  - `leading: float` the leading of the paragraphs.
+  - `spacing: float` the spacing between paragraphs.
+
+  Default: `(leading: 0.8em, spacing: 1.8em)`
+
+  Example:
+  ```typ
+  paragraph: (leading: 0.8em, spacing: 1.8em)
+  ```
+
+- `link-color: str`
+
+  The color of hyperlinks in the letter.
+
+  Default: `blue`
+
+  Example:
+  ```typ
+  link-color: maroon
+  ```

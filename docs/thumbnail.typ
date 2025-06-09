@@ -1,4 +1,4 @@
-#import "/src/lib.typ" as my-package: *
+#import "/src/lib.typ" as easy-letter: *
 
 #set page(height: auto, margin: 5mm, fill: none)
 
@@ -6,5 +6,27 @@
 #let theme = sys.inputs.at("theme", default: "light")
 #set text(white) if theme == "dark"
 
-#set text(22pt)
+#show: easy-letter.with(
+  sender: (
+    name: "My Name",
+    address: [My Address \
+              My Town \
+              My County \
+              My Postcode]
+  ),
+  receiver: (
+    name: "Your Name",
+    address: [Your Address \
+              Your Town \
+              Your County \
+              Your Postcode]
+  ),
+  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+  salutation: "Dear Name,",
+  subject: "Subject of Letter",
+  closing: "Yours sincerely,"
+)
+
+The text of your letter should be added here.
+
 #align(center)[_a thumbnail showing the package's output_]
