@@ -65,7 +65,7 @@
   to: to,
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
   salutation: "Gentlemen,",
-  subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate",
+  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
   closing: "Sincerely yours,",
   signatures: signatures,
   enclosures: enclosures,
@@ -73,7 +73,8 @@
   figures: figures,
   footer: footer,
   link-color: maroon,
-  number-pages: true
+  number-pages: true,
+  footnote-alignment: right
 )
 
 We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.

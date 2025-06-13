@@ -1,130 +1,5 @@
-#let construct-custom-footer(
-  footer: none,
-  footer-font: none,
-  footer-font-size: none,
-  link-color: none
-) = {
-  let custom-footer = grid()
-
-  // Footers are optional
-  if footer != () {
-    if type(footer) != array {
-      footer = (footer, )
-    }
-
-    // If footer is provided, construct a grid with one row
-    // and the number of columns equal to the number of footer items
-    custom-footer = grid(
-      columns: footer.len(),
-      rows: 1,
-      gutter: 20pt,
-      ..footer.map(
-        foot => [
-          // Specific styling for links, emails and strings
-          #if foot.type == "link" {
-            text(
-              link(foot.content),
-              font: footer-font,
-              size: footer-font-size,
-              fill: link-color
-            )
-          } else if foot.type == "email" {
-            text(
-              link("mailto:" + foot.content),
-              font: footer-font,
-              size: footer-font-size,
-              fill: link-color
-            )
-          } else if foot.type == "string" {
-            text(foot.content, font: footer-font,  size: footer-font-size)
-          } else {
-            text(foot.content, font: footer-font,  size: footer-font-size)
-          }
-        ]
-      )
-    )
-  }
-
-  return custom-footer
-}
-
-#let construct-page-numbering(number-pages: none) = {
-  let page-numbering = grid()
-
-  // Page numbering is optional
-  if number-pages == true {
-    // Page numbering starts on the second page
-    page-numbering = grid(
-      context(
-        if here().page() > 1 {
-          counter(page).display("1")
-        }
-      )
-    )
-  }
-
-  return page-numbering
-}
-
-#let construct-signatures(signatures: none) = {
-  // Signatures are optional in cases where the letter may be
-  // of an informal nature
-  if signatures != () {
-    // Convert the signatures variable to an array in cases
-    // where only one signature is given
-    if type(signatures) != array {
-      signatures = (signatures, )
-    }
-
-    // Grid accommodates _up to_ three signatures and signatory names
-    grid(
-      columns: signatures.len(),
-      rows: 2,
-      column-gutter: 60pt,
-      ..signatures.map(signatory => [
-        #signatory.signature
-        #signatory.name
-      ])
-    )
-  }
-}
-
-#let construct-enclosures(enclosures: none, enclosures-title: none) = {
-  // Enclosures are optional
-  if enclosures != () {
-    set enum(indent: 15pt)
-    enclosures-title
-
-    // Convert the enclosures variable to an array in cases
-    // where only one enclosure is given
-    if type(enclosures) != array {
-      enclosures = (enclosures, )
-    }
-
-    // Enclosures are displayed as a list
-    for enclosure in enclosures {
-      enum.item(text(enclosure))
-    }
-  }
-}
-
-#let construct-figures(
-  figures: none, caption-font: none, caption-font-size: none
-) = {
-  // Figures are optional
-  if figures != () {
-    // Convert the figures variable to an array in cases
-    // where only one figure is given
-    if type(figures) != array {
-      figures = (figures, )
-    }
-
-    show figure.caption: set text(font: caption-font, size: caption-font-size)
-    for fig in figures {
-      figure(fig.image, caption: fig.caption)
-    }
-  }
-}
+#import "validate.typ": *
+#import "construct.typ": *
 
 #let easy-letter(
   from: (
@@ -156,6 +31,7 @@
   footer-font-size: 7pt,
   caption-font: "Libertinus Serif",
   caption-font-size: 9pt,
+  footnote-alignment: left,
   footnote-font: "Libertinus Serif",
   footnote-font-size: 8pt,
   paragraph: (
@@ -165,6 +41,7 @@
   link-color: blue,
   doc
 ) = {
+  // Footer is optional
   let custom-footer = construct-custom-footer(
     footer: footer,
     footer-font: footer-font,
@@ -173,29 +50,67 @@
     link-color: link-color
   )
 
+  // Page numbering is optional
   let page-numbering = construct-page-numbering(number-pages: number-pages)
 
   // Page settings
   set page(
     paper: paper-size,
     margin: margins,
-    footer: align(center, custom-footer + page-numbering),
+    footer: align(center, custom-footer + page-numbering)
   )
 
   // Text settings
   set text(
     font: main-font,
-    size: main-font-size,
+    size: main-font-size
   )
 
   // Paragraph spacing
   set par(
     leading: paragraph.leading, // Space between adjacent lines in a paragraph
-    spacing: paragraph.spacing, // Space between paragraphs
+    spacing: paragraph.spacing // Space between paragraphs
   )
+
+  // Align the footnote separator to the desired alignment
+  set footnote.entry(separator: align(footnote-alignment, line(length: 30% + 0pt, stroke: 0.5pt)))
 
   // Color links to the desired color
   show link: set text(fill: link-color)
+
+  // Align footnotes to the desired alignment
+  show footnote.entry: it => {
+    set align(footnote-alignment)
+    set text(font: footnote-font, size: footnote-font-size)
+    it
+  }
+
+  // Validating all mandatory variables
+  // Validate the sender's contact details
+  validate-contact(contact: from, contact-type: "from")
+
+  // Validate the recipient's contact details
+  validate-contact(contact: to, contact-type: "to")
+
+  // Validate the date
+  validate-string(string-data: date, field-name: "date")
+
+  // Validate salutation
+  validate-string(string-data: salutation, field-name: "salutation")
+
+  // Validate closing
+  validate-string(string-data: closing, field-name: "closing")
+
+  // Validate all optional variables
+  // If attention name is given, validate it
+  if attn-name != none {
+    validate-string(string-data: attn-name, field-name: "attn-name")
+  }
+
+  // If carbon copy is given, validate it
+  if cc != none {
+    validate-string(string-data: cc, field-name: "cc")
+  }
 
   // Sender's name, address, and date block at top right
   align(from-alignment, block(below: 10pt)[
@@ -229,8 +144,8 @@
   linebreak()
   v(5pt)
 
-  // Subject in semibold, smallcaps; font should support these features
-  text(weight: "bold", smallcaps(subject))
+  // Subject
+  text(subject)
 
   // Body of letter
   doc
@@ -251,9 +166,6 @@
   }
 
   v(5pt)
-
-  // Use footnote.entry rather than footnote
-  show footnote.entry: set text(font: footnote-font, size: footnote-font-size)
 
   construct-enclosures(enclosures: enclosures, enclosures-title: enclosures-title)
   construct-figures(

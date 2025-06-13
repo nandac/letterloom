@@ -389,6 +389,17 @@ The `easy-letter` package has a number of parameters that can be used to customi
   footnote-font-size: 8pt
   ```
 
+- `footnote-alignment: alignment`
+
+  The alignment of footnotes in the letter.
+
+  Default: `left`
+
+  Example:
+  ```typ
+  footnote-alignment: right
+  ```
+
 - `paragraph: dict`
 
   The paragraph spacing and leading for the letter sent in as a dictionary with the following keys:

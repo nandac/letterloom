@@ -1,4 +1,5 @@
 # The `easy-letter` Package
+<!-- markdownlint-disable MD033 -->
 <div align="center">Version 0.1.0</div>
 
 A simple Typst template for writing letters with multiple signatures, images, footnotes and enclosures.
@@ -58,7 +59,7 @@ The text of your letter should be added here.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./thumbnail-dark.svg">
-  <img src="./thumbnail-light.svg">
+  <img src="./thumbnail-light.svg" alt ="">
 </picture>
 
 ### Installation
