@@ -8,8 +8,8 @@ A simple Typst template for writing letters with multiple signatures, images, fo
 - [ ] Fill out `README.md`
   - Change the `my-package` package name, including code snippets
   - Check section contents and/or delete sections that don't apply
-- [ ] Check and/or replace `LICENSE` by something that suits your needs
-- [ ] Fill out `typst.toml`
+- [x] Check and/or replace `LICENSE` by something that suits your needs
+- [x] Fill out `typst.toml`
   - See also the [typst/packages README](https://github.com/typst/packages/?tab=readme-ov-file#package-format)
 - [ ] Adapt Repository URLs in `CHANGELOG.md`
   - Consider only committing that file with your first release, or removing the "Initial Release" part in the beginning
@@ -27,7 +27,7 @@ A simple Typst template for writing letters with multiple signatures, images, fo
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on the typst web app.
+These instructions will get you a copy of the project up and running on the Typst web app.
 
 ```typ
 #import "@preview/easy-letter:0.1.0": *
@@ -63,13 +63,55 @@ The text of your letter should be added here.
 
 ### Installation
 
-A step by step guide that will tell you how to get the development environment up and running. This should explain how to clone the repo and where to (maybe a link to the typst documentation on it), along with any pre-requisite software and installation steps.
+Follow these steps to set up your development environment and prepare for contributing to the project:
 
+Typst: Install Typst (version 0.13.0 or higher) using the official installation instructions. Typst is required to work with the core functionality of the project.
+
+Just: Install Just, a handy command runner for executing predefined tasks. You can install it using a package manager or by downloading a pre-built binary. Refer to the available packages for installation instructions specific to your operating system.
+
+tytanic: Install tytanic, a library essential for testing and working with Typst projects. Use the quickstart installation guide to get it up and running.
+
+Clone the Repository: Download the project's source code by cloning the repository to your local machine:
+
+```bash
+git clone https://github.com/nandac/easy-letter.git
 ```
-$ First step
-$ Another step
-$ Final step
+
+Once you've completed these steps, your development environment will be ready.
+
+### Next Steps
+
+The `easy-letter` package source code is located at:
+
+```plaintext
+src/lib.typ
 ```
+
+This is where you will make any necessary changes to the module.
+
+### Running Tests
+
+To test the functionality of the module locally, run the predefined test cases using the following command:
+
+```bash
+just test
+```
+
+Ensure that all tests pass before submitting any changes to maintain the project's integrity.
+
+If you want to test the module with a Typst file, you can install the `easy-letter` package locally in the `preview` location by running:
+
+```bash
+just install-preview
+```
+
+Once installed, you can import the package into your Typst file using the following statement:
+
+```typ
+#import "@preview/easy-letter:0.1.0": *
+```
+
+This setup allows you to experiment with the module in a Typst file before finalizing your changes.
 
 ## Usage
 
@@ -81,9 +123,6 @@ A more in-depth description of usage. Any template arguments? A complicated exam
 #let my-complicated-example = ...
 ```
 
-## Additional Documentation and Acknowledgments
+## Acknowledgments
 
-* Project folder on server:
-* Confluence link:
-* Asana board:
-* etc...
+Special thanks to the Typst community on [Discord](https://discord.com/channels/1054443721975922748/1069937650125000807) for their invaluable assistance and support during the development of this package.

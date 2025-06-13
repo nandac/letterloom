@@ -80,7 +80,7 @@ The `easy-letter` package has a number of parameters that can be used to customi
 
 === Required Parameters
 
-- `sender: dictionary`
+- `from: dictionary`
 
   The name and address of the sender sent in as a dictionary with the following keys:
   - `name: str` the name of the sender.
@@ -88,7 +88,7 @@ The `easy-letter` package has a number of parameters that can be used to customi
 
   Example:
   ```typ
-  sender: (
+  from: (
     name: "The Dimbleby Family",
     address: [The Lodge \
               Cheswick Village \
@@ -97,7 +97,7 @@ The `easy-letter` package has a number of parameters that can be used to customi
   )
   ```
 
-- `receiver: dictionary`
+- `to: dictionary`
 
   The name and address of the receiver sent in as a dictionary with the following keys:
   - `name: str` the name of the receiver.
@@ -105,7 +105,7 @@ The `easy-letter` package has a number of parameters that can be used to customi
 
   Example:
   ```typ
-  receiver: (
+  to: (
     name: "Evergreen Tree Surgeons",
     address: [Midtown Lane \
               Cheswick Village \
@@ -155,6 +155,17 @@ The `easy-letter` package has a number of parameters that can be used to customi
   ```
 
 === Optional Parameters
+
+- `from-alignment: alignment`
+
+  The alignment of the sender's name and address in the letter.
+
+  Default: `right`
+
+  Example:
+  ```typ
+  from-alignment: left
+  ```
 
 - `signatures: array`
 

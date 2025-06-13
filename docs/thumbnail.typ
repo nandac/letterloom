@@ -1,21 +1,20 @@
 #import "/src/lib.typ" as easy-letter: *
 
-#set page(height: auto, width: auto, margin: 5mm, fill: none)
+#set page(height: auto, margin: 5mm, fill: none)
 
 // style thumbnail for light and dark theme
 #let theme = sys.inputs.at("theme", default: "light")
-#set text(top-edge: "bounds", bottom-edge: "bounds")
 #set text(white) if theme == "dark"
 
 #show: easy-letter.with(
-  sender: (
+  from: (
     name: "My Name",
     address: [My Address \
               My Town \
               My County \
               My Postcode]
   ),
-  receiver: (
+  to: (
     name: "Your Name",
     address: [Your Address \
               Your Town \

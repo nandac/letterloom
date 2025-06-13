@@ -1,7 +1,7 @@
 #import "@preview/easy-letter:0.1.0": *
 
 // Sender
-#let sender = (
+#let from = (
   name: "The Dimbleby Family",
   address: [The Lodge \
             Cheswick Village \
@@ -10,7 +10,7 @@
 )
 
 // Receiver
-#let receiver = (
+#let to = (
   name: "Evergreen Tree Surgeons",
   address: [Midtown Lane \
             Cheswick Village \
@@ -41,7 +41,7 @@
 #let figures = (
   (
     image: image("images/storm-damaged-oak-tree.jpg", width: 80%),
-    caption: "Storm Damaged Oak Tree."
+    caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
   )
 )
 
@@ -61,8 +61,8 @@
 )
 
 #show: easy-letter.with(
-  sender: sender,
-  receiver: receiver,
+  from: from,
+  to: to,
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
   salutation: "Gentlemen,",
   subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate",

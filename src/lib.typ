@@ -93,7 +93,7 @@
   // Enclosures are optional
   if enclosures != () {
     set enum(indent: 15pt)
-    enclosures_title
+    enclosures-title
 
     // Convert the enclosures variable to an array in cases
     // where only one enclosure is given
@@ -127,14 +127,15 @@
 }
 
 #let easy-letter(
-  sender: (
+  from: (
     name: none,
     address: none
   ),
-  receiver: (
+  to: (
     name: none,
     address: none,
   ),
+  from-alignment: right,
   attn-name: none,
   date: none,
   subject: none,
@@ -197,15 +198,15 @@
   show link: set text(fill: link-color)
 
   // Sender's name, address, and date block at top right
-  align(right, block[
+  align(from-alignment, block(below: 10pt)[
     #set align(left)
-    #sender.name
+    #from.name
     #linebreak()
-    #sender.address
+    #from.address
     #linebreak()
-    #v(0.25em)
+    #v(2pt)
     #date
-  ])
+])
 
   // Attention name (optional)
   if attn-name != none {
@@ -215,9 +216,9 @@
 
   // Receiver's name and address
   set align(left)
-  receiver.name
+  to.name
   linebreak()
-  receiver.address
+  to.address
   linebreak()
 
   v(5pt)
@@ -253,6 +254,7 @@
 
   // Use footnote.entry rather than footnote
   show footnote.entry: set text(font: footnote-font, size: footnote-font-size)
+
   construct-enclosures(enclosures: enclosures, enclosures-title: enclosures-title)
   construct-figures(
     figures: figures, caption-font: caption-font, caption-font-size: caption-font-size
