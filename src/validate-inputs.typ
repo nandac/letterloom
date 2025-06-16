@@ -1,3 +1,9 @@
+#let validate-length(length-value: none, field-name: none) = {
+  if type(length-value) != length {
+    panic(field-name + " must be of type length.")
+  }
+}
+
 #let validate-contact(contact: none, contact-type: none) = {
   if type(contact) == dictionary {
     // Check if name is given and is a valid type
@@ -17,7 +23,7 @@
     if "address" in contact {
       if type(contact.at("address")) == content {
         if contact.at("address") == "" {
-          panic(contact-type + "'s address is empty.")
+          panic(contact-type + " address is empty.")
         }
       } else {
         panic(contact-type + " address must be a content block.")
@@ -26,7 +32,7 @@
       panic(contact-type + " address is missing.")
     }
   } else {
-    panic(contact-type + " details must be a dictionary.")
+    panic(contact-type + " details must be a dictionary with name and address fields.")
   }
 }
 
@@ -37,5 +43,25 @@
     if string-data == "" {
       panic(field-name + " is empty.")
     }
+  }
+}
+
+#let validate-signatures(signatures: none) = {
+  if signatures != none {
+    // Handle the case where we only have a single signature
+    if type(signatures) != array {
+      signatures = (signatures, )
+    }
+
+    // Validate each signature
+    // The signatory's name is required but a signature image is optional
+    for signature in signatures {
+      // Check if the signature name is given
+      if signature.at("name") in (none, "") {
+        panic("signature name is missing.")
+      }
+    }
+  } else {
+    panic("signatures are missing.")
   }
 }

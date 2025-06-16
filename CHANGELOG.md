@@ -42,5 +42,5 @@ to the corresponding tag on GitHub, or the diff
 in comparison to the previous release
 -->
 
-[Unreleased]: https://github.com/nandac/easy-letter/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/nandac/easy-letter/releases/tag/v0.1.0
+[Unreleased]: https://github.com/nandac/letterloom/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/nandac/letterloom/releases/tag/v0.1.0

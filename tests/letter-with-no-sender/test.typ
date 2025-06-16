@@ -1,4 +1,4 @@
-#import "@preview/letterloom:0.1.0": *
+#import "/src/lib.typ": *
 
 // Sender
 #let from = (
@@ -31,37 +31,6 @@
   (
     name: "Sir Austin Dimbleby",
     signature: image("images/austin-sig.png")
-  ),
-  // (
-  //   name: "Mr Jethro Tull"
-  // ),
-  // (
-  //   name: "Mr Sturgis Podmore"
-  // )
-)
-
-#let enclosures = (
-  "Photograph of storm damaged oak tree."
-)
-
-#let figures = (
-  (
-    image: image("images/storm-damaged-oak-tree.jpg", width: 80%),
-    // caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
-  )
-)
-
-#let footer =  (
-  (
-    content: "+44-117-555-5555"
-  ),
-  (
-    content: "dimblebyfamily@dimbleby.org",
-    type: "email"
-  ),
-  (
-    content:"https://dimbleby.org",
-    type: "url"
   )
 )
 
@@ -72,14 +41,7 @@
   salutation: "Gentlemen,",
   subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
   closing: "Sincerely yours,",
-  signatures: signatures,
-  enclosures: enclosures,
-  cc: "Mr Jethro Tull",
-  figures: figures,
-  footer: footer,
-  link-color: maroon,
-  number-pages: true,
-  footnote-alignment: right
+  signatures: signatures
 )
 
 We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
