@@ -1,8 +1,8 @@
-# The `easy-letter` Package
+# The `letterloom` Package
 <!-- markdownlint-disable MD033 -->
 <div align="center">Version 0.1.0</div>
 
-A simple Typst template for writing letters with multiple signatures, images, footnotes and enclosures.
+A Typst template for writing letters containing multiple signatures, figures, footnotes and enclosures.
 
 ## Template adaptation checklist
 
@@ -31,9 +31,9 @@ A simple Typst template for writing letters with multiple signatures, images, fo
 These instructions will get you a copy of the project up and running on the Typst web app.
 
 ```typ
-#import "@preview/easy-letter:0.1.0": *
+#import "@preview/letterloom:0.1.0": *
 
-#show: easy-letter.with(
+#show: letterloom.with(
   sender: (
     name: "My Name",
     address: [My Address \
@@ -75,14 +75,14 @@ tytanic: Install tytanic, a library essential for testing and working with Typst
 Clone the Repository: Download the project's source code by cloning the repository to your local machine:
 
 ```bash
-git clone https://github.com/nandac/easy-letter.git
+git clone https://github.com/nandac/letterloom.git
 ```
 
 Once you've completed these steps, your development environment will be ready.
 
 ### Next Steps
 
-The `easy-letter` package source code is located at:
+The `letterloom` package source code is located at:
 
 ```plaintext
 src/lib.typ
@@ -100,7 +100,7 @@ just test
 
 Ensure that all tests pass before submitting any changes to maintain the project's integrity.
 
-If you want to test the module with a Typst file, you can install the `easy-letter` package locally in the `preview` location by running:
+If you want to test the module with a Typst file, you can install the `letterloom` package locally in the `preview` location by running:
 
 ```bash
 just install-preview
@@ -109,7 +109,7 @@ just install-preview
 Once installed, you can import the package into your Typst file using the following statement:
 
 ```typ
-#import "@preview/easy-letter:0.1.0": *
+#import "@preview/letterloom:0.1.0": *
 ```
 
 This setup allows you to experiment with the module in a Typst file before finalizing your changes.
@@ -119,7 +119,7 @@ This setup allows you to experiment with the module in a Typst file before final
 A more in-depth description of usage. Any template arguments? A complicated example that showcases most if not all of the functions the package provides? This is also an excellent place to signpost the manual.
 
 ```typ
-#import "@preview/easy-letter:0.1.0": *
+#import "@preview/letterloom:0.1.0": *
 
 #let my-complicated-example = ...
 ```

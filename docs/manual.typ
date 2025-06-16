@@ -1,4 +1,4 @@
-#import "@preview/easy-letter:0.1.0": *
+#import "@preview/letterloom:0.1.0": *
 // Global Styles
 #set page(margin: 25mm)
 #set text(size: 11pt, font: "Noto Serif")
@@ -36,57 +36,85 @@
 
 // End of setup
 
-= The `easy-letter` package
+= The `letterloom` package
 
 == Introduction
-The `easy-letter` package is a versatile and intuitive module designed to simplify the process of creating professional letters. It supports features such as multiple signatures, embedded images, footnotes, and enclosures, making it an ideal choice for both personal and business correspondence.
 
-While traditional typesetting systems like LaTeX offer similar capabilities, they can be daunting for newcomers due to their complex syntax and steep learning curve. For users who are not familiar with such tools, crafting a polished document can quickly become a time-consuming and frustrating task.
+The `letterloom` package is a user-friendly, highly customizable template for creating professional letters with ease. Designed for both personal and business correspondence, it eliminates the complexities of traditional typesetting tools like LaTeX while maintaining a polished, professional output.
 
-The `easy-letter` package addresses these challenges by providing an accessible and customizable solution. With its user-friendly template, it empowers users to create visually appealing letters with ease, eliminating the need to grapple with intricate typesetting commands. Whether you are writing a formal business letter or personal correspondence, `easy-letter` ensures a streamlined experience without compromising on quality or professionalism.
+#text(weight: "semibold")[Key Features:]
+- Multiple Signatures: Easily include one or more signatures to accommodate joint communications or approvals.
+
+- Customizable Footnotes: Add informative footnotes with options for personalized formatting.
+
+- Figures and Figure Captions: Incorporate and label figures seamlessly for detailed correspondence.
+
+- Enclosures and Attachments: Clearly list additional documents included with the letter.
+
+#text(weight: "semibold")[Benefits:]
+- Simplifies the letter-writing process with an easy to use template.
+
+- Avoids the steep learning curve associated with tools like LaTeX.
+
+- Ensures professional-quality output without technical expertise.
+
+Whether crafting formal business letters or personal correspondence, `letterloom` makes creating visually appealing documents straightforward and efficient.
 
 == Usage
 
-The following example demonstrates how to generate a letter using the `easy-letter` package with the minimum required options:
+Below is an example demonstrating how to create a letter using the `letterloom` package with the minimum required arguments:
 
 ```typ
-#import "@preview/easy-letter:0.1.0": *
+#import "@preview/letterloom:0.1.0": *
 
-#show: easy-letter.with(
-  sender: (
-    name: "My Name",
-    address: [My Address \
-              My Town \
-              My County \
-              My Postcode]
+#show: letterloom.with(
+  from: (
+    name: "The Dimbleby Family",
+    address: [The Lodge \
+              Cheswick Village \
+              Middle Upton \
+              Bristol BS16 1GU]
   ),
-  receiver: (
-    name: "Your Name",
-    address: [Your Address \
-              Your Town \
-              Your County \
-              Your Postcode]
+  to: (
+    name: "Evergreen Tree Surgeons",
+    address: [Midtown Lane \
+              Cheswick Village \
+              Stoke Gifford \
+              Bristol BS16 1GU]
   ),
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-  salutation: "Dear Name,",
-  subject: "Subject of Letter",
-  closing: "Yours sincerely,"
+  salutation: "Gentlemen,",
+  subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate",
+  closing: "Sincerely yours,",
+  signatures: (
+    (
+      name: "Lord Albus Dimbleby"
+      signature: image("images/albus-sig.png")
+    ),
+    (
+      name: "Lady Abigail Dimbleby"
+      signature: image("images/abigail-sig.png")
+    ),
+    (
+      name: "Sir Austin Dimbleby",
+      signature: image("images/austin-sig.png")
+    )
+  )
 )
 
-The text of your letter should be added here.
+Text of the letter goes here.
 ```
 
-The `easy-letter` package has a number of parameters that can be used to customize the appearance of the letter. The following sections will describe the full range of mandatory and optional parameters available to the `easy-letter` package.
+The `letterloom` package provides extensive customization options to help tailor your letters to specific needs. In the following sections, we will explore all mandatory and optional parameters in detail, showcasing their usage with examples to demonstrate their effects on the letter's appearance and functionality.
 
 === Required Parameters
 
-- `from: dictionary`
+- *`from`* #h(15pt) #highlight(fill: rgb("fce0ff"), radius: 4pt, extent: 4pt)[`dictionary`]
 
   The name and address of the sender sent in as a dictionary with the following keys:
-  - `name: str` the name of the sender.
-  - `address: str` the address of the sender.
+  - `name` #h(5pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt) the name of the sender.
+  - `address` #h(5pt) #highlight(fill: rgb("#a6ebe5"), radius: 4pt, extent: 4pt)[`content`] #h(5pt) the address of the sender.
 
-  Example:
   ```typ
   from: (
     name: "The Dimbleby Family",
@@ -97,13 +125,12 @@ The `easy-letter` package has a number of parameters that can be used to customi
   )
   ```
 
-- `to: dictionary`
+- *`to`* #h(15pt) #highlight(fill: rgb("fce0ff"), radius: 4pt, extent: 4pt)[`dictionary`]
 
   The name and address of the receiver sent in as a dictionary with the following keys:
-  - `name: str` the name of the receiver.
-  - `address: str` the address of the receiver.
+  - `name` #h(5pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt) the name of the receiver.
+  - `address` #h(5pt) #highlight(fill: rgb("#a6ebe5"), radius: 4pt, extent: 4pt)[`content`] #h(5pt) the address of the receiver.
 
-  Example:
   ```typ
   to: (
     name: "Evergreen Tree Surgeons",
@@ -114,11 +141,10 @@ The `easy-letter` package has a number of parameters that can be used to customi
   )
   ```
 
-- `date: str`
+- *`date`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
 
-  The date of the letter. Any string or datetime string may be used.
+  The date of the letter.
 
-  Example:
   ```typ
   date: "01 January 1970"
   ```
@@ -127,57 +153,36 @@ The `easy-letter` package has a number of parameters that can be used to customi
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]")
   ```
 
-- `salutation: str`
+- *`salutation`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
 
   The salutation of the letter.
 
-  Example:
   ```typ
   salutation: "Gentlemen,"
   ```
 
-- `subject: str`
+- *`subject`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
 
-  The subject of the letter sent in as a string.
+  The subject of the letter.
 
-  Example:
   ```typ
   subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate"
   ```
 
-- `closing: str`
+- *`closing`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
 
-  The closing of the letter sent in as a string.
+  The closing of the letter.
 
-  Example:
   ```typ
-  closing: "Yours sincerely,"
+  closing: "Sincerely yours,"
   ```
 
-=== Optional Parameters
+- *`signatures`* #h(15pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`]
 
-- `from-alignment: alignment`
+  The signatures are an array of dictionaries where each dictionary has the following keys:
+  - `name` #h(5pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt) the name of the signatory.
+  - `signature` #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`] #h(5pt) or #h(5pt) #highlight(fill: rgb("#d1d4fd"), radius: 4pt, extent: 4pt)[`function`] #h(5pt) optionally contains the image of the signatory's signature as an image function object. If a signature image is not provided a space will be left for the signature above the signatory's name.
 
-  The alignment of the sender's name and address in the letter.
-
-  Default: `right`
-
-  Example:
-  ```typ
-  from-alignment: left
-  ```
-
-- `signatures: array`
-
-  The signatures of the letter sent in as a list of dictionaries with the following keys:
-  - `name: str` the name of the signatory.
-  - `signature: function image` the image of the signatory's signature.
-
-  *Note:* The number of signatures is limited to three.
-
-  Default: `()`
-
-  Example:
   ```typ
   signatures = (
     (
@@ -195,13 +200,12 @@ The `easy-letter` package has a number of parameters that can be used to customi
   )
   ```
 
-- `enclosures: array`
+=== Optional Parameters
 
-  List of enclosures or attachments related to the letter. Each item in the list is a string.
+- *`enclosures`* #h(15pt) #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`] #h(5pt) or #h(5pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`] #h(5pt)
 
-  Default: `()`
+  The enclosures are an array of strings where each string is a description of an enclosure or attachment.
 
-  Example:
   ```typ
   enclosures = (
     "Photograph of storm damaged oak tree."
@@ -218,6 +222,21 @@ The `easy-letter` package has a number of parameters that can be used to customi
   ```typ
   enclosures-title: "இணைப்புகள்:" // Tamil for enclosures or attachments
   ```
+
+- `from-alignment: alignment`
+
+  The alignment of the sender's name and address in the letter.
+
+  Default: `right`
+
+  Example:
+  ```typ
+  from-alignment: left
+  ```
+
+
+
+
 
 - `figures: array`
 

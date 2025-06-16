@@ -1,14 +1,14 @@
 # for a description of available keys, see https://github.com/typst/packages/?tab=readme-ov-file#package-format
 
 [package]
-name = "easy-letter"
+name = "letterloom"
 version = "0.1.0"
 entrypoint = "src/lib.typ"
 authors = ["Nandakumar Chandrasekhar"]
 license = "Unlicense"
-description = "A simple Typst template for writing letters containing multiple signatures, images, footnotes and enclosures."
-homepage = "https://github.com/nandac/easy-letter"
-repository = "https://github.com/nandac/easy-letter"
+description = "A Typst template for writing letters containing multiple signatures, figures, footnotes and enclosures."
+# homepage = ""
+repository = "https://github.com/nandac/letterloom"
 keywords = ["letter"]
 categories = ["office", "layout"]
 disciplines = ["communication"]

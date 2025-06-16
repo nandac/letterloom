@@ -1,27 +1,21 @@
-#import "validate.typ": *
-#import "construct.typ": *
+#import "validate-inputs.typ": *
+#import "construct-outputs.typ": *
 
-#let easy-letter(
-  from: (
-    name: none,
-    address: none
-  ),
-  to: (
-    name: none,
-    address: none,
-  ),
+#let letterloom(
+  from: none,
+  to: none,
   from-alignment: right,
   attn-name: none,
   date: none,
   subject: none,
   salutation: none,
   closing: none,
-  signatures: (),
-  enclosures: (),
+  signatures: none,
+  enclosures: none,
   enclosures-title: "encl:",
   cc: none,
-  figures: (),
-  footer: (),
+  figures: none,
+  footer: none,
   number-pages: false,
   paper-size: "a4",
   margins: (top: 20mm, left: 20mm, bottom: 20mm, right: 20mm),
@@ -34,13 +28,50 @@
   footnote-alignment: left,
   footnote-font: "Libertinus Serif",
   footnote-font-size: 8pt,
-  paragraph: (
-    leading: 0.8em, // Space between adjacent lines in a paragraph; tuned to the font used
-    spacing: 1.8em, // Space between paragraphs
-  ),
+  par-leading: 0.8em, // Space between adjacent lines in a paragraph; tuned to the font used
+  par-spacing: 1.8em, // Space between paragraphs
   link-color: blue,
   doc
 ) = {
+  // Validate font sizes
+  validate-length(length-value: main-font-size, field-name: "main-font-size")
+  validate-length(length-value: footer-font-size, field-name: "footer-font-size")
+  validate-length(length-value: caption-font-size, field-name: "caption-font-size")
+  validate-length(length-value: footnote-font-size, field-name: "footnote-font-size")
+
+  // Validate paragraph spacing and leading
+  validate-length(length-value: par-leading, field-name: "par-leading")
+  validate-length(length-value: par-spacing, field-name: "par-spacing")
+
+  // Validate the sender's contact details
+  validate-contact(contact: from, contact-type: "from")
+
+  // Validate the recipient's contact details
+  validate-contact(contact: to, contact-type: "to")
+
+  // Validate the date
+  validate-string(string-data: date, field-name: "date")
+
+  // Validate salutation
+  validate-string(string-data: salutation, field-name: "salutation")
+
+  // Validate closing
+  validate-string(string-data: closing, field-name: "closing")
+
+  // Validate signatures
+  validate-signatures(signatures: signatures)
+
+  // Validate all optional variables
+  // If attention name is given, validate it
+  if attn-name != none {
+    validate-string(string-data: attn-name, field-name: "attn-name")
+  }
+
+  // If carbon copy is given, validate it
+  if cc != none {
+    validate-string(string-data: cc, field-name: "cc")
+  }
+
   // Footer is optional
   let custom-footer = construct-custom-footer(
     footer: footer,
@@ -68,48 +99,21 @@
 
   // Paragraph spacing
   set par(
-    leading: paragraph.leading, // Space between adjacent lines in a paragraph
-    spacing: paragraph.spacing // Space between paragraphs
+    leading: par-leading, // Space between adjacent lines in a paragraph
+    spacing: par-spacing // Space between paragraphs
   )
-
-  // Align the footnote separator to the desired alignment
-  set footnote.entry(separator: align(footnote-alignment, line(length: 30% + 0pt, stroke: 0.5pt)))
 
   // Color links to the desired color
   show link: set text(fill: link-color)
+
+  // Align the footnote separator to the desired alignment
+  set footnote.entry(separator: align(footnote-alignment, line(length: 30% + 0pt, stroke: 0.5pt)))
 
   // Align footnotes to the desired alignment
   show footnote.entry: it => {
     set align(footnote-alignment)
     set text(font: footnote-font, size: footnote-font-size)
     it
-  }
-
-  // Validating all mandatory variables
-  // Validate the sender's contact details
-  validate-contact(contact: from, contact-type: "from")
-
-  // Validate the recipient's contact details
-  validate-contact(contact: to, contact-type: "to")
-
-  // Validate the date
-  validate-string(string-data: date, field-name: "date")
-
-  // Validate salutation
-  validate-string(string-data: salutation, field-name: "salutation")
-
-  // Validate closing
-  validate-string(string-data: closing, field-name: "closing")
-
-  // Validate all optional variables
-  // If attention name is given, validate it
-  if attn-name != none {
-    validate-string(string-data: attn-name, field-name: "attn-name")
-  }
-
-  // If carbon copy is given, validate it
-  if cc != none {
-    validate-string(string-data: cc, field-name: "cc")
   }
 
   // Sender's name, address, and date block at top right
@@ -156,16 +160,17 @@
   // Closing e.g. Yours sincerely etc.
   text(closing)
 
-  linebreak()
-
+  // Signatures
   construct-signatures(signatures: signatures)
+
+  v(10pt)
 
   // Carbon copy (optional)
   if cc != none {
     text("cc: " + cc)
+    linebreak()
+    linebreak()
   }
-
-  v(5pt)
 
   construct-enclosures(enclosures: enclosures, enclosures-title: enclosures-title)
   construct-figures(

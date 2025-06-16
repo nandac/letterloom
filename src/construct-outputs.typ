@@ -7,7 +7,7 @@
   let custom-footer = grid()
 
   // Footers are optional
-  if footer != () {
+  if footer != none and footer != () {
     if type(footer) != array {
       footer = (footer, )
     }
@@ -21,23 +21,21 @@
       ..footer.map(
         foot => [
           // Specific styling for links, emails and strings
-          #if foot.type == "link" {
+          #if foot.at("type", default: "string") == "url" {
             text(
               link(foot.content),
               font: footer-font,
               size: footer-font-size,
               fill: link-color
             )
-          } else if foot.type == "email" {
+          } else if foot.at("type", default: "string") == "email" {
             text(
               link("mailto:" + foot.content),
               font: footer-font,
               size: footer-font-size,
               fill: link-color
             )
-          } else if foot.type == "string" {
-            text(foot.content, font: footer-font,  size: footer-font-size)
-          } else {
+          } else if foot.at("type", default: "string") == "string" {
             text(foot.content, font: footer-font,  size: footer-font-size)
           }
         ]
@@ -67,31 +65,32 @@
 }
 
 #let construct-signatures(signatures: none) = {
-  // Signatures are optional in cases where the letter may be
-  // of an informal nature
-  if signatures != () {
-    // Convert the signatures variable to an array in cases
-    // where only one signature is given
-    if type(signatures) != array {
-      signatures = (signatures, )
-    }
-
-    // Grid accommodates _up to_ three signatures and signatory names
-    grid(
-      columns: signatures.len(),
-      rows: 2,
-      column-gutter: 60pt,
-      ..signatures.map(signatory => [
-        #signatory.signature
-        #signatory.name
-      ])
-    )
+  // Convert the signatures variable to an array in cases
+  // where only one signature is given
+  if type(signatures) != array {
+    signatures = (signatures, )
   }
+
+  // Grid accommodates _up to_ three signatures and signatory names
+  grid(
+    columns: 3,
+    rows: auto,
+    column-gutter: 40pt,
+    ..signatures.map(signatory => [
+      #grid(
+        columns: 1,
+        rows: 2,
+        row-gutter: 10pt,
+        [#signatory.at("signature", default: v(40pt))],
+        [#signatory.name]
+      )
+    ])
+  )
 }
 
 #let construct-enclosures(enclosures: none, enclosures-title: none) = {
   // Enclosures are optional
-  if enclosures != () {
+  if enclosures != none and enclosures != () {
     set enum(indent: 15pt)
     enclosures-title
 
@@ -112,7 +111,7 @@
   figures: none, caption-font: none, caption-font-size: none
 ) = {
   // Figures are optional
-  if figures != () {
+  if figures != none and figures != () {
     // Convert the figures variable to an array in cases
     // where only one figure is given
     if type(figures) != array {
@@ -121,7 +120,8 @@
 
     show figure.caption: set text(font: caption-font, size: caption-font-size)
     for fig in figures {
-      figure(fig.image, caption: fig.caption)
+      // A figure need not have a caption
+      figure(fig.image, caption: fig.at("caption", default: none))
     }
   }
 }
