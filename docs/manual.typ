@@ -3,6 +3,7 @@
 #set page(margin: 25mm)
 #set text(size: 11pt, font: "Noto Serif")
 #set par(spacing: 1.5em)
+#set strong(delta: 200) // Set bold to semibold
 
 //Customize appearance
 #show raw: set text(font: "Fira Mono", size: 1.2em)
@@ -30,8 +31,7 @@
 }
 
 // Table and figure configuration
-#show table.cell.where(y: 0): smallcaps
-#show table.cell.where(y: 0): strong
+#show table.header: set text(weight: "semibold")
 #show figure: set block(breakable: true)
 
 // End of setup
@@ -42,7 +42,7 @@
 
 The `letterloom` package is a user-friendly, highly customizable template for creating professional letters with ease. Designed for both personal and business correspondence, it eliminates the complexities of traditional typesetting tools like LaTeX while maintaining a polished, professional output.
 
-#text(weight: "semibold")[Key Features:]
+*Key Features:*
 - Multiple Signatures: Easily include one or more signatures to accommodate joint communications or approvals.
 
 - Customizable Footnotes: Add informative footnotes with options for personalized formatting.
@@ -51,7 +51,7 @@ The `letterloom` package is a user-friendly, highly customizable template for cr
 
 - Enclosures and Attachments: Clearly list additional documents included with the letter.
 
-#text(weight: "semibold")[Benefits:]
+*Benefits:*
 - Simplifies the letter-writing process with an easy to use template.
 
 - Avoids the steep learning curve associated with tools like LaTeX.
@@ -111,10 +111,18 @@ The `letterloom` package provides extensive customization options to help tailor
 
 - *`from`* #h(15pt) #highlight(fill: rgb("fce0ff"), radius: 4pt, extent: 4pt)[`dictionary`]
 
-  The name and address of the sender sent in as a dictionary with the following keys:
-  - `name` #h(5pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt) the name of the sender.
-  - `address` #h(5pt) #highlight(fill: rgb("#a6ebe5"), radius: 4pt, extent: 4pt)[`content`] #h(5pt) the address of the sender.
+  The sender's name and address, provided as a dictionary with the following keys:
+  #table(
+    columns: 3,
+    column-gutter: 10pt,
+    rows: 2,
+    stroke: none,
+    inset: 5pt,
+    [`name`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]], [The sender's name.],
+    [`address`], [#highlight(fill: rgb("#a6ebe5"), radius: 4pt, extent: 4pt)[`content`]], [The sender's address.],
+  )
 
+  *Example:*
   ```typ
   from: (
     name: "The Dimbleby Family",
@@ -127,10 +135,18 @@ The `letterloom` package provides extensive customization options to help tailor
 
 - *`to`* #h(15pt) #highlight(fill: rgb("fce0ff"), radius: 4pt, extent: 4pt)[`dictionary`]
 
-  The name and address of the receiver sent in as a dictionary with the following keys:
-  - `name` #h(5pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt) the name of the receiver.
-  - `address` #h(5pt) #highlight(fill: rgb("#a6ebe5"), radius: 4pt, extent: 4pt)[`content`] #h(5pt) the address of the receiver.
+  The receiver's name and address, provided as a dictionary with the following keys:
+  #table(
+    columns: 3,
+    column-gutter: 10pt,
+    rows: 2,
+    stroke: none,
+    inset: 5pt,
+    [`name`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]], [The receiver's name.],
+    [`address`], [#highlight(fill: rgb("#a6ebe5"), radius: 4pt, extent: 4pt)[`content`]], [The receiver's address.],
+  )
 
+  *Example:*
   ```typ
   to: (
     name: "Evergreen Tree Surgeons",
@@ -145,6 +161,7 @@ The `letterloom` package provides extensive customization options to help tailor
 
   The date of the letter.
 
+  *Examples:*
   ```typ
   date: "01 January 1970"
   ```
@@ -155,8 +172,9 @@ The `letterloom` package provides extensive customization options to help tailor
 
 - *`salutation`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
 
-  The salutation of the letter.
+  The salutation or greeting in the letter.
 
+  *Example:*
   ```typ
   salutation: "Gentlemen,"
   ```
@@ -165,26 +183,37 @@ The `letterloom` package provides extensive customization options to help tailor
 
   The subject of the letter.
 
+  *Example:*
   ```typ
   subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate"
   ```
 
 - *`closing`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
 
-  The closing of the letter.
+  The closing line of the letter.
 
+  *Example:*
   ```typ
   closing: "Sincerely yours,"
   ```
 
 - *`signatures`* #h(15pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`]
 
-  The signatures are an array of dictionaries where each dictionary has the following keys:
-  - `name` #h(5pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt) the name of the signatory.
-  - `signature` #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`] #h(5pt) or #h(5pt) #highlight(fill: rgb("#d1d4fd"), radius: 4pt, extent: 4pt)[`function`] #h(5pt) optionally contains the image of the signatory's signature as an image function object. If a signature image is not provided a space will be left for the signature above the signatory's name.
+  An array of dictionaries representing the signatures of the letter's signatories. Each dictionary contains the following keys:
 
+  #table(
+    columns: 3,
+    column-gutter: 10pt,
+    rows: 2,
+    stroke: none,
+    inset: 5pt,
+    [`name`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]], [The name of the signatory.],
+    [`signature`], [#highlight(fill: rgb("#d1d4fd"), radius: 4pt, extent: 4pt)[`function`] #h(5pt) _optional_], [The image function for the signatory's signature. If omitted, space is left for a physical signature.],
+  )
+
+  *Example:*
   ```typ
-  signatures = (
+  signatures: (
     (
       name: "Lord Albus Dimbleby",
       signature: image("images/albus-sig.png")
@@ -192,61 +221,50 @@ The `letterloom` package provides extensive customization options to help tailor
     (
       name: "Lady Abigail Dimbleby",
       signature: image("images/abigail-sig.png")
-    ),
+    )
     (
-      name: "Sir Austin Dimbleby",
-      signature: image("images/austin-sig.png")
+      name: "Sir Austin Dimbleby"
     )
   )
   ```
 
 === Optional Parameters
 
-- *`enclosures`* #h(15pt) #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`] #h(5pt) or #h(5pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`] #h(5pt)
+- *`enclosures`* #h(15pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`]
 
-  The enclosures are an array of strings where each string is a description of an enclosure or attachment.
+  A list of descriptions for enclosures.
 
+  *Example:*
   ```typ
-  enclosures = (
+  enclosures: (
     "Photograph of storm damaged oak tree."
   )
   ```
 
-- `enclosures_title: str`
+- *`enclosures-title`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
 
-  The title of the enclosures or attachments list. This allows the title of the enclosure list to be changed from the default `encl:` which is useful when the language of the letter is not English.
+  The title for the list of enclosures, allowing localization. Defaults to `"encl:"`.
 
-  Default: `encl:`
-
-  Example:
+  *Example:*
   ```typ
-  enclosures-title: "இணைப்புகள்:" // Tamil for enclosures or attachments
+  enclosures-title: "இணைப்புகள்:" // Enclosures in Tamil
   ```
 
-- `from-alignment: alignment`
+- *`figures`* #h(15pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`]
 
-  The alignment of the sender's name and address in the letter.
+  A list of figures with the following keys:
 
-  Default: `right`
+  #table(
+    columns: 3,
+    column-gutter: 10pt,
+    rows: 2,
+    stroke: none,
+    inset: 5pt,
+    [`image`], [#highlight(fill: rgb("#d1d4fd"), radius: 4pt, extent: 4pt)[`function`] #h(5pt)], [The image function for the figure.],
+    [`caption`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt) _optional_], [The caption for the figure.],
+  )
 
-  Example:
-  ```typ
-  from-alignment: left
-  ```
-
-
-
-
-
-- `figures: array`
-
-  The figures or images related to the letter sent in as an array of dictionaries with the following keys:
-  - `image: function image` the image of the figure.
-  - `caption: str` the caption of the figure.
-
-  Default: `()`
-
-  Example:
+  *Example:*
   ```typ
   figures = (
     (
@@ -256,189 +274,174 @@ The `letterloom` package provides extensive customization options to help tailor
   )
   ```
 
-- `footer: array`
+- *`footer`* #h(15pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`]
 
-  The footer of the letter sent in as an array of dictionaries with the following keys:
-  - `content: str` the content of the footer.
-  - `type: str` data type one of `string`, `email` or `link`.
+  A list of footer elements, each containing:
 
-  Default: `()`
+  #table(
+    columns: 3,
+    column-gutter: 10pt,
+    rows: 2,
+    stroke: none,
+    inset: 5pt,
+    [`text`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt)], [The footer text.],
+    [`type`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt)], [The type of footer element (`"url"`, `"email"`, or `"string"`). Defaults to `"string"`.],
+  )
 
-  Example:
+  *Example:*
   ```typ
   footer =  (
     (
-      content: "+44-117-555-5555",
-      type: "string"
+      text: "+44-117-555-5555"
     ),
     (
-      content: "dimblebyfamily@dimbleby.org",
+      text: "dimblebyfamily@dimbleby.org",
       type: "email"
     ),
     (
-      content:"https://dimbleby.org",
-      type: "link"
+      text: "https://dimbleby.org",
+      type: "url"
     )
   )
   ```
 
-- `number-pages: bool`
+- *`number-pages`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`bool`]
 
-  Whether to number the pages of the letter sent in as a boolean. Pages are numbered only from the second page onwards.
+  Whether to include page numbers starting from the second page. Defaults to `false`.
 
-  Default: `false`
-
-  Example:
+  *Example:*
   ```typ
   number-pages: true
   ```
 
-- `paper-size: str`
+- *`from-alignment`* #h(15pt) #highlight(fill: rgb("#a6eaff"), radius: 4pt, extent: 4pt)[`alignment`]
 
-  The paper size of the letter. Any of the paper sizes supported by Typst may be used.
+  The alignment of the sender's address. Defaults to `right`.
 
-  Default: `a4`
-
-  Example:
+  *Example:*
   ```typ
-  paper-size: "a4"
+  from-alignment: left
   ```
 
-- `margins: dict`
+- *`paper-size`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
 
-  The margins of the letter sent in as a dictionary with the following keys:
-  - `top: float` the top margin of the letter.
-  - `left: float` the left margin of the letter.
-  - `bottom: float` the bottom margin of the letter.
-  - `right: float` the right margin of the letter.
+  The paper size of the letter. Defaults to `"a4"`.
 
-  Default: `(top: 20mm, left: 20mm, bottom: 20mm, right: 20mm)`
+  Refer to #link("https://typst.app/docs/reference/layout/page/#parameters-paper)")[Typst's documentation on paper sizes] for more details on the paper sizes available.
 
-  Example:
+  *Example:*
+  ```typ
+  paper-size: "us-letter"
+  ```
+
+- *`margins`* #h(15pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`auto`] #h(5pt) or #h(5pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`relative`] #h(5pt) or #h(5pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`dictionary`]
+
+  Custom margins for the letter. Defaults to #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`auto`].
+
+  Refer to  #link("https://typst.app/docs/reference/layout/page/#parameters-margin")[Typst's margin documentation] for more details on how to set margins.
+
+  *Example:*
   ```typ
   margins: (top: 20mm, left: 20mm, bottom: 20mm, right: 20mm)
   ```
 
-- `main-font: str`
+- *`par-leading`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`length`]
 
-  The font used for the main body of the letter.
+  The line spacing within paragraphs. Defaults to `0.8em`.
 
-  Default: `Libertinus Serif`
+  *Example:*
+  ```typ
+  par-leading: 1.0em
+  ```
 
-  Example:
+- *`par-spacing`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`length`]
+
+  The spacing between paragraphs. Defaults to `1.8em`.
+
+  *Example:*
+  ```typ
+  par-spacing: 2.0em
+  ```
+
+- *`main-font`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
+
+  The primary font used in the letter. Defaults to `"Libertinus Serif"`.
+
+  *Example:*
   ```typ
   main-font: "Noto Serif"
   ```
 
-- `main-font-size: length`
+- *`main-font-size`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`length`]
 
-  The font size for the main body of the letter.
+  The font size used for the body of the letter. Defaults to `11pt`.
 
-  Default: `11pt`
-
-  Example:
+  *Example:*
   ```typ
-  main-font-size: 11pt
+  main-font-size: 12pt
   ```
 
-- `footer-font: str`
+- *`caption-font`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
 
-  The font used for the footer of the letter.
+  The font used for figure captions in the letter. Defaults to `"Libertinus Serif"`.
 
-  Default: `DejaVu Sans Mono`
-
-  Example:
-  ```typ
-  footer-font: "Fira Mono"
-  ```
-
-- `footer-font-size: length`
-
-  The font size for the footer of the letter.
-
-  Default: `7pt`
-
-  Example:
-  ```typ
-  footer-font-size: 7pt
-  ```
-
-- `caption-font: str`
-
-  The font used for the captions of figures in the letter.
-
-  Default: `Libertinus Serif`
-
-  Example:
+  *Example:*
   ```typ
   caption-font: "Source Sans Pro"
   ```
 
-- `caption-font-size: length`
+- *`caption-font-size`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`length`]
 
-  The font size for the captions of figures in the letter.
+  The font size used for figure captions in the letter. Defaults to `9pt`.
 
-  Default: `9pt`
-
-  Example:
+  *Example:*
   ```typ
-  caption-font-size: 9pt
+  caption-font-size: 10pt
   ```
 
-- `footnote-font: str`
+- *`footnote-font`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
 
-  The font used for the footnotes in the letter.
+  The font used for footnotes in the letter. Defaults to `"Libertinus Serif"`.
 
-  Default: `Libertinus Serif`
-
-
-  Example:
+  *Example:*
   ```typ
   footnote-font: "Noto Serif"
   ```
 
-- `footnote-font-size: length`
+- *`footnote-font-size`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`length`]
 
-  The font size for the footnotes in the letter.
+  The font size used for footnotes in the letter. Defaults to `8pt`.
 
-  Default: `8pt`
-
-  Example:
+  *Example:*
   ```typ
-  footnote-font-size: 8pt
+  footnote-font-size: 9pt
   ```
 
-- `footnote-alignment: alignment`
+- *`footer-font`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
 
-  The alignment of footnotes in the letter.
+  The font used for the footer of the letter. Defaults to `"DejaVu Sans Mono"`.
 
-  Default: `left`
-
-  Example:
+  *Example:*
   ```typ
-  footnote-alignment: right
+  footer-font: "Fira Mono"
   ```
 
-- `paragraph: dict`
+- *`footer-font-size`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`length`]
 
-  The paragraph spacing and leading for the letter sent in as a dictionary with the following keys:
-  - `leading: float` the leading of the paragraphs.
-  - `spacing: float` the spacing between paragraphs.
+  The font size for the footer of the letter. Defaults to `7pt`.
 
-  Default: `(leading: 0.8em, spacing: 1.8em)`
-
-  Example:
+  *Example:*
   ```typ
-  paragraph: (leading: 0.8em, spacing: 1.8em)
+  footer-font-size: 8pt
   ```
 
-- `link-color: str`
+- *`link-color`* #h(15pt) #highlight(fill: gradient.linear(angle: 7deg, (rgb("#7cd5ff"), 0%), (rgb("#a6fbca"), 33%), (rgb("#fff37c"), 66%), (rgb("#ffa49d"), 100%)), radius: 4pt, extent: 4pt)[`color`]
 
-  The color of hyperlinks in the letter.
+  The color of hyperlinks in the letter. Defaults to `blue`.
 
-  Default: `blue`
+  Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typst's color documentation] for more details on how to specify colors.
 
-  Example:
+  *Example:*
   ```typ
   link-color: maroon
   ```
