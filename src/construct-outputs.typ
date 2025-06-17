@@ -23,20 +23,20 @@
           // Specific styling for links, emails and strings
           #if foot.at("type", default: "string") == "url" {
             text(
-              link(foot.content),
+              link(foot.text),
               font: footer-font,
               size: footer-font-size,
               fill: link-color
             )
           } else if foot.at("type", default: "string") == "email" {
             text(
-              link("mailto:" + foot.content),
+              link("mailto:" + foot.text),
               font: footer-font,
               size: footer-font-size,
               fill: link-color
             )
           } else if foot.at("type", default: "string") == "string" {
-            text(foot.content, font: footer-font,  size: footer-font-size)
+            text(foot.text, font: footer-font,  size: footer-font-size)
           }
         ]
       )

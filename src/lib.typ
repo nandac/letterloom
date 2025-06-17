@@ -18,7 +18,7 @@
   footer: none,
   number-pages: false,
   paper-size: "a4",
-  margins: (top: 20mm, left: 20mm, bottom: 20mm, right: 20mm),
+  margins: auto,
   main-font: "Libertinus Serif",
   main-font-size: 11pt,
   footer-font: "DejaVu Sans Mono",
