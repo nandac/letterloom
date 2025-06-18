@@ -28,10 +28,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pdftk
+      - name: Install pdftk-java
         run: |
           apt-get update
-          apt-get install -y pdftk
+          apt-get install -y pdftk-java
 
       - name: Install just and tytanic
         uses: taiki-e/install-action@v2

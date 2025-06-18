@@ -1,6 +1,6 @@
 #let validate-length(length-value: none, field-name: none) = {
   if type(length-value) != length {
-    panic(field-name + " must be of type length.")
+    panic("error: " + field-name + " must be of type length.")
   }
 }
 
@@ -10,38 +10,38 @@
     if "name" in contact {
       if type(contact.at("name")) == str {
         if contact.at("name") == "" {
-          panic(contact-type + " name is empty.")
+          panic("error: " + contact-type + " name is empty.")
         }
       } else {
-        panic(contact-type + " name must be a string.")
+        panic("error: " + contact-type + " name must be a string.")
       }
     } else {
-      panic(contact-type + " name is missing.")
+      panic("error: " + contact-type + " name is missing.")
     }
 
     // Check if address is given and is a valid type
     if "address" in contact {
       if type(contact.at("address")) == content {
         if contact.at("address") == "" {
-          panic(contact-type + " address is empty.")
+          panic("error: " + contact-type + " address is empty.")
         }
       } else {
-        panic(contact-type + " address must be a content block.")
+        panic("error: " + contact-type + " address must be a content block.")
       }
     } else {
-      panic(contact-type + " address is missing.")
+      panic("error: " + contact-type + " address is missing.")
     }
   } else {
-    panic(contact-type + " details must be a dictionary with name and address fields.")
+    panic("error: " + contact-type + " details must be a dictionary with name and address fields.")
   }
 }
 
 #let validate-string(string-data: none, field-name: none) = {
   if type(string-data) not in (str, content) {
-    panic(field-name + " must be a string or content block.")
+    panic("error: " + field-name + " must be a string or content block.")
   } else {
     if string-data == "" {
-      panic(field-name + " is empty.")
+      panic("error: " + field-name + " is empty.")
     }
   }
 }
@@ -58,10 +58,10 @@
     for signature in signatures {
       // Check if the signature name is given
       if signature.at("name") in (none, "") {
-        panic("signature name is missing.")
+        panic("error: signature name is missing.")
       }
     }
   } else {
-    panic("signatures are missing.")
+    panic("error: signatures are missing.")
   }
 }
