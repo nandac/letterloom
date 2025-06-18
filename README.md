@@ -31,6 +31,8 @@ A Typst template for writing letters containing multiple signatures, figures, fo
 These instructions will get you a copy of the project up and running on the Typst web app.
 
 ```typ
+#import "@preview/letterloom:0.1.0": *
+
 #show: letterloom.with(
   from: (
     name: "The Dimbleby Family",
