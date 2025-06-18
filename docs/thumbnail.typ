@@ -1,8 +1,8 @@
 #import "@preview/letterloom:0.1.0": *
 
-#set page(height: auto, margin: 5mm, fill: none)
+#set page(height: auto, margin: auto, fill: none)
 
-// style thumbnail for light and dark theme
+// Style thumbnail for light and dark theme
 #let theme = sys.inputs.at("theme", default: "light")
 #set text(white) if theme == "dark"
 
@@ -23,7 +23,7 @@
   ),
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
   salutation: "Gentlemen,",
-  subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate",
+  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
   closing: "Sincerely yours,",
   signatures: (
     (
