@@ -69,28 +69,53 @@
 }
 
 #let construct-signatures(signatures: none) = {
+  let sigs-per-row = 3
+  let blank-space = none
+
   // Convert the signatures variable to an array in cases
   // where only one signature is given
   if type(signatures) != array {
     signatures = (signatures, )
   }
 
-  // Accommodates one or more signatures and rendered as grid with
-  // an arbitrary number of rows having three signatures per row
+  // Accommodates one or more signatures rendered as
+  // a grid with three signatures per row
   grid(
-    columns: 3,
+    columns: 1,
     rows: auto,
-    column-gutter: 40pt,
-    ..signatures.map(signatory => [
-      #grid(
-        columns: 1,
+    row-gutter: 10pt,
+    align: start + horizon,
+    ..signatures.chunks(sigs-per-row).map(sigs => {
+      grid(
+        columns: (1fr, ) * sigs-per-row,
+        align: center,
         rows: 2,
         row-gutter: 10pt,
-        [#signatory.at("signature", default: v(40pt))],
-        [#signatory.name]
+        column-gutter: 40pt,
+        // if a row does not contain 3 signatures pad the
+        // remaining cells with a blank-space
+        ..sigs.map(signatory =>
+        signatory.at("signature", default: rect(height: 40pt, stroke: none))) + (blank-space, ) * (sigs-per-row - sigs.len()),
+        ..sigs.map(signatory => signatory.name) + (blank-space, ) * (sigs-per-row - sigs.len()),
       )
-    ])
+    })
   )
+
+
+//   grid(
+//     columns: 3,
+//     rows: auto,
+//     column-gutter: 40pt,
+//     ..signatures.map(signatory => [
+//       #grid(
+//         columns: 1,
+//         rows: 2,
+//         row-gutter: 10pt,
+//         [#signatory.at("signature", default: v(40pt))],
+//         [#signatory.name]
+//       )
+//     ])
+//   )
 }
 
 #let construct-enclosures(enclosures: none, enclosures-title: none) = {

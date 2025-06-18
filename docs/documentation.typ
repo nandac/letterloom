@@ -39,7 +39,7 @@
 
 == Introduction
 
-The `letterloom` package is a user-friendly, highly customizable template for creating professional letters with ease. Designed for both personal and business correspondence, it eliminates the complexities of traditional typesetting tools like LaTeX while maintaining a polished, professional output.
+The `letterloom` package is a user-friendly, highly customizable template for creating professional letters with ease. Designed for both personal and business correspondence, it eliminates the complexities of traditional typesetting tools like LaTeX while facilitating a polished, professional output.
 
 *Key Features:*
 - Multiple Signatures: Easily include one or more signatures to accommodate joint communications or approvals.
@@ -590,6 +590,8 @@ We have provided a full-featured example of a letter using the `letterloom` pack
   footer-font-size: 7pt,
   number-pages: true,
   footnote-alignment: right,
+  paper-size: "a4",
+  margins: (top: 20mm, left: 20mm, bottom: 20mm, right: 20mm),
   main-font: "Noto Serif",
   main-font-size: 11pt,
   caption-font: "Source Sans Pro",

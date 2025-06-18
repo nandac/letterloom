@@ -31,6 +31,12 @@
   (
     name: "Sir Austin Dimbleby",
     signature: image("../images/austin-sig.png")
+  ),
+  (
+    name: "Mr Jethro Tull"
+  ),
+  (
+    name: "Mr Sturgis Podmore"
   )
 )
 
@@ -75,6 +81,7 @@
   footer-font-size: 7pt,
   number-pages: true,
   footnote-alignment: right,
+  margins: (top: 20mm, left: 20mm, bottom: 20mm, right: 20mm),
   main-font: "Noto Serif",
   main-font-size: 11pt,
   caption-font: "Source Sans Pro",

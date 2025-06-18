@@ -78,6 +78,8 @@
   footer-font-size: 7pt,
   number-pages: true,
   footnote-alignment: right,
+  paper-size: "a4",
+  margins: (top: 20mm, left: 20mm, bottom: 20mm, right: 20mm),
   main-font: "Noto Serif",
   main-font-size: 11pt,
   caption-font: "Source Sans Pro",
