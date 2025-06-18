@@ -46,7 +46,7 @@ The `letterloom` package is a user-friendly, highly customizable template for cr
 
 - Customizable Footnotes: Add informative footnotes with options for personalized formatting.
 
-- Figures and Figure Captions: Incorporate and label figures seamlessly for detailed correspondence.
+- Figures and Figure Captions: Incorporate and label figures seamlessly for illustrated correspondence.
 
 - Enclosures and Attachments: Clearly list additional documents included with the letter.
 
@@ -57,7 +57,7 @@ The `letterloom` package is a user-friendly, highly customizable template for cr
 
 - Ensures professional-quality output without technical expertise.
 
-Whether crafting a formal business letter or a personal correspondence, `letterloom` makes creating visually appealing documents straightforward and efficient.
+Whether crafting a formal business correspondence or a personal letter, `letterloom` makes creating visually appealing documents straightforward and efficient.
 
 == Usage
 
@@ -104,7 +104,7 @@ Below is an example demonstrating how to create a letter using the `letterloom` 
 Text of the letter goes here.
 ```
 
-The `letterloom` package provides extensive customization options to help tailor your letters to specific needs. In the following sections, we will explore all mandatory and optional parameters in detail, showcasing their usage with examples on how to specify them. In cases where there are multiple ways to configure an option, links have been provided to the relevant section in Typst's documentation.
+The `letterloom` package provides extensive customization options to help tailor your letters to specific needs. In the following sections, we will explore all mandatory and optional parameters in detail, showcasing their usage with examples on how to specify them. In cases where there are multiple ways to configure an option, links have been provided to the relevant section in #link("https://typst.app/docs/")[Typst's documentation].
 
 === Required Parameters
 
@@ -178,7 +178,7 @@ The `letterloom` package provides extensive customization options to help tailor
   salutation: "Gentlemen,"
   ```
 
-- *`subject`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
+- *`subject`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt) or #h(5pt) #highlight(fill: rgb("#a6ebe5"), radius: 4pt, extent: 4pt)[`content`]
 
   The subject of the letter.
 
@@ -229,122 +229,6 @@ The `letterloom` package provides extensive customization options to help tailor
 
 === Optional Parameters
 
-- *`enclosures`* #h(15pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`]
-
-  A list of descriptions for enclosures.
-
-  *Default:* #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`]
-
-  *Example:*
-  ```typ
-  enclosures: (
-    "Photograph of storm damaged oak tree."
-  )
-  ```
-
-- *`enclosures-title`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
-
-  The title for the list of enclosures, allowing localization.
-
-  *Default:* `"encl:"`
-
-  *Example:*
-  ```typ
-  enclosures-title: "இணைப்புகள்:" // Enclosures in Tamil
-  ```
-
-- *`figures`* #h(15pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`]
-
-  A list of figures with the following keys:
-
-  #table(
-    columns: 3,
-    column-gutter: 10pt,
-    rows: 2,
-    stroke: none,
-    inset: 5pt,
-    [`image`], [#highlight(fill: rgb("#d1d4fd"), radius: 4pt, extent: 4pt)[`function`] #h(5pt)], [The image function for the figure.],
-    [`caption`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt) _optional_], [The caption for the figure.],
-  )
-
-  *Default:* #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`]
-
-  *Example:*
-  ```typ
-  figures = (
-    (
-      image: image("images/storm-damaged-oak-tree.jpg", width: 80%),
-      caption: "Storm Damaged Oak Tree."
-    )
-  )
-  ```
-
-- *`cc`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
-
-  The name of the carbon copy recipient.
-
-  *Default:* #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`]
-
-  *Example:*
-  ```typ
-  cc: "Mr Jethro Tull"
-  ```
-
-- *`footer`* #h(15pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`]
-
-  A list of footer elements, each containing:
-
-  #table(
-    columns: 3,
-    column-gutter: 10pt,
-    rows: 2,
-    stroke: none,
-    inset: 5pt,
-    [`footer-text`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt)], [The footer text.],
-    [`footer-type`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt)], [The type of footer element (`"url"`, `"email"`, or `"string"`). If the text type is specified as `url` or `email` it will be rendered as a clickable hyperlink. The default type is `"string"`.],
-  )
-
-  *Default:* #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`]
-
-  *Example:*
-  ```text
-  footer =  (
-    (
-      footer-text: "+44-117-555-5555"
-    ),
-    (
-      footer-text: "dimblebyfamily@dimbleby.org",
-      footer-type: "email"
-    ),
-    (
-      footer-text: "https://dimbleby.org",
-      footer-type: "url"
-    )
-  )
-  ```
-
-- *`number-pages`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`bool`]
-
-  Whether to include page numbers starting from the second page.
-
-  *Default:* `false`
-
-  *Example:*
-  ```typ
-  number-pages: true
-  ```
-
-- *`from-alignment`* #h(15pt) #highlight(fill: rgb("#a6eaff"), radius: 4pt, extent: 4pt)[`alignment`]
-
-  The alignment of the sender's address.
-
-  *Default:* `right`
-
-  *Example:*
-  ```typ
-  from-alignment: left
-  ```
-
 - *`paper-size`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
 
   The paper size of the letter.
@@ -370,6 +254,17 @@ The `letterloom` package provides extensive customization options to help tailor
   ```
 
   Refer to  #link("https://typst.app/docs/reference/layout/page/#parameters-margin")[Typst's margin documentation] for more details on how to set margins.
+
+- *`number-pages`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`bool`]
+
+  Whether to include page numbers starting from the second page.
+
+  *Default:* `false`
+
+  *Example:*
+  ```typ
+  number-pages: true
+  ```
 
 - *`par-leading`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`length`]
 
@@ -505,6 +400,122 @@ The `letterloom` package provides extensive customization options to help tailor
 
   Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typst's color documentation] for more details on how to specify colors.
 
+- *`from-alignment`* #h(15pt) #highlight(fill: rgb("#a6eaff"), radius: 4pt, extent: 4pt)[`alignment`]
+
+  The alignment of the sender's address.
+
+  *Default:* `right`
+
+  *Example:*
+  ```typ
+  from-alignment: left
+  ```
+
+- *`attn-name`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
+
+  Attention name to direct the correspondence to the relevant person or department.
+
+  *Default:* #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`]
+
+  *Example:*
+  ```typ
+  attn-name: "Mr Basil Hawthorne"
+  ```
+
+- *`enclosures`* #h(15pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`]
+
+  A list of descriptions for enclosures.
+
+  *Default:* #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`]
+
+  *Example:*
+  ```typ
+  enclosures: (
+    "Photograph of storm damaged oak tree."
+  )
+  ```
+
+- *`enclosures-title`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
+
+  The title for the list of enclosures, allowing localization.
+
+  *Default:* `"encl:"`
+
+  *Example:*
+  ```typ
+  enclosures-title: "இணைப்புகள்:" // Enclosures in Tamil
+  ```
+
+- *`figures`* #h(15pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`]
+
+  A list of figures with the following keys:
+
+  #table(
+    columns: 3,
+    column-gutter: 10pt,
+    rows: 2,
+    stroke: none,
+    inset: 5pt,
+    [`image`], [#highlight(fill: rgb("#d1d4fd"), radius: 4pt, extent: 4pt)[`function`] #h(5pt)], [The image function for the figure.],
+    [`caption`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt) or #h(5pt) #highlight(fill: rgb("#a6ebe5"), radius: 4pt, extent: 4pt)[`content`] #h(5pt) _optional_], [The caption for the figure.],
+  )
+
+  *Default:* #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`]
+
+  *Example:*
+  ```typ
+  figures = (
+    (
+      image: image("images/storm-damaged-oak-tree.jpg", width: 80%),
+      caption: "Storm Damaged Oak Tree."
+    )
+  )
+  ```
+
+- *`cc`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
+
+  The name of the carbon copy recipient.
+
+  *Default:* #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`]
+
+  *Example:*
+  ```typ
+  cc: "Mr Jethro Tull"
+  ```
+
+- *`footer`* #h(15pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`]
+
+  A list of footer elements, each containing:
+
+  #table(
+    columns: 3,
+    column-gutter: 10pt,
+    rows: 2,
+    stroke: none,
+    inset: 5pt,
+    [`footer-text`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt)], [The footer text.],
+    [`footer-type`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt)], [The type of footer element either `"url"`, `"email"`, or `"string"`. If the footer type is specified as `url` or `email` it will be rendered as a clickable hyperlink. The default footer type is `"string"`.],
+  )
+
+  *Default:* #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`]
+
+  *Example:*
+  ```text
+  footer =  (
+    (
+      footer-text: "+44-117-555-5555"
+    ),
+    (
+      footer-text: "dimblebyfamily@dimbleby.org",
+      footer-type: "email"
+    ),
+    (
+      footer-text: "https://dimbleby.org",
+      footer-type: "url"
+    )
+  )
+  ```
+
 == Full-Featured Example
 
 We have provided a full-featured example of a letter using the `letterloom` package along with the final result for your reference below.
@@ -578,7 +589,7 @@ We have provided a full-featured example of a letter using the `letterloom` pack
   from: from,
   to: to,
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-  salutation: "Gentlemen,",
+  salutation: "Dear Mr Hawthorne,",
   subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
   closing: "Sincerely yours,",
   signatures: signatures,

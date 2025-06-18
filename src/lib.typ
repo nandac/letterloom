@@ -117,7 +117,7 @@
   }
 
   // Sender's name, address, and date block at top right
-  align(from-alignment, block(below: 10pt)[
+  align(from-alignment, block[
     #set align(left)
     #from.name
     #linebreak()
@@ -125,20 +125,26 @@
     #linebreak()
     #v(2pt)
     #date
-])
+  ])
 
   // Attention name (optional)
-  if attn-name != none {
-    text("Attn: " + attn-name)
-  }
-  linebreak()
+  // if attn-name != none {
+  //   text("Attn: " + attn-name)
+  // }
 
   // Receiver's name and address
-  set align(left)
-  to.name
-  linebreak()
-  to.address
-  linebreak()
+  block[
+    #v(5pt)
+    #set align(left)
+    #if attn-name != none {
+      text("Attn: " + attn-name)
+      linebreak()
+    }
+    #to.name
+    #linebreak()
+    #to.address
+    #linebreak()
+  ]
 
   v(5pt)
 
