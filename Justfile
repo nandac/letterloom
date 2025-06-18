@@ -8,7 +8,9 @@ default:
 
 # generate manual
 doc:
-  typst compile docs/manual.typ docs/manual.pdf
+  typst compile docs/documentation.typ docs/documentation.pdf
+  typst compile docs/example.typ docs/example.pdf
+  pdftk docs/documentation.pdf docs/example.pdf cat output docs/manual.pdf
   typst compile docs/thumbnail.typ thumbnail-light.svg
   typst compile --input theme=dark docs/thumbnail.typ thumbnail-dark.svg
 

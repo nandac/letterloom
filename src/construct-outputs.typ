@@ -8,35 +8,39 @@
 
   // Footers are optional
   if footer != none and footer != () {
+    // Convert the footer variable to an array in cases
+    // where only one footer item is given
     if type(footer) != array {
       footer = (footer, )
     }
 
-    // If footer is provided, construct a grid with one row
+    // If a footer is provided, construct a grid with one row
     // and the number of columns equal to the number of footer items
     custom-footer = grid(
       columns: footer.len(),
       rows: 1,
       gutter: 20pt,
       ..footer.map(
-        foot => [
-          // Specific styling for links, emails and strings
-          #if foot.at("type", default: "string") == "url" {
+        it => [
+          #if it.at("footer-type", default: "string") == "url" {
+            // Specific styling for urls
             text(
-              link(foot.text),
+              link(it.footer-text),
               font: footer-font,
               size: footer-font-size,
               fill: link-color
             )
-          } else if foot.at("type", default: "string") == "email" {
+          } else if it.at("footer-type", default: "string") == "email" {
+            // Specific styling for emails
             text(
-              link("mailto:" + foot.text),
+              link("mailto:" + it.footer-text),
               font: footer-font,
               size: footer-font-size,
               fill: link-color
             )
-          } else if foot.at("type", default: "string") == "string" {
-            text(foot.text, font: footer-font,  size: footer-font-size)
+          } else if it.at("footer-type", default: "string") == "string" {
+            // Strings are rendered as given
+            text(it.footer-text, font: footer-font,  size: footer-font-size)
           }
         ]
       )
@@ -71,7 +75,8 @@
     signatures = (signatures, )
   }
 
-  // Grid accommodates _up to_ three signatures and signatory names
+  // Accommodates one or more signatures and rendered as grid with
+  // an arbitrary number of rows having three signatures per row
   grid(
     columns: 3,
     rows: auto,

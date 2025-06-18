@@ -34,27 +34,42 @@ These instructions will get you a copy of the project up and running on the Typs
 #import "@preview/letterloom:0.1.0": *
 
 #show: letterloom.with(
-  sender: (
-    name: "My Name",
-    address: [My Address \
-              My Town \
-              My County \
-              My Postcode]
+  from: (
+    name: "The Dimbleby Family",
+    address: [The Lodge \
+              Cheswick Village \
+              Middle Upton \
+              Bristol BS16 1GU]
   ),
-  receiver: (
-    name: "Your Name",
-    address: [Your Address \
-              Your Town \
-              Your County \
-              Your Postcode]
+  to: (
+    name: "Evergreen Tree Surgeons",
+    address: [Midtown Lane \
+              Cheswick Village \
+              Stoke Gifford \
+              Bristol BS16 1GU]
   ),
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-  salutation: "Dear Name,",
-  subject: "Subject of Letter",
-  closing: "Yours sincerely,"
+  salutation: "Gentlemen,",
+  subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate",
+  closing: "Sincerely yours,",
+  signatures: (
+    (
+      name: "Lord Albus Dimbleby"
+      signature: image("images/albus-sig.png")
+    ),
+    (
+      name: "Lady Abigail Dimbleby"
+      signature: image("images/abigail-sig.png")
+    ),
+    (
+      name: "Sir Austin Dimbleby",
+      signature: image("images/austin-sig.png")
+    )
+  )
 )
 
-The text of your letter should be added here.
+#lorem(500)
+#lorem(200)
 ```
 
 <picture>
@@ -67,6 +82,8 @@ The text of your letter should be added here.
 Follow these steps to set up your development environment and prepare for contributing to the project:
 
 Typst: Install Typst (version 0.13.0 or higher) using the official installation instructions. Typst is required to work with the core functionality of the project.
+
+PdfTK
 
 Just: Install Just, a handy command runner for executing predefined tasks. You can install it using a package manager or by downloading a pre-built binary. Refer to the available packages for installation instructions specific to your operating system.
 
@@ -116,13 +133,7 @@ This setup allows you to experiment with the module in a Typst file before final
 
 ## Usage
 
-A more in-depth description of usage. Any template arguments? A complicated example that showcases most if not all of the functions the package provides? This is also an excellent place to signpost the manual.
-
-```typ
-#import "@preview/letterloom:0.1.0": *
-
-#let my-complicated-example = ...
-```
+For a comprehensive overview of all available options and a detailed, full-featured example, we recommend consulting the package's official manual. The manual provides an explanation of each option, and an example of how set it to help you get started using the package.
 
 ## Acknowledgments
 

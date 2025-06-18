@@ -22,22 +22,16 @@
 #let signatures = (
   (
     name: "Lord Albus Dimbleby",
-    signature: image("images/albus-sig.png")
+    signature: image("../images/albus-sig.png")
   ),
   (
     name: "Lady Abigail Dimbleby",
-    signature: image("images/abigail-sig.png")
+    signature: image("../images/abigail-sig.png")
   ),
   (
     name: "Sir Austin Dimbleby",
-    signature: image("images/austin-sig.png")
-  ),
-  // (
-  //   name: "Mr Jethro Tull"
-  // ),
-  // (
-  //   name: "Mr Sturgis Podmore"
-  // )
+    signature: image("../images/austin-sig.png")
+  )
 )
 
 #let enclosures = (
@@ -46,22 +40,22 @@
 
 #let figures = (
   (
-    image: image("images/storm-damaged-oak-tree.jpg", width: 80%),
-    // caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
+    image: image("../images/storm-damaged-oak-tree.jpg", width: 80%),
+    caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
   )
 )
 
 #let footer =  (
   (
-    content: "+44-117-555-5555"
+    footer-text: "+44-117-555-5555"
   ),
   (
-    content: "dimblebyfamily@dimbleby.org",
-    type: "email"
+    footer-text: "dimblebyfamily@dimbleby.org",
+    footer-type: "email"
   ),
   (
-    content:"https://dimbleby.org",
-    type: "url"
+    footer-text: "https://dimbleby.org",
+    footer-type: "url"
   )
 )
 
@@ -77,9 +71,17 @@
   cc: "Mr Jethro Tull",
   figures: figures,
   footer: footer,
-  link-color: maroon,
+  footer-font: "Fira Mono",
+  footer-font-size: 7pt,
   number-pages: true,
-  footnote-alignment: right
+  footnote-alignment: right,
+  main-font: "Noto Serif",
+  main-font-size: 11pt,
+  caption-font: "Source Sans Pro",
+  caption-font-size: 9pt,
+  footnote-font: "Noto Serif",
+  footnote-font-size: 7pt,
+  link-color: maroon
 )
 
 We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
