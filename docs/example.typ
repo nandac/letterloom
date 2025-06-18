@@ -22,15 +22,15 @@
 #let signatures = (
   (
     name: "Lord Albus Dimbleby",
-    signature: image("images/albus-sig.png")
+    signature: image("../images/albus-sig.png")
   ),
   (
     name: "Lady Abigail Dimbleby",
-    signature: image("images/abigail-sig.png")
+    signature: image("../images/abigail-sig.png")
   ),
   (
     name: "Sir Austin Dimbleby",
-    signature: image("images/austin-sig.png")
+    signature: image("../images/austin-sig.png")
   )
 )
 
@@ -42,7 +42,7 @@
 // Figures
 #let figures = (
   (
-    image: image("images/storm-damaged-oak-tree.jpg", width: 80%),
+    image: image("../images/storm-damaged-oak-tree.jpg", width: 80%),
     caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
   )
 )
