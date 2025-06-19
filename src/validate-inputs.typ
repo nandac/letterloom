@@ -4,6 +4,22 @@
   }
 }
 
+#let validate-string(string-data: none, field-name: none) = {
+  if type(string-data) not in (str, content) {
+    panic("error: " + field-name + " must be a string or content block.")
+  } else {
+    if string-data == "" {
+      panic("error: " + field-name + " is empty.")
+    }
+  }
+}
+
+#let validate-boolean(boolean-data: none, field-name: none) = {
+  if type(boolean-data) != bool {
+    panic("error: " + field-name + " must be a true or false value.")
+  }
+}
+
 #let validate-contact(contact: none, contact-type: none) = {
   if type(contact) == dictionary {
     // Check if name is given and is a valid type
@@ -33,16 +49,6 @@
     }
   } else {
     panic("error: " + contact-type + " details must be a dictionary with name and address fields.")
-  }
-}
-
-#let validate-string(string-data: none, field-name: none) = {
-  if type(string-data) not in (str, content) {
-    panic("error: " + field-name + " must be a string or content block.")
-  } else {
-    if string-data == "" {
-      panic("error: " + field-name + " is empty.")
-    }
   }
 }
 
@@ -76,6 +82,37 @@
     for enclosure in enclosures {
       if type(enclosure) not in (str, content) {
         panic("error: enclosure must be a string or content block.")
+      }
+    }
+  }
+}
+
+#let validate-figures(figures: none) = {
+  if figures != none {
+    // Handle the case where we only have a single figure
+    if type(figures) != array {
+      figures = (figures, )
+    } else {
+      for figure in figures {
+        if type(figure) != dictionary {
+          panic("error: figure must be a dictionary.")
+        }
+
+        // Check if figure-content is given and is a valid type
+        if "figure-content" in figure {
+          if type(figure.at("figure-content")) not in (image, table, raw) {
+            panic("error: figure-content must be an image, table or raw function.")
+          }
+        } else {
+          panic("error: figure-content is missing.")
+        }
+
+        // Check if figure-caption is given and is a valid type
+        if "figure-caption" in figure {
+          if type(figure.at("figure-caption")) not in (str, content) {
+            panic("error: figure-caption must be a string or content block.")
+          }
+        }
       }
     }
   }

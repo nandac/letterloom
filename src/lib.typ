@@ -82,6 +82,16 @@
     validate-string(string-data: enclosures-title, field-name: "enclosures-title")
   }
 
+  // If number-pages is not the default value, validate it
+  if number-pages != false {
+    validate-boolean(boolean-data: number-pages, field-name: "number-pages")
+  }
+
+  // If figures is given, validate it
+  if figures != none {
+    validate-figures(figures: figures)
+  }
+
   // Footer is optional
   let custom-footer = construct-custom-footer(
     footer: footer,

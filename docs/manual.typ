@@ -89,11 +89,11 @@ Below is an example demonstrating how to create a letter using the `letterloom` 
   closing: "Sincerely yours,",
   signatures: (
     (
-      name: "Lord Albus Dimbleby"
+      name: "Lord Albus Dimbleby",
       signature: image("images/albus-sig.png")
     ),
     (
-      name: "Lady Abigail Dimbleby"
+      name: "Lady Abigail Dimbleby",
       signature: image("images/abigail-sig.png")
     ),
     (
@@ -103,7 +103,15 @@ Below is an example demonstrating how to create a letter using the `letterloom` 
   )
 )
 
-Text of the letter goes here.
+We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
+
+Your specific task would be to render the grove safe to human traffic while at the same time minimizing the residual damage to the trees. You would, of course, also undertake to clear the area thereafter.
+
+Since this estate is jointly owned by the Dimbleby family, the signatures of all three of us appear in this letter to avoid any legal wrangles in the future.
+
+Kindly contact our Head Groundsman, Mr Jethro Tull, on 0117-12345678. to fix an appointment to view the trees and give a quotation for the contemplated work.
+
+Thank you kindly.
 ```
 
 The `letterloom` package provides extensive customization options to help tailor your letters to specific needs. In the following sections, we will explore all mandatory and optional parameters in detail, showcasing their usage with examples on how to specify them. In cases where there are multiple ways to configure an option, links have been provided to the relevant section in #link("https://typst.app/docs/")[Typst's documentation].
@@ -471,8 +479,8 @@ The `letterloom` package provides extensive customization options to help tailor
     rows: 2,
     stroke: none,
     inset: 5pt,
-    [`image`], [#highlight-type.function #h(5pt)], [The image function for the figure.],
-    [`caption`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_], [The caption for the figure.],
+    [`figure-content`], [#highlight-type.function #h(5pt)], [An `image`, `table` or `raw` function.],
+    [`figure-caption`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_], [The caption for the figure.],
   )
 
   *Default:* #h(5pt) #highlight-type.none-type
@@ -486,6 +494,8 @@ The `letterloom` package provides extensive customization options to help tailor
     )
   )
   ```
+
+  *Note:* Figures are always placed at the end of the letter as they are considered to be enclosures.
 
 - *`footer`* #h(15pt) #highlight-type.array
 
@@ -578,8 +588,8 @@ Below, we present a comprehensive example demonstrating the capabilities of the 
   // Figures
   figures: (
     (
-      image: image("images/storm-damaged-oak-tree.jpg", width: 80%),
-      caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
+      figure-content: image("images/storm-damaged-oak-tree.jpg", width: 80%),
+      figure-caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
     )
   ),
   // Footer
@@ -690,8 +700,8 @@ Thank you kindly.
   // Figures
   figures: (
     (
-      image: image("images/storm-damaged-oak-tree.jpg", width: 80%),
-      caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
+      figure-content: image("images/storm-damaged-oak-tree.jpg", width: 80%),
+      figure-caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
     )
   ),
   // Footer
