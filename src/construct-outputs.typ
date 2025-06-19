@@ -136,7 +136,7 @@
     show figure.caption: set text(font: caption-font, size: caption-font-size)
     for fig in figures {
       // A figure need not have a caption
-      figure(fig.image, caption: fig.at("caption", default: none))
+      figure(fig.figure-content, caption: fig.at("figure-caption", default: none))
     }
   }
 }
