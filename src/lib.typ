@@ -72,6 +72,16 @@
     validate-string(string-data: cc, field-name: "cc")
   }
 
+  // If enclosures is given, validate it
+  if enclosures != none {
+    validate-enclosures(enclosures: enclosures)
+  }
+
+  // If enclosures-title is not the default value, validate it
+  if enclosures-title != "encl:" {
+    validate-string(string-data: enclosures-title, field-name: "enclosures-title")
+  }
+
   // Footer is optional
   let custom-footer = construct-custom-footer(
     footer: footer,

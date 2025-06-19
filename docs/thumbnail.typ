@@ -28,15 +28,15 @@
   signatures: (
     (
       name: "Lord Albus Dimbleby",
-      signature: image("../images/albus-sig.png")
+      signature: image("images/albus-sig.png")
     ),
     (
       name: "Lady Abigail Dimbleby",
-      signature: image("../images/abigail-sig.png")
+      signature: image("images/abigail-sig.png")
     ),
     (
       name: "Sir Austin Dimbleby",
-      signature: image("../images/austin-sig.png")
+      signature: image("images/austin-sig.png")
     )
   )
 )
