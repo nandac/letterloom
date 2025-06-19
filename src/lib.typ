@@ -127,11 +127,6 @@
     #date
   ])
 
-  // Attention name (optional)
-  // if attn-name != none {
-  //   text("Attn: " + attn-name)
-  // }
-
   // Receiver's name and address
   block[
     #v(5pt)

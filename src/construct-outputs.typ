@@ -40,7 +40,7 @@
             )
           } else if it.at("footer-type", default: "string") == "string" {
             // Strings are rendered as given
-            text(it.footer-text, font: footer-font,  size: footer-font-size)
+            text(it.footer-text, font: footer-font, size: footer-font-size)
           }
         ]
       )
@@ -85,6 +85,7 @@
     rows: auto,
     row-gutter: 10pt,
     align: start + horizon,
+    // Split the signatures sent in into items of length 3
     ..signatures.chunks(sigs-per-row).map(sigs => {
       grid(
         columns: (1fr, ) * sigs-per-row,
@@ -92,7 +93,7 @@
         rows: 2,
         row-gutter: 10pt,
         column-gutter: 40pt,
-        // if a row does not contain 3 signatures pad the
+        // If a row does not contain 3 signatures pad the
         // remaining cells with a blank-space
         ..sigs.map(signatory =>
         signatory.at("signature", default: rect(height: 40pt, stroke: none))) + (blank-space, ) * (sigs-per-row - sigs.len()),
@@ -100,22 +101,6 @@
       )
     })
   )
-
-
-//   grid(
-//     columns: 3,
-//     rows: auto,
-//     column-gutter: 40pt,
-//     ..signatures.map(signatory => [
-//       #grid(
-//         columns: 1,
-//         rows: 2,
-//         row-gutter: 10pt,
-//         [#signatory.at("signature", default: v(40pt))],
-//         [#signatory.name]
-//       )
-//     ])
-//   )
 }
 
 #let construct-enclosures(enclosures: none, enclosures-title: none) = {
