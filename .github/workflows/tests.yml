@@ -55,4 +55,6 @@ jobs:
 
       - name: Build docs
         if: ${{ matrix.typst-version.doc }}
-        run: just doc
+        run: |
+          just install-preview
+          just doc
