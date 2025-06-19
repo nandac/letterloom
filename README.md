@@ -58,51 +58,7 @@ These instructions will get you a copy of the project up and running on the Typs
       name: "Sender's Name",
       // signature: image() // Add your signature image here
     )
-  ),
-  // Alignment of the sender's address
-  // from-alignment: right,
-  // Attention name
-  // attn-name: none,
-  // Enclosures
-  // enclosures: none,
-  // Enclosures title
-  // enclosures-title: "encl:",
-  // Carbon copy
-  // cc: none,
-  // Figures
-  // figures: none,
-  // Footer
-  // footer: none,
-  // Number pages from the second page onwards
-  // number-pages: false,
-  // Paper size
-  // paper-size: "a4",
-  // Margins
-  // margins: auto,
-  // Main font
-  // main-font: "Libertinus Serif",
-  // Main font size
-  // main-font-size: 11pt,
-  // Footer font
-  // footer-font: "DejaVu Sans Mono",
-  // Footer font size
-  // footer-font-size: 7pt,
-  // Caption font
-  // caption-font: "Libertinus Serif",
-  // Caption font size
-  // caption-font-size: 9pt,
-  // Footnote alignment
-  // footnote-alignment: left,
-  // Footnote font
-  // footnote-font: "Libertinus Serif",
-  // Footnote font size
-  // footnote-font-size: 8pt,
-  // Paragraph leading
-  // par-leading: 0.8em,
-  // Paragraph spacing
-  // par-spacing: 1.8em,
-  // Link color
-  // link-color: blue
+  )
 )
 
 // Write the body of your letter here
@@ -162,6 +118,8 @@ This setup allows you to experiment with the module in a Typst file before final
 
 ## Usage
 
+Below is an example demonstrating how to create a letter using the `letterloom` package with the minimum required arguments:
+
 ```typ
 #show: letterloom.with(
   from: (
@@ -185,15 +143,15 @@ This setup allows you to experiment with the module in a Typst file before final
   signatures: (
     (
       name: "Lord Albus Dimbleby",
-      signature: image("../images/albus-sig.png")
+      signature: image("images/albus-sig.png")
     ),
     (
       name: "Lady Abigail Dimbleby",
-      signature: image("../images/abigail-sig.png")
+      signature: image("images/abigail-sig.png")
     ),
     (
       name: "Sir Austin Dimbleby",
-      signature: image("../images/austin-sig.png")
+      signature: image("images/austin-sig.png")
     )
   )
 )
@@ -214,7 +172,7 @@ Thank you kindly.
   <img src="./thumbnail-light.svg" alt ="">
 </picture>
 
-For a comprehensive overview of all available options and a detailed, full-featured example, we recommend consulting the package's official manual. The manual provides an explanation of each option, and an example of how set it to help you get started using the package.
+For a comprehensive overview of all available options, and usage instructions we highly recommend consulting the package’s official manual. The manual offers explanations and examples to help you harness the full potential of the `letterloom` package.
 
 ## Acknowledgments
 
