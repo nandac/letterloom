@@ -65,3 +65,18 @@
     panic("error: signatures are missing.")
   }
 }
+
+#let validate-enclosures(enclosures: none) = {
+  if enclosures != none {
+    // Handle the case where we only have a single enclosure
+    if type(enclosures) != array {
+      enclosures = (enclosures, )
+    }
+
+    for enclosure in enclosures {
+      if type(enclosure) not in (str, content) {
+        panic("error: enclosure must be a string or content block.")
+      }
+    }
+  }
+}

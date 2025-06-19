@@ -89,7 +89,7 @@
     ..signatures.chunks(sigs-per-row).map(sigs => {
       grid(
         columns: (1fr, ) * sigs-per-row,
-        align: center,
+        align: left,
         rows: 2,
         row-gutter: 10pt,
         column-gutter: 40pt,

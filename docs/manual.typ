@@ -158,7 +158,7 @@ The `letterloom` package provides extensive customization options to help tailor
   )
   ```
 
-- *`date`* #h(15pt) #highlight-type.str
+- *`date`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
   The date of the letter.
 
@@ -171,7 +171,9 @@ The `letterloom` package provides extensive customization options to help tailor
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]")
   ```
 
-- *`salutation`* #h(15pt) #highlight-type.str
+  Refer to #link("https://typst.app/docs/reference/foundations/datetime/#format")[Typst's documentation on datetime formatting] for more details on how to format the date to your liking.
+
+- *`salutation`* #h(15pt) #highlight-type.str or #h(5pt) #highlight-type.content
 
   The salutation or greeting in the letter.
 
@@ -189,7 +191,7 @@ The `letterloom` package provides extensive customization options to help tailor
   subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate"
   ```
 
-- *`closing`* #h(15pt) #highlight-type.str
+- *`closing`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
   The closing line of the letter.
 
@@ -413,7 +415,7 @@ The `letterloom` package provides extensive customization options to help tailor
   from-alignment: left
   ```
 
-- *`attn-name`* #h(15pt) #highlight-type.str
+- *`attn-name`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
   Attention name to direct the correspondence to the relevant person or department.
 
@@ -424,7 +426,7 @@ The `letterloom` package provides extensive customization options to help tailor
   attn-name: "Mr Basil Hawthorne"
   ```
 
-- *`cc`* #h(15pt) #highlight-type.str
+- *`cc`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
   The name of the carbon copy recipient.
 
@@ -437,7 +439,7 @@ The `letterloom` package provides extensive customization options to help tailor
 
 - *`enclosures`* #h(15pt) #highlight-type.array
 
-  A list of descriptions for enclosures.
+  An array containing elements of type #h(5pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) that describes each enclosure.
 
   *Default:* #h(5pt) #highlight-type.none-type
 
@@ -448,7 +450,7 @@ The `letterloom` package provides extensive customization options to help tailor
   )
   ```
 
-- *`enclosures-title`* #h(15pt) #highlight-type.str
+- *`enclosures-title`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
   The title for the list of enclosures, allowing localization.
 
@@ -517,26 +519,6 @@ The `letterloom` package provides extensive customization options to help tailor
     )
   )
   ```
-- *`cc`* #h(15pt) #highlight-type.str
-
-  The name of the carbon copy recipient.
-
-  *Default:* #h(5pt) #highlight-type.none-type
-
-  *Example:*
-  ```typ
-  cc: "Mr Jethro Tull"
-  ```
-- *`cc`* #h(15pt) #highlight-type.str
-
-  The name of the carbon copy recipient.
-
-  *Default:* #h(5pt) #highlight-type.none-type
-
-  *Example:*
-  ```typ
-  cc: "Mr Jethro Tull"
-  ```
 
 == Comprehensive `letterloom` Example and Output
 
@@ -576,15 +558,15 @@ Below, we present a comprehensive example demonstrating the capabilities of the 
   signatures: (
     (
       name: "Lord Albus Dimbleby",
-      signature: image("../images/albus-sig.png")
+      signature: image("images/albus-sig.png")
     ),
     (
       name: "Lady Abigail Dimbleby",
-      signature: image("../images/abigail-sig.png")
+      signature: image("images/abigail-sig.png")
     ),
     (
       name: "Sir Austin Dimbleby",
-      signature: image("../images/austin-sig.png")
+      signature: image("images/austin-sig.png")
     )
   ),
   // Enclosures
@@ -596,7 +578,7 @@ Below, we present a comprehensive example demonstrating the capabilities of the 
   // Figures
   figures: (
     (
-      image: image("../images/storm-damaged-oak-tree.jpg", width: 80%),
+      image: image("images/storm-damaged-oak-tree.jpg", width: 80%),
       caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
     )
   ),
@@ -688,15 +670,15 @@ Thank you kindly.
   signatures: (
     (
       name: "Lord Albus Dimbleby",
-      signature: image("../images/albus-sig.png")
+      signature: image("images/albus-sig.png")
     ),
     (
       name: "Lady Abigail Dimbleby",
-      signature: image("../images/abigail-sig.png")
+      signature: image("images/abigail-sig.png")
     ),
     (
       name: "Sir Austin Dimbleby",
-      signature: image("../images/austin-sig.png")
+      signature: image("images/austin-sig.png")
     )
   ),
   // Enclosures
@@ -708,7 +690,7 @@ Thank you kindly.
   // Figures
   figures: (
     (
-      image: image("../images/storm-damaged-oak-tree.jpg", width: 80%),
+      image: image("images/storm-damaged-oak-tree.jpg", width: 80%),
       caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
     )
   ),
