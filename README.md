@@ -14,12 +14,12 @@ A Typst template for writing letters containing multiple signatures, figures, fo
   - See also the [typst/packages README](https://github.com/typst/packages/?tab=readme-ov-file#package-format)
 - [x] Adapt Repository URLs in `CHANGELOG.md`
   - Consider only committing that file with your first release, or removing the "Initial Release" part in the beginning
-- [ ] Adapt or deactivate the release workflow in `.github/workflows/release.yml`
+- [x] Adapt or deactivate the release workflow in `.github/workflows/release.yml`
   - to deactivate it, delete that file or remove/comment out lines 2-4 (`on:` and following)
   - to use the workflow
-    - [ ] check the values under `env:`, particularly `REGISTRY_REPO`
-    - [ ] if you don't have one, [create a fine-grained personal access token](https://github.com/settings/tokens?type=beta) with [only Contents permission](https://stackoverflow.com/a/75116350/371191) for the `REGISTRY_REPO`
-    - [ ] on this repo, create a secret `REGISTRY_TOKEN` (at `https://github.com/[user]/[repo]/settings/secrets/actions`) that contains the so created token
+    - [x] check the values under `env:`, particularly `REGISTRY_REPO`
+    - [x] if you don't have one, [create a fine-grained personal access token](https://github.com/settings/tokens?type=beta) with [only Contents permission](https://stackoverflow.com/a/75116350/371191) for the `REGISTRY_REPO`
+    - [x] on this repo, create a secret `REGISTRY_TOKEN` (at `https://github.com/[user]/[repo]/settings/secrets/actions`) that contains the so created token
 
     if configured correctly, whenever you create a tag `v...`, your package will be pushed onto a branch on the `REGISTRY_REPO`, from which you can then create a pull request against [typst/packages](https://github.com/typst/packages/)
 - [ ] remove/replace the example test case
@@ -34,55 +34,79 @@ These instructions will get you a copy of the project up and running on the Typs
 #import "@preview/letterloom:0.1.0": *
 
 #show: letterloom.with(
+  // Sender
   from: (
-    name: "The Dimbleby Family",
-    address: [The Lodge \
-              Cheswick Village \
-              Middle Upton \
-              Bristol BS16 1GU]
+    name: "Sender's Name",
+    address: [Sender's Address]
   ),
+  // Receiver
   to: (
-    name: "Evergreen Tree Surgeons",
-    address: [Midtown Lane \
-              Cheswick Village \
-              Stoke Gifford \
-              Bristol BS16 1GU]
+    name: "Receiver's Name",
+    address: [Receiver's Address]
   ),
+  // Date
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-  salutation: "Gentlemen,",
-  subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate",
-  closing: "Sincerely yours,",
+  // Salutation
+  salutation: "Dear Receiver's Name,",
+  // Subject
+  subject: "Subject",
+  // Closing
+  closing: "Yours sincerely,",
+  // Signatures
   signatures: (
     (
-      name: "Lord Albus Dimbleby",
-      signature: image("../images/albus-sig.png")
-    ),
-    (
-      name: "Lady Abigail Dimbleby",
-      signature: image("../images/abigail-sig.png")
-    ),
-    (
-      name: "Sir Austin Dimbleby",
-      signature: image("../images/austin-sig.png")
+      name: "Sender's Name",
+      // signature: image() // Add your signature image here
     )
-  )
+  ),
+  // Alignment of the sender's address
+  // from-alignment: right,
+  // Attention name
+  // attn-name: none,
+  // Enclosures
+  // enclosures: none,
+  // Enclosures title
+  // enclosures-title: "encl:",
+  // Carbon copy
+  // cc: none,
+  // Figures
+  // figures: none,
+  // Footer
+  // footer: none,
+  // Number pages from the second page onwards
+  // number-pages: false,
+  // Paper size
+  // paper-size: "a4",
+  // Margins
+  // margins: auto,
+  // Main font
+  // main-font: "Libertinus Serif",
+  // Main font size
+  // main-font-size: 11pt,
+  // Footer font
+  // footer-font: "DejaVu Sans Mono",
+  // Footer font size
+  // footer-font-size: 7pt,
+  // Caption font
+  // caption-font: "Libertinus Serif",
+  // Caption font size
+  // caption-font-size: 9pt,
+  // Footnote alignment
+  // footnote-alignment: left,
+  // Footnote font
+  // footnote-font: "Libertinus Serif",
+  // Footnote font size
+  // footnote-font-size: 8pt,
+  // Paragraph leading
+  // par-leading: 0.8em,
+  // Paragraph spacing
+  // par-spacing: 1.8em,
+  // Link color
+  // link-color: blue
 )
 
-We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
-
-Your specific task would be to render the grove safe to human traffic while at the same time minimizing the residual damage to the trees. You would, of course, also undertake to clear the area thereafter.
-
-Since this estate is jointly owned by the Dimbleby family, the signatures of all three of us appear in this letter to avoid any legal wrangles in the future.
-
-Kindly contact our Head Groundsman, Mr Jethro Tull, on 0117-12345678. to fix an appointment to view the trees and give a quotation for the contemplated work.
-
-Thank you kindly.
+// Write the body of your letter here
 ```
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./thumbnail-dark.svg">
-  <img src="./thumbnail-light.svg" alt ="">
-</picture>
 
 ### Installation
 
@@ -137,6 +161,58 @@ Once installed, you can import the package into your Typst file using the follow
 This setup allows you to experiment with the module in a Typst file before finalizing your changes.
 
 ## Usage
+
+```typ
+#show: letterloom.with(
+  from: (
+    name: "The Dimbleby Family",
+    address: [The Lodge \
+              Cheswick Village \
+              Middle Upton \
+              Bristol BS16 1GU]
+  ),
+  to: (
+    name: "Evergreen Tree Surgeons",
+    address: [Midtown Lane \
+              Cheswick Village \
+              Stoke Gifford \
+              Bristol BS16 1GU]
+  ),
+  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+  salutation: "Gentlemen,",
+  subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate",
+  closing: "Sincerely yours,",
+  signatures: (
+    (
+      name: "Lord Albus Dimbleby",
+      signature: image("../images/albus-sig.png")
+    ),
+    (
+      name: "Lady Abigail Dimbleby",
+      signature: image("../images/abigail-sig.png")
+    ),
+    (
+      name: "Sir Austin Dimbleby",
+      signature: image("../images/austin-sig.png")
+    )
+  )
+)
+
+We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
+
+Your specific task would be to render the grove safe to human traffic while at the same time minimizing the residual damage to the trees. You would, of course, also undertake to clear the area thereafter.
+
+Since this estate is jointly owned by the Dimbleby family, the signatures of all three of us appear in this letter to avoid any legal wrangles in the future.
+
+Kindly contact our Head Groundsman, Mr Jethro Tull, on 0117-12345678. to fix an appointment to view the trees and give a quotation for the contemplated work.
+
+Thank you kindly.
+```
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./thumbnail-dark.svg">
+  <img src="./thumbnail-light.svg" alt ="">
+</picture>
 
 For a comprehensive overview of all available options and a detailed, full-featured example, we recommend consulting the package's official manual. The manual provides an explanation of each option, and an example of how set it to help you get started using the package.
 
