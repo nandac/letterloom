@@ -22,7 +22,7 @@
               Bristol BS16 1GU]
   ),
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-  salutation: "Gentlemen,",
+  salutation: "Dear Mr Hawthorne",
   subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
   closing: "Sincerely yours,",
   signatures: (

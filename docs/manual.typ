@@ -1,4 +1,6 @@
 #import "@preview/letterloom:0.1.0": *
+#import "highlight-type.typ": highlight-type
+
 // Global Styles
 #set page(margin: 25mm)
 #set text(size: 11pt, font: "Noto Serif")
@@ -108,7 +110,7 @@ The `letterloom` package provides extensive customization options to help tailor
 
 === Required Parameters
 
-- *`from`* #h(15pt) #highlight(fill: rgb("fce0ff"), radius: 4pt, extent: 4pt)[`dictionary`]
+- *`from`* #h(15pt) #highlight-type.dictionary
 
   The sender's name and address, provided as a dictionary with the following keys:
   #table(
@@ -117,8 +119,8 @@ The `letterloom` package provides extensive customization options to help tailor
     rows: 2,
     stroke: none,
     inset: 5pt,
-    [`name`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]], [The sender's name.],
-    [`address`], [#highlight(fill: rgb("#a6ebe5"), radius: 4pt, extent: 4pt)[`content`]], [The sender's address.],
+    [`name`], [#highlight-type.str], [The sender's name.],
+    [`address`], [#highlight-type.content], [The sender's address.],
   )
 
   *Example:*
@@ -132,7 +134,7 @@ The `letterloom` package provides extensive customization options to help tailor
   )
   ```
 
-- *`to`* #h(15pt) #highlight(fill: rgb("fce0ff"), radius: 4pt, extent: 4pt)[`dictionary`]
+- *`to`* #h(15pt) #highlight-type.dictionary
 
   The receiver's name and address, provided as a dictionary with the following keys:
   #table(
@@ -141,8 +143,8 @@ The `letterloom` package provides extensive customization options to help tailor
     rows: 2,
     stroke: none,
     inset: 5pt,
-    [`name`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]], [The receiver's name.],
-    [`address`], [#highlight(fill: rgb("#a6ebe5"), radius: 4pt, extent: 4pt)[`content`]], [The receiver's address.],
+    [`name`], [#highlight-type.str], [The receiver's name.],
+    [`address`], [#highlight-type.content], [The receiver's address.],
   )
 
   *Example:*
@@ -156,7 +158,7 @@ The `letterloom` package provides extensive customization options to help tailor
   )
   ```
 
-- *`date`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
+- *`date`* #h(15pt) #highlight-type.str
 
   The date of the letter.
 
@@ -169,7 +171,7 @@ The `letterloom` package provides extensive customization options to help tailor
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]")
   ```
 
-- *`salutation`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
+- *`salutation`* #h(15pt) #highlight-type.str
 
   The salutation or greeting in the letter.
 
@@ -178,7 +180,7 @@ The `letterloom` package provides extensive customization options to help tailor
   salutation: "Gentlemen,"
   ```
 
-- *`subject`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt) or #h(5pt) #highlight(fill: rgb("#a6ebe5"), radius: 4pt, extent: 4pt)[`content`]
+- *`subject`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
   The subject of the letter.
 
@@ -187,7 +189,7 @@ The `letterloom` package provides extensive customization options to help tailor
   subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate"
   ```
 
-- *`closing`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
+- *`closing`* #h(15pt) #highlight-type.str
 
   The closing line of the letter.
 
@@ -196,7 +198,7 @@ The `letterloom` package provides extensive customization options to help tailor
   closing: "Sincerely yours,"
   ```
 
-- *`signatures`* #h(15pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`]
+- *`signatures`* #h(15pt) #highlight-type.array
 
   An array of dictionaries representing the signatures of the letter's signatories. Each dictionary contains the following keys:
 
@@ -206,8 +208,8 @@ The `letterloom` package provides extensive customization options to help tailor
     rows: 2,
     stroke: none,
     inset: 5pt,
-    [`name`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]], [The name of the signatory.],
-    [`signature`], [#highlight(fill: rgb("#d1d4fd"), radius: 4pt, extent: 4pt)[`function`] #h(5pt) _optional_], [The image function for the signatory's signature. If omitted a space is left for a physical signature.],
+    [`name`], [#highlight-type.str], [The name of the signatory.],
+    [`signature`], [#highlight-type.function #h(5pt) _optional_], [The image function for the signatory's signature. If omitted a space is left for a physical signature.],
   )
 
   *Example:*
@@ -229,7 +231,7 @@ The `letterloom` package provides extensive customization options to help tailor
 
 === Optional Parameters
 
-- *`paper-size`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
+- *`paper-size`* #h(15pt) #highlight-type.str
 
   The paper size of the letter.
 
@@ -242,11 +244,11 @@ The `letterloom` package provides extensive customization options to help tailor
 
   Refer to #link("https://typst.app/docs/reference/layout/page/#parameters-paper)")[Typst's documentation on paper sizes] for more details on the paper sizes available.
 
-- *`margins`* #h(15pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`auto`] #h(5pt) or #h(5pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`relative`] #h(5pt) or #h(5pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`dictionary`]
+- *`margins`* #h(15pt) #highlight-type.auto-type #h(5pt) or #h(5pt) #highlight-type.relative #h(5pt) or #h(5pt) #highlight-type.dictionary
 
   Custom margins for the letter.
 
-  *Default:* #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`auto`]
+  *Default:* #h(5pt) #highlight-type.auto-type
 
   *Example:*
   ```typ
@@ -255,7 +257,7 @@ The `letterloom` package provides extensive customization options to help tailor
 
   Refer to  #link("https://typst.app/docs/reference/layout/page/#parameters-margin")[Typst's margin documentation] for more details on how to set margins.
 
-- *`number-pages`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`bool`]
+- *`number-pages`* #h(15pt) #highlight-type.bool
 
   Whether to include page numbers starting from the second page.
 
@@ -266,7 +268,7 @@ The `letterloom` package provides extensive customization options to help tailor
   number-pages: true
   ```
 
-- *`par-leading`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`length`]
+- *`par-leading`* #h(15pt) #highlight-type.length
 
   The line spacing within paragraphs.
 
@@ -277,7 +279,7 @@ The `letterloom` package provides extensive customization options to help tailor
   par-leading: 1.0em
   ```
 
-- *`par-spacing`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`length`]
+- *`par-spacing`* #h(15pt) #highlight-type.length
 
   The spacing between paragraphs.
 
@@ -288,7 +290,7 @@ The `letterloom` package provides extensive customization options to help tailor
   par-spacing: 2.0em
   ```
 
-- *`main-font`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
+- *`main-font`* #h(15pt) #highlight-type.str
 
   The primary font used in the letter.
 
@@ -299,7 +301,7 @@ The `letterloom` package provides extensive customization options to help tailor
   main-font: "Noto Serif"
   ```
 
-- *`main-font-size`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`length`]
+- *`main-font-size`* #h(15pt) #highlight-type.length
 
   The font size used for the body of the letter.
 
@@ -310,7 +312,7 @@ The `letterloom` package provides extensive customization options to help tailor
   main-font-size: 12pt
   ```
 
-- *`caption-font`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
+- *`caption-font`* #h(15pt) #highlight-type.str
 
   The font used for figure captions in the letter.
 
@@ -321,7 +323,7 @@ The `letterloom` package provides extensive customization options to help tailor
   caption-font: "Source Sans Pro"
   ```
 
-- *`caption-font-size`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`length`]
+- *`caption-font-size`* #h(15pt) #highlight-type.length
 
   The font size used for figure captions in the letter.
 
@@ -332,7 +334,7 @@ The `letterloom` package provides extensive customization options to help tailor
   caption-font-size: 10pt
   ```
 
-- *`footnote-font`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
+- *`footnote-font`* #h(15pt) #highlight-type.str
 
   The font used for footnotes in the letter.
 
@@ -343,7 +345,7 @@ The `letterloom` package provides extensive customization options to help tailor
   footnote-font: "Noto Serif"
   ```
 
-- *`footnote-font-size`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`length`]
+- *`footnote-font-size`* #h(15pt) #highlight-type.length
 
   The font size used for footnotes in the letter.
 
@@ -354,7 +356,7 @@ The `letterloom` package provides extensive customization options to help tailor
   footnote-font-size: 9pt
   ```
 
-- *`footnote-alignment`* #h(15pt) #highlight(fill: rgb("#a6eaff"), radius: 4pt, extent: 4pt)[`alignment`]
+- *`footnote-alignment`* #h(15pt) #highlight-type.alignment
 
   The alignment of the footnote separator and footnotes.
 
@@ -365,7 +367,7 @@ The `letterloom` package provides extensive customization options to help tailor
   footnote-alignment: right
   ```
 
-- *`footer-font`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
+- *`footer-font`* #h(15pt) #highlight-type.str
 
   The font used for the footer of the letter.
 
@@ -376,7 +378,7 @@ The `letterloom` package provides extensive customization options to help tailor
   footer-font: "Fira Mono"
   ```
 
-- *`footer-font-size`* #h(15pt) #highlight(fill: rgb("#ffecbf"), radius: 4pt, extent: 4pt)[`length`]
+- *`footer-font-size`* #h(15pt) #highlight-type.length
 
   The font size for the footer of the letter.
 
@@ -387,7 +389,7 @@ The `letterloom` package provides extensive customization options to help tailor
   footer-font-size: 8pt
   ```
 
-- *`link-color`* #h(15pt) #highlight(fill: gradient.linear(angle: 7deg, (rgb("#7cd5ff"), 0%), (rgb("#a6fbca"), 33%), (rgb("#fff37c"), 66%), (rgb("#ffa49d"), 100%)), radius: 4pt, extent: 4pt)[`color`]
+- *`link-color`* #h(15pt) #highlight-type.color
 
   The color of hyperlinks in the letter.
 
@@ -400,7 +402,7 @@ The `letterloom` package provides extensive customization options to help tailor
 
   Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typst's color documentation] for more details on how to specify colors.
 
-- *`from-alignment`* #h(15pt) #highlight(fill: rgb("#a6eaff"), radius: 4pt, extent: 4pt)[`alignment`]
+- *`from-alignment`* #h(15pt) #highlight-type.alignment
 
   The alignment of the sender's address.
 
@@ -411,22 +413,33 @@ The `letterloom` package provides extensive customization options to help tailor
   from-alignment: left
   ```
 
-- *`attn-name`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
+- *`attn-name`* #h(15pt) #highlight-type.str
 
   Attention name to direct the correspondence to the relevant person or department.
 
-  *Default:* #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`]
+  *Default:* #h(5pt) #highlight-type.none-type
 
   *Example:*
   ```typ
   attn-name: "Mr Basil Hawthorne"
   ```
 
-- *`enclosures`* #h(15pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`]
+- *`cc`* #h(15pt) #highlight-type.str
+
+  The name of the carbon copy recipient.
+
+  *Default:* #h(5pt) #highlight-type.none-type
+
+  *Example:*
+  ```typ
+  cc: "Mr Jethro Tull"
+  ```
+
+- *`enclosures`* #h(15pt) #highlight-type.array
 
   A list of descriptions for enclosures.
 
-  *Default:* #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`]
+  *Default:* #h(5pt) #highlight-type.none-type
 
   *Example:*
   ```typ
@@ -435,7 +448,7 @@ The `letterloom` package provides extensive customization options to help tailor
   )
   ```
 
-- *`enclosures-title`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
+- *`enclosures-title`* #h(15pt) #highlight-type.str
 
   The title for the list of enclosures, allowing localization.
 
@@ -446,7 +459,7 @@ The `letterloom` package provides extensive customization options to help tailor
   enclosures-title: "இணைப்புகள்:" // Enclosures in Tamil
   ```
 
-- *`figures`* #h(15pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`]
+- *`figures`* #h(15pt) #highlight-type.array
 
   A list of figures with the following keys:
 
@@ -456,11 +469,11 @@ The `letterloom` package provides extensive customization options to help tailor
     rows: 2,
     stroke: none,
     inset: 5pt,
-    [`image`], [#highlight(fill: rgb("#d1d4fd"), radius: 4pt, extent: 4pt)[`function`] #h(5pt)], [The image function for the figure.],
-    [`caption`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt) or #h(5pt) #highlight(fill: rgb("#a6ebe5"), radius: 4pt, extent: 4pt)[`content`] #h(5pt) _optional_], [The caption for the figure.],
+    [`image`], [#highlight-type.function #h(5pt)], [The image function for the figure.],
+    [`caption`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_], [The caption for the figure.],
   )
 
-  *Default:* #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`]
+  *Default:* #h(5pt) #highlight-type.none-type
 
   *Example:*
   ```typ
@@ -472,18 +485,7 @@ The `letterloom` package provides extensive customization options to help tailor
   )
   ```
 
-- *`cc`* #h(15pt) #highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`]
-
-  The name of the carbon copy recipient.
-
-  *Default:* #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`]
-
-  *Example:*
-  ```typ
-  cc: "Mr Jethro Tull"
-  ```
-
-- *`footer`* #h(15pt) #highlight(fill: rgb("#fce0ff"), radius: 4pt, extent: 4pt)[`array`]
+- *`footer`* #h(15pt) #highlight-type.array
 
   A list of footer elements, each containing:
 
@@ -493,11 +495,11 @@ The `letterloom` package provides extensive customization options to help tailor
     rows: 2,
     stroke: none,
     inset: 5pt,
-    [`footer-text`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt)], [The footer text.],
-    [`footer-type`], [#highlight(fill: rgb("#d1ffe2"), radius: 4pt, extent: 4pt)[`str`] #h(5pt)], [The type of footer element either `"url"`, `"email"`, or `"string"`. If the footer type is specified as `url` or `email` it will be rendered as a clickable hyperlink. The default footer type is `"string"`.],
+    [`footer-text`], [#highlight-type.str #h(5pt)], [The footer text.],
+    [`footer-type`], [#highlight-type.str #h(5pt)], [The type of footer element either `"url"`, `"email"`, or `"string"`. If the footer type is specified as `url` or `email` it will be rendered as a clickable hyperlink. The default footer type is `"string"`.],
   )
 
-  *Default:* #h(5pt) #highlight(fill: rgb("#ffd1ca"), radius: 4pt, extent: 4pt)[`none`]
+  *Default:* #h(5pt) #highlight-type.none-type
 
   *Example:*
   ```text
@@ -515,100 +517,128 @@ The `letterloom` package provides extensive customization options to help tailor
     )
   )
   ```
+- *`cc`* #h(15pt) #highlight-type.str
 
-== Full-Featured Example
+  The name of the carbon copy recipient.
 
-We have provided a full-featured example of a letter using the `letterloom` package along with the final result for your reference below.
+  *Default:* #h(5pt) #highlight-type.none-type
+
+  *Example:*
+  ```typ
+  cc: "Mr Jethro Tull"
+  ```
+- *`cc`* #h(15pt) #highlight-type.str
+
+  The name of the carbon copy recipient.
+
+  *Default:* #h(5pt) #highlight-type.none-type
+
+  *Example:*
+  ```typ
+  cc: "Mr Jethro Tull"
+  ```
+
+== Comprehensive `letterloom` Example and Output
+
+Below, we present a comprehensive example demonstrating the capabilities of the `letterloom` package. This example showcases how to create a detailed and professionally styled letter by leveraging the package's features. For clarity and reference, the final rendered result is also included.
 
 ```typ
 #import "@preview/letterloom:0.1.0": *
 
-// Sender
-#let from = (
-  name: "The Dimbleby Family",
-  address: [The Lodge \
-            Cheswick Village \
-            Middle Upton \
-            Bristol BS16 1GU]
-)
-
-// Receiver
-#let to = (
-  name: "Evergreen Tree Surgeons",
-  address: [Midtown Lane \
-            Cheswick Village \
-            Stoke Gifford \
-            Bristol BS16 1GU]
-)
-
-// Signatures
-#let signatures = (
-  (
-    name: "Lord Albus Dimbleby",
-    signature: image("images/albus-sig.png")
-  ),
-  (
-    name: "Lady Abigail Dimbleby",
-    signature: image("images/abigail-sig.png")
-  ),
-  (
-    name: "Sir Austin Dimbleby",
-    signature: image("images/austin-sig.png")
-  ),
-)
-
-// Enclosures
-#let enclosures = (
-  "Photograph of storm damaged oak tree."
-)
-
-// Figures
-#let figures = (
-  (
-    image: image("images/storm-damaged-oak-tree.jpg", width: 80%),
-    caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
-  )
-)
-
-// Footer
-#let footer =  (
-  (
-    footer-text: "+44-117-555-5555"
-  ),
-  (
-    footer-text: "dimblebyfamily@dimbleby.org",
-    footer-type: "email"
-  ),
-  (
-    footer-text: "https://dimbleby.org",
-    footer-type: "url"
-  )
-)
-
 #show: letterloom.with(
-  from: from,
-  to: to,
+  // Sender
+  from: (
+    name: "The Dimbleby Family",
+    address: [The Lodge \
+              Cheswick Village \
+              Middle Upton \
+              Bristol BS16 1GU]
+  ),
+  // Receiver
+  to: (
+    name: "Evergreen Tree Surgeons",
+    address: [Midtown Lane \
+              Cheswick Village \
+              Stoke Gifford \
+              Bristol BS16 1GU]
+  ),
+  // Attention
+  attn-name: "Mr Basil Hawthorne",
+  // Date
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+  // Salutation
   salutation: "Dear Mr Hawthorne,",
+  // Subject
   subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+  // Closing
   closing: "Sincerely yours,",
-  signatures: signatures,
-  enclosures: enclosures,
+  // Signatures
+  signatures: (
+    (
+      name: "Lord Albus Dimbleby",
+      signature: image("../images/albus-sig.png")
+    ),
+    (
+      name: "Lady Abigail Dimbleby",
+      signature: image("../images/abigail-sig.png")
+    ),
+    (
+      name: "Sir Austin Dimbleby",
+      signature: image("../images/austin-sig.png")
+    )
+  ),
+  // Enclosures
+  enclosures: (
+    "Photograph of storm damaged oak tree."
+  ),
+  // Carbon Copy
   cc: "Mr Jethro Tull",
-  figures: figures,
-  footer: footer,
+  // Figures
+  figures: (
+    (
+      image: image("../images/storm-damaged-oak-tree.jpg", width: 80%),
+      caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
+    )
+  ),
+  // Footer
+  footer: (
+    (
+      footer-text: "+44-117-555-5555"
+    ),
+    (
+      footer-text: "dimblebyfamily@dimbleby.org",
+      footer-type: "email"
+    ),
+    (
+      footer-text: "https://dimbleby.org",
+      footer-type: "url"
+    )
+  ),
+  // Footer Font
   footer-font: "Fira Mono",
+  // Footer Font Size
   footer-font-size: 7pt,
-  number-pages: true,
-  footnote-alignment: right,
+  // Number Pages
+  number-pages: false,
+  // Paper Size
   paper-size: "a4",
+  // Margins
   margins: (top: 20mm, left: 20mm, bottom: 20mm, right: 20mm),
+  // Main Font
   main-font: "Noto Serif",
+  // Main Font Size
   main-font-size: 11pt,
+  // Caption Font
   caption-font: "Source Sans Pro",
+  // Caption Font Size
   caption-font-size: 9pt,
+  // Footnote Font
   footnote-font: "Noto Serif",
+  // Footnote Font Size
   footnote-font-size: 7pt,
+  // Footnote Alignment
+  footnote-alignment: right,
+  // Link Color
   link-color: maroon
 )
 
@@ -622,3 +652,114 @@ Kindly contact our Head Groundsman, Mr Jethro Tull, on 0117-12345678. to fix an 
 
 Thank you kindly.
 ```
+
+// Set the link style to what is set in the letterloom package so that it
+// is no overridden by our global styles set above
+#show link: set text(font: "Fira Mono", size: 7pt)
+
+#show: letterloom.with(
+  // Sender
+  from: (
+    name: "The Dimbleby Family",
+    address: [The Lodge \
+              Cheswick Village \
+              Middle Upton \
+              Bristol BS16 1GU]
+  ),
+  // Receiver
+  to: (
+    name: "Evergreen Tree Surgeons",
+    address: [Midtown Lane \
+              Cheswick Village \
+              Stoke Gifford \
+              Bristol BS16 1GU]
+  ),
+  // Attention
+  attn-name: "Mr Basil Hawthorne",
+  // Date
+  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+  // Salutation
+  salutation: "Dear Mr Hawthorne,",
+  // Subject
+  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+  // Closing
+  closing: "Sincerely yours,",
+  // Signatures
+  signatures: (
+    (
+      name: "Lord Albus Dimbleby",
+      signature: image("../images/albus-sig.png")
+    ),
+    (
+      name: "Lady Abigail Dimbleby",
+      signature: image("../images/abigail-sig.png")
+    ),
+    (
+      name: "Sir Austin Dimbleby",
+      signature: image("../images/austin-sig.png")
+    )
+  ),
+  // Enclosures
+  enclosures: (
+    "Photograph of storm damaged oak tree."
+  ),
+  // Carbon Copy
+  cc: "Mr Jethro Tull",
+  // Figures
+  figures: (
+    (
+      image: image("../images/storm-damaged-oak-tree.jpg", width: 80%),
+      caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
+    )
+  ),
+  // Footer
+  footer: (
+    (
+      footer-text: "+44-117-555-5555"
+    ),
+    (
+      footer-text: "dimblebyfamily@dimbleby.org",
+      footer-type: "email"
+    ),
+    (
+      footer-text: "https://dimbleby.org",
+      footer-type: "url"
+    )
+  ),
+  // Footer Font
+  footer-font: "Fira Mono",
+  // Footer Font Size
+  footer-font-size: 7pt,
+  // Number Pages
+  number-pages: false,
+  // Paper Size
+  paper-size: "a4",
+  // Margins
+  margins: (top: 20mm, left: 20mm, bottom: 20mm, right: 20mm),
+  // Main Font
+  main-font: "Noto Serif",
+  // Main Font Size
+  main-font-size: 11pt,
+  // Caption Font
+  caption-font: "Source Sans Pro",
+  // Caption Font Size
+  caption-font-size: 9pt,
+  // Footnote Font
+  footnote-font: "Noto Serif",
+  // Footnote Font Size
+  footnote-font-size: 7pt,
+  // Footnote Alignment
+  footnote-alignment: right,
+  // Link Color
+  link-color: maroon
+)
+
+We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
+
+Your specific task would be to render the grove safe to human traffic while at the same time minimizing the residual damage to the trees. You would, of course, also undertake to clear the area thereafter.
+
+Since this estate is jointly owned by the Dimbleby family, the signatures of all three of us appear in this letter to avoid any legal wrangles in the future.
+
+Kindly contact our Head Groundsman, Mr Jethro Tull, on 0117-12345678. to fix an appointment to view the trees and give a quotation for the contemplated work.
+
+Thank you kindly.

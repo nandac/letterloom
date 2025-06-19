@@ -90,8 +90,6 @@ Follow these steps to set up your development environment and prepare for contri
 
 **Typst:** Install Typst (version 0.13.0 or higher) using the official installation instructions. Typst is required to work with the core functionality of the project.
 
-**pdftk-java:** Install pdftk-java a simple command line tool for splitting and merging PDF documents. You may install it using your package manager on most Linux based systems or [Homebrew](https://formulae.brew.sh/formula/pdftk-java#default) on MacOS.
-
 **Just:** Install Just, a handy command runner for executing predefined tasks. You can install it using a package manager or by downloading a pre-built binary. Refer to the available packages for installation instructions specific to your operating system.
 
 **tytanic:** Install tytanic, a library essential for testing and working with Typst projects. Use the quickstart installation guide to get it up and running.
