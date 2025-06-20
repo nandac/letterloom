@@ -6,12 +6,13 @@ version = "0.1.0"
 entrypoint = "src/lib.typ"
 authors = ["Nandakumar Chandrasekhar"]
 license = "Unlicense"
-description = "A Typst template for writing letters containing multiple signatures, figures, footnotes and enclosures."
+description = "The letterloom package is a user-friendly, highly customizable template for creating
+professional letters with ease."
 # homepage = ""
 repository = "https://github.com/nandac/letterloom"
 keywords = ["letter"]
-categories = ["office", "layout"]
-disciplines = ["communication"]
+categories = ["office"]
+disciplines = ["business", "communication"]
 compiler = "0.13.0"
 exclude = [
   ".github",
