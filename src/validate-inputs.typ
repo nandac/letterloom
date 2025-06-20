@@ -1,59 +1,65 @@
 #let validate-length(length-value: none, field-name: none) = {
   if type(length-value) != length {
-    panic("error: " + field-name + " must be of type length.")
+    panic(field-name + " must be of type length.")
   }
 }
 
-#let validate-string(string-data: none, field-name: none) = {
+#let validate-string(string-data: none, field-name: none, required: true) = {
+  if required {
+    if string-data == none {
+      panic(field-name + " is missing.")
+    }
+  }
+
   if type(string-data) not in (str, content) {
-    panic("error: " + field-name + " must be a string or content block.")
+    panic(field-name + " must be a string or content block.")
   } else {
-    if string-data == "" {
-      panic("error: " + field-name + " is empty.")
+    if string-data in ("", []) {
+      panic(field-name + " is empty.")
     }
   }
 }
 
 #let validate-boolean(boolean-data: none, field-name: none) = {
   if type(boolean-data) != bool {
-    panic("error: " + field-name + " must be a true or false value.")
+    panic(field-name + " must be a true or false value.")
   }
 }
 
-#let validate-contact(contact: none, contact-type: none) = {
+#let validate-contact(contact: none, field-name: none) = {
   if type(contact) == dictionary {
     // Check if name is given and is a valid type
     if "name" in contact {
-      if type(contact.at("name")) == str {
-        if contact.at("name") == "" {
-          panic("error: " + contact-type + " name is empty.")
+      if type(contact.at("name")) in (str, content) {
+        if contact.at("name") in ("", []) {
+          panic(field-name + " name is empty.")
         }
       } else {
-        panic("error: " + contact-type + " name must be a string.")
+        panic(field-name + " name must be a string or content block.")
       }
     } else {
-      panic("error: " + contact-type + " name is missing.")
+      panic(field-name + " name is missing.")
     }
 
     // Check if address is given and is a valid type
     if "address" in contact {
       if type(contact.at("address")) == content {
-        if contact.at("address") == "" {
-          panic("error: " + contact-type + " address is empty.")
+        if contact.at("address") == [] {
+          panic(field-name + " address is empty.")
         }
       } else {
-        panic("error: " + contact-type + " address must be a content block.")
+        panic(field-name + " address must be a content block.")
       }
     } else {
-      panic("error: " + contact-type + " address is missing.")
+      panic(field-name + " address is missing.")
     }
   } else {
-    panic("error: " + contact-type + " details must be a dictionary with name and address fields.")
+    panic(field-name + " details must be a dictionary with name and address fields.")
   }
 }
 
 #let validate-signatures(signatures: none) = {
-  if signatures != none {
+  if signatures not in (none, ()) {
     // Handle the case where we only have a single signature
     if type(signatures) != array {
       signatures = (signatures, )
@@ -62,18 +68,30 @@
     // Validate each signature
     // The signatory's name is required but a signature image is optional
     for signature in signatures {
+      if type(signature) != dictionary {
+        panic("the signature must be a dictionary with a name field and an optional signature field.")
+      }
+
       // Check if the signature name is given
-      if signature.at("name") in (none, "") {
-        panic("error: signature name is missing.")
+      if "name" in signature {
+        if type(signature.at("name")) not in (str, content) {
+          panic("the signature name must be a string or content block.")
+        }
+
+        if signature.at("name") in ("", []) {
+          panic("the signature name is empty.")
+        }
+      } else {
+        panic("the signature name is missing.")
       }
     }
   } else {
-    panic("error: signatures are missing.")
+    panic("signatures are missing.")
   }
 }
 
 #let validate-enclosures(enclosures: none) = {
-  if enclosures != none {
+  if enclosures not in (none, ()) {
     // Handle the case where we only have a single enclosure
     if type(enclosures) != array {
       enclosures = (enclosures, )
@@ -81,37 +99,32 @@
 
     for enclosure in enclosures {
       if type(enclosure) not in (str, content) {
-        panic("error: enclosure must be a string or content block.")
+        panic("enclosure must be a string or content block.")
       }
     }
   }
 }
 
-#let validate-figures(figures: none) = {
-  if figures != none {
-    // Handle the case where we only have a single figure
-    if type(figures) != array {
-      figures = (figures, )
-    } else {
-      for figure in figures {
-        if type(figure) != dictionary {
-          panic("error: figure must be a dictionary.")
-        }
+#let validate-footer(footer: none) = {
+  if footer not in (none, ()) {
+    if type(footer) != array {
+      // Convert the footer variable to an array in cases
+      // where only one footer item is given
+      footer = (footer, )
+    }
 
-        // Check if figure-content is given and is a valid type
-        if "figure-content" in figure {
-          if type(figure.at("figure-content")) not in (image, table, raw) {
-            panic("error: figure-content must be an image, table or raw function.")
-          }
-        } else {
-          panic("error: figure-content is missing.")
-        }
+    for footer-elem in footer {
+      if type(footer-elem) != dictionary {
+        panic("footer element must be a dictionary.")
+      }
 
-        // Check if figure-caption is given and is a valid type
-        if "figure-caption" in figure {
-          if type(figure.at("figure-caption")) not in (str, content) {
-            panic("error: figure-caption must be a string or content block.")
-          }
+      if type(footer-elem.at("footer-text")) not in (str, content) {
+        panic("footer-text must be a string or content block.")
+      }
+
+      if "footer-type" in footer-elem {
+        if footer-elem.at("footer-type") not in ("url", "email", "string") {
+          panic("footer-type must be one of url, email or string.")
         }
       }
     }
