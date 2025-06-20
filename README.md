@@ -47,11 +47,11 @@ These instructions will get you a copy of the project up and running on the Typs
 
 Follow these steps to set up your development environment and prepare for contributing to the project:
 
-**Typst:** Install Typst (version 0.13.0 or higher) using the official installation instructions. Typst is required to work with the core functionality of the project.
+**Typst:** Install Typst (version 0.13.0 or higher) using the [official installation instructions](https://github.com/typst/typst?tab=readme-ov-file#installation). Typst is required to work with the core functionality of the project.
 
-**Just:** Install Just, a handy command runner for executing predefined tasks. You can install it using a package manager or by downloading a pre-built binary. Refer to the available packages for installation instructions specific to your operating system.
+**Just:** Install [Just](https://just.systems/man/en/introduction.html), a handy command runner for executing predefined tasks. You can install it using a package manager or by downloading a pre-built binary. Refer to the [available packages](https://just.systems/man/en/packages.html) for installation instructions specific to your operating system.
 
-**tytanic:** Install tytanic, a library essential for testing and working with Typst projects. Use the quickstart installation guide to get it up and running.
+**tytanic:** Install [tytanic](https://tingerrr.github.io/tytanic/index.html), a library essential for testing and working with Typst projects. Use the [quickstart installation guide](https://tingerrr.github.io/tytanic/quickstart/install.html) to get it up and running.
 
 **Clone the Repository:** Download the project's source code by cloning the repository to your local machine:
 
@@ -59,7 +59,7 @@ Follow these steps to set up your development environment and prepare for contri
 git clone https://github.com/nandac/letterloom.git
 ```
 
-Once you've completed these steps, your development environment will be ready.
+Once you have completed these steps, your development environment will be ready.
 
 ### Next Steps
 
