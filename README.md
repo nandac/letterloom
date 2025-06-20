@@ -100,6 +100,12 @@ To test the functionality of the module locally, run the predefined test cases u
 just test
 ```
 
+To create a new test to test any new feature added to this package run the following command to create the directory for the new test under tests:
+
+```bash
+tt new <test-case-name>
+```
+
 Ensure that all tests pass before submitting any changes to maintain the project's integrity.
 
 If you want to test the module with a Typst file, you can install the `letterloom` package locally in the `preview` location by running:
@@ -137,8 +143,8 @@ Below is an example demonstrating how to create a letter using the `letterloom` 
               Bristol BS16 1GU]
   ),
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-  salutation: "Gentlemen,",
-  subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate",
+  salutation: "Dear Mr Hawthorne",
+  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
   closing: "Sincerely yours,",
   signatures: (
     (

@@ -121,22 +121,3 @@
     }
   }
 }
-
-#let construct-figures(
-  figures: none, caption-font: none, caption-font-size: none
-) = {
-  // Figures are optional
-  if figures != none and figures != () {
-    // Convert the figures variable to an array in cases
-    // where only one figure is given
-    if type(figures) != array {
-      figures = (figures, )
-    }
-
-    show figure.caption: set text(font: caption-font, size: caption-font-size)
-    for fig in figures {
-      // A figure need not have a caption
-      figure(fig.figure-content, caption: fig.at("figure-caption", default: none))
-    }
-  }
-}

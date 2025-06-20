@@ -4,8 +4,7 @@
 #let letterloom(
   from: none,
   to: none,
-  from-alignment: right,
-  attn-name: none,
+
   date: none,
   subject: none,
   salutation: none,
@@ -14,7 +13,8 @@
   enclosures: none,
   enclosures-title: "encl:",
   cc: none,
-  figures: none,
+  from-alignment: right,
+  attn-name: none,
   footer: none,
   number-pages: false,
   paper-size: "a4",
@@ -23,8 +23,6 @@
   main-font-size: 11pt,
   footer-font: "DejaVu Sans Mono",
   footer-font-size: 7pt,
-  caption-font: "Libertinus Serif",
-  caption-font-size: 9pt,
   footnote-alignment: left,
   footnote-font: "Libertinus Serif",
   footnote-font-size: 8pt,
@@ -33,27 +31,23 @@
   link-color: blue,
   doc
 ) = {
-  // Validate font sizes
-  validate-length(length-value: main-font-size, field-name: "main-font-size")
-  validate-length(length-value: footer-font-size, field-name: "footer-font-size")
-  validate-length(length-value: caption-font-size, field-name: "caption-font-size")
-  validate-length(length-value: footnote-font-size, field-name: "footnote-font-size")
 
-  // Validate paragraph spacing and leading
-  validate-length(length-value: par-leading, field-name: "par-leading")
-  validate-length(length-value: par-spacing, field-name: "par-spacing")
-
+  // Validate all required variables
+  //
   // Validate the sender's contact details
-  validate-contact(contact: from, contact-type: "from")
+  validate-contact(contact: from, field-name: "from")
 
   // Validate the recipient's contact details
-  validate-contact(contact: to, contact-type: "to")
+  validate-contact(contact: to, field-name: "to")
 
   // Validate the date
   validate-string(string-data: date, field-name: "date")
 
   // Validate salutation
   validate-string(string-data: salutation, field-name: "salutation")
+
+  // Validate subject
+  validate-string(string-data: subject, field-name: "subject")
 
   // Validate closing
   validate-string(string-data: closing, field-name: "closing")
@@ -62,14 +56,24 @@
   validate-signatures(signatures: signatures)
 
   // Validate all optional variables
+  //
+  // Validate font sizes
+  validate-length(length-value: main-font-size, field-name: "main-font-size")
+  validate-length(length-value: footer-font-size, field-name: "footer-font-size")
+  validate-length(length-value: footnote-font-size, field-name: "footnote-font-size")
+
+  // Validate paragraph spacing and leading
+  validate-length(length-value: par-leading, field-name: "par-leading")
+  validate-length(length-value: par-spacing, field-name: "par-spacing")
+
   // If attention name is given, validate it
   if attn-name != none {
-    validate-string(string-data: attn-name, field-name: "attn-name")
+    validate-string(string-data: attn-name, field-name: "attn-name", required: false)
   }
 
   // If carbon copy is given, validate it
   if cc != none {
-    validate-string(string-data: cc, field-name: "cc")
+    validate-string(string-data: cc, field-name: "cc", required: false)
   }
 
   // If enclosures is given, validate it
@@ -79,7 +83,7 @@
 
   // If enclosures-title is not the default value, validate it
   if enclosures-title != "encl:" {
-    validate-string(string-data: enclosures-title, field-name: "enclosures-title")
+    validate-string(string-data: enclosures-title, field-name: "enclosures-title", required: false)
   }
 
   // If number-pages is not the default value, validate it
@@ -87,9 +91,19 @@
     validate-boolean(boolean-data: number-pages, field-name: "number-pages")
   }
 
-  // If figures is given, validate it
-  if figures != none {
-    validate-figures(figures: figures)
+  // Validate footer
+  if footer != none {
+    validate-footer(footer: footer)
+  }
+
+  // Validate from alignment
+  if type(from-alignment) != alignment {
+    panic("from-alignment must be of a valid alignment type.")
+  }
+
+  // Validate footnote alignment
+  if type(footnote-alignment) != alignment {
+    panic("footnote-alignment must be of a valid alignment type.")
   }
 
   // Footer is optional
@@ -194,7 +208,4 @@
   }
 
   construct-enclosures(enclosures: enclosures, enclosures-title: enclosures-title)
-  construct-figures(
-    figures: figures, caption-font: caption-font, caption-font-size: caption-font-size
-  )
 }
