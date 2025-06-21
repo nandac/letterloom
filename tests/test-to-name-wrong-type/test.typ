@@ -1,4 +1,4 @@
-/// Test: Invalid To Name Type
+/// test-to-name-wrong-type
 ///
 /// Purpose:
 /// Validates that the letterloom function properly handles cases where

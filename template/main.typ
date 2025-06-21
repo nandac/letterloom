@@ -20,7 +20,7 @@
 ///
 /// Optional Fields (commented out):
 /// - attn-name: Attention line for specific recipient
-/// - cc: Carbon copy recipients
+/// - cc: List of cc recipients
 /// - enclosures: List of attached documents
 /// - enclosures-title: Enclosures header text (default: "encl:")
 /// - footer: Custom footer information
@@ -44,25 +44,18 @@
 #import "@preview/letterloom:0.1.0": *
 
 #show: letterloom.with(
-  // Sender's contact information (name and address)
   from: (
     name: "Sender's Name",
     address: [Sender's Address]
   ),
-  // Recipient's contact information (name and address)
   to: (
     name: "Receiver's Name",
     address: [Receiver's Address]
   ),
-  // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-  // Opening greeting (e.g., "Dear Mr Hawthorne,")
   salutation: "Dear Receiver's Name,",
-  // Letter subject line
   subject: "Subject",
-  // Closing phrase (e.g., "Yours sincerely,")
   closing: "Yours sincerely,",
-  // List of signatories with their names
   signatures: (
     (
       name: "Sender's Name",
@@ -72,30 +65,30 @@
 
   // Uncomment the following options below to customize the letter
 
-  // attn-name: none, // Attention line for specific recipient
-  // cc: none, // Carbon copy recipients
-  // enclosures: none, // List of attached documents
-  // enclosures-title: "encl:", // Enclosures header text
-  // footer: none, // Custom footer information
+  // attn-name: none,
+  // cc: none,
+  // enclosures: none,
+  // enclosures-title: "encl:",
+  // footer: none,
 
-  // number-pages: false, // Enable page numbering
-  // paper-size: "a4", // Document paper size
-  // margins: auto, // Page margins
+  // number-pages: false,
+  // paper-size: "a4",
+  // margins: auto,
 
-  // main-font: "Libertinus Serif", // Primary font family
-  // main-font-size: 11pt, // Primary font size
-  // footer-font: "DejaVu Sans Mono", // Footer font family
-  // footer-font-size: 7pt, // Footer font size
-  // footnote-font: "Libertinus Serif", // Footnote font family
-  // footnote-font-size: 8pt, // Footnote font size
+  // main-font: "Libertinus Serif",
+  // main-font-size: 11pt,
+  // footer-font: "DejaVu Sans Mono",
+  // footer-font-size: 7pt,
+  // footnote-font: "Libertinus Serif",
+  // footnote-font-size: 8pt,
 
-  // par-leading: 0.8em, // Paragraph line spacing
-  // par-spacing: 1.8em, // Paragraph spacing
+  // par-leading: 0.8em,
+  // par-spacing: 1.8em,
 
-  // from-alignment: right, // Sender address alignment
-  // footnote-alignment: left, // Footnote alignment
+  // from-alignment: right,
+  // footnote-alignment: left,
 
-  // link-color: blue, // Color for hyperlinks
+  // link-color: blue,
 )
 
 // Write the body of your letter here

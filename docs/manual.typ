@@ -543,7 +543,9 @@ Below, we present a comprehensive example demonstrating the capabilities of the 
   ),
 
   // Carbon Copy
-  cc: "Mr Jethro Tull",
+  cc: (
+    "Mr Jethro Tull"
+  ),
 
   // Enclosures
   enclosures: (
@@ -592,11 +594,11 @@ Below, we present a comprehensive example demonstrating the capabilities of the 
   // Footnote Font Size
   footnote-font-size: 7pt,
 
-  //Footnote Alignment
+  // Footnote Alignment
   footnote-alignment: right,
 
-  //Link Color
-  link-color: maroon
+  // Link Color
+  link-color: maroon,
 )
 
 We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
@@ -672,7 +674,9 @@ Thank you kindly.
   ),
 
   // Carbon Copy
-  cc: "Mr Jethro Tull",
+  cc: (
+    "Mr Jethro Tull"
+  ),
 
   // Enclosures
   enclosures: (
@@ -721,11 +725,11 @@ Thank you kindly.
   // Footnote Font Size
   footnote-font-size: 7pt,
 
-  //Footnote Alignment
+  // Footnote Alignment
   footnote-alignment: right,
 
-  //Link Color
-  link-color: maroon
+  // Link Color
+  link-color: maroon,
 )
 
 We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.

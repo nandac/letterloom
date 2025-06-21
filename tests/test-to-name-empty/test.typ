@@ -1,4 +1,4 @@
-/// Test: Empty To Name
+/// test-to-name-empty
 ///
 /// Purpose:
 /// Validates that the letterloom function properly handles cases where

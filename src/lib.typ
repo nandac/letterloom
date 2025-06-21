@@ -10,7 +10,6 @@
 /// - Supports custom salutations, closings, signatures, and enclosures
 /// - Configurable fonts, spacing, alignment, and page settings
 /// - Modular design for easy extension and customization
-
 #import "validate-inputs.typ": validate-inputs
 #import "construct-outputs.typ": *
 
@@ -25,7 +24,7 @@
 /// - closing: Closing phrase (string or content)
 /// - signatures: List of signatories (array or single dictionary)
 /// - attn-name: Optional attention line (string or content)
-/// - cc: Optional carbon copy recipients (string or content)
+/// - cc: Optional list of cc recipients (array or string/content)
 /// - enclosures: Optional list of enclosures (array or string/content)
 /// - enclosures-title: Optional enclosures header (string, default "encl:")
 /// - footer: Optional footer information
@@ -188,12 +187,8 @@
 
   v(10pt)
 
-  // Carbon copy (optional)
-  if cc != none {
-    text("cc: " + cc)
-    linebreak()
-    linebreak()
-  }
+  // cc (optional)
+  construct-cc(cc: cc)
 
   // Enclosures (optional)
   construct-enclosures(enclosures: enclosures, enclosures-title: enclosures-title)
