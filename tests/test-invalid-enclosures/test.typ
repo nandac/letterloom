@@ -1,4 +1,4 @@
-// test-enclosures
+/// test-invalid-enclosures
 ///
 /// Synopsis:
 /// Test case where the enclosures are do not contain strings or content blocks.

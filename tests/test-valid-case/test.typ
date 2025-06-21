@@ -1,4 +1,4 @@
-/// Test: Valid Letter Configuration
+/// test-valid-case
 ///
 /// Purpose:
 /// Validates that the letterloom function correctly processes a complete

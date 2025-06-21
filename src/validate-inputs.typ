@@ -173,6 +173,32 @@
   }
 }
 
+/// Validates cc list format.
+///
+/// Parameters:
+/// - cc: Array or single cc string/content
+///
+/// Panics if any cc item is not a string or content block.
+/// Note: cc's are optional - no error if none provided
+#let validate-cc(cc: none) = {
+  // Validate that the give cc in the correct format
+
+  // CCs are optional
+  if cc not in (none, ()) {
+    // Handle the case where we only have a single cc
+    if type(cc) != array {
+      cc = (cc, )
+    }
+
+    // Validate each cc item
+    for cc-item in cc {
+      if type(cc-item) not in (str, content) {
+        panic("cc item must be a string or content block.")
+      }
+    }
+  }
+}
+
 /// Validates enclosure list format.
 ///
 /// Parameters:
@@ -339,9 +365,9 @@
     validate-string(string-data: attn-name, field-name: "attn-name", required: false)
   }
 
-  // If carbon copy is given, validate it
+  // If cc is given, validate it
   if cc != none {
-    validate-string(string-data: cc, field-name: "cc", required: false)
+    validate-cc(cc: cc)
   }
 
   // If enclosures are given, validate them

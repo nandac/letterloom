@@ -62,6 +62,21 @@
   )
 }
 
+#let construct-cc(cc: none, cc-title: "cc:") = {
+  set enum(indent: 15pt)
+  cc-title
+
+  if type(cc) != array {
+    // Handle the case where only one cc is given
+    cc = (cc, )
+  }
+
+  // cc's are displayed as a bulleted list
+  for item in cc {
+    enum.item(text(item))
+  }
+}
+
 /// Constructs an enumerated list of enclosures.
 ///
 /// Parameters:

@@ -1,4 +1,4 @@
-/// Test: Footer Validation
+/// test-invalid-footer
 ///
 /// Purpose:
 /// Validates that the letterloom function properly handles various footer

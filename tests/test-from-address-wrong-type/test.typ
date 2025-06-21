@@ -1,4 +1,4 @@
-/// Test: Invalid From Address Type
+/// test-from-address-wrong-type
 ///
 /// Purpose:
 /// Validates that the letterloom function properly handles cases where

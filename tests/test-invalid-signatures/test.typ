@@ -1,4 +1,4 @@
-/// Test: Signature Validation
+/// test-invalid-signatures
 ///
 /// Purpose:
 /// Validates that the letterloom function properly handles various signature
