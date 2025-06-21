@@ -1,10 +1,24 @@
-/// test-no-to-name
+/// Test: Missing To Name Field
 ///
-/// Synopsis:
-/// Test case where the to name is missing.
+/// Purpose:
+/// Validates that the letterloom function properly handles the case where
+/// the recipient's name field is missing from the contact information.
 ///
-/// Expected error:
-/// "panicked with: \"error: to name is missing.\""
+/// Test Scenario:
+/// The 'to' dictionary contains an address field but is missing
+/// the required 'name' field entirely.
+///
+/// Expected Behavior:
+/// The function should panic with a clear error message indicating that
+/// the recipient's name is missing.
+///
+/// Expected Error:
+/// "panicked with: \"to name is missing.\""
+///
+/// Validation:
+/// Ensures that the validation system correctly identifies missing
+/// required fields in the recipient's contact information and provides
+/// appropriate error feedback.
 ///
 #import "/src/lib.typ": *
 

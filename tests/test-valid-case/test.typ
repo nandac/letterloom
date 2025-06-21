@@ -1,7 +1,27 @@
-/// test-valid-case
+/// Test: Valid Letter Configuration
 ///
-/// Synopsis:
-/// Test case where the letter is valid.
+/// Purpose:
+/// Validates that the letterloom function correctly processes a complete
+/// and valid letter configuration with all required fields properly set.
+///
+/// Test Scenario:
+/// - All required fields are provided with valid data
+/// - Sender and recipient information is complete
+/// - Date, salutation, subject, and closing are properly formatted
+/// - Multiple signatures are included
+/// - Letter body content is provided
+///
+/// Expected Behavior:
+/// The function should successfully generate a properly formatted letter
+/// without any validation errors or panics.
+///
+/// Validation:
+/// Ensures that the letterloom function can handle a complete, real-world
+/// letter scenario and produce the expected output format.
+///
+/// Note:
+/// This test serves as a baseline for all other validation tests and
+/// demonstrates the expected usage pattern for the letterloom package.
 ///
 #import "/src/lib.typ": *
 

@@ -1,20 +1,57 @@
-#import "validate-inputs.typ": *
+/// letterloom Core Module
+///
+/// This module provides the main interface and layout logic for generating
+/// professional letters using the letterloom package. It orchestrates
+/// input validation, document structure, and formatting, and exposes the main
+/// `letterloom` function for end users and templates.
+///
+/// Features:
+/// - Validates and formats sender/recipient information
+/// - Supports custom salutations, closings, signatures, and enclosures
+/// - Configurable fonts, spacing, alignment, and page settings
+/// - Modular design for easy extension and customization
+
+#import "validate-inputs.typ": validate-inputs
 #import "construct-outputs.typ": *
 
+/// Generates a formatted letter according to the letterloom specification.
+///
+/// Parameters:
+/// - from: Sender's contact information (dictionary with name and address)
+/// - to: Recipient's contact information (dictionary with name and address)
+/// - date: Letter date (string or content)
+/// - salutation: Opening greeting (string or content)
+/// - subject: Letter subject line (string or content)
+/// - closing: Closing phrase (string or content)
+/// - signatures: List of signatories (array or single dictionary)
+/// - attn-name: Optional attention line (string or content)
+/// - cc: Optional carbon copy recipients (string or content)
+/// - enclosures: Optional list of enclosures (array or string/content)
+/// - enclosures-title: Optional enclosures header (string, default "encl:")
+/// - footer: Optional footer information
+/// - number-pages: Enable page numbering (boolean)
+/// - paper-size: Paper size (string, default "a4")
+/// - margins: Page margins (auto or length)
+/// - main-font, main-font-size, footer-font, footer-font-size, etc.: Font settings
+/// - par-leading, par-spacing: Paragraph spacing settings
+/// - from-alignment, footnote-alignment: Alignment settings
+/// - link-color: Hyperlink color
+/// - doc: Main letter body content
+///
+/// Returns:
+/// - A fully formatted letter document ready for rendering or export.
 #let letterloom(
   from: none,
   to: none,
-
   date: none,
-  subject: none,
   salutation: none,
+  subject: none,
   closing: none,
   signatures: none,
+  attn-name: none,
+  cc: none,
   enclosures: none,
   enclosures-title: "encl:",
-  cc: none,
-  from-alignment: right,
-  attn-name: none,
   footer: none,
   number-pages: false,
   paper-size: "a4",
@@ -23,88 +60,39 @@
   main-font-size: 11pt,
   footer-font: "DejaVu Sans Mono",
   footer-font-size: 7pt,
-  footnote-alignment: left,
   footnote-font: "Libertinus Serif",
   footnote-font-size: 8pt,
-  par-leading: 0.8em, // Space between adjacent lines in a paragraph; tuned to the font used
-  par-spacing: 1.8em, // Space between paragraphs
+  par-leading: 0.8em,
+  par-spacing: 1.8em,
+  from-alignment: right,
+  footnote-alignment: left,
   link-color: blue,
   doc
 ) = {
-
-  // Validate all required variables
-  //
-  // Validate the sender's contact details
-  validate-contact(contact: from, field-name: "from")
-
-  // Validate the recipient's contact details
-  validate-contact(contact: to, field-name: "to")
-
-  // Validate the date
-  validate-string(string-data: date, field-name: "date")
-
-  // Validate salutation
-  validate-string(string-data: salutation, field-name: "salutation")
-
-  // Validate subject
-  validate-string(string-data: subject, field-name: "subject")
-
-  // Validate closing
-  validate-string(string-data: closing, field-name: "closing")
-
-  // Validate signatures
-  validate-signatures(signatures: signatures)
-
-  // Validate all optional variables
-  //
-  // Validate font sizes
-  validate-length(length-value: main-font-size, field-name: "main-font-size")
-  validate-length(length-value: footer-font-size, field-name: "footer-font-size")
-  validate-length(length-value: footnote-font-size, field-name: "footnote-font-size")
-
-  // Validate paragraph spacing and leading
-  validate-length(length-value: par-leading, field-name: "par-leading")
-  validate-length(length-value: par-spacing, field-name: "par-spacing")
-
-  // If attention name is given, validate it
-  if attn-name != none {
-    validate-string(string-data: attn-name, field-name: "attn-name", required: false)
-  }
-
-  // If carbon copy is given, validate it
-  if cc != none {
-    validate-string(string-data: cc, field-name: "cc", required: false)
-  }
-
-  // If enclosures is given, validate it
-  if enclosures != none {
-    validate-enclosures(enclosures: enclosures)
-  }
-
-  // If enclosures-title is not the default value, validate it
-  if enclosures-title != "encl:" {
-    validate-string(string-data: enclosures-title, field-name: "enclosures-title", required: false)
-  }
-
-  // If number-pages is not the default value, validate it
-  if number-pages != false {
-    validate-boolean(boolean-data: number-pages, field-name: "number-pages")
-  }
-
-  // Validate footer
-  if footer != none {
-    validate-footer(footer: footer)
-  }
-
-  // Validate from alignment
-  if type(from-alignment) != alignment {
-    panic("from-alignment must be of a valid alignment type.")
-  }
-
-  // Validate footnote alignment
-  if type(footnote-alignment) != alignment {
-    panic("footnote-alignment must be of a valid alignment type.")
-  }
+  // Validate all inputs
+  validate-inputs(
+    from: from,
+    to: to,
+    date: date,
+    salutation: salutation,
+    subject: subject,
+    closing: closing,
+    signatures: signatures,
+    attn-name: attn-name,
+    cc: cc,
+    enclosures: enclosures,
+    enclosures-title: enclosures-title,
+    footer: footer,
+    number-pages: number-pages,
+    main-font-size: main-font-size,
+    footer-font-size: footer-font-size,
+    footnote-font-size: footnote-font-size,
+    par-leading: par-leading,
+    par-spacing: par-spacing,
+    from-alignment: from-alignment,
+    footnote-alignment: footnote-alignment,
+    link-color: link-color,
+  )
 
   // Footer is optional
   let custom-footer = construct-custom-footer(
@@ -134,7 +122,7 @@
   // Paragraph spacing
   set par(
     leading: par-leading, // Space between adjacent lines in a paragraph
-    spacing: par-spacing // Space between paragraphs
+    spacing: par-spacing  // Space between paragraphs
   )
 
   // Color links to the desired color
@@ -150,7 +138,7 @@
     it
   }
 
-  // Sender's name, address, and date block at top right
+  // Sender's name, address, and date block
   align(from-alignment, block[
     #set align(left)
     #from.name
@@ -177,7 +165,7 @@
 
   v(5pt)
 
-  // Recipient's salutation e.g. Dear Sir/Madam etc.
+  // Salutation
   text(salutation)
 
   linebreak()
@@ -192,7 +180,7 @@
   linebreak()
   v(5pt)
 
-  // Closing e.g. Yours sincerely etc.
+  // Closing
   text(closing)
 
   // Signatures
@@ -207,5 +195,6 @@
     linebreak()
   }
 
+  // Enclosures (optional)
   construct-enclosures(enclosures: enclosures, enclosures-title: enclosures-title)
 }

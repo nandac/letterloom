@@ -1,30 +1,33 @@
-/// Test: Invalid To Address Type
+/// Test: Footer Validation
 ///
 /// Purpose:
-/// Validates that the letterloom function properly handles cases where
-/// the recipient's address field contains invalid data types.
+/// Validates that the letterloom function properly handles various footer
+/// validation scenarios including invalid types, structures, and content.
 ///
 /// Test Scenarios:
-/// 1. To address is a number (integer)
-/// 2. To address is none/null
-/// 3. To address is a calculated value (float)
+/// 1. Footer is provided as a string instead of a dictionary structure
+/// 2. Footer dictionary contains an invalid footer-type value
+/// 3. Footer dictionary contains invalid footer-text type
 ///
 /// Expected Behavior:
-/// The function should panic with a clear error message indicating that
-/// the recipient's address must be a content block.
+/// The function should panic with appropriate error messages for each
+/// validation failure scenario.
 ///
-/// Expected Error:
-/// "panicked with: \"to address must be a content block.\""
+/// Expected Errors:
+/// - "panicked with: \"footer element must be a dictionary.\""
+/// - "panicked with: \"footer-type must be one of url, email or string.\""
+/// - "panicked with: \"footer-text must be a string or content block.\""
 ///
 /// Validation:
-/// Ensures that the validation system correctly identifies type mismatches
-/// in the recipient's address field and provides appropriate error feedback.
+/// Ensures that the footer validation system correctly identifies
+/// structural and content issues in footer data and provides
+/// appropriate error feedback.
 ///
 #import "/src/lib.typ": *
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -34,7 +37,10 @@
     ),
     to: (
       name: "Evergreen Tree Surgeons",
-      address: 3
+      address: [Midtown Lane \
+                Cheswick Village \
+                Stoke Gifford \
+                Bristol BS16 1GU]
     ),
     date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
     salutation: "Dear Mr Hawthorne",
@@ -50,14 +56,15 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
+    footer: "invalid footer"
   )),
-  "panicked with: \"to address must be a content block.\""
+  "panicked with: \"footer element must be a dictionary.\""
 )
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -67,7 +74,10 @@
     ),
     to: (
       name: "Evergreen Tree Surgeons",
-      address: none
+      address: [Midtown Lane \
+                Cheswick Village \
+                Stoke Gifford \
+                Bristol BS16 1GU]
     ),
     date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
     salutation: "Dear Mr Hawthorne",
@@ -83,14 +93,20 @@
       (
         name: "Sir Austin Dimbleby"
       )
+    ),
+    footer: (
+      (
+        footer-text: "footer text",
+        footer-type: "invalid footer type"
+      )
     )
   )),
-  "panicked with: \"to address must be a content block.\""
+  "panicked with: \"footer-type must be one of url, email or string.\""
 )
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -100,7 +116,10 @@
     ),
     to: (
       name: "Evergreen Tree Surgeons",
-      address: calc.ceil(1.2)
+      address: [Midtown Lane \
+                Cheswick Village \
+                Stoke Gifford \
+                Bristol BS16 1GU]
     ),
     date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
     salutation: "Dear Mr Hawthorne",
@@ -116,7 +135,13 @@
       (
         name: "Sir Austin Dimbleby"
       )
+    ),
+    footer: (
+      (
+        footer-text: calc.ceil(3.14),
+        footer-type: "string"
+      )
     )
   )),
-  "panicked with: \"to address must be a content block.\""
+  "panicked with: \"footer-text must be a string or content block.\""
 )

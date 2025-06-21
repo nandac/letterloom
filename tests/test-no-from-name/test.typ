@@ -1,10 +1,24 @@
-/// test-no-from-name
+/// Test: Missing From Name Field
 ///
-/// Synopsis:
-/// Test case where the from name is missing.
+/// Purpose:
+/// Validates that the letterloom function properly handles the case where
+/// the sender's name field is missing from the contact information.
 ///
-/// Expected error:
-/// "panicked with: \"error: from name is missing.\""
+/// Test Scenario:
+/// The 'from' dictionary contains an address field but is missing
+/// the required 'name' field entirely.
+///
+/// Expected Behavior:
+/// The function should panic with a clear error message indicating that
+/// the sender's name is missing.
+///
+/// Expected Error:
+/// "panicked with: \"from name is missing.\""
+///
+/// Validation:
+/// Ensures that the validation system correctly identifies missing
+/// required fields in the sender's contact information and provides
+/// appropriate error feedback.
 ///
 #import "/src/lib.typ": *
 

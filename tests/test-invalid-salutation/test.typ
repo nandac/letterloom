@@ -1,32 +1,38 @@
-/// Test: Invalid From Name Type
+/// test-invalid-salutation
 ///
 /// Purpose:
-/// Validates that the letterloom function properly handles cases where
-/// the sender's name field contains invalid data types.
+/// Validates input validation for the salutation field in letterloom. Ensures that the function
+/// properly handles missing, empty, or incorrectly typed salutation values and provides
+/// appropriate error messages for each validation failure scenario.
 ///
 /// Test Scenarios:
-/// 1. From name is a number (integer)
-/// 2. From name is none/null
-/// 3. From name is a calculated value (float)
+/// - Missing salutation field (not provided in function call)
+/// - Empty salutation field (empty string)
+/// - Empty salutation field (empty array)
+/// - Incorrect salutation type (number instead of string/content)
 ///
 /// Expected Behavior:
-/// The function should panic with a clear error message indicating that
-/// the sender's name must be a string or content block.
+/// All test cases should trigger appropriate validation errors when the salutation field is missing,
+/// empty, or of incorrect type. The letterloom function should panic with descriptive error
+/// messages indicating the specific validation failure.
 ///
-/// Expected Error:
-/// "panicked with: \"from name must be a string or content block.\""
+/// Expected Errors:
+/// - "salutation is missing." - when salutation field is not provided
+/// - "salutation is empty." - when salutation field is empty string
+/// - "salutation is empty." - when salutation field is empty array
+/// - "salutation must be a string or content block." - when salutation field has wrong type
 ///
 /// Validation:
-/// Ensures that the validation system correctly identifies type mismatches
-/// in the sender's name field and provides appropriate error feedback.
+/// Uses Tytanic's catch() function to capture panics and assert that the expected error
+/// messages are returned for each validation scenario.
 ///
 #import "/src/lib.typ": *
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
-      name: 3,
+      name: "The Dimbleby Family",
       address: [The Lodge \
                 Cheswick Village \
                 Middle Upton \
@@ -40,7 +46,6 @@
                 Bristol BS16 1GU]
     ),
     date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-    salutation: "Dear Mr Hawthorne",
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
     closing: "Sincerely yours,",
     signatures: (
@@ -55,14 +60,14 @@
       )
     )
   )),
-  "panicked with: \"from name must be a string or content block.\""
+  "panicked with: \"salutation is missing.\""
 )
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
-      name: none,
+      name: "The Dimbleby Family",
       address: [The Lodge \
                 Cheswick Village \
                 Middle Upton \
@@ -76,7 +81,7 @@
                 Bristol BS16 1GU]
     ),
     date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-    salutation: "Dear Mr Hawthorne",
+    salutation: "",
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
     closing: "Sincerely yours,",
     signatures: (
@@ -91,14 +96,14 @@
       )
     )
   )),
-  "panicked with: \"from name must be a string or content block.\""
+  "panicked with: \"salutation is empty.\""
 )
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
-      name: calc.ceil(1.2),
+      name: "The Dimbleby Family",
       address: [The Lodge \
                 Cheswick Village \
                 Middle Upton \
@@ -112,7 +117,7 @@
                 Bristol BS16 1GU]
     ),
     date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-    salutation: "Dear Mr Hawthorne",
+    salutation: [],
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
     closing: "Sincerely yours,",
     signatures: (
@@ -127,5 +132,41 @@
       )
     )
   )),
-  "panicked with: \"from name must be a string or content block.\""
+  "panicked with: \"salutation is empty.\""
+)
+
+#assert.eq(
+  catch(() => letterloom(
+    none,
+    from: (
+      name: "The Dimbleby Family",
+      address: [The Lodge \
+                Cheswick Village \
+                Middle Upton \
+                Bristol BS16 1GU]
+    ),
+    to: (
+      name: "Evergreen Tree Surgeons",
+      address: [Midtown Lane \
+                Cheswick Village \
+                Stoke Gifford \
+                Bristol BS16 1GU]
+    ),
+    date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+    salutation: 3,
+    subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+    closing: "Sincerely yours,",
+    signatures: (
+      (
+        name: "Lord Albus Dimbleby"
+      ),
+      (
+        name: "Lady Abigail Dimbleby"
+      ),
+      (
+        name: "Sir Austin Dimbleby"
+      )
+    )
+  )),
+  "panicked with: \"salutation must be a string or content block.\""
 )

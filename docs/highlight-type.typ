@@ -1,3 +1,45 @@
+/// highlight-type
+///
+/// Purpose:
+/// Provides a collection of styled type highlighters for use in
+/// Typst documentation that matches the highlighting used in Typst's documentation.
+/// Each type is highlighted with a distinct color scheme to improve readability
+/// and visual distinction between different data types in code examples.
+///
+/// Usage:
+/// This module defines a dictionary of highlight functions that can be used to
+/// style type names in documentation. Each highlight function applies a specific
+/// background color and styling to make type names visually distinct.
+///
+/// Parameters:
+/// - radius: 4pt - The corner radius for the highlight background
+/// - extent: 4pt - The padding around the text in the highlight
+///
+/// Examples:
+/// ```typ
+/// #import "highlight-type.typ": highlight-type
+///
+/// // Highlight different types
+/// #highlight-type.str[String type]
+/// #highlight-type.bool[Boolean type]
+/// #highlight-type.function[Function type]
+/// ```
+///
+/// Available Types:
+/// - alignment: Light blue highlight for alignment types
+/// - array: Light purple highlight for array types
+/// - auto-type: Light red highlight for auto types
+/// - bool: Light yellow highlight for boolean types
+/// - color: Gradient highlight for color types
+/// - content: Light teal highlight for content types
+/// - dictionary: Light purple highlight for dictionary types
+/// - function: Light blue-purple highlight for function types
+/// - length: Light yellow highlight for length types
+/// - none-type: Light red highlight for none types
+/// - relative: Light yellow highlight for relative types
+/// - str: Light green highlight for string types
+///
+
 #let radius = 4pt
 #let extent = 4pt
 

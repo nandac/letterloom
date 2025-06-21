@@ -3,6 +3,30 @@
 /// Synopsis:
 /// Test case where the enclosures are do not contain strings or content blocks.
 ///
+/// Test: Invalid Enclosure Types
+///
+/// Purpose:
+/// Validates that the letterloom function properly handles cases where
+/// enclosure items contain invalid data types instead of strings or content blocks.
+///
+/// Test Scenario:
+/// Enclosures array contains mixed valid and invalid types:
+/// - Valid string: "enclosure one"
+/// - Invalid number: calc.ceil(3.14)
+/// - Invalid none: none
+/// - Invalid empty tuple: ()
+///
+/// Expected Behavior:
+/// The function should panic with a clear error message indicating that
+/// enclosures must be strings or content blocks.
+///
+/// Expected Error:
+/// "panicked with: \"enclosure must be a string or content block.\""
+///
+/// Validation:
+/// Ensures that the validation system correctly identifies type mismatches
+/// in enclosure data and provides appropriate error feedback.
+///
 #import "/src/lib.typ": *
 
 #assert.eq(

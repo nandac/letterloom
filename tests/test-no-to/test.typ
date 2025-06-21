@@ -1,10 +1,23 @@
-/// test-no-to
+/// Test: Missing To Field
 ///
-/// Synopsis:
-/// Test case where the to details are missing.
+/// Purpose:
+/// Validates that the letterloom function properly handles the case where
+/// the recipient's contact information (to field) is completely missing.
 ///
-/// Expected error:
-/// "panicked with: \"error: to details must be a dictionary with name and address fields.\""
+/// Test Scenario:
+/// All required fields are provided except the 'to' field
+/// The 'to' field is set to none or omitted entirely
+///
+/// Expected Behavior:
+/// The function should panic with a clear error message indicating that
+/// the recipient's contact information is missing.
+///
+/// Expected Error:
+/// "panicked with: \"to is missing.\""
+///
+/// Validation:
+/// Ensures that the validation system correctly identifies missing
+/// required recipient information and provides appropriate error feedback.
 ///
 #import "/src/lib.typ": *
 
@@ -34,5 +47,5 @@
       )
     )
   )),
-  "panicked with: \"to details must be a dictionary with name and address fields.\""
+  "panicked with: \"to is missing.\""
 )

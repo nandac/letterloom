@@ -1,25 +1,68 @@
+/// letterloom Template
+///
+/// This template demonstrates how to use the letterloom package to create
+/// professional letters with customizable formatting options.
+///
+/// Usage:
+/// 1. Replace the placeholder values in the required fields (from, to, date, etc.)
+/// 2. Uncomment and modify any optional configuration parameters as needed
+/// 3. Add your letter content after the closing parenthesis
+/// 4. Compile with: `typst compile main.typ`
+///
+/// Required Fields:
+/// - from: Sender's contact information (name and address)
+/// - to: Recipient's contact information (name and address)
+/// - date: Letter date (automatically set to today's date)
+/// - salutation: Opening greeting (e.g., "Dear Mr. Smith,")
+/// - subject: Letter subject line
+/// - closing: Closing phrase (e.g., "Yours sincerely,")
+/// - signatures: List of signatories with their names
+///
+/// Optional Fields (commented out):
+/// - attn-name: Attention line for specific recipient
+/// - cc: Carbon copy recipients
+/// - enclosures: List of attached documents
+/// - enclosures-title: Enclosures header text (default: "encl:")
+/// - footer: Custom footer information
+/// - number-pages: Enable page numbering (default: false)
+/// - paper-size: Document paper size (default: "a4")
+/// - margins: Page margins (default: auto)
+/// - main-font: Primary font family (default: "Libertinus Serif")
+/// - main-font-size: Primary font size (default: 11pt)
+/// - footer-font: Footer font family (default: "DejaVu Sans Mono")
+/// - footer-font-size: Footer font size (default: 7pt)
+/// - footnote-font: Footnote font family (default: "Libertinus Serif")
+/// - footnote-font-size: Footnote font size (default: 8pt)
+/// - par-leading: Paragraph line spacing (default: 0.8em)
+/// - par-spacing: Paragraph spacing (default: 1.8em)
+/// - from-alignment: Sender address alignment (default: right)
+/// - footnote-alignment: Footnote alignment (default: left)
+/// - link-color: Color for hyperlinks (default: blue)
+///
+/// For more information, see the letterloom documentation.
+
 #import "@preview/letterloom:0.1.0": *
 
 #show: letterloom.with(
-  // Sender
+  // Sender's contact information (name and address)
   from: (
     name: "Sender's Name",
     address: [Sender's Address]
   ),
-  // Receiver
+  // Recipient's contact information (name and address)
   to: (
     name: "Receiver's Name",
     address: [Receiver's Address]
   ),
-  // Date
+  // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-  // Salutation
+  // Opening greeting (e.g., "Dear Mr Hawthorne,")
   salutation: "Dear Receiver's Name,",
-  // Subject
+  // Letter subject line
   subject: "Subject",
-  // Closing
+  // Closing phrase (e.g., "Yours sincerely,")
   closing: "Yours sincerely,",
-  // Signatures
+  // List of signatories with their names
   signatures: (
     (
       name: "Sender's Name",
@@ -27,31 +70,32 @@
     )
   ),
 
-  // Uncomment the following options to customize the letter
+  // Uncomment the following options below to customize the letter
 
-  // from-alignment: right, // Alignment of the sender's address
-  // attn-name: none, // Add the name of the person you want to address your letter to
+  // attn-name: none, // Attention line for specific recipient
+  // cc: none, // Carbon copy recipients
+  // enclosures: none, // List of attached documents
+  // enclosures-title: "encl:", // Enclosures header text
+  // footer: none, // Custom footer information
 
-  // enclosures: none, // Add enclosures to your letter
-  // enclosures-title: "encl:", // Change the title of the enclosures
-  // cc: none, // Add the person you want cc your letter to
-  // footer: none, // Add a footer to your letter
-  // number-pages: false, // Number pages from the second page onwards
+  // number-pages: false, // Enable page numbering
+  // paper-size: "a4", // Document paper size
+  // margins: auto, // Page margins
 
-  // paper-size: "a4", // Paper size
-  // margins: auto, // Margins
-
-  // main-font: "Libertinus Serif", // Main font for the body of the letter
-  // main-font-size: 11pt, // Main font size for the body of the letter
-  // footer-font: "DejaVu Sans Mono", // Footer font
+  // main-font: "Libertinus Serif", // Primary font family
+  // main-font-size: 11pt, // Primary font size
+  // footer-font: "DejaVu Sans Mono", // Footer font family
   // footer-font-size: 7pt, // Footer font size
-  // footnote-alignment: left, // Footnote alignment
-  // footnote-font: "Libertinus Serif", // Footnote font
+  // footnote-font: "Libertinus Serif", // Footnote font family
   // footnote-font-size: 8pt, // Footnote font size
 
-  // par-leading: 0.8em, // Paragraph leading
+  // par-leading: 0.8em, // Paragraph line spacing
   // par-spacing: 1.8em, // Paragraph spacing
-  // link-color: blue // Link color
+
+  // from-alignment: right, // Sender address alignment
+  // footnote-alignment: left, // Footnote alignment
+
+  // link-color: blue, // Color for hyperlinks
 )
 
 // Write the body of your letter here
