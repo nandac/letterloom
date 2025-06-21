@@ -13,31 +13,31 @@ These instructions will get you a copy of the project up and running on the Typs
 #import "@preview/letterloom:0.1.0": *
 
 #show: letterloom.with(
-  // Sender
+  // Sender's contact information (name and address)
   from: (
     name: "Sender's Name",
     address: [Sender's Address]
   ),
-  // Receiver
+  // Recipient's contact information (name and address)
   to: (
     name: "Receiver's Name",
     address: [Receiver's Address]
   ),
-  // Date
+  // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-  // Salutation
+  // Opening greeting (e.g., "Dear Mr Hawthorne,")
   salutation: "Dear Receiver's Name,",
-  // Subject
+  // Letter subject line
   subject: "Subject",
-  // Closing
+  // Closing phrase (e.g., "Yours sincerely,")
   closing: "Yours sincerely,",
-  // Signatures
+  // List of signatories with their names
   signatures: (
     (
       name: "Sender's Name",
       // signature: image() // Add your signature image here
     )
-  )
+  ),
 )
 
 // Write the body of your letter here
@@ -137,8 +137,8 @@ Below is an example demonstrating how to create a letter using the `letterloom` 
     (
       name: "Sir Austin Dimbleby",
       signature: image("images/austin-sig.png")
-    )
-  )
+    ),
+  ),
 )
 
 We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.

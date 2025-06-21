@@ -1,7 +1,32 @@
-/// test-signatures
+/// Test: Signature Validation
 ///
-/// Synopsis:
-/// Test case where the signatures are missing, empty or of the wrong type.
+/// Purpose:
+/// Validates that the letterloom function properly handles various signature
+/// validation scenarios including missing, empty, and invalid signature data.
+///
+/// Test Scenarios:
+/// 1. Signatures field is completely missing
+/// 2. Signatures field is an empty tuple
+/// 3. Signatures are provided as strings instead of dictionaries
+/// 4. Signature dictionaries are missing the required 'name' field
+/// 5. Signature names are invalid types (number, calculated value, none)
+/// 6. Signature names are empty strings
+///
+/// Expected Behavior:
+/// The function should panic with appropriate error messages for each
+/// validation failure scenario.
+///
+/// Expected Errors:
+/// - "panicked with: \"signatures are missing.\""
+/// - "panicked with: \"the signature must be a dictionary with a name field and an optional signature field.\""
+/// - "panicked with: \"the signature name is missing.\""
+/// - "panicked with: \"the signature name must be a string or content block.\""
+/// - "panicked with: \"the signature name is empty.\""
+///
+/// Validation:
+/// Ensures that the signature validation system correctly identifies
+/// structural and content issues in signature data and provides
+/// appropriate error feedback.
 ///
 #import "/src/lib.typ": *
 

@@ -1,10 +1,24 @@
-/// test-to-name-wrong-type
+/// Test: Invalid To Name Type
 ///
-/// Synopsis:
-/// Test case where the to name is of the wrong type.
+/// Purpose:
+/// Validates that the letterloom function properly handles cases where
+/// the recipient's name field contains invalid data types.
 ///
-/// Expected error:
-/// "panicked with: \"error: to name must be a string or content block.\""
+/// Test Scenarios:
+/// 1. To name is a number (integer)
+/// 2. To name is none/null
+/// 3. To name is a calculated value (float)
+///
+/// Expected Behavior:
+/// The function should panic with a clear error message indicating that
+/// the recipient's name must be a string or content block.
+///
+/// Expected Error:
+/// "panicked with: \"to name must be a string or content block.\""
+///
+/// Validation:
+/// Ensures that the validation system correctly identifies type mismatches
+/// in the recipient's name field and provides appropriate error feedback.
 ///
 #import "/src/lib.typ": *
 

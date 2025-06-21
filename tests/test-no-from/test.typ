@@ -1,10 +1,23 @@
-/// test-no-from
+/// Test: Missing From Field
 ///
-/// Synopsis:
-/// Test case where the from details are missing.
+/// Purpose:
+/// Validates that the letterloom function properly handles the case where
+/// the sender's contact information (from field) is completely missing.
 ///
-/// Expected error:
-/// "panicked with: \"error: from details must be a dictionary with name and address fields.\""
+/// Test Scenario:
+/// - All required fields are provided except the 'from' field
+/// - The 'from' field is set to none or omitted entirely
+///
+/// Expected Behavior:
+/// The function should panic with a clear error message indicating that
+/// the sender's contact information is missing.
+///
+/// Expected Error:
+/// "panicked with: \"from is missing.\""
+///
+/// Validation:
+/// Ensures that the validation system correctly identifies missing
+/// required sender information and provides appropriate error feedback.
 ///
 #import "/src/lib.typ": *
 
@@ -34,5 +47,5 @@
       )
     )
   )),
-  "panicked with: \"from details must be a dictionary with name and address fields.\""
+  "panicked with: \"from is missing.\""
 )

@@ -1,10 +1,23 @@
-/// test-to-name-empty
+/// Test: Empty To Name
 ///
-/// Synopsis:
-/// Test case where the to name is empty.
+/// Purpose:
+/// Validates that the letterloom function properly handles cases where
+/// the recipient's name field is empty or contains no meaningful content.
 ///
-/// Expected error:
-/// "panicked with: \"error: to name is empty.\""
+/// Test Scenarios:
+/// 1. To name is an empty string ("")
+/// 2. To name is an empty content block ([])
+///
+/// Expected Behavior:
+/// The function should panic with a clear error message indicating that
+/// the recipient's name is empty.
+///
+/// Expected Error:
+/// "panicked with: \"to name is empty.\""
+///
+/// Validation:
+/// Ensures that the validation system correctly identifies empty content
+/// in the recipient's name field and provides appropriate error feedback.
 ///
 #import "/src/lib.typ": *
 

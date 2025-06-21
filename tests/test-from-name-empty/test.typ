@@ -1,10 +1,23 @@
-/// test-from-name-empty
+/// Test: Empty From Name
 ///
-/// Synopsis:
-/// Test case where the from name is empty.
+/// Purpose:
+/// Validates that the letterloom function properly handles cases where
+/// the sender's name field is empty or contains no meaningful content.
 ///
-/// Expected error:
-/// "panicked with: \"error: from name is empty.\""
+/// Test Scenarios:
+/// 1. From name is an empty string ("")
+/// 2. From name is an empty content block ([])
+///
+/// Expected Behavior:
+/// The function should panic with a clear error message indicating that
+/// the sender's name is empty.
+///
+/// Expected Error:
+/// "panicked with: \"from name is empty.\""
+///
+/// Validation:
+/// Ensures that the validation system correctly identifies empty content
+/// in the sender's name field and provides appropriate error feedback.
 ///
 #import "/src/lib.typ": *
 

@@ -1,10 +1,22 @@
-/// test-to-address-empty
+/// Test: Empty To Address
 ///
-/// Synopsis:
-/// Test case where the to address is empty.
+/// Purpose:
+/// Validates that the letterloom function properly handles cases where
+/// the recipient's address field is empty or contains no meaningful content.
 ///
-/// Expected error:
-/// "panicked with: \"error: to address is empty.\""
+/// Test Scenario:
+/// To address is an empty content block ([])
+///
+/// Expected Behavior:
+/// The function should panic with a clear error message indicating that
+/// the recipient's address is empty.
+///
+/// Expected Error:
+/// "panicked with: \"to address is empty.\""
+///
+/// Validation:
+/// Ensures that the validation system correctly identifies empty content
+/// in the recipient's address field and provides appropriate error feedback.
 ///
 #import "/src/lib.typ": *
 

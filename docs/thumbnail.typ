@@ -37,8 +37,8 @@
     (
       name: "Sir Austin Dimbleby",
       signature: image("images/austin-sig.png")
-    )
-  )
+    ),
+  ),
 )
 
 We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.

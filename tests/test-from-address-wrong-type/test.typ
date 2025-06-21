@@ -1,10 +1,24 @@
-/// test-from-address-wrong-type
+/// Test: Invalid From Address Type
 ///
-/// Synopsis:
-/// Test case where the from address is of the wrong type.
+/// Purpose:
+/// Validates that the letterloom function properly handles cases where
+/// the sender's address field contains invalid data types.
 ///
-/// Expected error:
-/// "panicked with: \"error: from address must be a content block.\""
+/// Test Scenarios:
+/// 1. From address is a number (integer)
+/// 2. From address is none/null
+/// 3. From address is a calculated value (float)
+///
+/// Expected Behavior:
+/// The function should panic with a clear error message indicating that
+/// the sender's address must be a content block.
+///
+/// Expected Error:
+/// "panicked with: \"from address must be a content block.\""
+///
+/// Validation:
+/// Ensures that the validation system correctly identifies type mismatches
+/// in the sender's address field and provides appropriate error feedback.
 ///
 #import "/src/lib.typ": *
 

@@ -1,10 +1,24 @@
-/// test-no-to-address
+/// Test: Missing To Address Field
 ///
-/// Synopsis:
-/// Test case where the to address is missing.
+/// Purpose:
+/// Validates that the letterloom function properly handles the case where
+/// the recipient's address field is missing from the contact information.
 ///
-/// Expected error:
-/// "panicked with: \"error: to address is missing.\""
+/// Test Scenario:
+/// The 'to' dictionary contains a name field but is missing
+/// the required 'address' field entirely.
+///
+/// Expected Behavior:
+/// The function should panic with a clear error message indicating that
+/// the recipient's address is missing.
+///
+/// Expected Error:
+/// "panicked with: \"to address is missing.\""
+///
+/// Validation:
+/// Ensures that the validation system correctly identifies missing
+/// required fields in the recipient's contact information and provides
+/// appropriate error feedback.
 ///
 #import "/src/lib.typ": *
 
