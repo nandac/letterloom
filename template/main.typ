@@ -27,14 +27,14 @@
 /// - number-pages: Enable page numbering (default: false)
 /// - paper-size: Document paper size (default: "a4")
 /// - margins: Page margins (default: auto)
+/// - par-leading: Paragraph line spacing (default: 0.8em)
+/// - par-spacing: Paragraph spacing (default: 1.8em)
 /// - main-font: Primary font family (default: "Libertinus Serif")
 /// - main-font-size: Primary font size (default: 11pt)
 /// - footer-font: Footer font family (default: "DejaVu Sans Mono")
 /// - footer-font-size: Footer font size (default: 7pt)
 /// - footnote-font: Footnote font family (default: "Libertinus Serif")
 /// - footnote-font-size: Footnote font size (default: 8pt)
-/// - par-leading: Paragraph line spacing (default: 0.8em)
-/// - par-spacing: Paragraph spacing (default: 1.8em)
 /// - from-alignment: Sender address alignment (default: right)
 /// - footnote-alignment: Footnote alignment (default: left)
 /// - link-color: Color for hyperlinks (default: blue)
@@ -70,10 +70,12 @@
   // enclosures: none,
   // enclosures-title: "encl:",
   // footer: none,
-
   // number-pages: false,
+
   // paper-size: "a4",
   // margins: auto,
+  // par-leading: 0.8em,
+  // par-spacing: 1.8em,
 
   // main-font: "Libertinus Serif",
   // main-font-size: 11pt,
@@ -81,9 +83,6 @@
   // footer-font-size: 7pt,
   // footnote-font: "Libertinus Serif",
   // footnote-font-size: 8pt,
-
-  // par-leading: 0.8em,
-  // par-spacing: 1.8em,
 
   // from-alignment: right,
   // footnote-alignment: left,

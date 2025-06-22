@@ -101,24 +101,16 @@ Below is an example demonstrating how to create a letter using the `letterloom` 
   )
 )
 
-We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
-
-Your specific task would be to render the grove safe to human traffic while at the same time minimizing the residual damage to the trees. You would, of course, also undertake to clear the area thereafter.
-
-Since this estate is jointly owned by the Dimbleby family, the signatures of all three of us appear in this letter to avoid any legal wrangles in the future.
-
-Kindly contact our Head Groundsman, Mr Jethro Tull, on 0117-12345678. to fix an appointment to view the trees and give a quotation for the contemplated work.
-
-Thank you kindly.
+// Write the body of your letter here
 ```
 
-The `letterloom` package provides extensive customization options to help tailor your letters to specific needs. In the following sections, we will explore all mandatory and optional parameters in detail, showcasing their usage with examples on how to specify them. In cases where there are multiple ways to configure an option, links have been provided to the relevant section in #link("https://typst.app/docs/")[Typst's documentation].
+The `letterloom` package provides several customization options to help tailor your letter for specific needs. In the following sections, we will explore all available parameters in detail, showcasing their usage with examples on how to specify them. In cases where Typst provides multiple ways to configure an option, links have been provided to the relevant section in the #link("https://typst.app/docs/")[Typst documentation].
 
-=== Required Parameters
+=== Mandatory Parameters
 
 - *`from`* #h(15pt) #highlight-type.dictionary
 
-  The sender's name and address, provided as a dictionary with the following keys:
+  Sender's name and address, provided as a dictionary with the following keys:
   #table(
     columns: 3,
     column-gutter: 10pt,
@@ -140,9 +132,11 @@ The `letterloom` package provides extensive customization options to help tailor
   )
   ```
 
+  *Note:* The sender's name and address are aligned to the right by default. This can be changed using the `from-alignment` parameter.
+
 - *`to`* #h(15pt) #highlight-type.dictionary
 
-  The receiver's name and address, provided as a dictionary with the following keys:
+  Receiver's name and address, provided as a dictionary with the following keys:
   #table(
     columns: 3,
     column-gutter: 10pt,
@@ -166,7 +160,7 @@ The `letterloom` package provides extensive customization options to help tailor
 
 - *`date`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-  The date of the letter.
+  Date of the letter.
 
   *Examples:*
   ```typ
@@ -181,16 +175,16 @@ The `letterloom` package provides extensive customization options to help tailor
 
 - *`salutation`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-  The salutation or greeting in the letter.
+  Salutation or greeting in the letter.
 
   *Example:*
   ```typ
-  salutation: "Gentlemen,"
+  salutation: "Dear Mr Hawthorne,"
   ```
 
 - *`subject`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-  The subject of the letter.
+  Subject of the letter.
 
   *Example:*
   ```typ
@@ -199,11 +193,11 @@ The `letterloom` package provides extensive customization options to help tailor
 
 - *`closing`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-  The closing line of the letter.
+  Closing line of the letter.
 
   *Example:*
   ```typ
-  closing: "Sincerely yours,"
+  closing: "Yours sincerely,"
   ```
 
 - *`signatures`* #h(15pt) #highlight-type.array
@@ -239,171 +233,9 @@ The `letterloom` package provides extensive customization options to help tailor
 
 === Optional Parameters
 
-- *`paper-size`* #h(15pt) #highlight-type.str
-
-  The paper size of the letter.
-
-  *Default:* `"a4"`
-
-  *Example:*
-  ```typ
-  paper-size: "us-letter"
-  ```
-
-  Refer to #link("https://typst.app/docs/reference/layout/page/#parameters-paper)")[Typst's documentation on paper sizes] for more details on the paper sizes available.
-
-- *`margins`* #h(15pt) #highlight-type.auto-type #h(5pt) or #h(5pt) #highlight-type.relative #h(5pt) or #h(5pt) #highlight-type.dictionary
-
-  Custom margins for the letter.
-
-  *Default:* #h(5pt) #highlight-type.auto-type
-
-  *Example:*
-  ```typ
-  margins: (top: 20mm, left: 20mm, bottom: 20mm, right: 20mm)
-  ```
-
-  Refer to  #link("https://typst.app/docs/reference/layout/page/#parameters-margin")[Typst's margin documentation] for more details on how to set margins.
-
-- *`number-pages`* #h(15pt) #highlight-type.bool
-
-  Whether to include page numbers starting from the second page.
-
-  *Default:* `false`
-
-  *Example:*
-  ```typ
-  number-pages: true
-  ```
-
-  *Note:* Page numbers are always center aligned.
-
-- *`par-leading`* #h(15pt) #highlight-type.length
-
-  The line spacing within paragraphs.
-
-  *Default:* `0.8em`
-
-  *Example:*
-  ```typ
-  par-leading: 1.0em
-  ```
-
-- *`par-spacing`* #h(15pt) #highlight-type.length
-
-  The spacing between paragraphs.
-
-  *Default:* `1.8em`
-
-  *Example:*
-  ```typ
-  par-spacing: 2.0em
-  ```
-
-- *`main-font`* #h(15pt) #highlight-type.str
-
-  The primary font used in the letter.
-
-  *Default:* `"Libertinus Serif"`
-
-  *Example:*
-  ```typ
-  main-font: "Noto Serif"
-  ```
-
-- *`main-font-size`* #h(15pt) #highlight-type.length
-
-  The font size used for the body of the letter.
-
-  *Default:* `11pt`
-
-  *Example:*
-  ```typ
-  main-font-size: 12pt
-  ```
-
-- *`footnote-font`* #h(15pt) #highlight-type.str
-
-  The font used for footnotes in the letter.
-
-  *Default:* `"Libertinus Serif"`
-
-  *Example:*
-  ```typ
-  footnote-font: "Noto Serif"
-  ```
-
-- *`footnote-font-size`* #h(15pt) #highlight-type.length
-
-  The font size used for footnotes in the letter.
-
-  *Default:* `8pt`
-
-  *Example:*
-  ```typ
-  footnote-font-size: 9pt
-  ```
-
-- *`footnote-alignment`* #h(15pt) #highlight-type.alignment
-
-  The alignment of the footnote separator and footnotes.
-
-  *Default:* `left`
-
-  *Example:*
-  ```typ
-  footnote-alignment: right
-  ```
-
-- *`footer-font`* #h(15pt) #highlight-type.str
-
-  The font used for the footer of the letter.
-
-  *Default:* `"DejaVu Sans Mono"`
-
-  *Example:*
-  ```typ
-  footer-font: "Fira Mono"
-  ```
-
-- *`footer-font-size`* #h(15pt) #highlight-type.length
-
-  The font size for the footer of the letter.
-
-  *Default:* `7pt`
-
-  *Example:*
-  ```typ
-  footer-font-size: 8pt
-  ```
-
-- *`link-color`* #h(15pt) #highlight-type.color
-
-  The color of hyperlinks in the letter.
-
-  *Default:* `blue`
-
-  *Example:*
-  ```typ
-  link-color: maroon
-  ```
-
-  Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typst's color documentation] for more details on how to specify colors.
-
-- *`from-alignment`* #h(15pt) #highlight-type.alignment
-
-  The alignment of the sender's address.
-
-  *Default:* `right`
-
-  *Example:*
-  ```typ
-  from-alignment: left
-  ```
-
 - *`attn-name`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-  Attention name to direct the correspondence to the relevant person or department.
+  Attention line for a specific recipient.
 
   *Default:* #h(5pt) #highlight-type.none-type
 
@@ -412,9 +244,9 @@ The `letterloom` package provides extensive customization options to help tailor
   attn-name: "Mr Basil Hawthorne"
   ```
 
-- *`cc`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
+- *`cc`* #h(15pt) #highlight-type.array
 
-  The name of the carbon copy recipient.
+  List of cc recipients.
 
   *Default:* #h(5pt) #highlight-type.none-type
 
@@ -425,7 +257,7 @@ The `letterloom` package provides extensive customization options to help tailor
 
 - *`enclosures`* #h(15pt) #highlight-type.array
 
-  An array containing elements of type #h(5pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) that describes each enclosure.
+  List of enclosures.
 
   *Default:* #h(5pt) #highlight-type.none-type
 
@@ -438,7 +270,7 @@ The `letterloom` package provides extensive customization options to help tailor
 
 - *`enclosures-title`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-  The title for the list of enclosures, allowing localization.
+  Title for the list of enclosures, allowing localization.
 
   *Default:* `"encl:"`
 
@@ -447,11 +279,9 @@ The `letterloom` package provides extensive customization options to help tailor
   enclosures-title: "இணைப்புகள்:" // Enclosures in Tamil
   ```
 
-  *Note:* Figures are always placed at the end of the letter.
-
 - *`footer`* #h(15pt) #highlight-type.array
 
-  A list of footer elements, each containing:
+  List of footer elements, each containing:
 
   #table(
     columns: 3,
@@ -482,11 +312,181 @@ The `letterloom` package provides extensive customization options to help tailor
   )
   ```
 
-  *Note:* Footers are always center aligned.
+  *Note:* Footers are always aligned center.
+
+
+
+=== Optional Page Configuration Settings
+
+- *`paper-size`* #h(15pt) #highlight-type.str
+
+  Standard paper size to set width and height.
+
+  *Default:* `"a4"`
+
+  *Example:*
+  ```typ
+  paper-size: "us-letter"
+  ```
+
+  Refer to #link("https://typst.app/docs/reference/layout/page/#parameters-paper)")[Typst's documentation on paper sizes] for details on available paper sizes.
+
+- *`margins`* #h(15pt) #highlight-type.auto-type #h(5pt) or #h(5pt) #highlight-type.relative #h(5pt) or #h(5pt) #highlight-type.dictionary
+
+  Page's margins.
+
+  *Default:* #h(5pt) #highlight-type.auto-type
+
+  *Example:*
+  ```typ
+  margins: (top: 20mm, left: 20mm, bottom: 20mm, right: 20mm)
+  ```
+
+  Refer to  #link("https://typst.app/docs/reference/layout/page/#parameters-margin")[Typst's margin documentation] for details on how to set margins.
+
+- *`par-leading`* #h(15pt) #highlight-type.length
+
+  Line spacing within paragraphs.
+
+  *Default:* `0.8em`
+
+  *Example:*
+  ```typ
+  par-leading: 1.0em
+  ```
+
+- *`par-spacing`* #h(15pt) #highlight-type.length
+
+  Spacing between paragraphs.
+
+  *Default:* `1.8em`
+
+  *Example:*
+  ```typ
+  par-spacing: 2.0em
+  ```
+
+- *`number-pages`* #h(15pt) #highlight-type.bool
+
+  Enable/disable page numbering. Page numbers start from the second page.
+
+  *Default:* `false`
+
+  *Example:*
+  ```typ
+  number-pages: true
+  ```
+
+  *Note:* Page numbers are always aligned center.
+
+=== Optional Font Settings
+
+- *`main-font`* #h(15pt) #highlight-type.str
+
+  Font used for the letter's main body.
+
+  *Default:* `"Libertinus Serif"`
+
+  *Example:*
+  ```typ
+  main-font: "Noto Serif"
+  ```
+
+- *`main-font-size`* #h(15pt) #highlight-type.length
+
+  Font size for the letter's main body.
+
+  *Default:* `11pt`
+
+  *Example:*
+  ```typ
+  main-font-size: 12pt
+  ```
+
+- *`footnote-font`* #h(15pt) #highlight-type.str
+
+  Font used for footnotes.
+
+  *Default:* `"Libertinus Serif"`
+
+  *Example:*
+  ```typ
+  footnote-font: "Noto Serif"
+  ```
+
+- *`footnote-font-size`* #h(15pt) #highlight-type.length
+
+  Font size for footnotes.
+
+  *Default:* `8pt`
+
+  *Example:*
+  ```typ
+  footnote-font-size: 9pt
+  ```
+
+- *`footer-font`* #h(15pt) #highlight-type.str
+
+  Font used for the letter's footer.
+
+  *Default:* `"DejaVu Sans Mono"`
+
+  *Example:*
+  ```typ
+  footer-font: "Fira Mono"
+  ```
+
+- *`footer-font-size`* #h(15pt) #highlight-type.length
+
+  Font size for the letter's footer.
+
+  *Default:* `7pt`
+
+  *Example:*
+  ```typ
+  footer-font-size: 8pt
+  ```
+
+=== Optional Alignment Settings and Link Colors
+
+- *`from-alignment`* #h(15pt) #highlight-type.alignment
+
+  Alignment of the sender's address.
+
+  *Default:* `right`
+
+  *Example:*
+  ```typ
+  from-alignment: left
+  ```
+
+- *`footnote-alignment`* #h(15pt) #highlight-type.alignment
+
+  Alignment of the footnote separator and footnotes.
+
+  *Default:* `left`
+
+  *Example:*
+  ```typ
+  footnote-alignment: right
+  ```
+
+- *`link-color`* #h(15pt) #highlight-type.color
+
+  Color of hyperlinks in the letter.
+
+  *Default:* `blue`
+
+  *Example:*
+  ```typ
+  link-color: maroon
+  ```
+
+  Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typst's color documentation] for more details on how to specify colors.
 
 == Comprehensive `letterloom` Example and Output
 
-Below, we present a comprehensive example demonstrating the capabilities of the `letterloom` package. This example showcases how to create a detailed and professionally styled letter by leveraging the package's features. For clarity and reference, the final rendered result is also included.
+Below, we present a comprehensive example demonstrating the capabilities of the `letterloom` package. For clarity and reference, the final rendered result is also included.
 
 ```typ
 // Not strictly necessary but it is nice to have figure captions in a smaller font size
