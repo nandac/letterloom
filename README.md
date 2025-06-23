@@ -18,19 +18,25 @@ These instructions will get you a copy of the project up and running on the Typs
     name: "Sender's Name",
     address: [Sender's Address]
   ),
+
   // Recipient's contact information (name and address)
   to: (
     name: "Receiver's Name",
     address: [Receiver's Address]
   ),
+
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+
   // Opening greeting (e.g., "Dear Mr Hawthorne,")
   salutation: "Dear Receiver's Name,",
+
   // Letter subject line
   subject: "Subject",
+
   // Closing phrase (e.g., "Yours sincerely,")
   closing: "Yours sincerely,",
+
   // List of signatories with their names
   signatures: (
     (
@@ -63,17 +69,20 @@ Once you have completed these steps, your development environment will be ready.
 
 ### Next Steps
 
-The `letterloom` package source code is located at:
+The `letterloom` package source code is located under `src` directory:
 
-```plaintext
-src/lib.typ
+```bash
+── src
+│   ├── construct-outputs.typ
+│   ├── lib.typ
+│   └── validate-inputs.typ
 ```
 
-This is where you will make any necessary changes to the module.
+This is where you will make any necessary changes to the package.
 
 ### Running Tests
 
-To test the functionality of the module locally, run the predefined test cases using the following command:
+To test the functionality of the package locally, run the predefined test cases using the following command:
 
 ```bash
 just test
@@ -85,9 +94,15 @@ To create a test for a new feature added to this package, use the following comm
 tt new <test-case-name>
 ```
 
+Once you have written your test run:
+
+```bash
+just update
+```
+
 Ensure that all tests pass before submitting any changes to maintain the project's integrity.
 
-If you want to test the module with a Typst file, you can install the `letterloom` package locally in the `preview` location by running:
+If you want to test the package with a Typst file, you can install the `letterloom` package locally in the `preview` location by running:
 
 ```bash
 just install-preview
@@ -103,7 +118,7 @@ This setup allows you to experiment with the package in a Typst file before fina
 
 ## Usage
 
-Below is an example demonstrating how to create a letter using the `letterloom` package with the minimum required arguments:
+Here is an example demonstrating how to create a letter using the `letterloom` package with the minimum required arguments:
 
 ```typ
 #show: letterloom.with(

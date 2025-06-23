@@ -62,18 +62,34 @@
   )
 }
 
+/// Constructs an enumerated list of cc recipients.
+///
+/// Parameters:
+/// - cc: Optional array or single cc recipient string/content
+/// - cc-title: Title text for the cc recipients section (default: "cc:")
+///
+/// Behavior:
+/// - If cc recipients are provided, displays them as an enumerated list
+/// - Uses 15pt indentation for the enumeration
+/// - Handles both a single cc recipient and multiple cc recipients
+/// - If no cc recipients are provided, nothing is rendered
+///
+/// Returns:
+/// - An enumerated list of cc recipients with title, or nothing if no cc recipients
 #let construct-cc(cc: none, cc-title: "cc:") = {
-  set enum(indent: 15pt)
-  cc-title
+  if cc not in (none, ()) {
+    set enum(indent: 15pt)
+    cc-title
 
-  if type(cc) != array {
-    // Handle the case where only one cc is given
-    cc = (cc, )
-  }
+    if type(cc) != array {
+      // Handle the case where only one cc is given
+      cc = (cc, )
+    }
 
-  // cc's are displayed as a bulleted list
-  for item in cc {
-    enum.item(text(item))
+    // cc's are displayed as a bulleted list
+    for item in cc {
+      enum.item(text(item))
+    }
   }
 }
 

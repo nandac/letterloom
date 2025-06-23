@@ -19,7 +19,7 @@
 /// - signatures: List of signatories with their names
 ///
 /// Optional Fields (commented out):
-/// - attn-name: Attention line for specific recipient
+/// - attn-name:
 /// - cc: List of cc recipients
 /// - enclosures: List of attached documents
 /// - enclosures-title: Enclosures header text (default: "encl:")
@@ -32,9 +32,9 @@
 /// - main-font: Primary font family (default: "Libertinus Serif")
 /// - main-font-size: Primary font size (default: 11pt)
 /// - footer-font: Footer font family (default: "DejaVu Sans Mono")
-/// - footer-font-size: Footer font size (default: 7pt)
+/// - footer-font-size: Footer font size (default: 9pt)
 /// - footnote-font: Footnote font family (default: "Libertinus Serif")
-/// - footnote-font-size: Footnote font size (default: 8pt)
+/// - footnote-font-size: Footnote font size (default: 7pt)
 /// - from-alignment: Sender address alignment (default: right)
 /// - footnote-alignment: Footnote alignment (default: left)
 /// - link-color: Color for hyperlinks (default: blue)
@@ -80,9 +80,9 @@
   // main-font: "Libertinus Serif",
   // main-font-size: 11pt,
   // footer-font: "DejaVu Sans Mono",
-  // footer-font-size: 7pt,
+  // footer-font-size: 9pt,
   // footnote-font: "Libertinus Serif",
-  // footnote-font-size: 8pt,
+  // footnote-font-size: 7pt,
 
   // from-alignment: right,
   // footnote-alignment: left,
