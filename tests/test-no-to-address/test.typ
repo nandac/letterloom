@@ -1,5 +1,9 @@
 /// test-no-to-address
 ///
+/// Synopsis:
+/// Test case where the recipient's address field is missing from the contact
+/// information to validate proper error handling for required sub-field validation.
+///
 /// Purpose:
 /// Validates that the letterloom function properly handles the case where
 /// the recipient's address field is missing from the contact information.

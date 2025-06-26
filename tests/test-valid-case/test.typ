@@ -1,5 +1,9 @@
 /// test-valid-case
 ///
+/// Synopsis:
+/// Test case where all required fields are provided with valid data to ensure
+/// the letterloom function works correctly with a complete, real-world scenario.
+///
 /// Purpose:
 /// Validates that the letterloom function correctly processes a complete
 /// and valid letter configuration with all required fields properly set.

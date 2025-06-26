@@ -1,5 +1,9 @@
 /// test-from-name-wrong-type
 ///
+/// Synopsis:
+/// Test case where the sender's name field contains invalid data types
+/// to validate proper type checking for name field validation.
+///
 /// Purpose:
 /// Validates that the letterloom function properly handles cases where
 /// the sender's name field contains invalid data types.

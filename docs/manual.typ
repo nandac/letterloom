@@ -5,6 +5,7 @@
 #set page(margin: 25mm)
 #set text(size: 11pt, font: "Noto Serif")
 #set par(spacing: 1.5em)
+#set strong(delta: 200)
 
 //Customize appearance
 #show raw: set text(font: "Fira Mono", size: 1.2em)
@@ -36,7 +37,7 @@
 
 // End of setup
 
-= The `letterloom` package
+= The `letterloom` Package
 
 == Introduction
 
@@ -49,6 +50,9 @@ The `letterloom` package is a user-friendly and customizable template designed t
 
 - *Enclosures and Attachments:* Clearly specify additional documents included with the letter.
 
+- *Internationalization Support:* Customize labels and text for different languages and regions.
+
+
 *Benefits:*
 - Simplifies the letter-writing process with an intuitive template.
 
@@ -56,17 +60,19 @@ The `letterloom` package is a user-friendly and customizable template designed t
 
 - Delivers professional-quality output without requiring technical expertise.
 
+- Supports multilingual documents with customizable labels.
+
 Whether you're preparing formal business correspondence or crafting a personal letter, `letterloom` makes creating visually appealing documents both straightforward and efficient.
 
 == Usage
 
-The `letterloom` package offers several customization options, enabling you to tailor your letters to suit various needs.
+The `letterloom` package offers extensive customization options, enabling you to tailor your letters to suit various needs and preferences.
 
-In the sections that follow, we will delve into each parameter in detail, accompanied with an example of how to use it.
+In the sections that follow, we will explore each parameter in detail, accompanied by practical examples demonstrating their usage.
 
 === Getting Started
 
-To get started, here is a straightforward example showcasing the minimum required arguments for using the `letterloom` package.
+To get started, here is a straightforward example showcasing the minimum required arguments for using the `letterloom` package:
 
 ```typ
 #import "@preview/letterloom:0.1.0": *
@@ -110,7 +116,7 @@ To get started, here is a straightforward example showcasing the minimum require
 
 === Mandatory Parameters
 
-This section delves into the mandatory parameters of the `letterloom` package, which define key elements of a letter, including the sender, recipient, date, and signature.
+This section covers the mandatory parameters of the `letterloom` package, which define the essential elements of a letter including the sender, recipient, date, and signature.
 
 #v(10pt)
 
@@ -128,6 +134,7 @@ Specifies the sender's name and address in a dictionary format with the followin
   [`address`], [#highlight-type.content], [The sender's address.],
 )
 
+#text(size: 10pt)[#text(size: 10pt)[*Example:*]]
 ```typ
 from: (
   name: "The Dimbleby Family",
@@ -156,6 +163,7 @@ Defines the recipient's name and address in a dictionary format with the followi
   [`address`], [#highlight-type.content], [The receiver's address.],
 )
 
+#text(size: 10pt)[*Example:*]
 ```typ
 to: (
   name: "Evergreen Tree Surgeons",
@@ -172,12 +180,16 @@ to: (
 
 Specifies the letter's date in either string or content format.
 
+#text(size: 10pt)[*Examples:*]
 ```typ
+// Simple string format
 date: "01 January 1970"
-```
-or
-```typ
+
+// Dynamic date using Typst's datetime functions
 date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]")
+
+// Custom formatted date
+date: datetime.today().display("[weekday repr:long], [day] [month repr:long] [year]")
 ```
 
 For custom formatting options, refer to #link("https://typst.app/docs/reference/foundations/datetime/#format")[Typst's datetime formatting documentation].
@@ -188,8 +200,16 @@ For custom formatting options, refer to #link("https://typst.app/docs/reference/
 
 Sets the greeting for the letter in string or content format.
 
+#text(size: 10pt)[*Examples:*]
 ```typ
+// Standard business salutation
 salutation: "Dear Mr Hawthorne,"
+
+// Formal salutation
+salutation: "To Whom It May Concern,"
+
+// Personal salutation
+salutation: "Dear John,"
 ```
 
 #v(10pt)
@@ -198,8 +218,16 @@ salutation: "Dear Mr Hawthorne,"
 
 Specifies the subject line of the letter in string or content format.
 
+#text(size: 10pt)[*Examples:*]
 ```typ
+// Simple subject
 subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate"
+
+// Styled subject with formatting
+subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")]
+
+// Subject with emphasis
+subject: [Re: #emph[Urgent] Tree Maintenance Request]
 ```
 
 #v(10pt)
@@ -208,8 +236,16 @@ subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate"
 
 Defines the closing phrase for the letter in string or content format.
 
+#text(size: 10pt)[*Examples:*]
 ```typ
+// Formal business closing
 closing: "Yours sincerely,"
+
+// Less formal closing
+closing: "Best regards,"
+
+// Personal closing
+closing: "With warmest regards,"
 ```
 
 #v(10pt)
@@ -225,10 +261,20 @@ An array of dictionaries representing the signatories. Each dictionary may inclu
   stroke: none,
   inset: 5pt,
   [`name`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)], [The name of the signatory.],
-  [`signature`], [#highlight-type.function #h(5pt) _optional_], [The image function for the signatory's signature. If omitted a space is left for a physical signature.],
+  [`signature`], [#highlight-type.function #h(5pt) _optional_], [The image function for the signatory's signature. If omitted, a space is left for a physical signature.],
 )
 
+#text(size: 10pt)[*Examples:*]
 ```typ
+// Single signature
+signatures: (
+  (
+    name: "Lord Albus Dimbleby",
+    signature: image("images/albus-sig.png")
+  )
+)
+
+// Multiple signatures
 signatures: (
   (
     name: "Lord Albus Dimbleby",
@@ -237,9 +283,10 @@ signatures: (
   (
     name: "Lady Abigail Dimbleby",
     signature: image("images/abigail-sig.png")
-  )
+  ),
   (
     name: "Sir Austin Dimbleby"
+    // No signature image - space left for physical signature
   )
 )
 ```
@@ -252,10 +299,11 @@ The following optional parameters enable you to add additional fields like a lis
 
 *`attn-name`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-Specifies the attention line for a specific recipient.
+Specifies the attention line for a specific recipient within an organization.
 
-#text(size: 10pt)[Default: #h(5pt) #highlight-type.none-type]
+#text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
 
+#text(size: 10pt)[*Example:*]
 ```typ
 attn-name: "Mr Basil Hawthorne"
 ```
@@ -264,25 +312,41 @@ attn-name: "Mr Basil Hawthorne"
 
 *`cc`* #h(15pt) #highlight-type.array
 
-Lists recipients for carbon copy (cc).
+Lists recipients for carbon copy (cc). Can be a single string or an array of strings.
 
-#text(size: 10pt)[Default: #h(5pt) #highlight-type.none-type]
+#text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
+// Single cc recipient
 cc: "Mr Jethro Tull"
+
+// Multiple cc recipients
+cc: (
+  "Mr Jethro Tull",
+  "Ms Sarah Green",
+  "Dr Robert Brown"
+)
 ```
 
 #v(10pt)
 
 *`enclosures`* #h(15pt) #highlight-type.array
 
-Specifies additional documents included with the letter.
+Specifies additional documents included with the letter. Can be a single string or an array of strings.
 
-#text(size: 10pt)[Default: #h(5pt) #highlight-type.none-type]
+#text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
+// Single enclosure
+enclosures: "Provenance of the Oak trees on the Dimbleby Estate."
+
+// Multiple enclosures
 enclosures: (
-  "Provenance of the Oak trees on the Dimbleby Estate."
+  "Provenance of the Oak trees on the Dimbleby Estate.",
+  "Photographs of storm damage.",
+  "Insurance claim form."
 )
 ```
 
@@ -290,13 +354,26 @@ enclosures: (
 
 *`enclosures-title`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-Specifies the title for the list of enclosures, allowing localization.
+Specifies the title for the list of enclosures, allowing for localization and customization.
 
-#text(size: 10pt)[Default: `"encl:"`]
+#text(size: 10pt)[*Default:* `"encl:"`]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
-enclosures-title: "இணைப்புகள்:" // Enclosures in Tamil
+// Default English
+enclosures-title: "encl:"
+
+// Custom English
+enclosures-title: "Enclosures:"
+
+// Internationalization examples
+enclosures-title: "இணைப்புகள்:" // Tamil
+enclosures-title: "Pièces jointes:" // French
+enclosures-title: "Anexos:" // Spanish
+enclosures-title: "Anlagen:" // German
 ```
+
+*Note:* This parameter is particularly useful for creating letters in different languages or for organizations with specific formatting requirements.
 
 #v(10pt)
 
@@ -311,13 +388,14 @@ An array specifying footer elements, including text, URLs, and email links.
   stroke: none,
   inset: 5pt,
   [`footer-text`], [#highlight-type.str #h(5pt)], [The footer text.],
-  [`footer-type`], [#highlight-type.str #h(5pt)], [The type of footer element either `"url"`, `"email"`, or `"string"`. If the footer type is specified as `url` or `email` it will be rendered as a clickable hyperlink. The default footer type is `"string"`.],
+  [`footer-type`], [#highlight-type.str #h(5pt)], [The type of footer element: `"url"`, `"email"`, or `"string"`. If specified as `"url"` or `"email"`, it will be rendered as a clickable hyperlink. Default is `"string"`.],
 )
 
-#text(size: 10pt)[Default: #h(5pt) #highlight-type.none-type]
+#text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
 
-```text
-footer =  (
+#text(size: 10pt)[*Example:*]
+```typ
+footer: (
   (
     footer-text: "+44-117-555-5555"
   ),
@@ -344,10 +422,13 @@ The following parameters allow you to customize the layout of the letter. Each p
 
 Specifies the paper size for the letter.
 
-#text(size: 10pt)[Default: `"a4"`]
+#text(size: 10pt)[*Default:* `"a4"`]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
-paper-size: "us-letter"
+paper-size: "a4"        // A4 (210 × 297 mm)
+paper-size: "us-letter" // US Letter (8.5 × 11 in)
+paper-size: "legal"     // Legal (8.5 × 14 in)
 ```
 
 For additional details, refer to #link("https://typst.app/docs/reference/layout/page/#parameters-paper")[Typst's documentation on paper sizes].
@@ -358,12 +439,23 @@ For additional details, refer to #link("https://typst.app/docs/reference/layout/
 
 Sets the margins of the letter.
 
-#text(size: 10pt)[Default: #h(5pt) #highlight-type.auto-type]
+#text(size: 10pt)[*Default:* #h(5pt) #highlight-type.auto-type]
 
-#text(size: 10pt)[The default value of #h(5pt) #highlight-type.auto-type #h(5pt) sets the margins automatically to 2.5/21 times the smaller dimension of the page. This results in a 25mm margin for an A4 page.]
+#text(size: 10pt)[The default value of #h(5pt) #highlight-type.auto-type #h(5pt) sets the margins automatically to 2.5/21 times the smaller dimension of the page. This results in a 25 mm margin for an A4 page.]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
+// Automatic margins (default)
+margins: auto
+
+// Uniform margins
+margins: 20mm
+
+// Custom margins
 margins: (top: 20mm, left: 20mm, bottom: 20mm, right: 20mm)
+
+// Asymmetric margins
+margins: (top: 25mm, left: 30mm, bottom: 25mm, right: 30mm)
 ```
 
 Refer to #link("https://typst.app/docs/reference/layout/page/#parameters-margin")[Typst's margin documentation] for more information.
@@ -374,11 +466,16 @@ Refer to #link("https://typst.app/docs/reference/layout/page/#parameters-margin"
 
 Defines the line spacing within paragraphs.
 
-#text(size: 10pt)[Default: `0.8em`]
+#text(size: 10pt)[*Default:* `0.8em`]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
-par-leading: 1.0em
+par-leading: 0.8em  // Tight spacing
+par-leading: 1.0em  // Normal spacing
+par-leading: 1.2em  // Loose spacing
 ```
+
+*Note:* You may need to change this setting to suit the font and font size used for the body of the letter.
 
 #v(10pt)
 
@@ -386,11 +483,16 @@ par-leading: 1.0em
 
 Determines the spacing between paragraphs.
 
-#text(size: 10pt)[Default: `1.8em`]
+#text(size: 10pt)[*Default:* `1.8em`]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
-par-spacing: 2.0em
+par-spacing: 1.5em  // Compact paragraphs
+par-spacing: 1.8em  // Standard spacing
+par-spacing: 2.0em  // Relaxed spacing
 ```
+
+*Note:* You may need to change this setting to suit the font and font size used for the body of the letter.
 
 #v(10pt)
 
@@ -398,10 +500,12 @@ par-spacing: 2.0em
 
 Enables or disables page numbering, starting from the second page.
 
-#text(size: 10pt)[Default: `false`]
+#text(size: 10pt)[*Default:* `false`]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
-number-pages: true
+number-pages: false  // No page numbers
+number-pages: true   // Page numbers on second page onwards
 ```
 
 *Note:* Page numbers are always center-aligned.
@@ -416,10 +520,14 @@ These parameters allow you to customize the fonts used throughout the letter. Ea
 
 Sets the font used for the main body of the letter.
 
-#text(size: 10pt)[Default: `"Libertinus Serif"`]
+#text(size: 10pt)[*Default:* `"Libertinus Serif"`]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
-main-font: "Noto Serif"
+main-font: "Libertinus Serif"  // Default serif font
+main-font: "Noto Serif"        // Google's Noto Serif
+main-font: "Times New Roman"   // Classic serif
+main-font: "Arial"             // Sans-serif option
 ```
 
 #v(10pt)
@@ -428,10 +536,13 @@ main-font: "Noto Serif"
 
 Sets the font size for the main body.
 
-#text(size: 10pt)[Default: `11pt`]
+#text(size: 10pt)[*Default:* `11pt`]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
-main-font-size: 12pt
+main-font-size: 10pt  // Smaller text
+main-font-size: 11pt  // Standard size
+main-font-size: 12pt  // Larger text
 ```
 
 #v(10pt)
@@ -440,10 +551,13 @@ main-font-size: 12pt
 
 Sets the font used for footnotes.
 
-#text(size: 10pt)[Default: `"Libertinus Serif"`]
+#text(size: 10pt)[*Default:* `"Libertinus Serif"`]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
-footnote-font: "Noto Serif"
+footnote-font: "Libertinus Serif"  // Match main font
+footnote-font: "Noto Serif"        // Alternative serif
+footnote-font: "DejaVu Sans"       // Sans-serif option
 ```
 
 #v(10pt)
@@ -452,10 +566,13 @@ footnote-font: "Noto Serif"
 
 Sets the font size for footnotes.
 
-#text(size: 10pt)[Default: `7pt`]
+#text(size: 10pt)[*Default:* `7pt`]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
-footnote-font-size: 8pt
+footnote-font-size: 6pt   // Very small
+footnote-font-size: 7pt   // Standard size
+footnote-font-size: 8pt   // Larger footnotes
 ```
 
 #v(10pt)
@@ -464,10 +581,14 @@ footnote-font-size: 8pt
 
 Sets the font used for the footer.
 
-#text(size: 10pt)[Default: `"DejaVu Sans Mono"`]
+#text(size: 10pt)[*Default:* `"DejaVu Sans Mono"`]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
-footer-font: "Fira Mono"
+footer-font: "DejaVu Sans Mono"  // Monospace default
+footer-font: "Fira Mono"         // Modern monospace
+footer-font: "Courier New"       // Classic monospace
+footer-font: "Arial"             // Sans-serif option
 ```
 
 #v(10pt)
@@ -476,10 +597,13 @@ footer-font: "Fira Mono"
 
 Sets the font size for the footer.
 
-#text(size: 10pt)[Default: `9pt`]
+#text(size: 10pt)[*Default:* `9pt`]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
-footer-font-size: 10pt
+footer-font-size: 8pt   // Smaller footer
+footer-font-size: 9pt   // Standard size
+footer-font-size: 10pt  // Larger footer
 ```
 
 === Additional Settings
@@ -492,10 +616,13 @@ These parameters provide options to align specific elements and change the color
 
 Sets the alignment of the sender's address.
 
-#text(size: 10pt)[Default: `right`]
+#text(size: 10pt)[*Default:* `right`]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
-from-alignment: left
+from-alignment: left    // Left-aligned sender address
+from-alignment: right   // Right-aligned sender address (default)
+from-alignment: center  // Center-aligned sender address
 ```
 
 #v(10pt)
@@ -504,10 +631,13 @@ from-alignment: left
 
 Specifies the alignment of the footnote separator and footnotes.
 
-#text(size: 10pt)[Default: `left`]
+#text(size: 10pt)[*Default:* `left`]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
-footnote-alignment: right
+footnote-alignment: left   // Left-aligned footnotes (default)
+footnote-alignment: right  // Right-aligned footnotes
+footnote-alignment: center // Center-aligned footnotes
 ```
 
 #v(10pt)
@@ -516,17 +646,20 @@ footnote-alignment: right
 
 Determines the color of hyperlinks in the letter.
 
-#text(size: 10pt)[Default: `blue`]
+#text(size: 10pt)[*Default:* `blue`]
 
+#text(size: 10pt)[*Examples:*]
 ```typ
-link-color: maroon
+link-color: blue             // Typst's blue #0074d9 (default)
+link-color: maroon           // Typst's maroon #85144b
+link-color: rgb(0, 100, 200) // Custom RGB color
 ```
 
 Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typst's documentation on colors] for additional details.
 
 == Complete Example
 
-Here, we provide a comprehensive example that uses the full range of features offered by the `letterloom` package. To aid understanding, the final rendered result is included for reference.
+Here, we provide a comprehensive example that demonstrates the full range of features offered by the `letterloom` package. This example showcases all the customization options available:
 
 ```typ
 #show: letterloom.with(
@@ -580,14 +713,10 @@ Here, we provide a comprehensive example that uses the full range of features of
   attn-name: "Mr Basil Hawthorne",
 
   // List of cc recipients (optional)
-  cc: (
-    "Mr Jethro Tull"
-  ),
+  cc: "Mr Jethro Tull",
 
   // List of enclosures (optional)
-  enclosures: (
-    "Provenance of the Oak trees on the Dimbleby Estate."
-  ),
+  enclosures: "Provenance of the Oak trees on the Dimbleby Estate.",
 
   // Custom footer information (optional)
   footer: (
@@ -714,14 +843,10 @@ Thank you kindly.
   attn-name: "Mr Basil Hawthorne",
 
   // List of cc recipients (optional)
-  cc: (
-    "Mr Jethro Tull"
-  ),
+  cc: "Mr Jethro Tull",
 
   // List of enclosures (optional)
-  enclosures: (
-    "Provenance of the Oak trees on the Dimbleby Estate."
-  ),
+  enclosures: "Provenance of the Oak trees on the Dimbleby Estate.",
 
   // Custom footer information (optional)
   footer: (

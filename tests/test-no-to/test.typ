@@ -1,5 +1,9 @@
 /// test-no-to
 ///
+/// Synopsis:
+/// Test case where the recipient's contact information (to field) is completely
+/// missing to validate proper error handling for required field validation.
+///
 /// Purpose:
 /// Validates that the letterloom function properly handles the case where
 /// the recipient's contact information (to field) is completely missing.

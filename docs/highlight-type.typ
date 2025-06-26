@@ -2,7 +2,7 @@
 ///
 /// Purpose:
 /// Provides a collection of styled type highlighters for use in
-/// Typst documentation that matches the highlighting used in Typst's documentation.
+/// documentation that matches the highlighting used in Typst's documentation.
 /// Each type is highlighted with a distinct color scheme to improve readability
 /// and visual distinction between different data types in code examples.
 ///

@@ -1,5 +1,9 @@
 /// test-invalid-closing
 ///
+/// Synopsis:
+/// Test case for input validation of the closing field, ensuring proper handling of
+/// missing, empty, or incorrectly typed closing values in letterloom.
+///
 /// Purpose:
 /// Validates input validation for the closing field in letterloom. Ensures that the function
 /// properly handles missing, empty, or incorrectly typed closing values and provides

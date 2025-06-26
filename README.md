@@ -2,8 +2,7 @@
 <!-- markdownlint-disable MD033 -->
 <div align="center">Version 0.1.0</div>
 
-The `letterloom` package is a user-friendly, highly customizable template for creating
-professional letters with ease.
+The `letterloom` package is a user-friendly and customizable template designed to streamline the creation of professional letters.
 
 ## Getting Started
 

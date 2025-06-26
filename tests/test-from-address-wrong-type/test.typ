@@ -1,5 +1,9 @@
 /// test-from-address-wrong-type
 ///
+/// Synopsis:
+/// Test case where the sender's address field contains invalid data types
+/// to validate proper type checking for address field validation.
+///
 /// Purpose:
 /// Validates that the letterloom function properly handles cases where
 /// the sender's address field contains invalid data types.

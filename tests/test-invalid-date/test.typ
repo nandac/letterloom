@@ -1,5 +1,9 @@
 /// test-invalid-date
 ///
+/// Synopsis:
+/// Test case for input validation of the date field, ensuring proper handling of
+/// missing, empty, or incorrectly typed date values in letterloom.
+///
 /// Purpose:
 /// Validates input validation for the date field in letterloom. Ensures that the function
 /// properly handles missing, empty, or incorrectly typed date values and provides

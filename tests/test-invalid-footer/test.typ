@@ -1,5 +1,9 @@
 /// test-invalid-footer
 ///
+/// Synopsis:
+/// Test case for various footer validation scenarios, including invalid types,
+/// structures, and content, to ensure robust footer validation in letterloom.
+///
 /// Purpose:
 /// Validates that the letterloom function properly handles various footer
 /// validation scenarios including invalid types, structures, and content.

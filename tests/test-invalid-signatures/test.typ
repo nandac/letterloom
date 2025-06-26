@@ -1,5 +1,9 @@
 /// test-invalid-signatures
 ///
+/// Synopsis:
+/// Test case for various signature validation scenarios, including missing, empty,
+/// and invalid signature data, to ensure robust signature validation in letterloom.
+///
 /// Purpose:
 /// Validates that the letterloom function properly handles various signature
 /// validation scenarios including missing, empty, and invalid signature data.

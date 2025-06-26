@@ -1,30 +1,26 @@
-/// test-invalid-enclosures
+/// test-invalid-link-color
 ///
 /// Synopsis:
-/// Test case where enclosure items contain invalid data types instead of strings or
-/// content blocks to validate proper type checking for enclosures parameter.
+/// Test case where the link-color parameter contains invalid data types instead of valid color values.
 ///
 /// Purpose:
 /// Validates that the letterloom function properly handles cases where
-/// enclosure items contain invalid data types instead of strings or content blocks.
+/// link-color parameters contain invalid data types instead of valid color values.
 ///
 /// Test Scenario:
-/// Enclosures array contains mixed valid and invalid types:
-/// - Valid string: "enclosure one"
-/// - Invalid number: calc.ceil(3.14)
-/// - Invalid none: none
-/// - Invalid empty tuple: ()
+/// Tests link-color parameters with invalid string values:
+/// - link-color: "left" (should be a color, not "left")
 ///
 /// Expected Behavior:
 /// The function should panic with a clear error message indicating that
-/// enclosures must be strings or content blocks.
+/// link-color parameters must be of valid color types.
 ///
 /// Expected Error:
-/// "panicked with: \"enclosure must be a string or content block.\""
+/// "panicked with: \"link-color must be of a valid color type.\""
 ///
 /// Validation:
 /// Ensures that the validation system correctly identifies type mismatches
-/// in enclosure data and provides appropriate error feedback.
+/// in link-color parameters and provides appropriate error feedback.
 ///
 #import "/src/lib.typ": *
 
@@ -60,12 +56,7 @@
         name: "Sir Austin Dimbleby"
       )
     ),
-    enclosures: (
-      "enclosure one",
-      calc.ceil(3.14),
-      none,
-      ()
-    )
+    link-color: "left"
   )),
-  "panicked with: \"enclosure must be a string or content block.\""
+  "panicked with: \"link-color must be of a valid color type.\""
 )

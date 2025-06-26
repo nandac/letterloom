@@ -1,9 +1,8 @@
 /// test-invalid-cc
 ///
 /// Synopsis:
-/// Test case where the cc does not contain strings or content blocks.
-///
-/// Test: Invalid CC Types
+/// Test case where cc items contain invalid data types instead of strings or
+/// content blocks to validate proper type checking for cc parameter.
 ///
 /// Purpose:
 /// Validates that the letterloom function properly handles cases where

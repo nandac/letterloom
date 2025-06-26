@@ -1,5 +1,9 @@
 /// test-invalid-salutation
 ///
+/// Synopsis:
+/// Test case for input validation of the salutation field, ensuring proper handling of
+/// missing, empty, or incorrectly typed salutation values in letterloom.
+///
 /// Purpose:
 /// Validates input validation for the salutation field in letterloom. Ensures that the function
 /// properly handles missing, empty, or incorrectly typed salutation values and provides

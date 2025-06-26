@@ -1,5 +1,9 @@
 /// test-to-address-empty
 ///
+/// Synopsis:
+/// Test case where the recipient's address field is empty or contains no meaningful
+/// content to validate proper error handling for empty field validation.
+///
 /// Purpose:
 /// Validates that the letterloom function properly handles cases where
 /// the recipient's address field is empty or contains no meaningful content.

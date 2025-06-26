@@ -1,5 +1,9 @@
 /// test-from-name-empty
 ///
+/// Synopsis:
+/// Test case where the sender's name field is empty or contains no meaningful
+/// content to validate proper error handling for empty field validation.
+///
 /// Purpose:
 /// Validates that the letterloom function properly handles cases where
 /// the sender's name field is empty or contains no meaningful content.

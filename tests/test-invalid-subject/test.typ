@@ -1,5 +1,9 @@
 /// test-invalid-subject
 ///
+/// Synopsis:
+/// Test case for input validation of the subject field, ensuring proper handling of
+/// missing, empty, or incorrectly typed subject values in letterloom.
+///
 /// Purpose:
 /// Validates input validation for the subject field in letterloom. Ensures that the function
 /// properly handles missing, empty, or incorrectly typed subject values and provides
