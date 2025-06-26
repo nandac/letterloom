@@ -118,7 +118,7 @@ To get started, here is a straightforward example showcasing the minimum require
 
 This section covers the mandatory parameters of the `letterloom` package, which define the essential elements of a letter including the sender, recipient, date, and signature.
 
-#v(10pt)
+#v(15pt)
 
 *`from`* #h(15pt) #highlight-type.dictionary
 
@@ -147,7 +147,7 @@ from: (
 
 *Note:* The sender's address is aligned to the right by default, but you can adjust it using the `from-alignment` parameter.
 
-#v(10pt)
+#v(20pt)
 
 *`to`* #h(15pt) #highlight-type.dictionary
 
@@ -174,7 +174,7 @@ to: (
 )
 ```
 
-#v(10pt)
+#v(20pt)
 
 *`date`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
@@ -194,7 +194,7 @@ date: datetime.today().display("[weekday repr:long], [day] [month repr:long] [ye
 
 For custom formatting options, refer to #link("https://typst.app/docs/reference/foundations/datetime/#format")[Typst's datetime formatting documentation].
 
-#v(10pt)
+#v(20pt)
 
 *`salutation`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
@@ -212,7 +212,7 @@ salutation: "To Whom It May Concern,"
 salutation: "Dear John,"
 ```
 
-#v(10pt)
+#v(20pt)
 
 *`subject`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
@@ -230,7 +230,7 @@ subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the D
 subject: [Re: #emph[Urgent] Tree Maintenance Request]
 ```
 
-#v(10pt)
+#v(20pt)
 
 *`closing`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
@@ -248,7 +248,7 @@ closing: "Best regards,"
 closing: "With warmest regards,"
 ```
 
-#v(10pt)
+#v(20pt)
 
 *`signatures`* #h(15pt) #highlight-type.array
 
@@ -295,7 +295,7 @@ signatures: (
 
 The following optional parameters enable you to add additional fields like a list of cc recipients, an attention line, and a list of enclosures to your letter.
 
-#v(10pt)
+#v(15pt)
 
 *`attn-name`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
@@ -308,7 +308,7 @@ Specifies the attention line for a specific recipient within an organization.
 attn-name: "Mr Basil Hawthorne"
 ```
 
-#v(10pt)
+#v(20pt)
 
 *`cc`* #h(15pt) #highlight-type.array
 
@@ -329,7 +329,7 @@ cc: (
 )
 ```
 
-#v(10pt)
+#v(20pt)
 
 *`enclosures`* #h(15pt) #highlight-type.array
 
@@ -350,7 +350,7 @@ enclosures: (
 )
 ```
 
-#v(10pt)
+#v(20pt)
 
 *`enclosures-title`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
@@ -375,7 +375,7 @@ enclosures-title: "Anlagen:" // German
 
 *Note:* This parameter is particularly useful for creating letters in different languages or for organizations with specific formatting requirements.
 
-#v(10pt)
+#v(20pt)
 
 *`footer`* #h(15pt) #highlight-type.array
 
@@ -394,7 +394,7 @@ An array specifying footer elements, including text, URLs, and email links.
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
 
 #text(size: 10pt)[*Example:*]
-```typ
+```text
 footer: (
   (
     footer-text: "+44-117-555-5555"
@@ -410,13 +410,13 @@ footer: (
 )
 ```
 
-*Note:* Footer content is center-aligned by default.
+*Note:* Footer content is always center-aligned.
 
 === Page Settings
 
 The following parameters allow you to customize the layout of the letter. Each parameter has a default value, which can be overridden to suit your preferences.
 
-#v(10pt)
+#v(15pt)
 
 *`paper-size`* #h(15pt) #highlight-type.str
 
@@ -433,7 +433,7 @@ paper-size: "legal"     // Legal (8.5 × 14 in)
 
 For additional details, refer to #link("https://typst.app/docs/reference/layout/page/#parameters-paper")[Typst's documentation on paper sizes].
 
-#v(10pt)
+#v(20pt)
 
 *`margins`* #h(15pt) #highlight-type.auto-type #h(5pt) or #h(5pt) #highlight-type.relative #h(5pt) or #h(5pt) #highlight-type.dictionary
 
@@ -460,7 +460,7 @@ margins: (top: 25mm, left: 30mm, bottom: 25mm, right: 30mm)
 
 Refer to #link("https://typst.app/docs/reference/layout/page/#parameters-margin")[Typst's margin documentation] for more information.
 
-#v(10pt)
+#v(20pt)
 
 *`par-leading`* #h(15pt) #highlight-type.length
 
@@ -477,7 +477,7 @@ par-leading: 1.2em  // Loose spacing
 
 *Note:* You may need to change this setting to suit the font and font size used for the body of the letter.
 
-#v(10pt)
+#v(20pt)
 
 *`par-spacing`* #h(15pt) #highlight-type.length
 
@@ -494,7 +494,7 @@ par-spacing: 2.0em  // Relaxed spacing
 
 *Note:* You may need to change this setting to suit the font and font size used for the body of the letter.
 
-#v(10pt)
+#v(20pt)
 
 *`number-pages`* #h(15pt) #highlight-type.bool
 
@@ -514,7 +514,7 @@ number-pages: true   // Page numbers on second page onwards
 
 These parameters allow you to customize the fonts used throughout the letter. Each parameter has a default font setting that can be changed as needed.
 
-#v(10pt)
+#v(15pt)
 
 *`main-font`* #h(15pt) #highlight-type.str
 
@@ -530,7 +530,7 @@ main-font: "Times New Roman"   // Classic serif
 main-font: "Arial"             // Sans-serif option
 ```
 
-#v(10pt)
+#v(20pt)
 
 *`main-font-size`* #h(15pt) #highlight-type.length
 
@@ -545,7 +545,7 @@ main-font-size: 11pt  // Standard size
 main-font-size: 12pt  // Larger text
 ```
 
-#v(10pt)
+#v(20pt)
 
 *`footnote-font`* #h(15pt) #highlight-type.str
 
@@ -560,7 +560,7 @@ footnote-font: "Noto Serif"        // Alternative serif
 footnote-font: "DejaVu Sans"       // Sans-serif option
 ```
 
-#v(10pt)
+#v(20pt)
 
 *`footnote-font-size`* #h(15pt) #highlight-type.length
 
@@ -575,7 +575,7 @@ footnote-font-size: 7pt   // Standard size
 footnote-font-size: 8pt   // Larger footnotes
 ```
 
-#v(10pt)
+#v(20pt)
 
 *`footer-font`* #h(15pt) #highlight-type.str
 
@@ -591,7 +591,7 @@ footer-font: "Courier New"       // Classic monospace
 footer-font: "Arial"             // Sans-serif option
 ```
 
-#v(10pt)
+#v(20pt)
 
 *`footer-font-size`* #h(15pt) #highlight-type.length
 
@@ -610,7 +610,7 @@ footer-font-size: 10pt  // Larger footer
 
 These parameters provide options to align specific elements and change the color of hyperlinks.
 
-#v(10pt)
+#v(15pt)
 
 *`from-alignment`* #h(15pt) #highlight-type.alignment
 
@@ -625,7 +625,7 @@ from-alignment: right   // Right-aligned sender address (default)
 from-alignment: center  // Center-aligned sender address
 ```
 
-#v(10pt)
+#v(20pt)
 
 *`footnote-alignment`* #h(15pt) #highlight-type.alignment
 
@@ -640,7 +640,7 @@ footnote-alignment: right  // Right-aligned footnotes
 footnote-alignment: center // Center-aligned footnotes
 ```
 
-#v(10pt)
+#v(20pt)
 
 *`link-color`* #h(15pt) #highlight-type.color
 
