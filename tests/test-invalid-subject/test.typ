@@ -31,7 +31,6 @@
 /// Note:
 /// This test validates that the subject field, which is required for all letters,
 /// must be properly formatted and non-empty.
-///
 #import "/src/lib.typ": *
 
 #assert.eq(

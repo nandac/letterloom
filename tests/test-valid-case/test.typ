@@ -26,7 +26,6 @@
 /// Note:
 /// This test serves as a baseline for all other validation tests and
 /// demonstrates the expected usage pattern for the letterloom package.
-///
 #import "/src/lib.typ": *
 
 #show: letterloom.with(

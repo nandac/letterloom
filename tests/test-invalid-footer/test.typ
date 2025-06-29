@@ -31,7 +31,6 @@
 /// Note:
 /// This test validates that the footer field, which is optional, must be properly
 /// formatted when provided.
-///
 #import "/src/lib.typ": *
 
 #assert.eq(

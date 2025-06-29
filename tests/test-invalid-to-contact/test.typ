@@ -16,6 +16,11 @@
 /// - Empty `name` field (empty content block)
 /// - Invalid `name` field type (number instead of string/content)
 /// - Missing `name` field (none value)
+/// - Missing `address` field in to contact dictionary
+/// - Empty `address` field (empty content block)
+/// - Invalid `address` field type (number instead of content block)
+/// - Invalid `address` field type (none value)
+/// - Invalid `address` field type (function result instead of content block)
 ///
 /// Expected Behavior:
 /// The function should panic with clear, descriptive error messages indicating
@@ -26,20 +31,23 @@
 /// - "to name is missing." - when name field is not present
 /// - "to name is empty." - when name field is empty string or content
 /// - "to name must be a string or content block." - when name field has wrong type
+/// - "to address is missing." - when address field is not present
+/// - "to address is empty." - when address field is empty content block
+/// - "to address must be a content block." - when address field has wrong type
 ///
 /// Validation:
 /// Ensures that the contact validation system properly enforces the requirement
-/// that recipient information must include a valid, non-empty name field.
+/// that recipient information must include a valid, non-empty name field and a valid,
+/// non-empty address content block.
 ///
 /// Note:
 /// This test complements test-invalid-from-contact and validates the same
 /// validation logic applied to recipient contact information.
-///
 #import "/src/lib.typ": *
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -68,7 +76,7 @@
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -103,7 +111,7 @@
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -139,7 +147,7 @@
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -175,7 +183,7 @@
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -211,7 +219,7 @@
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -248,7 +256,7 @@
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -284,7 +292,7 @@
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -316,7 +324,7 @@
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -349,7 +357,7 @@
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -382,7 +390,7 @@
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -415,7 +423,7 @@
 
 #assert.eq(
   catch(() => letterloom(
-    none, // value for doc
+    none,
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \

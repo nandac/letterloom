@@ -37,7 +37,6 @@
 /// Note:
 /// This test validates that the attn-line field, which is optional, must be properly
 /// formatted when provided.
-///
 #import "/src/lib.typ": *
 
 #assert.eq(

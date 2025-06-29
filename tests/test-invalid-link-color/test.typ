@@ -27,7 +27,6 @@
 /// Note:
 /// This test validates that link-color parameters must be proper Typst color
 /// values (blue, red, rgb(0,0,0), etc.) rather than string representations.
-///
 #import "/src/lib.typ": *
 
 #assert.eq(

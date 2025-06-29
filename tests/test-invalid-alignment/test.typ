@@ -29,7 +29,6 @@
 /// Note:
 /// This test validates that alignment parameters must be proper Typst alignment
 /// values (left, right, center, etc.) rather than string representations.
-///
 #import "/src/lib.typ": *
 
 #assert.eq(

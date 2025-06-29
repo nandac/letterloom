@@ -114,9 +114,9 @@ To get started, here is a straightforward example showcasing the minimum require
 // Write the body of your letter here
 ```
 
-=== Mandatory Parameters
+=== Required Parameters
 
-This section covers the mandatory parameters of the `letterloom` package, which define the essential elements of the letter including the sender, recipient, date, and signature.
+This section covers the required parameters of the `letterloom` package, which define the essential elements of the letter including the sender, recipient, date, and signature.
 
 #v(15pt)
 
@@ -477,9 +477,9 @@ footer: (
 
 *Note:* The footer is placed at the bottom of the letter above the page number if enabled and is center-aligned.
 
-=== Page Settings
+=== Document Settings
 
-The following parameters allow you to customize the layout of the letter. Each parameter has a default value, which can be overridden to suit your preferences.
+Customize the letter's document settings using the parameters below. Each parameter includes a default value, which can be adjusted to fit your needs.
 
 #v(15pt)
 
@@ -496,17 +496,17 @@ paper-size: "us-letter" // US Letter (8.5 × 11 in)
 paper-size: "legal"     // Legal (8.5 × 14 in)
 ```
 
-For additional details, refer to #link("https://typst.app/docs/reference/layout/page/#parameters-paper")[Typst's documentation on paper sizes].
+For more information, see #link("https://typst.app/docs/reference/layout/page/#parameters-paper")[Typst's documentation on paper sizes].
 
 #v(20pt)
 
 *`margins`* #h(15pt) #highlight-type.auto-type #h(5pt) or #h(5pt) #highlight-type.relative #h(5pt) or #h(5pt) #highlight-type.dictionary
 
-Sets the margins of the letter.
+Defines the margins of the letter.
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.auto-type]
 
-#text(size: 10pt)[The default value of #h(5pt) #highlight-type.auto-type #h(5pt) sets the margins automatically to 2.5/21 times the smaller dimension of the page. This results in a 25 mm margin for an A4 page.]
+#text(size: 10pt)[The #h(5pt) #highlight-type.auto-type #h(5pt) setting adjusts margins to 2.5/21 of the page's smaller dimension, resulting in a 25 mm margin for A4 paper.]
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -529,7 +529,7 @@ Refer to #link("https://typst.app/docs/reference/layout/page/#parameters-margin"
 
 *`par-leading`* #h(15pt) #highlight-type.length
 
-Defines the line spacing within paragraphs.
+Adjusts the line spacing within paragraphs.
 
 #text(size: 10pt)[*Default:* `0.8em`]
 
@@ -540,13 +540,13 @@ par-leading: 1.0em  // Normal spacing
 par-leading: 1.2em  // Loose spacing
 ```
 
-*Note:* You may need to change this setting to suit the font and font size used for the body of the letter.
+*Note:* Adjust this value to complement the chosen font and font size.
 
 #v(20pt)
 
 *`par-spacing`* #h(15pt) #highlight-type.length
 
-Determines the spacing between paragraphs.
+Controls the spacing between paragraphs.
 
 #text(size: 10pt)[*Default:* `1.8em`]
 
@@ -557,13 +557,13 @@ par-spacing: 1.8em  // Standard spacing
 par-spacing: 2.0em  // Relaxed spacing
 ```
 
-*Note:* You may need to change this setting to suit the font and font size used for the body of the letter.
+*Note:* Modify this value to match the font and font size for optimal readability.
 
 #v(20pt)
 
 *`number-pages`* #h(15pt) #highlight-type.bool
 
-Enables or disables page numbering. Page numbers are displayed starting from the second page.
+Toggles page numbering. If enabled, numbering starts from the second page.
 
 #text(size: 10pt)[*Default:* `false`]
 
@@ -573,9 +573,9 @@ number-pages: false  // No page numbers
 number-pages: true   // Page numbers on second page onwards
 ```
 
-*Note:* The page number is placed at the bottom of the page below the footer if specified and is center-aligned.
+*Note:* Page numbers appear centered at the bottom of the page, below the footer (if specified).
 
-=== Font Settings
+=== Typography Settings
 
 These parameters allow you to customize the fonts used throughout the letter. Each parameter has a default font setting that can be changed as needed.
 
@@ -671,7 +671,7 @@ footer-font-size: 9pt   // Standard size
 footer-font-size: 10pt  // Larger footer
 ```
 
-=== Additional Settings
+=== Layout Settings
 
 These parameters provide options to align specific elements and change the color of hyperlinks.
 

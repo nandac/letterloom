@@ -33,7 +33,6 @@
 /// Note:
 /// This test validates that the cc field, which is optional, must be properly
 /// formatted when provided.
-///
 #import "/src/lib.typ": *
 
 #assert.eq(

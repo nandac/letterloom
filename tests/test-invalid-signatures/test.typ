@@ -33,7 +33,6 @@
 /// Note:
 /// This test validates that the signatures field, which is required for all letters,
 /// must contain properly formatted signature data with valid names.
-///
 #import "/src/lib.typ": *
 
 #assert.eq(
