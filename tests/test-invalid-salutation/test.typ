@@ -1,34 +1,36 @@
 /// test-invalid-salutation
 ///
 /// Synopsis:
-/// Test case for input validation of the salutation field, ensuring proper handling of
-/// missing, empty, or incorrectly typed salutation values in letterloom.
+/// Test case that validates the letterloom function properly handles invalid
+/// salutation parameters by testing various error conditions for the `salutation` field.
 ///
 /// Purpose:
-/// Validates input validation for the salutation field in letterloom. Ensures that the function
-/// properly handles missing, empty, or incorrectly typed salutation values and provides
-/// appropriate error messages for each validation failure scenario.
+/// Ensures that the validation system correctly identifies and reports errors
+/// when the salutation field is missing, empty, or contains invalid data types.
 ///
 /// Test Scenarios:
 /// - Missing salutation field (not provided in function call)
 /// - Empty salutation field (empty string)
-/// - Empty salutation field (empty array)
+/// - Empty salutation field (empty content block)
 /// - Incorrect salutation type (number instead of string/content)
 ///
 /// Expected Behavior:
-/// All test cases should trigger appropriate validation errors when the salutation field is missing,
-/// empty, or of incorrect type. The letterloom function should panic with descriptive error
-/// messages indicating the specific validation failure.
+/// The function should panic with clear error messages indicating the specific
+/// validation failure for each test case.
 ///
 /// Expected Errors:
 /// - "salutation is missing." - when salutation field is not provided
 /// - "salutation is empty." - when salutation field is empty string
-/// - "salutation is empty." - when salutation field is empty array
+/// - "salutation is empty." - when salutation field is empty content block
 /// - "salutation must be a string or content block." - when salutation field has wrong type
 ///
 /// Validation:
-/// Uses Tytanic's catch() function to capture panics and assert that the expected error
-/// messages are returned for each validation scenario.
+/// Ensures that the salutation validation system properly enforces the requirement
+/// that salutation information must be a valid, non-empty string or content block.
+///
+/// Note:
+/// This test validates that the salutation field, which is required for all letters,
+/// must be properly formatted and non-empty.
 ///
 #import "/src/lib.typ": *
 
@@ -62,7 +64,7 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
   "panicked with: \"salutation is missing.\""
 )
@@ -98,7 +100,7 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
   "panicked with: \"salutation is empty.\""
 )
@@ -134,7 +136,7 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
   "panicked with: \"salutation is empty.\""
 )
@@ -170,7 +172,7 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
   "panicked with: \"salutation must be a string or content block.\""
 )

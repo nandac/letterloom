@@ -1,34 +1,36 @@
 /// test-invalid-closing
 ///
 /// Synopsis:
-/// Test case for input validation of the closing field, ensuring proper handling of
-/// missing, empty, or incorrectly typed closing values in letterloom.
+/// Test case that validates the letterloom function properly handles invalid
+/// closing parameters by testing various error conditions for the `closing` field.
 ///
 /// Purpose:
-/// Validates input validation for the closing field in letterloom. Ensures that the function
-/// properly handles missing, empty, or incorrectly typed closing values and provides
-/// appropriate error messages for each validation failure scenario.
+/// Ensures that the validation system correctly identifies and reports errors
+/// when the closing field is missing, empty, or contains invalid data types.
 ///
 /// Test Scenarios:
 /// - Missing closing field (not provided in function call)
 /// - Empty closing field (empty string)
-/// - Empty closing field (empty array)
+/// - Empty closing field (empty content block)
 /// - Incorrect closing type (number instead of string/content)
 ///
 /// Expected Behavior:
-/// All test cases should trigger appropriate validation errors when the closing field is missing,
-/// empty, or of incorrect type. The letterloom function should panic with descriptive error
-/// messages indicating the specific validation failure.
+/// The function should panic with clear error messages indicating the specific
+/// validation failure for each test case.
 ///
 /// Expected Errors:
 /// - "closing is missing." - when closing field is not provided
 /// - "closing is empty." - when closing field is empty string
-/// - "closing is empty." - when closing field is empty array
+/// - "closing is empty." - when closing field is empty content block
 /// - "closing must be a string or content block." - when closing field has wrong type
 ///
 /// Validation:
-/// Uses Tytanic's catch() function to capture panics and assert that the expected error
-/// messages are returned for each validation scenario.
+/// Ensures that the closing validation system properly enforces the requirement
+/// that closing information must be a valid, non-empty string or content block.
+///
+/// Note:
+/// This test validates that the closing field, which is required for all letters,
+/// must be properly formatted and non-empty.
 ///
 #import "/src/lib.typ": *
 
@@ -62,7 +64,7 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
   "panicked with: \"closing is missing.\""
 )
@@ -98,7 +100,7 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
   "panicked with: \"closing is empty.\""
 )
@@ -134,7 +136,7 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
   "panicked with: \"closing is empty.\""
 )
@@ -170,7 +172,7 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
   "panicked with: \"closing must be a string or content block.\""
 )

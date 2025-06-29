@@ -1,34 +1,36 @@
 /// test-invalid-date
 ///
 /// Synopsis:
-/// Test case for input validation of the date field, ensuring proper handling of
-/// missing, empty, or incorrectly typed date values in letterloom.
+/// Test case that validates the letterloom function properly handles invalid
+/// date parameters by testing various error conditions for the `date` field.
 ///
 /// Purpose:
-/// Validates input validation for the date field in letterloom. Ensures that the function
-/// properly handles missing, empty, or incorrectly typed date values and provides
-/// appropriate error messages for each validation failure scenario.
+/// Ensures that the validation system correctly identifies and reports errors
+/// when the date field is missing, empty, or contains invalid data types.
 ///
 /// Test Scenarios:
 /// - Missing date field (not provided in function call)
 /// - Empty date field (empty string)
-/// - Empty date field (empty array)
+/// - Empty date field (empty content block)
 /// - Incorrect date type (number instead of string/content)
 ///
 /// Expected Behavior:
-/// All test cases should trigger appropriate validation errors when the date field is missing,
-/// empty, or of incorrect type. The letterloom function should panic with descriptive error
-/// messages indicating the specific validation failure.
+/// The function should panic with clear error messages indicating the specific
+/// validation failure for each test case.
 ///
 /// Expected Errors:
 /// - "date is missing." - when date field is not provided
 /// - "date is empty." - when date field is empty string
-/// - "date is empty." - when date field is empty array
+/// - "date is empty." - when date field is empty content block
 /// - "date must be a string or content block." - when date field has wrong type
 ///
 /// Validation:
-/// Uses Tytanic's catch() function to capture panics and assert that the expected error
-/// messages are returned for each validation scenario.
+/// Ensures that the date validation system properly enforces the requirement
+/// that date information must be a valid, non-empty string or content block.
+///
+/// Note:
+/// This test validates that the date field, which is required for all letters,
+/// must be properly formatted and non-empty.
 ///
 #import "/src/lib.typ": *
 
@@ -62,7 +64,7 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
   "panicked with: \"date is missing.\""
 )
@@ -98,7 +100,7 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
   "panicked with: \"date is empty.\""
 )
@@ -134,7 +136,7 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
   "panicked with: \"date is empty.\""
 )
@@ -170,7 +172,7 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
   "panicked with: \"date must be a string or content block.\""
 )

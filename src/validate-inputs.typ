@@ -4,196 +4,404 @@
 /// It ensures that all input parameters meet the required format and type constraints
 /// before processing, providing clear error messages for invalid inputs.
 ///
-/// The module includes validation functions for:
-/// - Basic types (length, string, boolean)
-/// - Contact information (name and address)
-/// - Signatures and enclosures
-/// - Footer structures
-/// - Complete input validation orchestration
+/// The validation system is organized into several categories:
 ///
-/// All validation functions use panic() with descriptive error messages
-/// that include field names and expected formats for clear user feedback.
+/// ## Basic Type Validation
+/// - `validate-length()` - Validates length values (pt, em, cm, etc.)
+/// - `validate-string()` - Validates string and content block values
+/// - `validate-boolean()` - Validates boolean values
+///
+/// ## Contact Information Validation
+/// - `validate-contact()` - Validates sender and recipient contact structures
+///
+/// ## Content Structure Validation
+/// - `validate-signatures()` - Validates signature arrays and individual signatures
+/// - `validate-cc()` - Validates carbon copy recipient lists
+/// - `validate-enclosures()` - Validates enclosure lists
+/// - `validate-footer()` - Validates footer structures
+/// - `validate-attn-line()` - Validates attention line structures
+///
+/// ## Main Validation Orchestration
+/// - `validate-inputs()` - Orchestrates all validations for the letterloom function
+///
+/// ## Validation Philosophy
+/// - All validation functions use `panic()` with descriptive error messages
+/// - Error messages include field names and expected formats for clear user feedback
+/// - Required fields are validated for presence, type, and non-empty values
+/// - Optional fields are validated only when provided
+/// - Type validation ensures proper Typst types (alignment, color, length, etc.)
+///
+/// ## Error Message Format
+/// Error messages follow a consistent pattern:
+/// - Missing fields: "[field-name] is missing."
+/// - Empty fields: "[field-name] is empty."
+/// - Type errors: "[field-name] must be a [expected-type]."
+/// - Structure errors: "[field-name] must be a dictionary with [required-fields]."
+///
+/// ## Usage
+/// This module is primarily used internally by the letterloom function, but individual
+/// validation functions can be used for custom validation scenarios.
+///
+/// #example
+/// ```typ
+/// #import "validate-inputs.typ": *
+///
+/// // Validate a contact structure
+/// #let contact = (
+///   name: "John Doe",
+///   address: [123 Main St\nAnytown, ST 12345],
+/// )
+/// #validate-contact(contact, "sender")
+///
+/// // Validate a signature
+/// #let signature = (name: "John Doe")
+/// #validate-signatures(signature)
+/// ```
 ///
 
-/// Validates that a value is of type length (e.g., em, pt, cm).
+// =============================================================================
+// BASIC TYPE VALIDATION FUNCTIONS
+// =============================================================================
+
+/// Validates that a value is of length type (e.g., em, pt, cm, etc.).
 ///
-/// Parameters:
-/// - length-value: The value to validate
-/// - field-name: Name of the field for error reporting
+/// #length-value: The value to validate
+/// #field-name: Name of the field for error reporting (will be converted to string)
 ///
-/// Panics if the value is not a valid length type.
+/// Behavior:
+/// - Validates that the value is of Typst length type
+/// - Accepts any valid length unit (pt, em, cm, mm, in, etc.)
+/// - Provides field-specific error messages using the field-name parameter
+/// - Does not validate the magnitude, only the type
+///
+/// Returns:
+/// - Nothing, but panics if the value is not a valid length type
+///
+/// #example
+/// ```typ
+/// #validate-length(11pt, "font-size")
+/// #validate-length(1.5em, "line-height")
+/// #validate-length(2cm, "margin")
+/// ```
+///
 #let validate-length(length-value: none, field-name: none) = {
-  // Validate that the length value e.g. em, pt, cm etc is of a valid length type
   if type(length-value) != length {
-    panic(field-name + " must be of type length.")
+    panic(str(field-name) + " must be of type length.")
   }
 }
 
 /// Validates that a value is a non-empty string or content block.
 ///
-/// Parameters:
-/// - string-data: The value to validate
-/// - field-name: Name of the field for error reporting
-/// - required: Whether the field is mandatory (default: true)
+/// #string-data: The value to validate
+/// #field-name: Name of the field for error reporting (will be converted to string)
+/// #required: Whether the field is mandatory (default: true)
 ///
-/// Panics if the value is missing (when required), not a string/content type,
-/// or empty (empty string or empty content block).
+/// Behavior:
+/// - If required is true and string-data is none, panics with "is missing" error
+/// - If required is false and string-data is none, skips validation entirely
+/// - If string-data is provided, validates it is a string or content block
+/// - If string-data is a valid type, validates it is not empty (not "" or [])
+/// - Provides field-specific error messages using the field-name parameter
+///
+/// Returns:
+/// - Nothing, but panics if validation fails
+///
+/// #example
+/// ```typ
+/// #validate-string("Hello World", "greeting")
+/// #validate-string([*Bold text*], "content")
+/// #validate-string(none, "optional-field", required: false)
+/// ```
 #let validate-string(string-data: none, field-name: none, required: true) = {
-  // Validate that the string data
-
-  // If the string data is required, validate that it is not none
-  if required {
-    if string-data == none {
-      panic(field-name + " is missing.")
-    }
+  // Handle optional fields
+  if not required and string-data == none {
+    return
   }
 
-  // Validate that the string data is either a string or content block type
+  // Validate required fields
+  if required and string-data == none {
+    panic(str(field-name) + " is missing.")
+  }
+
+  // Validate type
   if type(string-data) not in (str, content) {
-    panic(field-name + " must be a string or content block.")
-  } else {
-    // If the string data is of a valid type check that it is not empty
-    if string-data in ("", []) {
-      panic(field-name + " is empty.")
-    }
+    panic(str(field-name) + " must be a string or content block.")
+  }
+
+  // Validate non-empty
+  if string-data in ("", []) {
+    panic(str(field-name) + " is empty.")
   }
 }
 
 /// Validates that a value is of boolean type.
 ///
-/// Parameters:
-/// - boolean-data: The value to validate
-/// - field-name: Name of the field for error reporting
+/// #boolean-data: The value to validate
+/// #field-name: Name of the field for error reporting (will be converted to string)
+/// #required: Whether the field is mandatory (default: true)
 ///
-/// Panics if the value is not a boolean type.
-#let validate-boolean(boolean-data: none, field-name: none) = {
-  // Validate that the boolean data is of a boolean type
+/// Behavior:
+/// - If required is true and boolean-data is none, panics with "is missing" error
+/// - If required is false and boolean-data is none, skips validation entirely
+/// - If boolean-data is provided, validates it is a boolean type (true or false)
+/// - Provides field-specific error messages using the field-name parameter
+/// - Does not validate the boolean value itself, only the type
+///
+/// Returns:
+/// - Nothing, but panics if validation fails
+///
+/// #example
+/// ```typ
+/// #validate-boolean(true, "enabled")
+/// #validate-boolean(false, "optional-flag", required: false)
+/// #validate-boolean(none, "optional-setting", required: false)
+/// ```
+///
+#let validate-boolean(boolean-data: none, field-name: none, required: true) = {
+  // Handle optional fields
+  if not required and boolean-data == none {
+    return
+  }
+
+  // Validate required fields
+  if required and boolean-data == none {
+    panic(str(field-name) + " is missing.")
+  }
+
+  // Validate type
   if type(boolean-data) != bool {
-    panic(field-name + " must be a true or false value.")
+    panic(str(field-name) + " must be a true or false value.")
   }
 }
 
+// =============================================================================
+// COMPLEX STRUCTURE VALIDATION FUNCTIONS
+// =============================================================================
+
 /// Validates contact information structure (name and address).
 ///
-/// Parameters:
-/// - contact: Dictionary containing name and address fields
-/// - field-name: Name of the field for error reporting
+/// #contact: Dictionary containing name and address fields
+/// #field-name: Name of the field for error reporting (will be converted to string)
 ///
-/// Panics if:
-/// - Contact is missing entirely
-/// - Contact is not a dictionary
-/// - Name field is missing, wrong type, or empty
-/// - Address field is missing, wrong type, or empty
+/// The contact dictionary should contain:
+/// - #name: Required string or content block (the person's name)
+/// - #address: Required content block (the person's address)
+///
+/// Behavior:
+/// - Validates that contact is provided (not none or empty)
+/// - Validates that contact is a dictionary
+/// - Validates that both name and address fields are present
+/// - Validates that name is a string or content block and not empty
+/// - Validates that address is a content block and not empty
+/// - Provides field-specific error messages using the field-name parameter
+///
+/// Returns:
+/// - Nothing, but panics if validation fails
+///
+/// #example
+/// ```typ
+/// #let contact = (
+///   name: "John Doe",
+///   address: [123 Main St \
+///             Anytown, ST 12345],
+/// )
+/// #validate-contact(contact, "sender")
+///
+/// #let recipient = (
+///   name: "Jane Smith",
+///   address: [456 Oak Ave \
+///             Somewhere, ST 67890],
+/// )
+/// #validate-contact(recipient, "recipient")
+/// ```
+///
 #let validate-contact(contact: none, field-name: none) = {
-  // Validate that the contact information format and fields are correct
+  // Validate presence
+  if contact in (none, ()) {
+    panic(str(field-name) + " is missing.")
+  }
 
-  // If contact is not given, panic
-  if contact not in (none, ()) {
-    // Validate that the contact information is a dictionary
-    if type(contact) == dictionary {
-      // Check if name is given and is a valid type
-      if "name" in contact {
-        if type(contact.at("name")) in (str, content) {
-          // If the name is given, validate that it is not empty
-          if contact.at("name") in ("", []) {
-            panic(field-name + " name is empty.")
-          }
-        } else {
-          panic(field-name + " name must be a string or content block.")
-        }
-      } else {
-        panic(field-name + " name is missing.")
-      }
+  // Validate dictionary type
+  if type(contact) != dictionary {
+    panic(str(field-name) + " details must be a dictionary with name and address fields.")
+  }
 
-      // Check if address is given and is a valid type
-      if "address" in contact {
-        if type(contact.at("address")) == content {
-          // If the address is given, validate that it is not empty
-          if contact.at("address") == [] {
-            panic(field-name + " address is empty.")
-          }
-        } else {
-          panic(field-name + " address must be a content block.")
-        }
-      } else {
-        panic(field-name + " address is missing.")
-      }
-    } else {
-      panic(field-name + " details must be a dictionary with name and address fields.")
-    }
-  } else {
-    panic(field-name + " is missing.")
+  // Validate name field
+  if "name" not in contact {
+    panic(str(field-name) + " name is missing.")
+  }
+
+  let name = contact.at("name")
+  // Validate name field type
+  if type(name) not in (str, content) {
+    panic(str(field-name) + " name must be a string or content block.")
+  }
+
+  // Validate name field is not empty
+  if name in ("", []) {
+    panic(str(field-name) + " name is empty.")
+  }
+
+  // Validate address field
+  if "address" not in contact {
+    panic(str(field-name) + " address is missing.")
+  }
+
+  let address = contact.at("address")
+  // Validate address field type
+  if type(address) != content {
+    panic(str(field-name) + " address must be a content block.")
+  }
+
+  // Validate address field is not empty
+  if address == [] {
+    panic(str(field-name) + " address is empty.")
   }
 }
 
 /// Validates signature structure and content.
 ///
-/// Parameters:
-/// - signatures: Array or single signature dictionary with name field
+/// #signatures: An array of signature dictionaries or a single signature dictionary
 ///
-/// Panics if:
-/// - Signatures are missing entirely
-/// - Any signature is not a dictionary
-/// - Name field is missing, wrong type, or empty
+/// Each signature dictionary should contain:
+/// - #name: Required string or content block (the signatory's name)
+/// - #signature: Optional signature image (not validated)
 ///
-/// Note: Signature images are optional and not validated.
+/// Behavior:
+/// - Validates that signatures is provided (not none or empty)
+/// - Handles both single signature and array of signatures
+/// - Validates that each signature is a dictionary
+/// - Validates that each signature has a required name field
+/// - Validates that each name is a string or content block and not empty
+/// - Does not validate the optional signature field (assumed to be an image)
+///
+/// Returns:
+/// - Nothing, but panics if validation fails
+///
+/// #example
+/// ```typ
+/// #let signatures = (
+///   (name: "John Doe", signature: image("john-sig.png")),
+///   (name: "Jane Smith"),
+/// )
+/// #validate-signatures(signatures)
+///
+/// // Single signature
+/// #let single-signature = (name: "John Doe")
+/// #validate-signatures(single-signature)
+/// ```
+///
 #let validate-signatures(signatures: none) = {
-  // Validate that the signatures are given and in the correct format
-
-  // If signature are not given, panic
-  if signatures not in (none, ()) {
-    // Handle the case where we only have a single signature
-    if type(signatures) != array {
-      signatures = (signatures, )
-    }
-
-    // Validate each signature item
-    // The signatory's name is required but a signature image is optional
-    for signature in signatures {
-      if type(signature) != dictionary {
-        panic("the signature must be a dictionary with a name field and an optional signature field.")
-      }
-
-      // Check if the signature name is given
-      if "name" in signature {
-        // Validate that the signature name is a string or content block
-        if type(signature.at("name")) not in (str, content) {
-          panic("the signature name must be a string or content block.")
-        }
-
-        if signature.at("name") in ("", []) {
-          panic("the signature name is empty.")
-        }
-      } else {
-        panic("the signature name is missing.")
-      }
-    }
-  } else {
+  // Validate presence
+  if signatures in (none, ()) {
     panic("signatures are missing.")
+  }
+
+  // Handle the case where only one signature is given
+  if type(signatures) != array {
+    signatures = (signatures, )
+  }
+
+  // Validate each signature
+  for signature in signatures {
+    if type(signature) != dictionary {
+      panic("signature '" + str(signature) + "' must be a dictionary with a name field and an optional signature field.")
+    }
+
+    if "name" not in signature {
+      panic("signature name is missing.")
+    }
+
+    let name = signature.at("name")
+    if type(name) not in (str, content) {
+      panic("signature name '" + str(name) + "' must be a string or content block.")
+    }
+
+    if name in ("", []) {
+      panic("signature name is empty.")
+    }
   }
 }
 
+// =============================================================================
+// OPTIONAL STRUCTURE VALIDATION FUNCTIONS
+// =============================================================================
+
 /// Validates cc list format.
 ///
-/// Parameters:
-/// - cc: Array or single cc string/content
+/// #cc: Optional dictionary with cc-list field and optional label field
 ///
-/// Panics if any cc item is not a string or content block.
-/// Note: cc's are optional - no error if none provided
+/// The cc dictionary should contain:
+/// - #cc-list: Required array of strings/content blocks (the cc recipients)
+/// - #label: Optional string or content block (defaults to "cc:")
+///
+/// Behavior:
+/// - Validates that cc is a dictionary (if provided)
+/// - Validates that cc dictionary has required "cc-list" field
+/// - Validates that cc-list is not empty
+/// - Validates that each cc recipient is a string or content block
+/// - Validates that the optional label field is a string or content block and not empty
+/// - Handles both single recipient and array of recipients in the cc-list field
+/// - No validation if cc is none or empty
+///
+/// Returns:
+/// - Nothing, but panics if validation fails
+///
+/// #example
+/// ```typ
+/// #let cc = (
+///   cc-list: ("alice@example.com", "bob@example.com"),
+///   label: "cc:",
+/// )
+/// #validate-cc(cc)
+///
+/// #let single-cc = (
+///   cc-list: "alice@example.com",
+/// )
+/// #validate-cc(single-cc)
+/// ```
+///
 #let validate-cc(cc: none) = {
-  // Validate that the give cc in the correct format
-
-  // CCs are optional
   if cc not in (none, ()) {
-    // Handle the case where we only have a single cc
-    if type(cc) != array {
-      cc = (cc, )
+    // Validate dictionary type
+    if type(cc) != dictionary {
+      panic("cc must be a dictionary.")
     }
 
-    // Validate each cc item
-    for cc-item in cc {
-      if type(cc-item) not in (str, content) {
-        panic("cc item must be a string or content block.")
+    // Validate cc-list field
+    if "cc-list" not in cc {
+      panic("cc dictionary must have a cc-list field.")
+    }
+
+    let cc-list = cc.at("cc-list")
+    // Handle the case where only one cc recipient is given
+    if type(cc-list) != array {
+      cc-list = (cc-list, )
+    }
+
+    // Validate cc-list field is not empty
+    if cc-list in (none, ()) {
+      panic("cc-list is empty.")
+    }
+
+    // Validate each recipient
+    for cc-recipient in cc-list {
+      if type(cc-recipient) not in (str, content) {
+        panic(str("cc recipient '" + str(cc-recipient)) + "' must be a string or content block.")
+      }
+    }
+
+    // Validate optional label
+    if "label" in cc {
+      let label = cc.at("label")
+      // Validate label field type
+      if type(label) not in (str, content) {
+        panic("cc label '" + str(label) + "' must be a string or content block.")
+      }
+
+      // Validate label field is not empty
+      if label in ("", []) {
+        panic("cc label is empty.")
       }
     }
   }
@@ -201,25 +409,77 @@
 
 /// Validates enclosure list format.
 ///
-/// Parameters:
-/// - enclosures: Array or single enclosure string/content
+/// #enclosures: Optional dictionary with encl-list field and optional label field
 ///
-/// Panics if any enclosure is not a string or content block.
-/// Note: Enclosures are optional - no error if none provided.
+/// The enclosures dictionary should contain:
+/// - #encl-list: Required array of strings/content blocks (the enclosure items)
+/// - #label: Optional string or content block (defaults to "encl:")
+///
+/// Behavior:
+/// - Validates that enclosures is a dictionary (if provided)
+/// - Validates that enclosures dictionary has required "encl-list" field
+/// - Validates that each item is a string or content block and not empty
+/// - Validates that the optional label field is a string or content block and not empty
+/// - Handles both single item and array of items in the encl-list field
+/// - No validation if enclosures is none or empty
+///
+/// Returns:
+/// - Nothing, but panics if validation fails
+///
+/// #example
+/// ```typ
+/// #let enclosures = (
+///   encl-list: ("resume.pdf", "cover-letter.pdf"),
+///   label: "encl:",
+/// )
+/// #validate-enclosures(enclosures)
+/// ```
 #let validate-enclosures(enclosures: none) = {
-  // Validate that the given enclosures are in the correct format
-
-  // Enclosures are optional
   if enclosures not in (none, ()) {
-    // Handle the case where we only have a single enclosure
-    if type(enclosures) != array {
-      enclosures = (enclosures, )
+    // Validate dictionary type
+    if type(enclosures) != dictionary {
+      panic("enclosures must be a dictionary with an encl-list field.")
     }
 
-    // Check that each enclosure is a string or content block
-    for enclosure in enclosures {
-      if type(enclosure) not in (str, content) {
-        panic("enclosure must be a string or content block.")
+    // Validate encl-list field
+    if "encl-list" not in enclosures {
+      panic("enclosures dictionary must have an encl-list field.")
+    }
+
+    let encl-list = enclosures.at("encl-list")
+    // Handle the case where only one enclosure item is given
+    if type(encl-list) != array {
+      encl-list = (encl-list, )
+    }
+
+    // Validate encl-list field is not empty
+    if encl-list in (none, ()) {
+      panic("enclosure encl-list field is empty.")
+    }
+
+    // Validate each item
+    for encl-item in encl-list {
+      if type(encl-item) not in (str, content) {
+        panic("enclosure '" + str(encl-item) + "' must be a string or content block.")
+      }
+
+      // Validate item is not empty
+      if encl-item in ("", []) {
+        panic("empty enclosure item found.")
+      }
+    }
+
+    // Validate optional label
+    if "label" in enclosures {
+      let label = enclosures.at("label")
+      // Validate label field type
+      if type(label) not in (str, content) {
+        panic("enclosure label '" + str(label) + "' must be a string or content block.")
+      }
+
+      // Validate label field is not empty
+      if label in ("", []) {
+        panic("enclosure label is empty.")
       }
     }
   }
@@ -227,84 +487,233 @@
 
 /// Validates footer structure with text and optional type.
 ///
-/// Parameters:
-/// - footer: Array or single footer dictionary with footer-text field
+/// #footer: An array of footer dictionaries or a single footer dictionary
 ///
-/// Panics if:
-/// - Any footer element is not a dictionary
-/// - footer-text field is missing or wrong type
-/// - footer-type is not one of "url", "email", or "string"
+/// Each footer dictionary should contain:
+/// - #footer-text: Required string or content block (the footer content)
+/// - #footer-type: Optional string, one of "url", "email", or "string" (defaults to "string")
 ///
-/// Note: Footer is optional - no error if none provided.
+/// Behavior:
+/// - Validates that footer is an array (if provided)
+/// - Handles both single footer item and array of footer items
+/// - Validates that each footer element is a dictionary
+/// - Validates that each footer has a required footer-text field
+/// - Validates that footer-text is a string or content block
+/// - Validates that footer-type is one of the allowed values (if provided)
+/// - No validation if footer is none or empty
+///
+/// Returns:
+/// - Nothing, but panics if validation fails
+///
+/// #example
+/// ```typ
+/// #let footer = (
+///   (footer-text: "https://example.com", footer-type: "url"),
+///   (footer-text: "contact@example.com", footer-type: "email"),
+///   (footer-text: "© 2024 Company"),
+/// )
+/// #validate-footer(footer)
+///
+/// #let single-footer = (footer-text: "© 2024 Company")
+/// #validate-footer(single-footer)
+/// ```
+///
 #let validate-footer(footer: none) = {
-  // Validate that the given footer is in the correct format
-
-  // Footer is optional
   if footer not in (none, ()) {
+    // Handle the case where only one footer item is given
     if type(footer) != array {
-      // Handle the case where we only have a single footer element
       footer = (footer, )
     }
 
     // Validate each footer element
     for footer-elem in footer {
-      // Validate that each footer element is a dictionary
       if type(footer-elem) != dictionary {
-        panic("footer element must be a dictionary.")
+        panic("footer element '" + str(footer-elem) + "' must be a dictionary.")
       }
 
-      // Validate that the footer-text is given
-      if "footer-text" in footer-elem {
-        // Validate that the footer-text is a string or content block
-        if type(footer-elem.at("footer-text")) not in (str, content) {
-          panic("footer-text must be a string or content block.")
-        }
-      } else {
+      if "footer-text" not in footer-elem {
         panic("footer-text is missing.")
       }
 
-      // Validate that the footer type is one of url, email or string
-      // The footer-type field is optional and defaults to string
+      let footer-text = footer-elem.at("footer-text")
+      if type(footer-text) not in (str, content) {
+        panic("footer-text '" + str(footer-text) + "' must be a string or content block.")
+      }
+
+      // Validate optional footer-type
       if "footer-type" in footer-elem {
-        if footer-elem.at("footer-type") not in ("url", "email", "string") {
-          panic("footer-type must be one of url, email or string.")
+        let footer-type = footer-elem.at("footer-type")
+        if footer-type not in ("url", "email", "string") {
+          panic("footer-type '" + str(footer-type) + "' must be one of url, email or string.")
         }
       }
     }
   }
 }
 
-/// Main validation function that orchestrates all validations.
+/// Validates attention line format.
 ///
-/// Validates all letterloom parameters including required fields,
-/// optional fields, and formatting options.
+/// #attn-line: Attention line dictionary with required "name" field and optional "label" and "position" fields
 ///
-/// Required Parameters:
-/// - from: Sender contact information
-/// - to: Recipient contact information
-/// - date: Letter date
-/// - salutation: Opening greeting
-/// - subject: Letter subject
-/// - closing: Closing phrase
-/// - signatures: List of signatories
+/// The attn-line dictionary should contain:
+/// - #name: Required string or content block (the person's name)
+/// - #label: Optional string or content block (defaults to "Attn:")
+/// - #position: Optional string, either "above" or "below" (defaults to "above")
 ///
-/// Optional Parameters:
-/// - attn-name: Attention line
-/// - cc: Carbon copy recipients
-/// - enclosures: List of enclosures
-/// - enclosures-title: Enclosures header text
-/// - footer: Footer information
-/// - number-pages: Enable page numbering
-/// - main-font-size: Primary font size
-/// - footer-font-size: Footer font size
-/// - footnote-font-size: Footnote font size
-/// - par-leading: Paragraph line spacing
-/// - par-spacing: Paragraph spacing
-/// - from-alignment: Sender address alignment
-/// - footnote-alignment: Footnote alignment
-/// - link-color: Hyperlink color
+/// Behavior:
+/// - Validates that attn-line is a dictionary (if provided)
+/// - Validates that required name field is present and valid
+/// - Validates that name is a string or content block and not empty
+/// - Validates that optional label field is valid (if provided)
+/// - Validates that optional position field is valid (if provided)
+/// - No validation if attn-line is none or empty
 ///
-/// Panics if any required field is invalid or missing.
+/// Returns:
+/// - Nothing, but panics if validation fails
+///
+/// #example
+/// ```typ
+/// #let attn-line = (
+///   name: "Jane Smith",
+///   label: "Attn:",
+///   position: "above",
+/// )
+/// #validate-attn-line(attn-line)
+///
+/// #let simple-attn = (name: "John Doe")
+/// #validate-attn-line(simple-attn)
+/// ```
+///
+#let validate-attn-line(attn-line: none) = {
+  if attn-line not in (none, ()) {
+    // Validate dictionary type
+    if type(attn-line) != dictionary {
+      panic("attn-line must be a dictionary.")
+    }
+
+    // Validate required name field
+    if "name" not in attn-line {
+      panic("attn-line dictionary must have a name field.")
+    }
+
+    // Validate name field type
+    let name = attn-line.at("name")
+    if type(name) not in (str, content) {
+      panic("attn-line name must be a string or content block.")
+    }
+
+    // Validate name field is not empty
+    if name in ("", []) {
+      panic("attn-line name is empty.")
+    }
+
+    // Validate optional label
+    if "label" in attn-line {
+      let label = attn-line.at("label")
+
+      // Validate label field type
+      if type(label) not in (str, content) {
+        panic("attn-line label must be a string or content block.")
+      }
+
+      // Validate label field is not empty
+      if label in ("", []) {
+        panic("attn-line label is empty.")
+      }
+    }
+
+    // Validate optional position
+    if "position" in attn-line {
+      let position = attn-line.at("position")
+
+      // Validate position field is valid
+      if position not in ("above", "below") {
+        panic("attn-line position must be one of above or below.")
+      }
+    }
+  }
+}
+
+// =============================================================================
+// MAIN VALIDATION ORCHESTRATION
+// =============================================================================
+
+/// Main validation function that orchestrates all validations for the letterloom function.
+///
+/// This function validates all letterloom parameters including required fields,
+/// optional fields, and formatting options. It serves as the central validation
+/// point for the entire letterloom system.
+///
+/// ## Required Parameters
+/// These parameters must be provided and will be validated for presence, type, and content:
+/// - #from: Sender contact information (dictionary with name and address)
+/// - #to: Recipient contact information (dictionary with name and address)
+/// - #date: Letter date (string or content block)
+/// - #salutation: Opening greeting (string or content block)
+/// - #subject: Letter subject (string or content block)
+/// - #closing: Closing phrase (string or content block)
+/// - #signatures: List of signatories (array of signature dictionaries)
+///
+/// ## Optional Parameters
+/// These parameters are validated only when provided:
+/// - #attn-line: Attention line (dictionary with name, optional label and position)
+/// - #cc: Carbon copy recipients (dictionary with cc-list, optional label)
+/// - #enclosures: List of enclosures (dictionary with encl-list, optional label)
+/// - #footer: Footer information (array of footer dictionaries)
+///
+/// ## Formatting Parameters
+/// These parameters control document formatting and are validated for proper types:
+/// - #par-leading: Paragraph line spacing (length, default: 0.8em)
+/// - #par-spacing: Paragraph spacing (length, default: 1.8em)
+/// - #number-pages: Enable page numbering (boolean, default: false)
+/// - #main-font-size: Primary font size (length, default: 11pt)
+/// - #footer-font-size: Footer font size (length, default: 9pt)
+/// - #footnote-font-size: Footnote font size (length, default: 7pt)
+/// - #from-alignment: Sender address alignment (alignment, default: right)
+/// - #footnote-alignment: Footnote alignment (alignment, default: left)
+/// - #link-color: Hyperlink color (color, default: blue)
+///
+/// ## Validation Order
+/// The function validates parameters in the following order:
+/// 1. Required fields (contact info, date, salutation, subject, closing, signatures)
+/// 2. Formatting parameters (lengths, booleans)
+/// 3. Optional fields (attn-line, cc, enclosures, footer)
+/// 4. Typst-specific types (alignment, color)
+///
+/// ## Error Handling
+/// - All validation failures result in a panic with descriptive error messages
+/// - Error messages include the field name and expected format
+/// - Validation stops at the first error encountered
+/// - No return value - function either completes successfully or panics
+///
+/// ## Usage
+/// This function is called internally by the letterloom function before any
+/// document generation begins. It ensures all inputs are valid before processing.
+///
+/// #example
+/// ```typ
+/// #let from = (
+///   name: "John Doe",
+///   address: [123 Main St\nAnytown, ST 12345],
+/// )
+/// #let to = (
+///   name: "Jane Smith",
+///   address: [456 Oak Ave\nSomewhere, ST 67890],
+/// )
+/// #let signatures = ((name: "John Doe"),)
+/// #validate-inputs(
+///   from: from,
+///   to: to,
+///   date: "January 15, 2024",
+///   salutation: "Dear Jane,",
+///   subject: "Meeting Request",
+///   closing: "Best regards,",
+///   signatures: signatures,
+///   cc: (cc-list: "alice@example.com"),
+///   enclosures: (encl-list: "resume.pdf"),
+/// )
+/// ```
+///
 #let validate-inputs(
     from: none,
     to: none,
@@ -313,10 +722,9 @@
     subject: none,
     closing: none,
     signatures: none,
-    attn-name: none,
+    attn-line: none,
     cc: none,
     enclosures: none,
-    enclosures-title: "encl:",
     footer: none,
     par-leading: 0.8em,
     par-spacing: 1.8em,
@@ -328,82 +736,69 @@
     footnote-alignment: left,
     link-color: blue,
   ) = {
-  // Validate all required variables
-  // Validate the sender's contact details
+  // =============================================================================
+  // VALIDATE REQUIRED FIELDS
+  // =============================================================================
+
   validate-contact(contact: from, field-name: "from")
-
-  // Validate the recipient's contact details
   validate-contact(contact: to, field-name: "to")
-
-  // Validate the date
   validate-string(string-data: date, field-name: "date")
-
-  // Validate salutation
   validate-string(string-data: salutation, field-name: "salutation")
-
-  // Validate subject
   validate-string(string-data: subject, field-name: "subject")
-
-  // Validate closing
   validate-string(string-data: closing, field-name: "closing")
-
-  // Validate signatures
   validate-signatures(signatures: signatures)
 
-  // Validate all optional variables
-  // Validate font sizes
+  // =============================================================================
+  // VALIDATE FORMATTING PARAMETERS
+  // =============================================================================
+
   validate-length(length-value: main-font-size, field-name: "main-font-size")
   validate-length(length-value: footer-font-size, field-name: "footer-font-size")
   validate-length(length-value: footnote-font-size, field-name: "footnote-font-size")
-
-  // Validate paragraph spacing and leading
   validate-length(length-value: par-leading, field-name: "par-leading")
   validate-length(length-value: par-spacing, field-name: "par-spacing")
 
-  // If attention name is given, validate it
-  if attn-name != none {
-    validate-string(string-data: attn-name, field-name: "attn-name", required: false)
+  // =============================================================================
+  // VALIDATE OPTIONAL FIELDS
+  // =============================================================================
+
+  if attn-line != none {
+    validate-attn-line(attn-line: attn-line)
   }
 
-  // If cc is given, validate it
   if cc != none {
     validate-cc(cc: cc)
   }
 
-  // If enclosures are given, validate them
   if enclosures != none {
     validate-enclosures(enclosures: enclosures)
   }
 
-  // If enclosures-title is not the default value, validate it
-  if enclosures-title != "encl:" {
-    validate-string(
-      string-data: enclosures-title, field-name: "enclosures-title", required: false
-    )
-  }
-
-  // If number-pages is not the default value, validate it
-  if number-pages != false {
-    validate-boolean(boolean-data: number-pages, field-name: "number-pages")
-  }
-
-  // If footer is given, validate it
   if footer != none {
     validate-footer(footer: footer)
   }
 
-  // Validate from alignment
+  // =============================================================================
+  // VALIDATE CONDITIONAL FIELDS
+  // =============================================================================
+
+  if number-pages != false {
+    validate-boolean(boolean-data: number-pages, field-name: "number-pages", required: false)
+  }
+
+  // =============================================================================
+  // VALIDATE TYPST-SPECIFIC TYPES
+  // =============================================================================
+
   if type(from-alignment) != alignment {
-    panic("from-alignment must be of a valid alignment type.")
+    panic("from-alignment must be a valid alignment type.")
   }
 
-  // Validate footnote alignment
   if type(footnote-alignment) != alignment {
-    panic("footnote-alignment must be of a valid alignment type.")
+    panic("footnote-alignment must be a valid alignment type.")
   }
 
-  // Validate link color
   if type(link-color) != color {
-    panic("link-color must be of a valid color type.")
+    panic("link-color must be a valid color type.")
   }
 }

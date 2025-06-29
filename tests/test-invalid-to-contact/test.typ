@@ -1,56 +1,50 @@
-/// test-invalid-enclosures
+/// test-invalid-to-contact
 ///
 /// Synopsis:
 /// Test case that validates the letterloom function properly handles invalid
-/// enclosures parameters by testing various error conditions for the `enclosures` field.
+/// recipient contact information by testing various error conditions for the `to` parameter.
 ///
 /// Purpose:
 /// Ensures that the validation system correctly identifies and reports errors
-/// when enclosures data is malformed or contains invalid content.
+/// when the recipient's contact information is missing, malformed, or contains
+/// invalid data types.
 ///
 /// Test Scenarios:
-/// - Enclosures provided as string instead of dictionary
-/// - Enclosures dictionary missing required encl-list field
-/// - Enclosures list is empty
-/// - Enclosures list contains invalid types (numbers, none, empty tuples)
-/// - Enclosures label has invalid type
+/// - Missing `to` parameter entirely
+/// - Missing `name` field in to contact dictionary
+/// - Empty `name` field (empty string)
+/// - Empty `name` field (empty content block)
+/// - Invalid `name` field type (number instead of string/content)
+/// - Missing `name` field (none value)
 ///
 /// Expected Behavior:
-/// The function should panic with clear error messages indicating the specific
-/// validation failure for each test case.
+/// The function should panic with clear, descriptive error messages indicating
+/// the specific validation failure for each test case.
 ///
 /// Expected Errors:
-/// - "enclosures must be a dictionary with an encl-list field." - when enclosures is not a dictionary
-/// - "enclosures dictionary must have an encl-list field." - when encl-list field is missing
-/// - "enclosure encl-list field is empty." - when encl-list is empty
-/// - "enclosure 'value' must be a string or content block." - when enclosure item has wrong type
-/// - "enclosure label 'value' must be a string or content block." - when enclosure label has wrong type
+/// - "to is missing." - when to parameter is not provided
+/// - "to name is missing." - when name field is not present
+/// - "to name is empty." - when name field is empty string or content
+/// - "to name must be a string or content block." - when name field has wrong type
 ///
 /// Validation:
-/// Ensures that the enclosures validation system properly enforces the requirement
-/// that enclosures data must be properly structured with valid content.
+/// Ensures that the contact validation system properly enforces the requirement
+/// that recipient information must include a valid, non-empty name field.
 ///
 /// Note:
-/// This test validates that the enclosures field, which is optional, must be properly
-/// formatted when provided.
+/// This test complements test-invalid-from-contact and validates the same
+/// validation logic applied to recipient contact information.
 ///
 #import "/src/lib.typ": *
 
 #assert.eq(
   catch(() => letterloom(
-    none,
+    none, // value for doc
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
                 Cheswick Village \
                 Middle Upton \
-                Bristol BS16 1GU]
-    ),
-    to: (
-      name: "Evergreen Tree Surgeons",
-      address: [Midtown Lane \
-                Cheswick Village \
-                Stoke Gifford \
                 Bristol BS16 1GU]
     ),
     date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
@@ -67,15 +61,14 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    ),
-    enclosures: "List of enclosures",
+    )
   )),
-  "panicked with: \"enclosures must be a dictionary with an encl-list field.\""
+  "panicked with: \"to is missing.\""
 )
 
 #assert.eq(
   catch(() => letterloom(
-    none,
+    none, // value for doc
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -84,7 +77,6 @@
                 Bristol BS16 1GU]
     ),
     to: (
-      name: "Evergreen Tree Surgeons",
       address: [Midtown Lane \
                 Cheswick Village \
                 Stoke Gifford \
@@ -104,17 +96,14 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    ),
-    enclosures: (
-      label: "Enclosures:",
-    ),
+    )
   )),
-  "panicked with: \"enclosures dictionary must have an encl-list field.\""
+  "panicked with: \"to name is missing.\""
 )
 
 #assert.eq(
   catch(() => letterloom(
-    none,
+    none, // value for doc
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -123,7 +112,7 @@
                 Bristol BS16 1GU]
     ),
     to: (
-      name: "Evergreen Tree Surgeons",
+      name: "",
       address: [Midtown Lane \
                 Cheswick Village \
                 Stoke Gifford \
@@ -143,17 +132,14 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    ),
-    enclosures: (
-      encl-list: ()
-    ),
+    )
   )),
-  "panicked with: \"enclosure encl-list field is empty.\""
+  "panicked with: \"to name is empty.\""
 )
 
 #assert.eq(
   catch(() => letterloom(
-    none,
+    none, // value for doc
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -162,7 +148,7 @@
                 Bristol BS16 1GU]
     ),
     to: (
-      name: "Evergreen Tree Surgeons",
+      name: [],
       address: [Midtown Lane \
                 Cheswick Village \
                 Stoke Gifford \
@@ -182,17 +168,14 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    ),
-    enclosures: (
-      encl-list: calc.ceil(3.14)
-    ),
+    )
   )),
-  "panicked with: \"enclosure '4' must be a string or content block.\""
+  "panicked with: \"to name is empty.\""
 )
 
 #assert.eq(
   catch(() => letterloom(
-    none,
+    none, // value for doc
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -201,7 +184,7 @@
                 Bristol BS16 1GU]
     ),
     to: (
-      name: "Evergreen Tree Surgeons",
+      name: 3,
       address: [Midtown Lane \
                 Cheswick Village \
                 Stoke Gifford \
@@ -221,17 +204,14 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    ),
-    enclosures: (
-      encl-list: ""
-    ),
+    )
   )),
-  "panicked with: \"empty enclosure item found.\""
+  "panicked with: \"to name must be a string or content block.\""
 )
 
 #assert.eq(
   catch(() => letterloom(
-    none,
+    none, // value for doc
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -240,7 +220,7 @@
                 Bristol BS16 1GU]
     ),
     to: (
-      name: "Evergreen Tree Surgeons",
+      name: none,
       address: [Midtown Lane \
                 Cheswick Village \
                 Stoke Gifford \
@@ -260,18 +240,51 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    ),
-    enclosures: (
-      label: calc.ceil(3.14),
-      encl-list: "enclosure one"
-    ),
+    )
   )),
-  "panicked with: \"enclosure label '4' must be a string or content block.\""
+  "panicked with: \"to name must be a string or content block.\""
+)
+
+
+#assert.eq(
+  catch(() => letterloom(
+    none, // value for doc
+    from: (
+      name: "The Dimbleby Family",
+      address: [The Lodge \
+                Cheswick Village \
+                Middle Upton \
+                Bristol BS16 1GU]
+    ),
+    to: (
+      name: calc.ceil(1.2),
+      address: [Midtown Lane \
+                Cheswick Village \
+                Stoke Gifford \
+                Bristol BS16 1GU]
+    ),
+    date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+    salutation: "Dear Mr Hawthorne",
+    subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+    closing: "Sincerely yours,",
+    signatures: (
+      (
+        name: "Lord Albus Dimbleby"
+      ),
+      (
+        name: "Lady Abigail Dimbleby"
+      ),
+      (
+        name: "Sir Austin Dimbleby"
+      )
+    )
+  )),
+  "panicked with: \"to name must be a string or content block.\""
 )
 
 #assert.eq(
   catch(() => letterloom(
-    none,
+    none, // value for doc
     from: (
       name: "The Dimbleby Family",
       address: [The Lodge \
@@ -280,11 +293,7 @@
                 Bristol BS16 1GU]
     ),
     to: (
-      name: "Evergreen Tree Surgeons",
-      address: [Midtown Lane \
-                Cheswick Village \
-                Stoke Gifford \
-                Bristol BS16 1GU]
+      name: "Evergreen Tree Surgeons"
     ),
     date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
     salutation: "Dear Mr Hawthorne",
@@ -300,11 +309,139 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    ),
-    enclosures: (
-      label: "",
-      encl-list: "enclosure one"
-    ),
+    )
   )),
-  "panicked with: \"enclosure label is empty.\""
+  "panicked with: \"to address is missing.\""
+)
+
+#assert.eq(
+  catch(() => letterloom(
+    none, // value for doc
+    from: (
+      name: "The Dimbleby Family",
+      address: [The Lodge \
+                Cheswick Village \
+                Middle Upton \
+                Bristol BS16 1GU]
+    ),
+    to: (
+      name: "Evergreen Tree Surgeons",
+      address: []
+    ),
+    date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+    salutation: "Dear Mr Hawthorne",
+    subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+    closing: "Sincerely yours,",
+    signatures: (
+      (
+        name: "Lord Albus Dimbleby"
+      ),
+      (
+        name: "Lady Abigail Dimbleby"
+      ),
+      (
+        name: "Sir Austin Dimbleby"
+      )
+    )
+  )),
+  "panicked with: \"to address is empty.\""
+)
+
+#assert.eq(
+  catch(() => letterloom(
+    none, // value for doc
+    from: (
+      name: "The Dimbleby Family",
+      address: [The Lodge \
+                Cheswick Village \
+                Middle Upton \
+                Bristol BS16 1GU]
+    ),
+    to: (
+      name: "Evergreen Tree Surgeons",
+      address: 3
+    ),
+    date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+    salutation: "Dear Mr Hawthorne",
+    subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+    closing: "Sincerely yours,",
+    signatures: (
+      (
+        name: "Lord Albus Dimbleby"
+      ),
+      (
+        name: "Lady Abigail Dimbleby"
+      ),
+      (
+        name: "Sir Austin Dimbleby"
+      )
+    )
+  )),
+  "panicked with: \"to address must be a content block.\""
+)
+
+#assert.eq(
+  catch(() => letterloom(
+    none, // value for doc
+    from: (
+      name: "The Dimbleby Family",
+      address: [The Lodge \
+                Cheswick Village \
+                Middle Upton \
+                Bristol BS16 1GU]
+    ),
+    to: (
+      name: "Evergreen Tree Surgeons",
+      address: none
+    ),
+    date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+    salutation: "Dear Mr Hawthorne",
+    subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+    closing: "Sincerely yours,",
+    signatures: (
+      (
+        name: "Lord Albus Dimbleby"
+      ),
+      (
+        name: "Lady Abigail Dimbleby"
+      ),
+      (
+        name: "Sir Austin Dimbleby"
+      )
+    )
+  )),
+  "panicked with: \"to address must be a content block.\""
+)
+
+#assert.eq(
+  catch(() => letterloom(
+    none, // value for doc
+    from: (
+      name: "The Dimbleby Family",
+      address: [The Lodge \
+                Cheswick Village \
+                Middle Upton \
+                Bristol BS16 1GU]
+    ),
+    to: (
+      name: "Evergreen Tree Surgeons",
+      address: calc.ceil(1.2)
+    ),
+    date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+    salutation: "Dear Mr Hawthorne",
+    subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+    closing: "Sincerely yours,",
+    signatures: (
+      (
+        name: "Lord Albus Dimbleby"
+      ),
+      (
+        name: "Lady Abigail Dimbleby"
+      ),
+      (
+        name: "Sir Austin Dimbleby"
+      )
+    )
+  )),
+  "panicked with: \"to address must be a content block.\""
 )

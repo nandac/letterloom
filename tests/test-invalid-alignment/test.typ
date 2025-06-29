@@ -1,25 +1,34 @@
 /// test-invalid-alignment
 ///
-/// Purpose:
-/// Validates that the letterloom function properly handles cases where
-/// alignment parameters contain invalid data types instead of valid alignment values.
+/// Synopsis:
+/// Test case that validates the letterloom function properly handles invalid
+/// alignment parameters by testing type validation for alignment values.
 ///
-/// Test Scenario:
+/// Purpose:
+/// Ensures that the validation system correctly identifies and reports errors
+/// when alignment parameters contain invalid data types instead of valid
+/// alignment values.
+///
+/// Test Scenarios:
 /// Tests two alignment parameters with invalid string values:
 /// - from-alignment: "left" (should be left, not "left")
 /// - footnote-alignment: "left" (should be left, not "left")
 ///
 /// Expected Behavior:
-/// The function should panic with a clear error message indicating that
+/// The function should panic with clear error messages indicating that
 /// alignment parameters must be of valid alignment types.
 ///
-/// Expected Error:
-/// "panicked with: \"from-alignment must be of a valid alignment type.\""
-/// "panicked with: \"footnote-alignment must be of a valid alignment type.\""
+/// Expected Errors:
+/// - "from-alignment must be a valid alignment type." - when from-alignment is string instead of alignment
+/// - "footnote-alignment must be a valid alignment type." - when footnote-alignment is string instead of alignment
 ///
 /// Validation:
 /// Ensures that the validation system correctly identifies type mismatches
 /// in alignment parameters and provides appropriate error feedback.
+///
+/// Note:
+/// This test validates that alignment parameters must be proper Typst alignment
+/// values (left, right, center, etc.) rather than string representations.
 ///
 #import "/src/lib.typ": *
 
@@ -55,9 +64,9 @@
         name: "Sir Austin Dimbleby"
       )
     ),
-    from-alignment: "left"
+    from-alignment: "left",
   )),
-  "panicked with: \"from-alignment must be of a valid alignment type.\""
+  "panicked with: \"from-alignment must be a valid alignment type.\""
 )
 
 #assert.eq(
@@ -92,7 +101,7 @@
         name: "Sir Austin Dimbleby"
       )
     ),
-    footnote-alignment: "left"
+    footnote-alignment: "left",
   )),
-  "panicked with: \"footnote-alignment must be of a valid alignment type.\""
+  "panicked with: \"footnote-alignment must be a valid alignment type.\""
 )

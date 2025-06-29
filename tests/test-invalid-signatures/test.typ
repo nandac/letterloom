@@ -1,36 +1,38 @@
 /// test-invalid-signatures
 ///
 /// Synopsis:
-/// Test case for various signature validation scenarios, including missing, empty,
-/// and invalid signature data, to ensure robust signature validation in letterloom.
+/// Test case that validates the letterloom function properly handles invalid
+/// signature parameters by testing various error conditions for the `signatures` field.
 ///
 /// Purpose:
-/// Validates that the letterloom function properly handles various signature
-/// validation scenarios including missing, empty, and invalid signature data.
+/// Ensures that the validation system correctly identifies and reports errors
+/// when signature data is missing, malformed, or contains invalid content.
 ///
 /// Test Scenarios:
-/// 1. Signatures field is completely missing
-/// 2. Signatures field is an empty tuple
-/// 3. Signatures are provided as strings instead of dictionaries
-/// 4. Signature dictionaries are missing the required 'name' field
-/// 5. Signature names are invalid types (number, calculated value, none)
-/// 6. Signature names are empty strings
+/// - Missing signatures field (not provided in function call)
+/// - Signatures provided as strings instead of dictionaries
+/// - Signature dictionaries missing the required 'name' field
+/// - Signature names with invalid types (number, calculated value, none)
+/// - Signature names as empty strings
 ///
 /// Expected Behavior:
-/// The function should panic with appropriate error messages for each
-/// validation failure scenario.
+/// The function should panic with clear error messages indicating the specific
+/// validation failure for each test case.
 ///
 /// Expected Errors:
-/// - "panicked with: \"signatures are missing.\""
-/// - "panicked with: \"the signature must be a dictionary with a name field and an optional signature field.\""
-/// - "panicked with: \"the signature name is missing.\""
-/// - "panicked with: \"the signature name must be a string or content block.\""
-/// - "panicked with: \"the signature name is empty.\""
+/// - "signatures are missing." - when signatures field is not provided
+/// - "signature 'name' must be a dictionary with a name field and an optional signature field." - when signature is not a dictionary
+/// - "signature name is missing." - when name field is not present in signature dictionary
+/// - "signature name 'value' must be a string or content block." - when name field has wrong type
+/// - "signature name is empty." - when name field is empty
 ///
 /// Validation:
-/// Ensures that the signature validation system correctly identifies
-/// structural and content issues in signature data and provides
-/// appropriate error feedback.
+/// Ensures that the signature validation system properly enforces the requirement
+/// that signatures must be properly structured dictionaries with valid name fields.
+///
+/// Note:
+/// This test validates that the signatures field, which is required for all letters,
+/// must contain properly formatted signature data with valid names.
 ///
 #import "/src/lib.typ": *
 
@@ -54,7 +56,7 @@
     date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
     salutation: "Dear Mr Hawthorne",
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
-    closing: "Sincerely yours,"
+    closing: "Sincerely yours,",
   )),
   "panicked with: \"signatures are missing.\""
 )
@@ -80,35 +82,9 @@
     salutation: "Dear Mr Hawthorne",
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
     closing: "Sincerely yours,",
-    signatures: ()
+    signatures: ("Lord Albus Dimbleby", "Lady Abigail Dimbleby", "Sir Austin Dimbleby"),
   )),
-  "panicked with: \"signatures are missing.\""
-)
-
-#assert.eq(
-  catch(() => letterloom(
-    none,
-    from: (
-      name: "The Dimbleby Family",
-      address: [The Lodge \
-                Cheswick Village \
-                Middle Upton \
-                Bristol BS16 1GU]
-    ),
-    to: (
-      name: "Evergreen Tree Surgeons",
-      address: [Midtown Lane \
-                Cheswick Village \
-                Stoke Gifford \
-                Bristol BS16 1GU]
-    ),
-    date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-    salutation: "Dear Mr Hawthorne",
-    subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
-    closing: "Sincerely yours,",
-    signatures: ("Lord Albus Dimbleby", "Lady Abigail Dimbleby", "Sir Austin Dimbleby")
-  )),
-  "panicked with: \"the signature must be a dictionary with a name field and an optional signature field.\""
+  "panicked with: \"signature 'Lord Albus Dimbleby' must be a dictionary with a name field and an optional signature field.\""
 )
 
 #assert.eq(
@@ -142,9 +118,9 @@
       (
         title: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
-  "panicked with: \"the signature name is missing.\""
+  "panicked with: \"signature name is missing.\""
 )
 
 #assert.eq(
@@ -178,9 +154,9 @@
       (
         name: none
       )
-    )
+    ),
   )),
-  "panicked with: \"the signature name must be a string or content block.\""
+  "panicked with: \"signature name '3' must be a string or content block.\""
 )
 
 #assert.eq(
@@ -214,9 +190,9 @@
       (
         name: ""
       )
-    )
+    ),
   )),
-  "panicked with: \"the signature name is empty.\""
+  "panicked with: \"signature name is empty.\""
 )
 
 #assert.eq(
@@ -250,7 +226,7 @@
       (
         name: []
       )
-    )
+    ),
   )),
-  "panicked with: \"the signature name is empty.\""
+  "panicked with: \"signature name is empty.\""
 )

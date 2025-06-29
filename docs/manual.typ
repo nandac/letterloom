@@ -8,7 +8,7 @@
 #set strong(delta: 200)
 
 //Customize appearance
-#show raw: set text(font: "Fira Mono", size: 1.2em)
+#show raw: set text(font: "Noto Sans Mono", size: 1.2em)
 #show raw.where(block: true): set block(fill: rgb("#faebd7"), inset: 1em, radius: 0.5em, width: 100%)
 #show link: set text(fill: blue, font: "Source Sans Pro", size: 12pt)
 
@@ -41,14 +41,14 @@
 
 == Introduction
 
-The `letterloom` package is a user-friendly and customizable template designed to streamline the creation of professional letters. Whether for personal or business correspondence, it eliminates the challenges of traditional typesetting tools like LaTeX while delivering polished and professional results.
+The `letterloom` package is a user-friendly and customizable template designed to streamline the creation of professional-looking letters. Whether for personal or business correspondence, it eliminates the challenges of traditional typesetting tools like LaTeX while delivering polished and elegant results.
 
 *Key Features:*
 - *Multiple Signatures:* Effortlessly include one or more signatures for joint communications or approvals.
 
 - *Customizable Footnotes:* Add informative footnotes with flexible formatting options.
 
-- *Enclosures and Attachments:* Clearly specify additional documents included with the letter.
+- *Enclosures and Attachments:* Clearly list additional documents included with the letter.
 
 - *Internationalization Support:* Customize labels and text for different languages and regions.
 
@@ -116,7 +116,7 @@ To get started, here is a straightforward example showcasing the minimum require
 
 === Mandatory Parameters
 
-This section covers the mandatory parameters of the `letterloom` package, which define the essential elements of a letter including the sender, recipient, date, and signature.
+This section covers the mandatory parameters of the `letterloom` package, which define the essential elements of the letter including the sender, recipient, date, and signature.
 
 #v(15pt)
 
@@ -145,13 +145,13 @@ from: (
 )
 ```
 
-*Note:* The sender's address is aligned to the right by default, but you can adjust it using the `from-alignment` parameter.
+*Note:* By default, the sender's address is right-aligned. You can change this using the `from-alignment` parameter, which also aligns the date field to match the selected alignment.
 
 #v(20pt)
 
 *`to`* #h(15pt) #highlight-type.dictionary
 
-Defines the recipient's name and address in a dictionary format with the following keys:
+Specifies the recipient's name and address in a dictionary format with the following keys:
 
 #table(
   columns: 3,
@@ -198,7 +198,7 @@ For custom formatting options, refer to #link("https://typst.app/docs/reference/
 
 *`salutation`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-Sets the greeting for the letter in string or content format.
+Specifies the greeting for the letter in string or content format.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -234,7 +234,7 @@ subject: [Re: #emph[Urgent] Tree Maintenance Request]
 
 *`closing`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-Defines the closing phrase for the letter in string or content format.
+Specifies the closing phrase for the letter in string or content format.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -245,14 +245,14 @@ closing: "Yours sincerely,"
 closing: "Best regards,"
 
 // Personal closing
-closing: "With warmest regards,"
+closing: "With warm personal regards,"
 ```
 
 #v(20pt)
 
 *`signatures`* #h(15pt) #highlight-type.array
 
-An array of dictionaries representing the signatories. Each dictionary may include the following keys:
+Specifies a list of signatories with their names and optional signature images in an array of dictionaries, where each dictionary represents a signatory's signature with the following keys:
 
 #table(
   columns: 3,
@@ -260,8 +260,8 @@ An array of dictionaries representing the signatories. Each dictionary may inclu
   rows: 2,
   stroke: none,
   inset: 5pt,
-  [`name`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)], [The name of the signatory.],
-  [`signature`], [#highlight-type.function #h(5pt) _optional_], [The image function for the signatory's signature. If omitted, a space is left for a physical signature.],
+  [`name`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)], [The signatory's name.],
+  [`signature`], [#highlight-type.function #h(5pt) _optional_], [A function that provides the image of the signatory's signature. If omitted, a blank space is reserved for a physical signature.],
 )
 
 #text(size: 10pt)[*Examples:*]
@@ -293,93 +293,158 @@ signatures: (
 
 === Optional Parameters
 
-The following optional parameters enable you to add additional fields like a list of cc recipients, an attention line, and a list of enclosures to your letter.
+The following optional parameters enable you to add additional fields like an attention line, a list of cc recipients, and a list of enclosures to your letter.
 
 #v(15pt)
 
-*`attn-name`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
+*`attn-line`* #h(15pt) #highlight-type.dictionary
 
-Specifies the attention line for a specific recipient within an organization.
+Defines the attention line for a specific recipient within an organization, represented as a dictionary with the following keys:
+
+#table(
+  columns: 3,
+  column-gutter: 10pt,
+  stroke: none,
+  inset: 5pt,
+  [`name`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)], [The recipient's name for the attention line.],
+  [`label`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_], [The label for the attention line. Defaults to `"Attn:"`.],
+  [`position`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_], [Specifies whether the attention line appears `"above"` or `"below"` the `to` address. Defaults to `"above"`.],
+)
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
 
-#text(size: 10pt)[*Example:*]
+#text(size: 10pt)[*Examples:*]
 ```typ
-attn-name: "Mr Basil Hawthorne"
+// Basic attention line with default label: "Attn:" and default position: "above"
+attn-line: (
+  name: "Mr Basil Hawthorne"
+)
+
+// Custom label and position
+attn-line: (
+  name: "திரு பாசில் ஹாவ்தோர்ன்",
+  label: "கவனம்:",
+  position: "below"
+)
+
+// Custom label and default position: "above"
+attn-line: (
+  name: "Mr Basil Hawthorne",
+  label: "Attention:"
+)
+
+// Default label: "Attn:" and custom position
+attn-line: (
+  name: "Mr Basil Hawthorne",
+  position: "below"
+)
 ```
 
 #v(20pt)
 
-*`cc`* #h(15pt) #highlight-type.array
+*`cc`* #h(15pt) #highlight-type.dictionary
 
-Lists recipients for carbon copy (cc). Can be a single string or an array of strings.
+Lists carbon copy (cc) recipients as a dictionary with the following keys:
+
+#table(
+  columns: 3,
+  column-gutter: 10pt,
+  stroke: none,
+  inset: 5pt,
+  [`cc-list`], [#highlight-type.array], [The list of cc recipients.],
+  [`label`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_], [The label for the cc recipients list. Defaults to `"cc:"`.],
+)
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
 
 #text(size: 10pt)[*Examples:*]
 ```typ
 // Single cc recipient
-cc: "Mr Jethro Tull"
+cc: (
+  cc-list: "Mr Jethro Tull"
+)
 
 // Multiple cc recipients
 cc: (
-  "Mr Jethro Tull",
-  "Ms Sarah Green",
-  "Dr Robert Brown"
+  cc-list: (
+    "Mr Jethro Tull",
+    "Ms Sarah Green",
+    "Dr Robert Brown"
+  )
+)
+
+// Multiple cc recipients with a custom label
+cc: (
+  cc-list: (
+    "Mr Jethro Tull",
+    "Ms Sarah Green",
+    "Dr Robert Brown"
+  ),
+  label: "Cc:"
+)
+
+// Single cc recipient with a custom label
+cc: (
+  cc-list: "திரு ஜெத்ரோ டல்",
+  label: "நகல்"
 )
 ```
 
+*Note:* The list of cc recipients is placed after the signature(s) but before the list of enclosures.
+
 #v(20pt)
 
-*`enclosures`* #h(15pt) #highlight-type.array
+*`enclosures`* #h(15pt) #highlight-type.dictionary
 
-Specifies additional documents included with the letter. Can be a single string or an array of strings.
+Specifies additional documents included with the letter specified as a dictionary with the following keys:
+
+#table(
+  columns: 3,
+  column-gutter: 10pt,
+  stroke: none,
+  inset: 5pt,
+  [`encl-list`], [#highlight-type.array], [The list of enclosures.],
+  [`label`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_], [The label for the list of enclosures. Defaults to `"encl:"`.],
+)
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
 
 #text(size: 10pt)[*Examples:*]
 ```typ
 // Single enclosure
-enclosures: "Provenance of the Oak trees on the Dimbleby Estate."
+enclosures: (
+  encl-list: "Provenance of the Oak trees on the Dimbleby Estate."
+)
 
 // Multiple enclosures
 enclosures: (
-  "Provenance of the Oak trees on the Dimbleby Estate.",
-  "Photographs of storm damage.",
-  "Insurance claim form."
+  encl-list: (
+    "Provenance of the Oak trees on the Dimbleby Estate.",
+    "Photographs of storm damage.",
+    "Insurance claim form."
+  )
+)
+
+// Enclosures with a custom label
+enclosures: (
+  encl-list: "Provenance of the Oak trees on the Dimbleby Estate.",
+  label: "Enclosures:"
+)
+
+// Enclosures with a custom label
+enclosures: (
+  encl-list: "டிம்பிள்பி எஸ்டேட்டில் உள்ள ஓக் மரங்களின் மூலத்துவம்",
+  label: "இணைப்புகள்:"
 )
 ```
 
-#v(20pt)
-
-*`enclosures-title`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
-
-Specifies the title for the list of enclosures, allowing for localization and customization.
-
-#text(size: 10pt)[*Default:* `"encl:"`]
-
-#text(size: 10pt)[*Examples:*]
-```typ
-// Default English
-enclosures-title: "encl:"
-
-// Custom English
-enclosures-title: "Enclosures:"
-
-// Internationalization examples
-enclosures-title: "இணைப்புகள்:" // Tamil
-enclosures-title: "Pièces jointes:" // French
-enclosures-title: "Anexos:" // Spanish
-enclosures-title: "Anlagen:" // German
-```
-
-*Note:* This parameter is particularly useful for creating letters in different languages or for organizations with specific formatting requirements.
+*Note:* The list of enclosures is placed after the list of cc recipients.
 
 #v(20pt)
 
 *`footer`* #h(15pt) #highlight-type.array
 
-An array specifying footer elements, including text, URLs, and email links.
+Specifies a list of footer elements, including text, URLs, and email links, in an array of dictionaries.
 
 #table(
   columns: 3,
@@ -410,7 +475,7 @@ footer: (
 )
 ```
 
-*Note:* Footer content is always center-aligned.
+*Note:* The footer is placed at the bottom of the letter above the page number if enabled and is center-aligned.
 
 === Page Settings
 
@@ -498,7 +563,7 @@ par-spacing: 2.0em  // Relaxed spacing
 
 *`number-pages`* #h(15pt) #highlight-type.bool
 
-Enables or disables page numbering, starting from the second page.
+Enables or disables page numbering. Page numbers are displayed starting from the second page.
 
 #text(size: 10pt)[*Default:* `false`]
 
@@ -508,7 +573,7 @@ number-pages: false  // No page numbers
 number-pages: true   // Page numbers on second page onwards
 ```
 
-*Note:* Page numbers are always center-aligned.
+*Note:* The page number is placed at the bottom of the page below the footer if specified and is center-aligned.
 
 === Font Settings
 
@@ -614,7 +679,7 @@ These parameters provide options to align specific elements and change the color
 
 *`from-alignment`* #h(15pt) #highlight-type.alignment
 
-Sets the alignment of the sender's address.
+Sets the alignment of the sender's address and date.
 
 #text(size: 10pt)[*Default:* `right`]
 
@@ -659,7 +724,7 @@ Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typs
 
 == Complete Example
 
-Here, we provide a comprehensive example that demonstrates the full range of features offered by the `letterloom` package. This example showcases all the customization options available:
+This comprehensive example highlights the full range of features provided by the letterloom package, demonstrating all available customization options.
 
 ```typ
 #show: letterloom.with(
@@ -710,13 +775,21 @@ Here, we provide a comprehensive example that demonstrates the full range of fea
   ),
 
   // Attention line for specific recipient (optional)
-  attn-name: "Mr Basil Hawthorne",
+  attn-line: (
+    name: "Mr Basil Hawthorne",
+    label: "Attn:",
+    position: "below"
+  ),
 
   // List of cc recipients (optional)
-  cc: "Mr Jethro Tull",
+  cc: (
+    cc-list: "Mr Jethro Tull",
+  ),
 
   // List of enclosures (optional)
-  enclosures: "Provenance of the Oak trees on the Dimbleby Estate.",
+  enclosures: (
+    encl-list: "Provenance of the Oak trees on the Dimbleby Estate."
+  ),
 
   // Custom footer information (optional)
   footer: (
@@ -840,13 +913,21 @@ Thank you kindly.
   ),
 
   // Attention line for specific recipient (optional)
-  attn-name: "Mr Basil Hawthorne",
+  attn-line: (
+    name: "Mr Basil Hawthorne",
+    label: "Attn:",
+    position: "below"
+  ),
 
   // List of cc recipients (optional)
-  cc: "Mr Jethro Tull",
+  cc: (
+    cc-list: "Mr Jethro Tull",
+  ),
 
   // List of enclosures (optional)
-  enclosures: "Provenance of the Oak trees on the Dimbleby Estate.",
+  enclosures: (
+    encl-list: "Provenance of the Oak trees on the Dimbleby Estate."
+  ),
 
   // Custom footer information (optional)
   footer: (

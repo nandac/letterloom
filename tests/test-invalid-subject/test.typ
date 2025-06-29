@@ -1,34 +1,36 @@
 /// test-invalid-subject
 ///
 /// Synopsis:
-/// Test case for input validation of the subject field, ensuring proper handling of
-/// missing, empty, or incorrectly typed subject values in letterloom.
+/// Test case that validates the letterloom function properly handles invalid
+/// subject parameters by testing various error conditions for the `subject` field.
 ///
 /// Purpose:
-/// Validates input validation for the subject field in letterloom. Ensures that the function
-/// properly handles missing, empty, or incorrectly typed subject values and provides
-/// appropriate error messages for each validation failure scenario.
+/// Ensures that the validation system correctly identifies and reports errors
+/// when the subject field is missing, empty, or contains invalid data types.
 ///
 /// Test Scenarios:
 /// - Missing subject field (not provided in function call)
 /// - Empty subject field (empty string)
-/// - Empty subject field (empty array)
+/// - Empty subject field (empty content block)
 /// - Incorrect subject type (number instead of string/content)
 ///
 /// Expected Behavior:
-/// All test cases should trigger appropriate validation errors when the subject field is missing,
-/// empty, or of incorrect type. The letterloom function should panic with descriptive error
-/// messages indicating the specific validation failure.
+/// The function should panic with clear error messages indicating the specific
+/// validation failure for each test case.
 ///
 /// Expected Errors:
 /// - "subject is missing." - when subject field is not provided
 /// - "subject is empty." - when subject field is empty string
-/// - "subject is empty." - when subject field is empty array
+/// - "subject is empty." - when subject field is empty content block
 /// - "subject must be a string or content block." - when subject field has wrong type
 ///
 /// Validation:
-/// Uses Tytanic's catch() function to capture panics and assert that the expected error
-/// messages are returned for each validation scenario.
+/// Ensures that the subject validation system properly enforces the requirement
+/// that subject information must be a valid, non-empty string or content block.
+///
+/// Note:
+/// This test validates that the subject field, which is required for all letters,
+/// must be properly formatted and non-empty.
 ///
 #import "/src/lib.typ": *
 
@@ -62,7 +64,7 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
   "panicked with: \"subject is missing.\""
 )
@@ -98,7 +100,7 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
   "panicked with: \"subject is empty.\""
 )
@@ -134,7 +136,7 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
   "panicked with: \"subject is empty.\""
 )
@@ -170,7 +172,7 @@
       (
         name: "Sir Austin Dimbleby"
       )
-    )
+    ),
   )),
   "panicked with: \"subject must be a string or content block.\""
 )

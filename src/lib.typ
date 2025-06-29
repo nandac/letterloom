@@ -5,40 +5,100 @@
 /// input validation, document structure, and formatting, and exposes the main
 /// `letterloom` function for end users and templates.
 ///
-/// Features:
-/// - Validates and formats sender/recipient information
-/// - Supports custom salutations, closings, signatures, and enclosures
-/// - Configurable fonts, spacing, alignment, and page settings
-/// - Modular design for easy extension and customization
 #import "validate-inputs.typ": validate-inputs
 #import "construct-outputs.typ": *
 
 /// Generates a formatted letter according to the letterloom specification.
 ///
-/// Parameters:
-/// - from: Sender's contact information (dictionary with name and address)
-/// - to: Recipient's contact information (dictionary with name and address)
-/// - date: Letter date (string or content)
-/// - salutation: Opening greeting (string or content)
-/// - subject: Letter subject line (string or content)
-/// - closing: Closing phrase (string or content)
-/// - signatures: List of signatories (array or single dictionary)
-/// - attn-name: Optional attention line (string or content)
-/// - cc: Optional list of cc recipients (array or string/content)
-/// - enclosures: Optional list of enclosures (array or string/content)
-/// - enclosures-title: Optional enclosures header (string, default "encl:")
-/// - footer: Optional footer information
-/// - number-pages: Enable page numbering (boolean)
-/// - paper-size: Paper size (string, default "a4")
-/// - margins: Page margins (auto or length)
-/// - main-font, main-font-size, footer-font, footer-font-size, etc.: Font settings
-/// - par-leading, par-spacing: Paragraph spacing settings
-/// - from-alignment, footnote-alignment: Alignment settings
-/// - link-color: Hyperlink color
-/// - doc: Main letter body content
+/// This function creates a complete letter document with proper formatting,
+/// validation, and layout. It handles all aspects of letter generation from
+/// input validation to final document structure.
 ///
-/// Returns:
-/// - A fully formatted letter document ready for rendering or export.
+/// ## Required Parameters
+///
+/// #doc: content - Main letter body content (positional parameter)
+///
+/// ## Contact Information
+///
+/// #from: dict - Sender's contact information
+///   - #name: Required string or content (sender's name)
+///   - #address: Required string or content (sender's address)
+///
+/// #to: dict - Recipient's contact information
+///   - #name: Required string or content (recipient's name)
+///   - #address: Required string or content (recipient's address)
+///
+/// ## Letter Content
+///
+/// #date: str | content - Letter date (e.g., "January 15, 2024")
+/// #salutation: str | content - Opening greeting (e.g., "Dear Jane,")
+/// #subject: str | content - Letter subject line
+/// #closing: str | content - Closing phrase (e.g., "Sincerely,")
+///
+/// ## Optional Components
+///
+/// #signatures: array | dict - List of signatories or single signatory
+///   - #name: Required string or content (signatory's name)
+///   - #signature: Optional image or content (signature image)
+///
+/// #attn-line: dict | none - Optional attention line
+///   - #name: Required string or content (attention recipient)
+///   - #label: Optional string (defaults to "Attn:")
+///   - #position: Optional string, "above" or "below" (defaults to "above")
+///
+/// #cc: dict | none - Optional cc recipients
+///   - #cc-list: Required array of strings/content (cc recipients)
+///   - #label: Optional string or content (defaults to "cc:")
+///
+/// #enclosures: dict | none - Optional enclosures
+///   - #encl-list: Required array of strings/content (enclosure items)
+///   - #label: Optional string or content (defaults to "encl:")
+///
+/// #footer: array | none - Optional footer information
+///   - Array of footer dictionaries with #footer-text and #footer-type fields
+///
+/// ## Page and Document Settings
+///
+/// #paper-size: str - Paper size (default: "a4")
+/// #margins: auto | length - Page margins (default: auto)
+/// #number-pages: bool - Enable page numbering (default: false)
+///
+/// ## Typography Settings
+///
+/// #main-font: str - Main document font (default: "Libertinus Serif")
+/// #main-font-size: length - Main font size (default: 11pt)
+/// #footer-font: str - Footer font (default: "DejaVu Sans Mono")
+/// #footer-font-size: length - Footer font size (default: 9pt)
+/// #footnote-font: str - Footnote font (default: "Libertinus Serif")
+/// #footnote-font-size: length - Footnote font size (default: 7pt)
+///
+/// ## Spacing and Layout
+///
+/// #par-leading: length - Space between lines in paragraphs (default: 0.8em)
+/// #par-spacing: length - Space between paragraphs (default: 1.8em)
+/// #from-alignment: alignment - Sender block alignment (default: right)
+/// #footnote-alignment: alignment - Footnote alignment (default: left)
+/// #link-color: color - Hyperlink color (default: blue)
+///
+/// ## Behavior
+///
+/// 1. **Input Validation**: All parameters are validated before processing
+/// 2. **Document Setup**: Page settings, typography, and styling are configured
+/// 3. **Layout Construction**: Letter components are arranged in standard format
+/// 4. **Optional Elements**: CC, enclosures, footers, and page numbering are added if provided
+/// 5. **Content Integration**: User-provided content is integrated into the letter structure
+///
+/// ## Error Handling
+///
+/// - Validation errors are thrown with descriptive messages
+/// - Missing required fields result in clear error messages
+/// - Invalid data types or formats are caught and reported
+/// - Graceful handling of optional components
+///
+/// ## Returns
+///
+/// A fully formatted letter document ready for rendering with Typst.
+///
 #let letterloom(
   from: none,
   to: none,
@@ -47,10 +107,9 @@
   subject: none,
   closing: none,
   signatures: none,
-  attn-name: none,
+  attn-line: none,
   cc: none,
   enclosures: none,
-  enclosures-title: "encl:",
   footer: none,
   paper-size: "a4",
   margins: auto,
@@ -77,10 +136,9 @@
     subject: subject,
     closing: closing,
     signatures: signatures,
-    attn-name: attn-name,
+    attn-line: attn-line,
     cc: cc,
     enclosures: enclosures,
-    enclosures-title: enclosures-title,
     footer: footer,
     par-leading: par-leading,
     par-spacing: par-spacing,
@@ -148,18 +206,30 @@
     #date
   ])
 
-  // Receiver's name and address
+  // Attention line is optional construct it if it is given
+  let attn = none
+  let attn-position = none
+  if attn-line not in (none, ()) {
+    attn = attn-line.at("label", default: "Attn:") + " " + attn-line.at("name")
+    attn-position = attn-line.at("position", default: "above")
+  }
+
+  // Receiver's name, address and optional attention line
   block[
     #v(5pt)
     #set align(left)
-    #if attn-name != none {
-      text("Attn: " + attn-name)
+    #if attn-position == "above" {
+      text(attn)
       linebreak()
     }
     #to.name
     #linebreak()
     #to.address
     #linebreak()
+    #if attn-position == "below" {
+      text(attn)
+      linebreak()
+    }
   ]
 
   v(5pt)
@@ -191,5 +261,5 @@
   construct-cc(cc: cc)
 
   // Enclosures (optional)
-  construct-enclosures(enclosures: enclosures, enclosures-title: enclosures-title)
+  construct-enclosures(enclosures: enclosures)
 }

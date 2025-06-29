@@ -58,6 +58,12 @@
     (
       name: "Sir Austin Dimbleby"
     )
+  ),
+  cc: (
+    cc-list: "Mr Jethro Tull"
+  ),
+  enclosures: (
+    encl-list: "Provenance of the Oak Trees on the Dimbleby Estate"
   )
 )
 

@@ -19,7 +19,7 @@
 /// - signatures: List of signatories with their names
 ///
 /// Optional Fields (commented out):
-/// - attn-name:
+/// - attn-line: Attention line for a specific recipient within an organization
 /// - cc: List of cc recipients
 /// - enclosures: List of attached documents
 /// - enclosures-title: Enclosures header text (default: "encl:")
@@ -65,10 +65,9 @@
 
   // Uncomment the following options below to customize the letter
 
-  // attn-name: none,
+  // attn-line: none,
   // cc: none,
   // enclosures: none,
-  // enclosures-title: "encl:",
   // footer: none,
   // number-pages: false,
 
