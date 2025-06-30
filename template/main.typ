@@ -95,6 +95,7 @@
   // footnote-font-size: 7pt,
 
   // Layout settings:
+  // 
   // from-alignment: right,
   // footnote-alignment: left,
   // link-color: blue,

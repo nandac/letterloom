@@ -62,7 +62,7 @@ The `letterloom` package is a user-friendly and customizable template designed t
 
 - Supports multilingual documents with customizable labels.
 
-Whether you're preparing formal business correspondence or crafting a personal letter, `letterloom` makes creating visually appealing documents both straightforward and efficient.
+Regardless of whether you are preparing a formal business correspondence, or crafting a personal letter, `letterloom` makes creating visually appealing documents both straightforward and efficient.
 
 == Usage
 
@@ -72,7 +72,7 @@ In the sections that follow, we will explore each parameter in detail, accompani
 
 === Getting Started
 
-To get started, here is a straightforward example showcasing the minimum required arguments for using the `letterloom` package:
+To get started, here is a simple example demonstrating the essential arguments needed to use the `letterloom` package:
 
 ```typ
 #import "@preview/letterloom:0.1.0": *
@@ -122,11 +122,12 @@ This section covers the required parameters of the `letterloom` package, which d
 
 *`from`* #h(15pt) #highlight-type.dictionary
 
-Specifies the sender's name and address in a dictionary format with the following keys:
+Specifies the sender's name and address as a dictionary with the following keys:
 
 #table(
   columns: 3,
   column-gutter: 10pt,
+  row-gutter: 5pt,
   rows: 2,
   stroke: none,
   inset: 5pt,
@@ -145,22 +146,23 @@ from: (
 )
 ```
 
-*Note:* By default, the sender's address is right-aligned. You can change this using the `from-alignment` parameter, which also aligns the date field to match the selected alignment.
+*Note:* By default, the sender's address is right-aligned. You can change this using the `from-alignment` parameter, which will also align the `date` field to match the selected alignment.
 
 #v(20pt)
 
 *`to`* #h(15pt) #highlight-type.dictionary
 
-Specifies the recipient's name and address in a dictionary format with the following keys:
+Specifies the recipient's name and address as a dictionary with the following keys:
 
 #table(
   columns: 3,
   column-gutter: 10pt,
+  row-gutter: 5pt,
   rows: 2,
   stroke: none,
   inset: 5pt,
-  [`name`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)], [The receiver's name.],
-  [`address`], [#highlight-type.content], [The receiver's address.],
+  [`name`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)], [The recipient's name.],
+  [`address`], [#highlight-type.content], [The recipient's address.],
 )
 
 #text(size: 10pt)[*Example:*]
@@ -178,7 +180,7 @@ to: (
 
 *`date`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-Specifies the letter's date in either string or content format.
+Specifies the letter's date either as a string or content block.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -198,7 +200,7 @@ For custom formatting options, refer to #link("https://typst.app/docs/reference/
 
 *`salutation`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-Specifies the greeting for the letter in string or content format.
+Specifies the greeting for the letter either as a string or content block.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -216,7 +218,7 @@ salutation: "Dear John,"
 
 *`subject`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-Specifies the subject line of the letter in string or content format.
+Specifies the subject line of the letter either as a string or content block.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -234,7 +236,7 @@ subject: [Re: #emph[Urgent] Tree Maintenance Request]
 
 *`closing`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-Specifies the closing phrase for the letter in string or content format.
+Specifies the closing phrase of the letter either as a string or content block.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -252,16 +254,17 @@ closing: "With warm personal regards,"
 
 *`signatures`* #h(15pt) #highlight-type.array
 
-Specifies a list of signatories with their names and optional signature images in an array of dictionaries, where each dictionary represents a signatory's signature with the following keys:
+Specifies a list of signatories as an array of dictionaries, where each dictionary represents a signatory with the following keys:
 
 #table(
   columns: 3,
   column-gutter: 10pt,
-  rows: 2,
+  row-gutter: 5pt,
+  rows: 1,
   stroke: none,
   inset: 5pt,
   [`name`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)], [The signatory's name.],
-  [`signature`], [#highlight-type.function #h(5pt) _optional_], [A function that provides the image of the signatory's signature. If omitted, a blank space is reserved for a physical signature.],
+  [`signature`], [#highlight-type.function #h(5pt) _optional_], [#link("https://typst.app/docs/reference/visualize/image/")[Typst image function] specifying the location of the signature image. If omitted, a blank space is reserved for a physical signature.],
 )
 
 #text(size: 10pt)[*Examples:*]
@@ -304,11 +307,12 @@ Defines the attention line for a specific recipient within an organization, repr
 #table(
   columns: 3,
   column-gutter: 10pt,
+  row-gutter: 5pt,
   stroke: none,
   inset: 5pt,
-  [`name`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)], [The recipient's name for the attention line.],
-  [`label`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_], [The label for the attention line. Defaults to `"Attn:"`.],
-  [`position`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_], [Specifies whether the attention line appears `"above"` or `"below"` the `to` address. Defaults to `"above"`.],
+  [`name`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)], [Name of the recipient.],
+  [`label`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_], [The attention label. Defaults to `"Attn:"`.],
+  [`position`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_], [Whether the attention line appears `"above"` or `"below"` the recipient's address. Defaults to `"above"`.],
 )
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
@@ -349,6 +353,7 @@ Lists carbon copy (cc) recipients as a dictionary with the following keys:
 #table(
   columns: 3,
   column-gutter: 10pt,
+  row-gutter: 5pt,
   stroke: none,
   inset: 5pt,
   [`cc-list`], [#highlight-type.array], [The list of cc recipients.],
@@ -396,11 +401,12 @@ cc: (
 
 *`enclosures`* #h(15pt) #highlight-type.dictionary
 
-Specifies additional documents included with the letter specified as a dictionary with the following keys:
+Lists additional documents included with the letter as a dictionary with the following keys:
 
 #table(
   columns: 3,
   column-gutter: 10pt,
+  row-gutter: 5pt,
   stroke: none,
   inset: 5pt,
   [`encl-list`], [#highlight-type.array], [The list of enclosures.],
@@ -425,13 +431,17 @@ enclosures: (
   )
 )
 
-// Enclosures with a custom label
+// Multiple enclosures with a custom label
 enclosures: (
-  encl-list: "Provenance of the Oak trees on the Dimbleby Estate.",
+  encl-list: (
+    "Provenance of the Oak trees on the Dimbleby Estate.",
+    "Photographs of storm damage.",
+    "Insurance claim form."
+  ),
   label: "Enclosures:"
 )
 
-// Enclosures with a custom label
+// Single enclosure with a custom label
 enclosures: (
   encl-list: "டிம்பிள்பி எஸ்டேட்டில் உள்ள ஓக் மரங்களின் மூலத்துவம்",
   label: "இணைப்புகள்:"
@@ -444,31 +454,35 @@ enclosures: (
 
 *`footer`* #h(15pt) #highlight-type.array
 
-Specifies a list of footer elements, including text, URLs, and email links, in an array of dictionaries.
+Specifies a list of footer elements such as URLs, email addresses and arbitrary text as an array of dictionaries.
 
 #table(
   columns: 3,
   column-gutter: 10pt,
+  row-gutter: 5pt,
   rows: 2,
   stroke: none,
   inset: 5pt,
   [`footer-text`], [#highlight-type.str #h(5pt)], [The footer text.],
-  [`footer-type`], [#highlight-type.str #h(5pt)], [The type of footer element: `"url"`, `"email"`, or `"string"`. If specified as `"url"` or `"email"`, it will be rendered as a clickable hyperlink. Default is `"string"`.],
+  [`footer-type`], [#highlight-type.str #h(5pt)], [The type of footer element: `"url"`, `"email"` or `"string"`. If specified as `"url"` or `"email"`, it will be rendered as a clickable hyperlink. Defaults to `"string"`.],
 )
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
 
 #text(size: 10pt)[*Example:*]
-```text
+```typ
 footer: (
   (
+    // Displayed as is
     footer-text: "+44-117-555-5555"
   ),
   (
+    // Displayed as a mailto: link
     footer-text: "dimblebyfamily@dimbleby.org",
     footer-type: "email"
   ),
   (
+    // Displayed as a web link
     footer-text: "https://dimbleby.org",
     footer-type: "url"
   )
@@ -506,7 +520,7 @@ Defines the margins of the letter.
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.auto-type]
 
-#text(size: 10pt)[The #h(5pt) #highlight-type.auto-type #h(5pt) setting adjusts margins to 2.5/21 of the page's smaller dimension, resulting in a 25 mm margin for A4 paper.]
+
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -524,6 +538,8 @@ margins: (top: 25mm, left: 30mm, bottom: 25mm, right: 30mm)
 ```
 
 Refer to #link("https://typst.app/docs/reference/layout/page/#parameters-margin")[Typst's margin documentation] for more information.
+
+*Note:* The default setting of #h(5pt) #highlight-type.auto-type #h(5pt) results in a 25 mm margin for the A4 paper size.
 
 #v(20pt)
 
@@ -570,10 +586,10 @@ Toggles page numbering. If enabled, numbering starts from the second page.
 #text(size: 10pt)[*Examples:*]
 ```typ
 number-pages: false  // No page numbers
-number-pages: true   // Page numbers on second page onwards
+number-pages: true   // Page numbers from the second page onwards
 ```
 
-*Note:* Page numbers appear centered at the bottom of the page, below the footer (if specified).
+*Note:* Page numbers are centered at the bottom of the page, below the footer if one is specified.
 
 === Typography Settings
 
@@ -724,7 +740,7 @@ Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typs
 
 == Complete Example
 
-This comprehensive example highlights the full range of features provided by the letterloom package, demonstrating all available customization options.
+This comprehensive example highlights the full range of features provided by the `letterloom` package, demonstrating all available customization options.
 
 ```typ
 #show: letterloom.with(
