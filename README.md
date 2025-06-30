@@ -2,7 +2,7 @@
 <!-- markdownlint-disable MD033 -->
 <div align="center">Version 0.1.0</div>
 
-The `letterloom` package is a user-friendly and customizable template designed to streamline the creation of professional letters.
+The `letterloom` package is a user-friendly and customizable template designed to streamline the creation of professional-looking letters.
 
 ## Getting Started
 
@@ -50,9 +50,9 @@ These instructions will get you a copy of the project up and running on the Typs
 
 ### Installation
 
-Follow these steps to set up your development environment and prepare for contributing to the project:
+Prepare your development environment using these steps:
 
-**Typst:** Install Typst (version 0.13.0 or higher) using the [official installation instructions](https://github.com/typst/typst?tab=readme-ov-file#installation). Typst is required to work with the core functionality of the project.
+**Typst:** Install Typst (version 0.13.0 or higher) following the [official guide](https://github.com/typst/typst?tab=readme-ov-file#installation). Typst is the core tool required for this project.
 
 **Just:** Install [Just](https://just.systems/man/en/introduction.html), a handy command runner for executing predefined tasks. You can install it using a package manager or by downloading a pre-built binary. Refer to the [available packages](https://just.systems/man/en/packages.html) for installation instructions specific to your operating system.
 
@@ -64,11 +64,11 @@ Follow these steps to set up your development environment and prepare for contri
 git clone https://github.com/nandac/letterloom.git
 ```
 
-Once you have completed these steps, your development environment will be ready.
+Your development environment is now ready.
 
 ### Next Steps
 
-The `letterloom` package source code is located under `src` directory:
+The package's source code resides in the `src` directory:
 
 ```bash
 ── src
@@ -77,47 +77,62 @@ The `letterloom` package source code is located under `src` directory:
 │   └── validate-inputs.typ
 ```
 
-This is where you will make any necessary changes to the package.
+Modify the files in this directory as needed.
 
 ### Running Tests
 
-To test the functionality of the package locally, run the predefined test cases using the following command:
+To validate the package functionality, execute the following command:
 
 ```bash
 just test
 ```
 
-To create a test for a new feature added to this package, use the following command to set up a dedicated directory for the test under the tests folder:
+To add a new test case execute:
 
 ```bash
 tt new <test-case-name>
 ```
 
+This will create a new folder with the following structure under the `tests` directory:
+
+```bash
+├── <test-case-name>
+│   ├── .gitignore
+│   ├── ref
+│   │   └── 1.png
+│   └── test.typ
+```
+
+You may then write your tests in the `test.typ` file.
+
+For more information on writing tests using tytanic please see this [guide](https://typst-community.github.io/tytanic/guides/tests.html).
+
 Once you have written your test run:
 
 ```bash
 just update
+just test
 ```
 
-Ensure that all tests pass before submitting any changes to maintain the project's integrity.
+Ensure all tests pass before submitting changes to maintain code quality.
 
-If you want to test the package with a Typst file, you can install the `letterloom` package locally in the `preview` location by running:
+To test the package with an actual Typst file, install the `letterloom` package locally in the `preview` location by running:
 
 ```bash
 just install-preview
 ```
 
-Once installed, you can import the package into your Typst file using the following statement:
+Once installed, import it into your Typst file using:
 
 ```typ
 #import "@preview/letterloom:0.1.0": *
 ```
 
-This setup allows you to experiment with the package in a Typst file before finalizing your changes.
+This allows experimentation with the package before finalizing updates.
 
 ## Usage
 
-Here is an example demonstrating how to create a letter using the `letterloom` package with the minimum required arguments:
+Here is a basic example for creating a letter with the `letterloom` package:
 
 ```typ
 #show: letterloom.with(
@@ -171,8 +186,8 @@ Thank you kindly.
   <img src="./thumbnail-light.svg" alt ="">
 </picture>
 
-For a comprehensive overview of all available options, and usage instructions we highly recommend consulting the package’s official manual. The manual offers explanations and examples to help you harness the full potential of the `letterloom` package.
+For a detailed overview of all options and features, consult the package's official manual, which provides examples and comprehensive usage instructions.
 
 ## Acknowledgments
 
-Special thanks to the Typst community on [Discord](https://discord.com/channels/1054443721975922748/1069937650125000807) for their invaluable assistance and support during the development of this package.
+Grateful thanks to the Typst community on [Discord](https://discord.com/channels/1054443721975922748/1069937650125000807) for their invaluable guidance and support during development.
