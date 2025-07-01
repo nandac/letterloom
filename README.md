@@ -52,19 +52,19 @@ These instructions will get you a copy of the project up and running on the Typs
 
 Prepare your development environment using these steps:
 
-**Typst:** Install Typst (version 0.13.0 or higher) following the [official guide](https://github.com/typst/typst?tab=readme-ov-file#installation). Typst is the core tool required for this project.
+1. **Typst:** Install Typst (version 0.13.0 or higher) following the [official guide](https://github.com/typst/typst?tab=readme-ov-file#installation). Typst is the core tool required for this project.
 
-**Just:** Install [Just](https://just.systems/man/en/introduction.html), a handy command runner for executing predefined tasks. You can install it using a package manager or by downloading a pre-built binary. Refer to the [available packages](https://just.systems/man/en/packages.html) for installation instructions specific to your operating system.
+1. **Just:** Install [Just](https://just.systems/man/en/introduction.html), a handy command runner for executing predefined tasks. You can install it using a package manager or by downloading a pre-built binary. Refer to the [available packages](https://just.systems/man/en/packages.html) for installation instructions specific to your operating system.
 
-**tytanic:** Install [tytanic](https://tingerrr.github.io/tytanic/index.html), a library essential for testing and working with Typst projects. Use the [quickstart installation guide](https://tingerrr.github.io/tytanic/quickstart/install.html) to get it up and running.
+1. **tytanic:** Install [tytanic](https://tingerrr.github.io/tytanic/index.html), a library essential for testing and working with Typst projects. Use the [quickstart installation guide](https://tingerrr.github.io/tytanic/quickstart/install.html) to get it up and running.
 
-**Clone the Repository:** Download the project's source code by cloning the repository to your local machine:
+1. **Clone the Repository:** Download the project's source code by cloning the repository to your local machine:
 
-```bash
-git clone https://github.com/nandac/letterloom.git
-```
+    ```bash
+    git clone https://github.com/nandac/letterloom.git
+    ```
 
-Your development environment is now ready.
+    Your development environment is now ready.
 
 ### Next Steps
 
@@ -129,6 +129,41 @@ Once installed, import it into your Typst file using:
 ```
 
 This allows experimentation with the package before finalizing updates.
+
+### Releasing a New Version
+
+Follow these steps to release a new version of the package:
+
+1. **Update Version Number:**
+
+   * Increment the major and/or minor version number in all files referencing the old version.
+
+1. **Update CHANGELOG:**
+
+   * Document added features, modifications, and optionally include a migration guide for the new version in `CHANGELOG.md`.
+
+1. **Commit Changes:**
+
+   * Push your updates to the repository:
+
+     ```bash
+     git add .
+     git commit -m "Bump version and update CHANGELOG"
+     git push
+     ```
+
+1. **Tag the Release:**
+
+   * Create and push a new tag for the version:
+
+     ```bash
+     git tag -a v<version> -m "<release-text>"
+     git push --tags origin
+     ```
+
+1. **Create a Pull Request:**
+
+   * The release action in GitHub will create a pull-request in your fork of `typst-packages` to the main [Typst Packages repository](https://github.com/typst/packages) so that you may submit your changes.
 
 ## Usage
 
