@@ -163,7 +163,8 @@ Follow these steps to release a new version of the package:
 
 1. **Create a Pull Request:**
 
-   * The release action in GitHub will create a pull-request in your fork of `typst-packages` to the main [Typst Packages repository](https://github.com/typst/packages) so that you may submit your changes.
+    * The release action in GitHub will create a branch in your fork of typst-packages.
+    * Use this branch to open a pull request in the main [Typst Packages repository](https://github.com/typst/packages).
 
 ## Usage
 
