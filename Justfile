@@ -11,6 +11,7 @@ doc:
   typst compile docs/manual.typ docs/manual.pdf
   typst compile docs/thumbnail.typ thumbnail-light.svg
   typst compile --input theme=dark docs/thumbnail.typ thumbnail-dark.svg
+  typst compile docs/thumbnail.typ --format png --ppi 300 thumbnail.png
 
 # run test suite
 test *args:
