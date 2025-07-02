@@ -18,7 +18,7 @@ Benefits:
 * Delivers professional-quality output without requiring technical expertise.
 * Supports multilingual documents with customizable labels.
 
-Regardless of whether you are preparing a formal business correspondence, or crafting a personal letter, letterloom makes creating visually appealing documents both straightforward and efficient.
+Regardless of whether you are preparing a formal business correspondence, or crafting a personal letter, `letterloom` makes creating visually appealing documents both straightforward and efficient.
 
 ## Usage
 
@@ -27,6 +27,8 @@ The `letterloom` package offers extensive customization options, enabling you to
 Here is a simple example demonstrating the essential arguments needed to use the letterloom package:
 
 ```typ
+#import "@preview/letterloom:0.1.0": *
+
 #show: letterloom.with(
   //Sender's contact information (name and address)
   from: (

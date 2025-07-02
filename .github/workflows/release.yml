@@ -62,11 +62,23 @@ jobs:
 
           GIT_USER_NAME="$(git log -1 --pretty=format:'%an')"
           GIT_USER_EMAIL="$(git log -1 --pretty=format:'%ae')"
+          BRANCH="${PKG_NAME}-${PKG_VERSION}"
 
           cd typst-packages
           git config user.name "${GIT_USER_NAME}"
           git config user.email "${GIT_USER_EMAIL}"
-          git checkout -b "${PKG_NAME}-${PKG_VERSION}"
-          git add .
-          git commit -m "${PKG_NAME}:${PKG_VERSION}"
-          git push --set-upstream origin "${PKG_NAME}-${PKG_VERSION}"
+
+          # Check if the branch exists on the remote
+          if git ls-remote --exit-code --heads origin "$BRANCH" > /dev/null; then
+            echo "Branch $BRANCH exists. Checking it out and force pushing..."
+            git checkout -B "$BRANCH"  # -B creates or resets branch
+            git add .
+            git commit -m "${PKG_NAME}:${PKG_VERSION}"
+            git push origin "$BRANCH" --force
+          else
+            echo "Branch $BRANCH does not exist. Creating and pushing..."
+            git checkout -b "$BRANCH"
+            git add .
+            git commit -m "${PKG_NAME}:${PKG_VERSION}"
+            git push --set-upstream origin "$BRANCH"
+          fi

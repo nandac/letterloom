@@ -743,6 +743,8 @@ Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typs
 This comprehensive example highlights the full range of features provided by the `letterloom` package, demonstrating all available customization options.
 
 ```typ
+#import "@preview/letterloom:0.1.0": *
+
 #show: letterloom.with(
   // Sender's contact information (name and address)
   from: (
