@@ -5,7 +5,7 @@
 // Style thumbnail for light and dark theme
 #let theme = sys.inputs.at("theme", default: "light")
 #set text(white) if theme == "dark"
-#set page(fill: none) if theme == "dark"
+#set page(fill: black) if theme == "dark"
 
 #show: letterloom.with(
   from: (

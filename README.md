@@ -48,9 +48,67 @@ These instructions will get you a copy of the project up and running on the Typs
 // Write the body of your letter here
 ```
 
-### Installation
+## Usage
 
-Prepare your development environment using these steps:
+Here is a basic example for creating a letter with the `letterloom` package:
+
+```typ
+#show: letterloom.with(
+  from: (
+    name: "The Dimbleby Family",
+    address: [The Lodge \
+              Cheswick Village \
+              Middle Upton \
+              Bristol BS16 1GU]
+  ),
+  to: (
+    name: "Evergreen Tree Surgeons",
+    address: [Midtown Lane \
+              Cheswick Village \
+              Stoke Gifford \
+              Bristol BS16 1GU]
+  ),
+  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+  salutation: "Dear Mr Hawthorne",
+  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+  closing: "Sincerely yours,",
+  signatures: (
+    (
+      name: "Lord Albus Dimbleby",
+      signature: image("images/albus-sig.png")
+    ),
+    (
+      name: "Lady Abigail Dimbleby",
+      signature: image("images/abigail-sig.png")
+    ),
+    (
+      name: "Sir Austin Dimbleby",
+      signature: image("images/austin-sig.png")
+    ),
+  ),
+)
+
+We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
+
+Your specific task would be to render the grove safe to human traffic while at the same time minimizing the residual damage to the trees. You would, of course, also undertake to clear the area thereafter.
+
+Since this estate is jointly owned by the Dimbleby family, the signatures of all three of us appear in this letter to avoid any legal wrangles in the future.
+
+Kindly contact our Head Groundsman, Mr Jethro Tull, on 0117-12345678. to fix an appointment to view the trees and give a quotation for the contemplated work.
+
+Thank you kindly.
+```
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./thumbnail-dark.svg">
+  <img src="./thumbnail-light.svg" alt ="">
+</picture>
+
+For a detailed overview of all options and features, consult the package's [official manual](https://github.com/nandac/letterloom/raw/v0.1.0/docs/manual.pdf), which provides examples and comprehensive usage instructions.
+
+### Development
+
+If you wish to contribute to this package you may follow the steps below to prepare your development environment:
 
 1. **Typst:** Install Typst (version 0.13.0 or higher) following the [official guide](https://github.com/typst/typst?tab=readme-ov-file#installation). Typst is the core tool required for this project.
 
@@ -165,64 +223,6 @@ Follow these steps to release a new version of the package:
 
     * The release action in GitHub will create a branch in your fork of typst-packages.
     * Use this branch to open a pull request in the main [Typst Packages repository](https://github.com/typst/packages).
-
-## Usage
-
-Here is a basic example for creating a letter with the `letterloom` package:
-
-```typ
-#show: letterloom.with(
-  from: (
-    name: "The Dimbleby Family",
-    address: [The Lodge \
-              Cheswick Village \
-              Middle Upton \
-              Bristol BS16 1GU]
-  ),
-  to: (
-    name: "Evergreen Tree Surgeons",
-    address: [Midtown Lane \
-              Cheswick Village \
-              Stoke Gifford \
-              Bristol BS16 1GU]
-  ),
-  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-  salutation: "Dear Mr Hawthorne",
-  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
-  closing: "Sincerely yours,",
-  signatures: (
-    (
-      name: "Lord Albus Dimbleby",
-      signature: image("images/albus-sig.png")
-    ),
-    (
-      name: "Lady Abigail Dimbleby",
-      signature: image("images/abigail-sig.png")
-    ),
-    (
-      name: "Sir Austin Dimbleby",
-      signature: image("images/austin-sig.png")
-    ),
-  ),
-)
-
-We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
-
-Your specific task would be to render the grove safe to human traffic while at the same time minimizing the residual damage to the trees. You would, of course, also undertake to clear the area thereafter.
-
-Since this estate is jointly owned by the Dimbleby family, the signatures of all three of us appear in this letter to avoid any legal wrangles in the future.
-
-Kindly contact our Head Groundsman, Mr Jethro Tull, on 0117-12345678. to fix an appointment to view the trees and give a quotation for the contemplated work.
-
-Thank you kindly.
-```
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./thumbnail-dark.svg">
-  <img src="./thumbnail-light.svg" alt ="">
-</picture>
-
-For a detailed overview of all options and features, consult the package's official manual, which provides examples and comprehensive usage instructions.
 
 ## Acknowledgments
 
