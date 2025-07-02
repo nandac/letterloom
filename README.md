@@ -2,58 +2,33 @@
 <!-- markdownlint-disable MD033 -->
 <div align="center">Version 0.1.0</div>
 
-The `letterloom` package is a user-friendly and customizable template designed to streamline the creation of professional-looking letters.
+The `letterloom` package is a user-friendly and customizable template designed to streamline the creation of professional-looking letters. Whether for personal or business correspondence, it eliminates the challenges of traditional typesetting tools like LaTeX while delivering polished and elegant results.
 
-## Getting Started
+Key Features:
 
-These instructions will get you a copy of the project up and running on the Typst web app.
+* **Multiple Signatures:** Effortlessly include one or more signatures for joint communications or approvals.
+* **Customizable Footnotes:** Add informative footnotes with flexible formatting options.
+* **Enclosures and Attachments:** Clearly list additional documents included with the letter.
+* **Internationalization Support:** Customize labels and text for different languages and regions.
 
-```typ
-#import "@preview/letterloom:0.1.0": *
+Benefits:
 
-#show: letterloom.with(
-  // Sender's contact information (name and address)
-  from: (
-    name: "Sender's Name",
-    address: [Sender's Address]
-  ),
+* Simplifies the letter-writing process with an intuitive template.
+* Eliminates the steep learning curve of tools like LaTeX.
+* Delivers professional-quality output without requiring technical expertise.
+* Supports multilingual documents with customizable labels.
 
-  // Recipient's contact information (name and address)
-  to: (
-    name: "Receiver's Name",
-    address: [Receiver's Address]
-  ),
-
-  // Letter date (automatically set to today's date)
-  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-
-  // Opening greeting (e.g., "Dear Mr Hawthorne,")
-  salutation: "Dear Receiver's Name,",
-
-  // Letter subject line
-  subject: "Subject",
-
-  // Closing phrase (e.g., "Yours sincerely,")
-  closing: "Yours sincerely,",
-
-  // List of signatories with their names
-  signatures: (
-    (
-      name: "Sender's Name",
-      // signature: image() // Add your signature image here
-    )
-  ),
-)
-
-// Write the body of your letter here
-```
+Regardless of whether you are preparing a formal business correspondence, or crafting a personal letter, letterloom makes creating visually appealing documents both straightforward and efficient.
 
 ## Usage
 
-Here is a basic example for creating a letter with the `letterloom` package:
+The `letterloom` package offers extensive customization options, enabling you to tailor your letters to suit various needs and preferences.
+
+Here is a simple example demonstrating the essential arguments needed to use the letterloom package:
 
 ```typ
 #show: letterloom.with(
+  //Sender's contact information (name and address)
   from: (
     name: "The Dimbleby Family",
     address: [The Lodge \
@@ -61,6 +36,7 @@ Here is a basic example for creating a letter with the `letterloom` package:
               Middle Upton \
               Bristol BS16 1GU]
   ),
+  //Recipient's contact information (name and address)
   to: (
     name: "Evergreen Tree Surgeons",
     address: [Midtown Lane \
@@ -68,10 +44,15 @@ Here is a basic example for creating a letter with the `letterloom` package:
               Stoke Gifford \
               Bristol BS16 1GU]
   ),
+  // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+  // Opening greeting
   salutation: "Dear Mr Hawthorne",
+  // Letter subject line
   subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+  // Closing phrase
   closing: "Sincerely yours,",
+  // List of signatories with their names
   signatures: (
     (
       name: "Lord Albus Dimbleby",
@@ -88,6 +69,7 @@ Here is a basic example for creating a letter with the `letterloom` package:
   ),
 )
 
+// Letter content
 We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
 
 Your specific task would be to render the grove safe to human traffic while at the same time minimizing the residual damage to the trees. You would, of course, also undertake to clear the area thereafter.
@@ -104,7 +86,7 @@ Thank you kindly.
   <img src="./thumbnail-light.svg" alt ="">
 </picture>
 
-For a detailed overview of all options and features, consult the package's [official manual](https://github.com/nandac/letterloom/raw/v0.1.0/docs/manual.pdf), which provides examples and comprehensive usage instructions.
+For a detailed overview of all options and features, consult the package's [official manual](https://github.com/nandac/letterloom/raw/v0.1.0/docs/manual.pdf), which provides comprehensive usage instructions and a more elaborate example.
 
 ### Development
 

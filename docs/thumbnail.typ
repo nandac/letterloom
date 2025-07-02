@@ -8,6 +8,7 @@
 #set page(fill: black) if theme == "dark"
 
 #show: letterloom.with(
+  //Sender's contact information (name and address)
   from: (
     name: "The Dimbleby Family",
     address: [The Lodge \
@@ -15,6 +16,7 @@
               Middle Upton \
               Bristol BS16 1GU]
   ),
+  //Recipient's contact information (name and address)
   to: (
     name: "Evergreen Tree Surgeons",
     address: [Midtown Lane \
@@ -22,10 +24,15 @@
               Stoke Gifford \
               Bristol BS16 1GU]
   ),
+  // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+  // Opening greeting
   salutation: "Dear Mr Hawthorne",
+  // Letter subject line
   subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+  // Closing phrase
   closing: "Sincerely yours,",
+  // List of signatories with their names
   signatures: (
     (
       name: "Lord Albus Dimbleby",
@@ -42,6 +49,7 @@
   ),
 )
 
+// Letter content
 We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
 
 Your specific task would be to render the grove safe to human traffic while at the same time minimizing the residual damage to the trees. You would, of course, also undertake to clear the area thereafter.
