@@ -875,14 +875,6 @@ Kindly contact our Head Groundsman, Mr Jethro Tull, on 0117-12345678, to fix an 
 Thank you kindly.
 ```
 
-// Set the following styles so that the styles defined by the template are not
-// overridden by the global styles set in this document
-#show link: set text(font: "Fira Mono", size: 9pt)
-#show footnote.entry: it => {
-  show link: set text(font: "Fira Mono", size: 7pt)
-  it
-}
-
 #show: letterloom.with(
   // Sender's contact information (name and address)
   from: (
