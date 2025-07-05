@@ -3,14 +3,14 @@
 
 // Global Styles
 #set page(margin: 25mm)
-#set text(size: 11pt, font: "Noto Serif")
+#set text(size: 11pt, font: "Libertinus Serif")
 #set par(spacing: 1.5em)
 #set strong(delta: 200)
 
 //Customize appearance
-#show raw: set text(font: "Noto Sans Mono", size: 1.2em)
+#show raw: set text(font: "DejaVu Sans Mono")
 #show raw.where(block: true): set block(fill: rgb("#faebd7"), inset: 1em, radius: 0.5em, width: 100%)
-#show link: set text(fill: blue, font: "Source Sans Pro", size: 12pt)
+#show link: set text(fill: blue)
 
 // Text Element configuration
 #show heading.where(level: 1): h1 => {
@@ -326,8 +326,8 @@ attn-line: (
 
 // Custom label and position
 attn-line: (
-  name: "திரு பாசில் ஹாவ்தோர்ன்",
-  label: "கவனம்:",
+  name: "M. Basil Hawthorne",
+  label: "À l'attention de",
   position: "below"
 )
 
@@ -390,8 +390,8 @@ cc: (
 
 // Single cc recipient with a custom label
 cc: (
-  cc-list: "திரு ஜெத்ரோ டல்",
-  label: "நகல்"
+  cc-list: "M. Jethro Tull",
+  label: "Copie à:"
 )
 ```
 
@@ -443,8 +443,8 @@ enclosures: (
 
 // Single enclosure with a custom label
 enclosures: (
-  encl-list: "டிம்பிள்பி எஸ்டேட்டில் உள்ள ஓக் மரங்களின் மூலத்துவம்",
-  label: "இணைப்புகள்:"
+  encl-list: "Provenance des chênes du domaine de Dimbleby.",
+  label: "P.J.:"
 )
 ```
 
@@ -834,19 +834,19 @@ This comprehensive example highlights the full range of features provided by the
   number-pages: false,
 
   // Main font (default: "Libertinus Serif")
-  main-font: "Noto Serif",
+  main-font: "Libertinus Serif",
 
   // Main font size (default: 11pt)
   main-font-size: 11pt,
 
   // Footnote font (default: "Libertinus Serif")
-  footnote-font: "Noto Serif",
+  footnote-font: "Libertinus Serif",
 
   // Footnote font size (default: 7pt)
   footnote-font-size: 7pt,
 
   // Footer font (default: "DejaVu Sans Mono")
-  footer-font: "Fira Mono",
+  footer-font: "DejaVu Sans Mono",
 
   // Footer font size (default: 9pt)
   footer-font-size: 9pt,
@@ -860,7 +860,7 @@ This comprehensive example highlights the full range of features provided by the
 
 We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
 
-#show figure.caption: set text(font: "Source Sans Pro", size: 10pt)
+#show figure.caption: set text(font: "Libertinus Serif", size: 10pt)
 #figure(
   image("images/storm-damaged-oak-tree.jpg", width: 80%),
   caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
@@ -972,19 +972,19 @@ Thank you kindly.
   number-pages: false,
 
   // Main font (default: "Libertinus Serif")
-  main-font: "Noto Serif",
+  main-font: "Libertinus Serif",
 
   // Main font size (default: 11pt)
   main-font-size: 11pt,
 
   // Footnote font (default: "Libertinus Serif")
-  footnote-font: "Noto Serif",
+  footnote-font: "Libertinus Serif",
 
   // Footnote font size (default: 7pt)
   footnote-font-size: 7pt,
 
   // Footer font (default: "DejaVu Sans Mono")
-  footer-font: "Fira Mono",
+  footer-font: "DejaVu Sans Mono",
 
   // Footer font size (default: 9pt)
   footer-font-size: 9pt,
@@ -998,7 +998,7 @@ Thank you kindly.
 
 We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
 
-#show figure.caption: set text(font: "Source Sans Pro", size: 10pt)
+#show figure.caption: set text(font: "Libertinus Serif", size: 10pt)
 #figure(
   image("images/storm-damaged-oak-tree.jpg", width: 80%),
   caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
