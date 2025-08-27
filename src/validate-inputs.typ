@@ -135,103 +135,92 @@
   }
 }
 
-/// Validates cc list format (optional).
-#let validate-cc(cc: none) = {
-  if cc not in (none, ()) {
-    // Validate dictionary type
-    if type(cc) != dictionary {
-      panic("cc must be a dictionary.")
+/// Validates attention line format (optional).
+#let validate-attn(attn-name: none, attn-label: none, attn-position: none) = {
+  validate-string(string-data: attn-name, field-name: "attn-name")
+
+  // Validate optional label
+  if attn-label != "Attn:" {
+    validate-string(string-data: attn-label, field-name: "attn-label")
+  }
+
+  // Validate optional position field is valid
+  if attn-position != "above" {
+    if attn-position not in ("above", "below") {
+      panic("attn-position must be one of above or below.")
+    }
+  }
+}
+
+/// Validates cc list and cc-label format (optional).
+#let validate-cc(cc: none, cc-label: none) = {
+  // Validate cc field is not empty
+  if cc in (none, (), "", []) {
+    panic("cc is empty.")
+  }
+
+  // Handle the case where only one cc recipient is given
+  if type(cc) != array {
+    cc = (cc, )
+  }
+
+  // Validate each recipient
+  for cc-recipient in cc {
+    // Validate item is a string or content block
+    if type(cc-recipient) not in (str, content) {
+      panic(str("cc recipient '" + str(cc-recipient)) + "' must be a string or content block.")
+    }
+  }
+
+  // Validate optional label
+  if cc-label != "cc:" {
+    // Validate label field type
+    if type(cc-label) not in (str, content) {
+      panic("cc-label '" + str(cc-label) + "' must be a string or content block.")
     }
 
-    // Validate cc-list field
-    if "cc-list" not in cc {
-      panic("cc dictionary must have a cc-list field.")
-    }
-
-    let cc-list = cc.at("cc-list")
-    // Handle the case where only one cc recipient is given
-    if type(cc-list) != array {
-      cc-list = (cc-list, )
-    }
-
-    // Validate cc-list field is not empty
-    if cc-list in (none, ()) {
-      panic("cc-list is empty.")
-    }
-
-    // Validate each recipient
-    for cc-recipient in cc-list {
-      // Validate item is a string or content block
-      if type(cc-recipient) not in (str, content) {
-        panic(str("cc recipient '" + str(cc-recipient)) + "' must be a string or content block.")
-      }
-    }
-
-    // Validate optional label
-    if "label" in cc {
-      let label = cc.at("label")
-      // Validate label field type
-      if type(label) not in (str, content) {
-        panic("cc label '" + str(label) + "' must be a string or content block.")
-      }
-
-      // Validate label field is not empty
-      if label in ("", []) {
-        panic("cc label is empty.")
-      }
+    // Validate label field is not empty
+    if cc-label in ("", []) {
+      panic("cc-label is empty.")
     }
   }
 }
 
 /// Validates enclosure list format (optional).
-#let validate-enclosures(enclosures: none) = {
-  if enclosures not in (none, ()) {
-    // Validate dictionary type
-    if type(enclosures) != dictionary {
-      panic("enclosures must be a dictionary with an encl-list field.")
+#let validate-enclosures(enclosures: none, enclosures-label: none) = {
+  // Validate encl-list field is not empty
+  if enclosures in (none, (), "", []) {
+    panic("enclosures are empty.")
+  }
+
+  // Handle the case where only one enclosure item is given
+  if type(enclosures) != array {
+    enclosures = (enclosures, )
+  }
+
+  // Validate each item
+  for enclosure in enclosures {
+    // Validate item is a string or content block
+    if type(enclosure) not in (str, content) {
+      panic("enclosure '" + str(enclosure) + "' must be a string or content block.")
     }
 
-    // Validate encl-list field
-    if "encl-list" not in enclosures {
-      panic("enclosures dictionary must have an encl-list field.")
+    // Validate item is not empty
+    if enclosure in ("", []) {
+      panic("empty enclosure item found.")
+    }
+  }
+
+  // Validate optional label
+  if enclosures-label != "encl:" {
+    // Validate label field type
+    if type(enclosures-label) not in (str, content) {
+      panic("enclosure label '" + str(enclosures-label) + "' must be a string or content block.")
     }
 
-    let encl-list = enclosures.at("encl-list")
-    // Handle the case where only one enclosure item is given
-    if type(encl-list) != array {
-      encl-list = (encl-list, )
-    }
-
-    // Validate encl-list field is not empty
-    if encl-list in (none, ()) {
-      panic("enclosure encl-list field is empty.")
-    }
-
-    // Validate each item
-    for encl-item in encl-list {
-      // Validate item is a string or content block
-      if type(encl-item) not in (str, content) {
-        panic("enclosure '" + str(encl-item) + "' must be a string or content block.")
-      }
-
-      // Validate item is not empty
-      if encl-item in ("", []) {
-        panic("empty enclosure item found.")
-      }
-    }
-
-    // Validate optional label
-    if "label" in enclosures {
-      let label = enclosures.at("label")
-      // Validate label field type
-      if type(label) not in (str, content) {
-        panic("enclosure label '" + str(label) + "' must be a string or content block.")
-      }
-
-      // Validate label field is not empty
-      if label in ("", []) {
-        panic("enclosure label is empty.")
-      }
+    // Validate label field is not empty
+    if enclosures-label in ("", []) {
+      panic("enclosure label is empty.")
     }
   }
 }
@@ -274,70 +263,26 @@
   }
 }
 
-/// Validates attention line format (optional).
-#let validate-attn-line(attn-line: none) = {
-  if attn-line not in (none, ()) {
-    // Validate dictionary type
-    if type(attn-line) != dictionary {
-      panic("attn-line must be a dictionary.")
-    }
-
-    // Validate required name field
-    if "name" not in attn-line {
-      panic("attn-line dictionary must have a name field.")
-    }
-
-    let name = attn-line.at("name")
-    // Validate name field type
-    if type(name) not in (str, content) {
-      panic("attn-line name must be a string or content block.")
-    }
-
-    // Validate name field is not empty
-    if name in ("", []) {
-      panic("attn-line name is empty.")
-    }
-
-    // Validate optional label
-    if "label" in attn-line {
-      let label = attn-line.at("label")
-
-      // Validate label field type
-      if type(label) not in (str, content) {
-        panic("attn-line label must be a string or content block.")
-      }
-
-      // Validate label field is not empty
-      if label in ("", []) {
-        panic("attn-line label is empty.")
-      }
-    }
-
-    // Validate optional position
-    if "position" in attn-line {
-      let position = attn-line.at("position")
-
-      // Validate position field is valid
-      if position not in ("above", "below") {
-        panic("attn-line position must be one of above or below.")
-      }
-    }
-  }
-}
-
 
 /// Main validation function that orchestrates all validations for the letterloom function.
 #let validate-inputs(
-    from: none,
-    to: none,
+    from-name: none,
+    from-address: none,
+    to-name: none,
+    to-address: none,
     date: none,
     salutation: none,
     subject: none,
     closing: none,
     signatures: none,
-    attn-line: none,
+    signature-alignment: left,
+    attn-name: none,
+    attn-label: "Attn:",
+    attn-position: "above",
     cc: none,
+    cc-label: "cc:",
     enclosures: none,
+    enclosures-label: "encl:",
     footer: none,
     par-leading: 0.8em,
     par-spacing: 1.8em,
@@ -353,8 +298,10 @@
   // VALIDATE REQUIRED FIELDS
   // =============================================================================
 
-  validate-contact(contact: from, field-name: "from")
-  validate-contact(contact: to, field-name: "to")
+  validate-string(string-data: from-name, field-name: "from-name")
+  validate-string(string-data: from-address, field-name: "from-address")
+  validate-string(string-data: to-name, field-name: "to-name")
+  validate-string(string-data: to-address, field-name: "to-address")
   validate-string(string-data: date, field-name: "date")
   validate-string(string-data: salutation, field-name: "salutation")
   validate-string(string-data: subject, field-name: "subject")
@@ -375,18 +322,22 @@
   // VALIDATE OPTIONAL FIELDS
   // =============================================================================
 
-  if attn-line != none {
-    validate-attn-line(attn-line: attn-line)
+  // Validate attention name, label and position
+  if attn-name != none {
+    validate-attn(attn-name: attn-name, attn-label: attn-label, attn-position: attn-position)
   }
 
+  // Validate cc
   if cc != none {
-    validate-cc(cc: cc)
+    validate-cc(cc: cc, cc-label: cc-label)
   }
 
+  // Validate enclosures
   if enclosures != none {
-    validate-enclosures(enclosures: enclosures)
+    validate-enclosures(enclosures: enclosures, enclosures-label: enclosures-label)
   }
 
+  // Validate footer
   if footer != none {
     validate-footer(footer: footer)
   }
@@ -395,6 +346,7 @@
   // VALIDATE CONDITIONAL FIELDS
   // =============================================================================
 
+  // Validate number-pages
   if number-pages != false {
     validate-boolean(boolean-data: number-pages, field-name: "number-pages", required: false)
   }
@@ -403,14 +355,22 @@
   // VALIDATE TYPST-SPECIFIC TYPES
   // =============================================================================
 
+  // Validate from-alignment
   if type(from-alignment) != alignment {
     panic("from-alignment must be a valid alignment type.")
   }
 
+  // Validate footnote-alignment
   if type(footnote-alignment) != alignment {
     panic("footnote-alignment must be a valid alignment type.")
   }
 
+  // Validate signature-alignment
+  if type(signature-alignment) != alignment {
+    panic("signature-alignment must be a valid alignment type.")
+  }
+
+  // Validate link-color
   if type(link-color) != color {
     panic("link-color must be a valid color type.")
   }

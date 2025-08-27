@@ -6,79 +6,97 @@
 /// and formatting of these elements according to the letterloom specification.
 
 /// Constructs a signature grid layout for one or more signatories.
-#let construct-signatures(signatures: none) = {
-  // Set the number of signatures per row and the blank space
+#let construct-signatures(signatures: none, signature-alignment: left) = {
+  // Set the number of signatures per row to 3 to handle 3 or more signatures
   let sigs-per-row = 3
+
+  // Set the blank space use to fill the empty space in the grid
   let blank-space = none
 
-  // Handle the case where only one signature is given
+   // Convert the signatures to an array if only one signature is given
   if type(signatures) != array {
     signatures = (signatures, )
   }
 
+  // In cases where we have less than 3 signatures,
+  // we set the number of signatures per row to the number of signatures given
+  if signatures.len() < 3 {
+    sigs-per-row = signatures.len()
+  }
+
+  // if there is only one signature, we set the alignment to the given alignment
+  if signatures.len() == 1 {
+    signature-alignment = signature-alignment
+  } else {
+    signature-alignment = left
+  }
+
+  // Construct the signature table
   grid(
     columns: 1,
     rows: auto,
     row-gutter: 10pt,
-    align: start + horizon,
+    align: left,
     // Construct the signature inner grid
     ..signatures.chunks(sigs-per-row).map(sigs => {
       grid(
         columns: (1fr, ) * sigs-per-row,
-        align: left,
+        align: signature-alignment,
         rows: 2,
         row-gutter: 10pt,
         column-gutter: 40pt,
         // Signature images row
         ..sigs.map(signatory =>
-          signatory.at("signature", default: rect(height: 40pt, stroke: none))) +
-          (blank-space, ) * (sigs-per-row - sigs.len()),
-        // Names row
-        ..sigs.map(signatory => signatory.name) +
-          (blank-space, ) * (sigs-per-row - sigs.len()),
+          signatory.at(
+            "signature", default: rect(height: 40pt, stroke: none)
+            )
+          ) + (blank-space, ) * (sigs-per-row - sigs.len()),
+        // Names, affiliation row
+        ..sigs.map(signatory => stack(
+            spacing: 10pt,
+            signatory.name,
+            signatory.at("title", default: none),
+            signatory.at("affiliation", default: none)
+          )) + (blank-space, ) * (sigs-per-row - sigs.len()),
       )
     })
   )
 }
 
 /// Constructs an enumerated list of cc recipients (optional).
-#let construct-cc(cc: none) = {
-  if cc not in (none, ()) {
+#let construct-cc(cc: none, cc-label: none) = {
+  if cc != none {
     set enum(indent: 15pt)
 
     // Display the label
-    cc.at("label", default: "cc:")
+    cc-label
 
-    // Get and normalize the cc-list
-    let cc-list = cc.at("cc-list")
-    if type(cc-list) != array {
-      cc-list = (cc-list, )
+    if type(cc) != array {
+      cc = (cc, )
     }
 
     // Display each recipient as an enumerated item
-    for cc-recipient in cc-list {
+    for cc-recipient in cc {
       enum.item(text(cc-recipient))
     }
   }
 }
 
 /// Constructs an enumerated list of enclosures (optional).
-#let construct-enclosures(enclosures: none) = {
-  if enclosures not in (none, ()) {
+#let construct-enclosures(enclosures: none, enclosures-label: none) = {
+  if enclosures != none {
     set enum(indent: 15pt)
 
     // Display the label
-    enclosures.at("label", default: "encl:")
+    enclosures-label
 
-    // Get and normalize the items
-    let items = enclosures.at("encl-list")
-    if type(items) != array {
-      items = (items, )
+    if type(enclosures) != array {
+      enclosures = (enclosures, )
     }
 
     // Display each item as an enumerated item
-    for item in items {
-      enum.item(text(item))
+    for enclosure in enclosures {
+      enum.item(text(enclosure))
     }
   }
 }

@@ -1,6 +1,6 @@
 # The `letterloom` Package
 <!-- markdownlint-disable MD033 -->
-<div align="center">Version 0.1.0</div>
+<div align="center">Version 1.0.0</div>
 
 The `letterloom` package is a user-friendly and customizable template designed to streamline the creation of professional-looking letters. Whether for personal or business correspondence, it eliminates the challenges of traditional typesetting tools like LaTeX while delivering polished and elegant results.
 
@@ -27,25 +27,21 @@ The `letterloom` package offers extensive customization options, enabling you to
 Here is a simple example demonstrating the essential arguments needed to use the letterloom package:
 
 ```typ
-#import "@preview/letterloom:0.1.0": *
+#import "@preview/letterloom:1.0.0": *
 
 #show: letterloom.with(
   //Sender's contact information (name and address)
-  from: (
-    name: "The Dimbleby Family",
-    address: [The Lodge \
+  from-name: "The Dimbleby Family",
+  from-address: [The Lodge \
               Cheswick Village \
               Middle Upton \
-              Bristol BS16 1GU]
-  ),
+              Bristol BS16 1GU],
   //Recipient's contact information (name and address)
-  to: (
-    name: "Evergreen Tree Surgeons",
-    address: [Midtown Lane \
+  to-name: "Evergreen Tree Surgeons",
+  to-address: [Midtown Lane \
               Cheswick Village \
               Stoke Gifford \
-              Bristol BS16 1GU]
-  ),
+              Bristol BS16 1GU],
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
   // Opening greeting
@@ -88,7 +84,7 @@ Thank you kindly.
   <img src="./thumbnail-light.svg" alt ="">
 </picture>
 
-For a detailed overview of all options and features, consult the package's [official manual](https://github.com/nandac/letterloom/raw/v0.1.0/docs/manual.pdf), which provides comprehensive usage instructions and a more elaborate example.
+For a detailed overview of all options and features, consult the package's [official manual](https://raw.githubusercontent.com/typst/packages/main/packages/preview/letterloom/1.0.0/docs/manual.pdf), which provides comprehensive usage instructions and a more elaborate example.
 
 ### Development
 
@@ -167,7 +163,7 @@ just install-preview
 Once installed, import it into your Typst file using:
 
 ```typ
-#import "@preview/letterloom:0.1.0": *
+#import "@preview/letterloom:1.0.0": *
 ```
 
 This allows experimentation with the package before finalizing updates.

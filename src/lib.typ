@@ -9,16 +9,23 @@
 
 /// Generates a formatted letter according to the letterloom specification.
 #let letterloom(
-  from: none,
-  to: none,
+  from-name: none,
+  from-address: none,
+  to-name: none,
+  to-address: none,
   date: none,
   salutation: none,
   subject: none,
   closing: none,
   signatures: none,
-  attn-line: none,
+  signature-alignment: left,
+  attn-name: none,
+  attn-label: "Attn:",
+  attn-position: "above",
   cc: none,
+  cc-label: "cc:",
   enclosures: none,
+  enclosures-label: "encl:",
   footer: none,
   paper-size: "a4",
   margins: auto,
@@ -38,16 +45,23 @@
 ) = {
   // Validate all inputs
   validate-inputs(
-    from: from,
-    to: to,
+    from-name: from-name,
+    from-address: from-address,
+    to-name: to-name,
+    to-address: to-address,
     date: date,
     salutation: salutation,
     subject: subject,
     closing: closing,
     signatures: signatures,
-    attn-line: attn-line,
+    signature-alignment: signature-alignment,
+    attn-name: attn-name,
+    attn-label: attn-label,
+    attn-position: attn-position,
     cc: cc,
+    cc-label: cc-label,
     enclosures: enclosures,
+    enclosures-label: enclosures-label,
     footer: footer,
     par-leading: par-leading,
     par-spacing: par-spacing,
@@ -107,9 +121,9 @@
   // Sender's name, address, and date block
   align(from-alignment, block[
     #set align(left)
-    #from.name
+    #from-name
     #linebreak()
-    #from.address
+    #from-address
     #linebreak()
     #v(2pt)
     #date
@@ -117,10 +131,8 @@
 
   // Construct the attention line (optional)
   let attn = none
-  let attn-position = none
-  if attn-line not in (none, ()) {
-    attn = attn-line.at("label", default: "Attn:") + " " + attn-line.at("name")
-    attn-position = attn-line.at("position", default: "above")
+  if attn-name != none {
+    attn = attn-label + " " + attn-name
   }
 
   // Receiver's name, address and optional attention line
@@ -131,9 +143,9 @@
       text(attn)
       linebreak()
     }
-    #to.name
+    #to-name
     #linebreak()
-    #to.address
+    #to-address
     #linebreak()
     #if attn-position == "below" {
       text(attn)
@@ -162,13 +174,14 @@
   text(closing)
 
   // Construct and display the signatures
-  construct-signatures(signatures: signatures)
+  construct-signatures(signatures: signatures, signature-alignment: signature-alignment)
+
 
   v(10pt)
 
   // Construct and display the cc (optional)
-  construct-cc(cc: cc)
+  construct-cc(cc: cc, cc-label: cc-label)
 
   // Construct and display the enclosures (optional)
-  construct-enclosures(enclosures: enclosures)
+  construct-enclosures(enclosures: enclosures, enclosures-label: enclosures-label)
 }

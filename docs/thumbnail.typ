@@ -1,4 +1,4 @@
-#import "@preview/letterloom:0.1.0": *
+#import "@preview/letterloom:1.0.0": *
 
 #set page(height: auto, margin: 5mm)
 
@@ -9,29 +9,35 @@
 
 #show: letterloom.with(
   //Sender's contact information (name and address)
-  from: (
-    name: "The Dimbleby Family",
-    address: [The Lodge \
-              Cheswick Village \
-              Middle Upton \
-              Bristol BS16 1GU]
-  ),
+  from-name: "The Dimbleby Family",
+  from-address: [
+    The Lodge \
+    Cheswick Village \
+    Middle Upton \
+    Bristol BS16 1GU
+  ],
+
   //Recipient's contact information (name and address)
-  to: (
-    name: "Evergreen Tree Surgeons",
-    address: [Midtown Lane \
-              Cheswick Village \
-              Stoke Gifford \
-              Bristol BS16 1GU]
-  ),
+  to-name: "Evergreen Tree Surgeons",
+  to-address: [
+    Midtown Lane \
+    Cheswick Village \
+    Stoke Gifford \
+    Bristol BS16 1GU
+  ],
+
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+
   // Opening greeting
   salutation: "Dear Mr Hawthorne",
+
   // Letter subject line
   subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+
   // Closing phrase
   closing: "Sincerely yours,",
+
   // List of signatories with their names
   signatures: (
     (

@@ -10,8 +10,7 @@
 /// color values.
 ///
 /// Test Scenarios:
-/// Tests link-color parameter with invalid string value:
-/// - link-color: "left" (should be a color, not "left")
+/// - link-color field has invalid type (string "left" instead of valid color)
 ///
 /// Expected Behavior:
 /// The function should panic with clear error messages indicating that
@@ -23,29 +22,27 @@
 /// Validation:
 /// Ensures that the validation system correctly identifies type mismatches
 /// in link-color parameters and provides appropriate error feedback.
+/// Tests type validation by rejecting invalid string values that are not colors.
 ///
 /// Note:
-/// This test validates that link-color parameters must be proper Typst color
-/// values (blue, red, rgb(0,0,0), etc.) rather than string representations.
+/// This test validates that the link-color field, which is optional, must be
+/// properly formatted when provided. It ensures type safety by requiring
+/// valid Typst color values (blue, red, rgb(0,0,0), etc.) rather than string representations.
 #import "/src/lib.typ": *
 
 #assert.eq(
   catch(() => letterloom(
     none,
-    from: (
-      name: "The Dimbleby Family",
-      address: [The Lodge \
+    from-name: "The Dimbleby Family",
+    from-address: [The Lodge \
                 Cheswick Village \
                 Middle Upton \
-                Bristol BS16 1GU]
-    ),
-    to: (
-      name: "Evergreen Tree Surgeons",
-      address: [Midtown Lane \
+                Bristol BS16 1GU],
+    to-name: "Evergreen Tree Surgeons",
+    to-address: [Midtown Lane \
                 Cheswick Village \
                 Stoke Gifford \
-                Bristol BS16 1GU]
-    ),
+                Bristol BS16 1GU],
     date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
     salutation: "Dear Mr Hawthorne",
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],

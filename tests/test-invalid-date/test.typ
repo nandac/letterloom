@@ -2,7 +2,8 @@
 ///
 /// Synopsis:
 /// Test case that validates the letterloom function properly handles invalid
-/// date parameters by testing various error conditions for the `date` field.
+/// date parameters by testing type validation and content validation
+/// for the `date` field.
 ///
 /// Purpose:
 /// Ensures that the validation system correctly identifies and reports errors
@@ -10,9 +11,9 @@
 ///
 /// Test Scenarios:
 /// - Missing date field (not provided in function call)
-/// - Empty date field (empty string)
-/// - Empty date field (empty content block)
-/// - Incorrect date type (number instead of string/content)
+/// - date field is empty string
+/// - date field is empty content block
+/// - date field has invalid type (number instead of string/content)
 ///
 /// Expected Behavior:
 /// The function should panic with clear error messages indicating the specific
@@ -36,20 +37,16 @@
 #assert.eq(
   catch(() => letterloom(
     none,
-    from: (
-      name: "The Dimbleby Family",
-      address: [The Lodge \
+    from-name: "The Dimbleby Family",
+    from-address: [The Lodge \
                 Cheswick Village \
                 Middle Upton \
-                Bristol BS16 1GU]
-    ),
-    to: (
-      name: "Evergreen Tree Surgeons",
-      address: [Midtown Lane \
+                Bristol BS16 1GU],
+    to-name: "Evergreen Tree Surgeons",
+    to-address: [Midtown Lane \
                 Cheswick Village \
                 Stoke Gifford \
-                Bristol BS16 1GU]
-    ),
+                Bristol BS16 1GU],
     salutation: "Dear Mr Hawthorne",
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
     closing: "Sincerely yours,",
@@ -71,20 +68,16 @@
 #assert.eq(
   catch(() => letterloom(
     none,
-    from: (
-      name: "The Dimbleby Family",
-      address: [The Lodge \
+    from-name: "The Dimbleby Family",
+    from-address: [The Lodge \
                 Cheswick Village \
                 Middle Upton \
-                Bristol BS16 1GU]
-    ),
-    to: (
-      name: "Evergreen Tree Surgeons",
-      address: [Midtown Lane \
+                Bristol BS16 1GU],
+    to-name: "Evergreen Tree Surgeons",
+    to-address: [Midtown Lane \
                 Cheswick Village \
                 Stoke Gifford \
-                Bristol BS16 1GU]
-    ),
+                Bristol BS16 1GU],
     date: "",
     salutation: "Dear Mr Hawthorne",
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
@@ -107,20 +100,16 @@
 #assert.eq(
   catch(() => letterloom(
     none,
-    from: (
-      name: "The Dimbleby Family",
-      address: [The Lodge \
+    from-name: "The Dimbleby Family",
+    from-address: [The Lodge \
                 Cheswick Village \
                 Middle Upton \
-                Bristol BS16 1GU]
-    ),
-    to: (
-      name: "Evergreen Tree Surgeons",
-      address: [Midtown Lane \
+                Bristol BS16 1GU],
+    to-name: "Evergreen Tree Surgeons",
+    to-address: [Midtown Lane \
                 Cheswick Village \
                 Stoke Gifford \
-                Bristol BS16 1GU]
-    ),
+                Bristol BS16 1GU],
     date: [],
     salutation: "Dear Mr Hawthorne",
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
@@ -143,20 +132,16 @@
 #assert.eq(
   catch(() => letterloom(
     none,
-    from: (
-      name: "The Dimbleby Family",
-      address: [The Lodge \
+    from-name: "The Dimbleby Family",
+    from-address: [The Lodge \
                 Cheswick Village \
                 Middle Upton \
-                Bristol BS16 1GU]
-    ),
-    to: (
-      name: "Evergreen Tree Surgeons",
-      address: [Midtown Lane \
+                Bristol BS16 1GU],
+    to-name: "Evergreen Tree Surgeons",
+    to-address: [Midtown Lane \
                 Cheswick Village \
                 Stoke Gifford \
-                Bristol BS16 1GU]
-    ),
+                Bristol BS16 1GU],
     date: 3,
     salutation: "Dear Mr Hawthorne",
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],

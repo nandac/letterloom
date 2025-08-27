@@ -2,7 +2,8 @@
 ///
 /// Synopsis:
 /// Test case that validates the letterloom function properly handles invalid
-/// salutation parameters by testing various error conditions for the `salutation` field.
+/// salutation parameters by testing type validation and content validation
+/// for the `salutation` field.
 ///
 /// Purpose:
 /// Ensures that the validation system correctly identifies and reports errors
@@ -10,9 +11,9 @@
 ///
 /// Test Scenarios:
 /// - Missing salutation field (not provided in function call)
-/// - Empty salutation field (empty string)
-/// - Empty salutation field (empty content block)
-/// - Incorrect salutation type (number instead of string/content)
+/// - salutation field is empty string
+/// - salutation field is empty content block
+/// - salutation field has invalid type (number instead of string/content)
 ///
 /// Expected Behavior:
 /// The function should panic with clear error messages indicating the specific
@@ -27,29 +28,27 @@
 /// Validation:
 /// Ensures that the salutation validation system properly enforces the requirement
 /// that salutation information must be a valid, non-empty string or content block.
+/// Tests both presence validation (missing field) and content validation (empty values, wrong types).
 ///
 /// Note:
-/// This test validates that the salutation field, which is required for all letters,
-/// must be properly formatted and non-empty.
+/// This test validates that the salutation field, which is required for all letters, must be
+/// properly formatted and non-empty. It ensures type safety and content validation
+/// for the salutation parameter.
 #import "/src/lib.typ": *
 
 #assert.eq(
   catch(() => letterloom(
     none,
-    from: (
-      name: "The Dimbleby Family",
-      address: [The Lodge \
+    from-name: "The Dimbleby Family",
+    from-address: [The Lodge \
                 Cheswick Village \
                 Middle Upton \
-                Bristol BS16 1GU]
-    ),
-    to: (
-      name: "Evergreen Tree Surgeons",
-      address: [Midtown Lane \
+                Bristol BS16 1GU],
+    to-name: "Evergreen Tree Surgeons",
+    to-address: [Midtown Lane \
                 Cheswick Village \
                 Stoke Gifford \
-                Bristol BS16 1GU]
-    ),
+                Bristol BS16 1GU],
     date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
     closing: "Sincerely yours,",
@@ -71,20 +70,16 @@
 #assert.eq(
   catch(() => letterloom(
     none,
-    from: (
-      name: "The Dimbleby Family",
-      address: [The Lodge \
+    from-name: "The Dimbleby Family",
+    from-address: [The Lodge \
                 Cheswick Village \
                 Middle Upton \
-                Bristol BS16 1GU]
-    ),
-    to: (
-      name: "Evergreen Tree Surgeons",
-      address: [Midtown Lane \
+                Bristol BS16 1GU],
+    to-name: "Evergreen Tree Surgeons",
+    to-address: [Midtown Lane \
                 Cheswick Village \
                 Stoke Gifford \
-                Bristol BS16 1GU]
-    ),
+                Bristol BS16 1GU],
     date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
     salutation: "",
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
@@ -107,20 +102,16 @@
 #assert.eq(
   catch(() => letterloom(
     none,
-    from: (
-      name: "The Dimbleby Family",
-      address: [The Lodge \
+    from-name: "The Dimbleby Family",
+    from-address: [The Lodge \
                 Cheswick Village \
                 Middle Upton \
-                Bristol BS16 1GU]
-    ),
-    to: (
-      name: "Evergreen Tree Surgeons",
-      address: [Midtown Lane \
+                Bristol BS16 1GU],
+    to-name: "Evergreen Tree Surgeons",
+    to-address: [Midtown Lane \
                 Cheswick Village \
                 Stoke Gifford \
-                Bristol BS16 1GU]
-    ),
+                Bristol BS16 1GU],
     date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
     salutation: [],
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
@@ -143,20 +134,16 @@
 #assert.eq(
   catch(() => letterloom(
     none,
-    from: (
-      name: "The Dimbleby Family",
-      address: [The Lodge \
+    from-name: "The Dimbleby Family",
+    from-address: [The Lodge \
                 Cheswick Village \
                 Middle Upton \
-                Bristol BS16 1GU]
-    ),
-    to: (
-      name: "Evergreen Tree Surgeons",
-      address: [Midtown Lane \
+                Bristol BS16 1GU],
+    to-name: "Evergreen Tree Surgeons",
+    to-address: [Midtown Lane \
                 Cheswick Village \
                 Stoke Gifford \
-                Bristol BS16 1GU]
-    ),
+                Bristol BS16 1GU],
     date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
     salutation: 3,
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],

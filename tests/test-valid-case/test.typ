@@ -10,9 +10,10 @@
 ///
 /// Test Scenario:
 /// - All required fields are provided with valid data
-/// - Sender and recipient information is complete
+/// - Sender and recipient information is complete (from-name, from-address, to-name, to-address)
 /// - Date, salutation, subject, and closing are properly formatted
-/// - Multiple signatures are included
+/// - Multiple signatures are included with proper structure
+/// - Optional fields are provided (attn-name, attn-position, cc, enclosures)
 /// - Letter body content is provided
 ///
 /// Expected Behavior:
@@ -21,28 +22,32 @@
 ///
 /// Validation:
 /// Ensures that the letterloom function can handle a complete, real-world
-/// letter scenario and produce the expected output format.
+/// letter scenario and produce the expected output format. Tests the happy path
+/// with all validation rules satisfied.
 ///
 /// Note:
 /// This test serves as a baseline for all other validation tests and
 /// demonstrates the expected usage pattern for the letterloom package.
+/// It validates that the function works correctly when all parameters are valid.
 #import "/src/lib.typ": *
 
 #show: letterloom.with(
-  from: (
-    name: "The Dimbleby Family",
-    address: [The Lodge \
-              Cheswick Village \
-              Middle Upton \
-              Bristol BS16 1GU]
-  ),
-  to: (
-    name: "Evergreen Tree Surgeons",
-    address: [Midtown Lane \
-              Cheswick Village \
-              Stoke Gifford \
-              Bristol BS16 1GU]
-  ),
+  from-name: "The Dimbleby Family",
+  from-address: [
+    The Lodge \
+    Cheswick Village \
+    Middle Upton \
+    Bristol BS16 1GU
+  ],
+  to-name: "Evergreen Tree Surgeons",
+  to-address: [
+    Midtown Lane \
+    Cheswick Village \
+    Stoke Gifford \
+    Bristol BS16 1GU
+  ],
+  attn-name: "Mr Hawthorne",
+  attn-position: "above",
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
   salutation: "Dear Mr Hawthorne",
   subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
@@ -59,10 +64,10 @@
     )
   ),
   cc: (
-    cc-list: "Mr Jethro Tull"
+    "Mr Jethro Tull"
   ),
   enclosures: (
-    encl-list: "Provenance of the Oak Trees on the Dimbleby Estate"
+    "Provenance of the Oak Trees on the Dimbleby Estate"
   )
 )
 
