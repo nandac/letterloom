@@ -49,16 +49,16 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     link-color: "left",
   )),
-  "panicked with: \"link-color must be a valid color type.\""
+  "panicked with: \"link-color must be a valid color type.\"",
 )

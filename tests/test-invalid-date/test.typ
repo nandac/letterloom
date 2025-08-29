@@ -52,17 +52,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
   )),
-  "panicked with: \"date is missing.\""
+  "panicked with: \"date is missing.\"",
 )
 
 #assert.eq(
@@ -84,17 +84,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
   )),
-  "panicked with: \"date is empty.\""
+  "panicked with: \"date is empty.\"",
 )
 
 #assert.eq(
@@ -116,17 +116,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
   )),
-  "panicked with: \"date is empty.\""
+  "panicked with: \"date is empty.\"",
 )
 
 #assert.eq(
@@ -148,15 +148,15 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
   )),
-  "panicked with: \"date must be a string or content block.\""
+  "panicked with: \"date must be a string or content block.\"",
 )

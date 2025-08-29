@@ -54,18 +54,18 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     from-alignment: "left",
   )),
-  "panicked with: \"from-alignment must be a valid alignment type.\""
+  "panicked with: \"from-alignment must be a valid alignment type.\"",
 )
 
 #assert.eq(
@@ -91,17 +91,16 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     footnote-alignment: "left",
   )),
-  "panicked with: \"footnote-alignment must be a valid alignment type.\""
+  "panicked with: \"footnote-alignment must be a valid alignment type.\"",
 )
-

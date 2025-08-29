@@ -54,17 +54,17 @@
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
   )),
-  "panicked with: \"closing is missing.\""
+  "panicked with: \"closing is missing.\"",
 )
 
 #assert.eq(
@@ -86,17 +86,17 @@
     closing: "",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
   )),
-  "panicked with: \"closing is empty.\""
+  "panicked with: \"closing is empty.\"",
 )
 
 #assert.eq(
@@ -118,17 +118,17 @@
     closing: [],
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
   )),
-  "panicked with: \"closing is empty.\""
+  "panicked with: \"closing is empty.\"",
 )
 
 #assert.eq(
@@ -150,15 +150,15 @@
     closing: 3,
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
   )),
-  "panicked with: \"closing must be a string or content block.\""
+  "panicked with: \"closing must be a string or content block.\"",
 )

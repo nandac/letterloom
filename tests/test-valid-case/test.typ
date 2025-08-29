@@ -54,21 +54,21 @@
   closing: "Sincerely yours,",
   signatures: (
     (
-      name: "Lord Albus Dimbleby"
+      name: "Lord Albus Dimbleby",
     ),
     (
-      name: "Lady Abigail Dimbleby"
+      name: "Lady Abigail Dimbleby",
     ),
     (
-      name: "Sir Austin Dimbleby"
-    )
+      name: "Sir Austin Dimbleby",
+    ),
   ),
   cc: (
-    "Mr Jethro Tull"
+    "Mr Jethro Tull",
   ),
   enclosures: (
-    "Provenance of the Oak Trees on the Dimbleby Estate"
-  )
+    "Provenance of the Oak Trees on the Dimbleby Estate",
+  ),
 )
 
 We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.

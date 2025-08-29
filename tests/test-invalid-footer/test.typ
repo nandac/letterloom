@@ -56,18 +56,18 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     footer: "invalid footer",
   )),
-  "panicked with: \"footer element 'invalid footer' must be a dictionary.\""
+  "panicked with: \"footer element 'invalid footer' must be a dictionary.\"",
 )
 
 #assert.eq(
@@ -89,22 +89,22 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     footer: (
       (
-        footer-type: "url"
-      )
+        footer-type: "url",
+      ),
     ),
   )),
-  "panicked with: \"footer-text is missing.\""
+  "panicked with: \"footer-text is missing.\"",
 )
 
 #assert.eq(
@@ -126,23 +126,23 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     footer: (
       (
         footer-text: calc.ceil(3.14),
-        footer-type: "string"
-      )
+        footer-type: "string",
+      ),
     ),
   )),
-  "panicked with: \"footer-text '4' must be a string or content block.\""
+  "panicked with: \"footer-text '4' must be a string or content block.\"",
 )
 
 #assert.eq(
@@ -164,21 +164,21 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     footer: (
       (
         footer-text: "footer text",
-        footer-type: "invalid footer type"
-      )
+        footer-type: "invalid footer type",
+      ),
     ),
   )),
-  "panicked with: \"footer-type 'invalid footer type' must be one of url, email or string.\""
+  "panicked with: \"footer-type 'invalid footer type' must be one of url, email or string.\"",
 )

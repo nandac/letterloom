@@ -52,154 +52,154 @@
   closing: "Sincerely yours,",
   signatures: (
     (
-      name: "Sir Austin Dimbleby"
-    )
-  ),
-  signature-alignment: center
-)
-
-#show: letterloom.with(
-  from-name: "The Dimbleby Family",
-  from-address: [
-    The Lodge \
-    Cheswick Village \
-    Middle Upton \
-    Bristol BS16 1GU
-  ],
-  to-name: "Evergreen Tree Surgeons",
-  to-address: [
-    Midtown Lane \
-    Cheswick Village \
-    Stoke Gifford \
-    Bristol BS16 1GU
-  ],
-  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-  salutation: "Dear Mr Hawthorne",
-  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
-  closing: "Sincerely yours,",
-  signatures: (
-    (
-      name: "Sir Austin Dimbleby"
-    )
-  ),
-  signature-alignment: left
-)
-
-#show: letterloom.with(
-  from-name: "The Dimbleby Family",
-  from-address: [
-    The Lodge \
-    Cheswick Village \
-    Middle Upton \
-    Bristol BS16 1GU
-  ],
-  to-name: "Evergreen Tree Surgeons",
-  to-address: [
-    Midtown Lane \
-    Cheswick Village \
-    Stoke Gifford \
-    Bristol BS16 1GU
-  ],
-  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-  salutation: "Dear Mr Hawthorne",
-  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
-  closing: "Sincerely yours,",
-  signatures: (
-    (
-      name: "Sir Austin Dimbleby"
-    )
-  ),
-  signature-alignment: right
-)
-
-#show: letterloom.with(
-  from-name: "The Dimbleby Family",
-  from-address: [
-    The Lodge \
-    Cheswick Village \
-    Middle Upton \
-    Bristol BS16 1GU
-  ],
-  to-name: "Evergreen Tree Surgeons",
-  to-address: [
-    Midtown Lane \
-    Cheswick Village \
-    Stoke Gifford \
-    Bristol BS16 1GU
-  ],
-  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-  salutation: "Dear Mr Hawthorne",
-  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
-  closing: "Sincerely yours,",
-  signatures: (
-    (
-      name: "Sir Austin Dimbleby"
-    )
-  ),
-  signature-alignment: center
-)
-
-#show: letterloom.with(
-  from-name: "The Dimbleby Family",
-  from-address: [
-    The Lodge \
-    Cheswick Village \
-    Middle Upton \
-    Bristol BS16 1GU
-  ],
-  to-name: "Evergreen Tree Surgeons",
-  to-address: [
-    Midtown Lane \
-    Cheswick Village \
-    Stoke Gifford \
-    Bristol BS16 1GU
-  ],
-  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-  salutation: "Dear Mr Hawthorne",
-  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
-  closing: "Sincerely yours,",
-  signatures: (
-    (
-      name: "Lord Albus Dimbleby"
-    ),
-    (
-      name: "Lady Abigail Dimbleby"
-    ),
-    (
-      name: "Sir Austin Dimbleby"
-    )
-  ),
-  signature-alignment: center
-)
-
-#show: letterloom.with(
-  from-name: "The Dimbleby Family",
-  from-address: [
-    The Lodge \
-    Cheswick Village \
-    Middle Upton \
-    Bristol BS16 1GU
-  ],
-  to-name: "Evergreen Tree Surgeons",
-  to-address: [
-    Midtown Lane \
-    Cheswick Village \
-    Stoke Gifford \
-    Bristol BS16 1GU
-  ],
-  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-  salutation: "Dear Mr Hawthorne",
-  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
-  closing: "Sincerely yours,",
-  signatures: (
-    (
-      name: "Lord Albus Dimbleby"
-    ),
-    (
-      name: "Lady Abigail Dimbleby"
+      name: "Sir Austin Dimbleby",
     ),
   ),
-  signature-alignment: center
+  signature-alignment: center,
+)
+
+#show: letterloom.with(
+  from-name: "The Dimbleby Family",
+  from-address: [
+    The Lodge \
+    Cheswick Village \
+    Middle Upton \
+    Bristol BS16 1GU
+  ],
+  to-name: "Evergreen Tree Surgeons",
+  to-address: [
+    Midtown Lane \
+    Cheswick Village \
+    Stoke Gifford \
+    Bristol BS16 1GU
+  ],
+  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+  salutation: "Dear Mr Hawthorne",
+  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+  closing: "Sincerely yours,",
+  signatures: (
+    (
+      name: "Sir Austin Dimbleby",
+    ),
+  ),
+  signature-alignment: left,
+)
+
+#show: letterloom.with(
+  from-name: "The Dimbleby Family",
+  from-address: [
+    The Lodge \
+    Cheswick Village \
+    Middle Upton \
+    Bristol BS16 1GU
+  ],
+  to-name: "Evergreen Tree Surgeons",
+  to-address: [
+    Midtown Lane \
+    Cheswick Village \
+    Stoke Gifford \
+    Bristol BS16 1GU
+  ],
+  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+  salutation: "Dear Mr Hawthorne",
+  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+  closing: "Sincerely yours,",
+  signatures: (
+    (
+      name: "Sir Austin Dimbleby",
+    ),
+  ),
+  signature-alignment: right,
+)
+
+#show: letterloom.with(
+  from-name: "The Dimbleby Family",
+  from-address: [
+    The Lodge \
+    Cheswick Village \
+    Middle Upton \
+    Bristol BS16 1GU
+  ],
+  to-name: "Evergreen Tree Surgeons",
+  to-address: [
+    Midtown Lane \
+    Cheswick Village \
+    Stoke Gifford \
+    Bristol BS16 1GU
+  ],
+  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+  salutation: "Dear Mr Hawthorne",
+  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+  closing: "Sincerely yours,",
+  signatures: (
+    (
+      name: "Sir Austin Dimbleby",
+    ),
+  ),
+  signature-alignment: center,
+)
+
+#show: letterloom.with(
+  from-name: "The Dimbleby Family",
+  from-address: [
+    The Lodge \
+    Cheswick Village \
+    Middle Upton \
+    Bristol BS16 1GU
+  ],
+  to-name: "Evergreen Tree Surgeons",
+  to-address: [
+    Midtown Lane \
+    Cheswick Village \
+    Stoke Gifford \
+    Bristol BS16 1GU
+  ],
+  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+  salutation: "Dear Mr Hawthorne",
+  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+  closing: "Sincerely yours,",
+  signatures: (
+    (
+      name: "Lord Albus Dimbleby",
+    ),
+    (
+      name: "Lady Abigail Dimbleby",
+    ),
+    (
+      name: "Sir Austin Dimbleby",
+    ),
+  ),
+  signature-alignment: center,
+)
+
+#show: letterloom.with(
+  from-name: "The Dimbleby Family",
+  from-address: [
+    The Lodge \
+    Cheswick Village \
+    Middle Upton \
+    Bristol BS16 1GU
+  ],
+  to-name: "Evergreen Tree Surgeons",
+  to-address: [
+    Midtown Lane \
+    Cheswick Village \
+    Stoke Gifford \
+    Bristol BS16 1GU
+  ],
+  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+  salutation: "Dear Mr Hawthorne",
+  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+  closing: "Sincerely yours,",
+  signatures: (
+    (
+      name: "Lord Albus Dimbleby",
+    ),
+    (
+      name: "Lady Abigail Dimbleby",
+    ),
+  ),
+  signature-alignment: center,
 )
 
 #assert.eq(
@@ -225,10 +225,10 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
     ),
     signature-alignment: "left",
   )),
-  "panicked with: \"signature-alignment must be a valid alignment type.\""
+  "panicked with: \"signature-alignment must be a valid alignment type.\"",
 )

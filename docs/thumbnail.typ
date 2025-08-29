@@ -7,24 +7,22 @@
 #set page(fill: black) if theme == "dark"
 #set text(white) if theme == "dark"
 
-#show: letterloom.with(
-  //Sender's contact information (name and address)
-  from-name: "The Dimbleby Family",
-  from-address: [
-    The Lodge \
-    Cheswick Village \
-    Middle Upton \
-    Bristol BS16 1GU
-  ],
+#import "@preview/letterloom:1.0.0": *
 
-  //Recipient's contact information (name and address)
+#show: letterloom.with(
+  // Sender's contact information (name and address)
+  from-name: "The Dimbleby Family",
+  from-address: [The Lodge \
+                 Cheswick Village \
+                 Middle Upton \
+                 Bristol BS16 1GU],
+
+  // Recipient's contact information (name and address)
   to-name: "Evergreen Tree Surgeons",
-  to-address: [
-    Midtown Lane \
-    Cheswick Village \
-    Stoke Gifford \
-    Bristol BS16 1GU
-  ],
+  to-address: [Midtown Lane \
+               Cheswick Village \
+               Stoke Gifford \
+               Bristol BS16 1GU],
 
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
@@ -38,19 +36,19 @@
   // Closing phrase
   closing: "Sincerely yours,",
 
-  // List of signatories with their names
+  // List of signatories with their names and optional signature image title and affiliation
   signatures: (
     (
       name: "Lord Albus Dimbleby",
-      signature: image("images/albus-sig.png")
+      signature: image("images/albus-sig.png"),
     ),
     (
       name: "Lady Abigail Dimbleby",
-      signature: image("images/abigail-sig.png")
+      signature: image("images/abigail-sig.png"),
     ),
     (
       name: "Sir Austin Dimbleby",
-      signature: image("images/austin-sig.png")
+      signature: image("images/austin-sig.png"),
     ),
   ),
 )

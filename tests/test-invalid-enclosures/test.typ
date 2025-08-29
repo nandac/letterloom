@@ -57,18 +57,18 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     enclosures: "",
   )),
-  "panicked with: \"enclosures are empty.\""
+  "panicked with: \"enclosures are empty.\"",
 )
 
 #assert.eq(
@@ -90,18 +90,18 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     enclosures: (),
   )),
-  "panicked with: \"enclosures are empty.\""
+  "panicked with: \"enclosures are empty.\"",
 )
 
 #assert.eq(
@@ -123,18 +123,18 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
-    enclosures: calc.ceil(3.14)
+    enclosures: calc.ceil(3.14),
   )),
-  "panicked with: \"enclosure '4' must be a string or content block.\""
+  "panicked with: \"enclosure '4' must be a string or content block.\"",
 )
 
 #assert.eq(
@@ -156,19 +156,19 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     enclosures:  "enclosure one",
     enclosures-label: calc.ceil(3.14),
   )),
-  "panicked with: \"enclosure label '4' must be a string or content block.\""
+  "panicked with: \"enclosure label '4' must be a string or content block.\"",
 )
 
 #assert.eq(
@@ -190,17 +190,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     enclosures: "enclosure one",
     enclosures-label: "",
   )),
-  "panicked with: \"enclosure label is empty.\""
+  "panicked with: \"enclosure label is empty.\"",
 )

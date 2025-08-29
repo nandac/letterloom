@@ -30,39 +30,45 @@ Here is a simple example demonstrating the essential arguments needed to use the
 #import "@preview/letterloom:1.0.0": *
 
 #show: letterloom.with(
-  //Sender's contact information (name and address)
+  // Sender's contact information (name and address)
   from-name: "The Dimbleby Family",
   from-address: [The Lodge \
-              Cheswick Village \
-              Middle Upton \
-              Bristol BS16 1GU],
-  //Recipient's contact information (name and address)
+                 Cheswick Village \
+                 Middle Upton \
+                 Bristol BS16 1GU],
+
+  // Recipient's contact information (name and address)
   to-name: "Evergreen Tree Surgeons",
   to-address: [Midtown Lane \
-              Cheswick Village \
-              Stoke Gifford \
-              Bristol BS16 1GU],
+               Cheswick Village \
+               Stoke Gifford \
+               Bristol BS16 1GU],
+
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+
   // Opening greeting
   salutation: "Dear Mr Hawthorne",
+
   // Letter subject line
   subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+
   // Closing phrase
   closing: "Sincerely yours,",
-  // List of signatories with their names
+
+  // List of signatories with their names and optional signature image title and affiliation
   signatures: (
     (
       name: "Lord Albus Dimbleby",
-      signature: image("images/albus-sig.png")
+      signature: image("images/albus-sig.png"),
     ),
     (
       name: "Lady Abigail Dimbleby",
-      signature: image("images/abigail-sig.png")
+      signature: image("images/abigail-sig.png"),
     ),
     (
       name: "Sir Austin Dimbleby",
-      signature: image("images/austin-sig.png")
+      signature: image("images/austin-sig.png"),
     ),
   ),
 )
@@ -179,6 +185,7 @@ Follow these steps to release a new version of the package:
 1. **Update CHANGELOG:**
 
    * Document added features, modifications, and optionally include a migration guide for the new version in `CHANGELOG.md`.
+   * Use the guidelines given at [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 1. **Commit Changes:**
 

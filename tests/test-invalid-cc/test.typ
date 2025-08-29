@@ -58,19 +58,19 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     cc: (),
-    cc-label: "cc:"
+    cc-label: "cc:",
   )),
-  "panicked with: \"cc is empty.\""
+  "panicked with: \"cc is empty.\"",
 )
 
 #assert.eq(
@@ -92,18 +92,18 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
-    cc: ""
+    cc: "",
   )),
-  "panicked with: \"cc is empty.\""
+  "panicked with: \"cc is empty.\"",
 )
 
 #assert.eq(
@@ -125,23 +125,23 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     cc: (
       "enclosure one",
       calc.ceil(3.14),
       none,
-      ()
-    )
+      (),
+    ),
   )),
-  "panicked with: \"cc recipient '4' must be a string or content block.\""
+  "panicked with: \"cc recipient '4' must be a string or content block.\"",
 )
 
 #assert.eq(
@@ -163,19 +163,19 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     cc: "enclosure one",
     cc-label: calc.ceil(3.14),
   )),
-  "panicked with: \"cc-label '4' must be a string or content block.\""
+  "panicked with: \"cc-label '4' must be a string or content block.\"",
 )
 
 #assert.eq(
@@ -197,17 +197,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     cc: "enclosure one",
-    cc-label: ""
+    cc-label: "",
   )),
-  "panicked with: \"cc-label is empty.\""
+  "panicked with: \"cc-label is empty.\"",
 )

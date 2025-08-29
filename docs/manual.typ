@@ -89,20 +89,19 @@ To get started, here is a simple example demonstrating the essential arguments n
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
 
-  // Opening greeting (e.g., "Dear Mr Hawthorne,")
+  // Opening greeting
   salutation: "Dear Receiver's Name,",
 
   // Letter subject line
   subject: "Subject",
 
-  // Closing phrase (e.g., "Yours sincerely,")
+  // Closing phrase
   closing: "Yours sincerely,",
 
-  // List of signatories with their names
+  // List of signatories with their names and optional signature image title and affiliation
   signatures: (
     (
       name: "Sender's Name",
-      // signature: image() // Add your signature image here
     ),
   ),
 )
@@ -181,9 +180,9 @@ to-address: "Midtown Lane"
 
 // Content block
 to-address: [Midtown Lane \
-            Cheswick Village \
-            Stoke Gifford \
-            Bristol BS16 1GU]
+             Cheswick Village \
+             Stoke Gifford \
+             Bristol BS16 1GU]
 ```
 
 #v(5pt)
@@ -318,11 +317,11 @@ signatures: (
 )
 ```
 
-*Note:* If only one signature is specified, the `signature-alignment` parameter can be used to align the signature to the left, right, or center of the page. This parameter is ignored if multiple signatures are specified.
+*Note:* If only one signature is given, the `signature-alignment` parameter can be used to align the signature to the left, right, or center of the page. This parameter is ignored if multiple signatures are specified.
 
 === Optional Parameters
 
-The following optional parameters enable you to add additional fields like an attention line, a list of cc recipients, a list of enclosures, and a footer to your letter.
+The following optional parameters enable you to add additional fields like an attention line, a list of cc recipients, a list of enclosures, and a footer to your letter if desired.
 
 #v(5pt)
 
@@ -712,7 +711,7 @@ footnote-alignment: center // Center-aligned footnotes
 
 *`signature-alignment`* #h(15pt) #highlight-type.alignment
 
-Specifies the alignment of a single signature if only one signature is specified. If multiple signatures are specified, this parameter is ignored.
+Specifies the alignment of the signature if only one signature is specified. If multiple signatures are specified this parameter is ignored.
 
 #text(size: 10pt)[*Default:* `left`]
 
@@ -739,9 +738,9 @@ link-color: rgb(0, 100, 200) // Custom RGB color
 
 Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typst's documentation on colors] for additional details.
 
-== Complete Example
+== Example Letter
 
-This comprehensive example highlights the full range of features provided by the `letterloom` package, demonstrating all available customization options.
+This example highlights a number of features provided by the `letterloom` package and demonstrates how to use them.
 
 ```typ
 #import "@preview/letterloom:1.0.0": *
@@ -749,63 +748,59 @@ This comprehensive example highlights the full range of features provided by the
 #show: letterloom.with(
   // Sender's contact information (name and address)
   from-name: "The Dimbleby Family",
-  from-address: [
-    The Lodge \
-    Cheswick Village \
-    Middle Upton \
-    Bristol BS16 1GU
-  ],
+  from-address: [The Lodge \
+                 Cheswick Village \
+                 Middle Upton \
+                 Bristol BS16 1GU],
+
+  // Recipient's contact information (name and address)
+  to-name: "Evergreen Tree Surgeons",
+  to-address: [Midtown Lane \
+               Cheswick Village \
+               Stoke Gifford \
+               Bristol BS16 1GU],
 
   // Attention line for specific recipient (optional)
   attn-name: "Mr Basil Hawthorne",
 
-  // Recipient's contact information (name and address)
-  to-name: "Evergreen Tree Surgeons",
-  to-address: [
-    Midtown Lane \
-    Cheswick Village \
-    Stoke Gifford \
-    Bristol BS16 1GU
-  ],
-
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
 
-  // Salutation
+  // Opening greeting
   salutation: "Dear Mr Hawthorne,",
 
-  // Subject
+  // Letter subject line
   subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
 
-  // Closing
+  // Closing phrase
   closing: "Sincerely yours,",
 
-  // Signatures
+  // List of signatories with their names and optional signature image title and affiliation
   signatures: (
     (
       name: "Lord Albus Dimbleby",
-      signature: image("images/albus-sig.png")
+      signature: image("images/albus-sig.png"),
     ),
     (
       name: "Lady Abigail Dimbleby",
-      signature: image("images/abigail-sig.png")
+      signature: image("images/abigail-sig.png"),
     ),
     (
       name: "Sir Austin Dimbleby",
-      signature: image("images/austin-sig.png")
-    )
+      signature: image("images/austin-sig.png"),
+    ),
   ),
 
   // List of cc recipients (optional)
-  cc: "Mr Jethro Tull"
+  cc: "Mr Jethro Tull",
 
   // List of enclosures (optional)
-  enclosures: "Provenance of the Oak trees on the Dimbleby Estate."
+  enclosures: "Provenance of the Oak trees on the Dimbleby Estate.",
 
   // Custom footer information (optional)
   footer: (
     (
-      footer-text: "+44-117-555-5555"
+      footer-text: "+44-117-555-5555",
     ),
     (
       footer-text: "dimblebyfamily@dimbleby.org",
@@ -813,8 +808,8 @@ This comprehensive example highlights the full range of features provided by the
     ),
     (
       footer-text: "https://dimbleby.org",
-      footer-type: "url"
-    )
+      footer-type: "url",
+    ),
   ),
 
   // Paper size (default: "a4")
@@ -871,50 +866,46 @@ Thank you kindly.
 #show: letterloom.with(
   // Sender's contact information (name and address)
   from-name: "The Dimbleby Family",
-  from-address: [
-    The Lodge \
-    Cheswick Village \
-    Middle Upton \
-    Bristol BS16 1GU
-  ],
+  from-address: [The Lodge \
+                 Cheswick Village \
+                 Middle Upton \
+                 Bristol BS16 1GU],
+
+  // Recipient's contact information (name and address)
+  to-name: "Evergreen Tree Surgeons",
+  to-address: [Midtown Lane \
+               Cheswick Village \
+               Stoke Gifford \
+               Bristol BS16 1GU],
 
   // Attention line for specific recipient (optional)
   attn-name: "Mr Basil Hawthorne",
 
-  // Recipient's contact information (name and address)
-  to-name: "Evergreen Tree Surgeons",
-  to-address: [
-    Midtown Lane \
-    Cheswick Village \
-    Stoke Gifford \
-    Bristol BS16 1GU
-  ],
-
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
 
-  // Salutation
+  // Opening greeting
   salutation: "Dear Mr Hawthorne,",
 
-  // Subject
+  // Letter subject line
   subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
 
-  // Closing
+  // Closing phrase
   closing: "Sincerely yours,",
 
-  // Signatures
+  // List of signatories with their names and optional signature image title and affiliation
   signatures: (
     (
       name: "Lord Albus Dimbleby",
-      signature: image("images/albus-sig.png")
+      signature: image("images/albus-sig.png"),
     ),
     (
       name: "Lady Abigail Dimbleby",
-      signature: image("images/abigail-sig.png")
+      signature: image("images/abigail-sig.png"),
     ),
     (
       name: "Sir Austin Dimbleby",
-      signature: image("images/austin-sig.png")
+      signature: image("images/austin-sig.png"),
     ),
   ),
 
@@ -927,7 +918,7 @@ Thank you kindly.
   // Custom footer information (optional)
   footer: (
     (
-      footer-text: "+44-117-555-5555"
+      footer-text: "+44-117-555-5555",
     ),
     (
       footer-text: "dimblebyfamily@dimbleby.org",
@@ -935,8 +926,8 @@ Thank you kindly.
     ),
     (
       footer-text: "https://dimbleby.org",
-      footer-type: "url"
-    )
+      footer-type: "url",
+    ),
   ),
 
   // Paper size (default: "a4")

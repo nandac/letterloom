@@ -57,7 +57,7 @@
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
     closing: "Sincerely yours,",
   )),
-  "panicked with: \"signatures are missing.\""
+  "panicked with: \"signatures are missing.\"",
 )
 
 #assert.eq(
@@ -79,7 +79,7 @@
     closing: "Sincerely yours,",
     signatures: ("Lord Albus Dimbleby", "Lady Abigail Dimbleby", "Sir Austin Dimbleby"),
   )),
-  "panicked with: \"signature 'Lord Albus Dimbleby' must be a dictionary with a name field and an optional signature field.\""
+  "panicked with: \"signature 'Lord Albus Dimbleby' must be a dictionary with a name field and an optional signature field.\"",
 )
 
 #assert.eq(
@@ -101,17 +101,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        title: "Lord Albus Dimbleby"
+        title: "Lord Albus Dimbleby",
       ),
       (
-        title: "Lady Abigail Dimbleby"
+        title: "Lady Abigail Dimbleby",
       ),
       (
-        title: "Sir Austin Dimbleby"
-      )
+        title: "Sir Austin Dimbleby",
+      ),
     ),
   )),
-  "panicked with: \"signature name is missing.\""
+  "panicked with: \"signature name is missing.\"",
 )
 
 #assert.eq(
@@ -133,17 +133,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: 3
+        name: 3,
       ),
       (
-        name: calc.ceil(3.14)
+        name: calc.ceil(3.14),
       ),
       (
-        name: none
-      )
+        name: none,
+      ),
     ),
   )),
-  "panicked with: \"signature name '3' must be a string or content block.\""
+  "panicked with: \"signature name '3' must be a string or content block.\"",
 )
 
 #assert.eq(
@@ -165,17 +165,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: ""
+        name: "",
       ),
       (
-        name: ""
+        name: "",
       ),
       (
-        name: ""
-      )
+        name: "",
+      ),
     ),
   )),
-  "panicked with: \"signature name is empty.\""
+  "panicked with: \"signature name is empty.\"",
 )
 
 #assert.eq(
@@ -197,15 +197,15 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: []
+        name: [],
       ),
       (
-        name: []
+        name: [],
       ),
       (
-        name: []
-      )
+        name: [],
+      ),
     ),
   )),
-  "panicked with: \"signature name is empty.\""
+  "panicked with: \"signature name is empty.\"",
 )

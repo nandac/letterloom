@@ -59,17 +59,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
-    )
+        name: "Sir Austin Dimbleby",
+      ),
+    ),
   )),
-  "panicked with: \"from-name is missing.\""
+  "panicked with: \"from-name is missing.\"",
 )
 
 #assert.eq(
@@ -91,17 +91,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
-    )
+        name: "Sir Austin Dimbleby",
+      ),
+    ),
   )),
-  "panicked with: \"from-name is empty.\""
+  "panicked with: \"from-name is empty.\"",
 )
 
 #assert.eq(
@@ -123,17 +123,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
-    )
+        name: "Sir Austin Dimbleby",
+      ),
+    ),
   )),
-  "panicked with: \"from-name is empty.\""
+  "panicked with: \"from-name is empty.\"",
 )
 
 #assert.eq(
@@ -155,17 +155,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
-    )
+        name: "Sir Austin Dimbleby",
+      ),
+    ),
   )),
-  "panicked with: \"from-name must be a string or content block.\""
+  "panicked with: \"from-name must be a string or content block.\"",
 )
 
 #assert.eq(
@@ -187,17 +187,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
-    )
+        name: "Sir Austin Dimbleby",
+      ),
+    ),
   )),
-  "panicked with: \"from-name is missing.\""
+  "panicked with: \"from-name is missing.\"",
 )
 
 #assert.eq(
@@ -219,17 +219,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
-    )
+        name: "Sir Austin Dimbleby",
+      ),
+    ),
   )),
-  "panicked with: \"from-name must be a string or content block.\""
+  "panicked with: \"from-name must be a string or content block.\"",
 )
 
 #assert.eq(
@@ -248,17 +248,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
-    )
+        name: "Sir Austin Dimbleby",
+      ),
+    ),
   )),
-  "panicked with: \"from-address is empty.\""
+  "panicked with: \"from-address is empty.\"",
 )
 
 #assert.eq(
@@ -277,17 +277,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
-    )
+        name: "Sir Austin Dimbleby",
+      ),
+    ),
   )),
-  "panicked with: \"from-address must be a string or content block.\""
+  "panicked with: \"from-address must be a string or content block.\"",
 )
 
 #assert.eq(
@@ -306,17 +306,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
-    )
+        name: "Sir Austin Dimbleby",
+      ),
+    ),
   )),
-  "panicked with: \"from-address is missing.\""
+  "panicked with: \"from-address is missing.\"",
 )
 
 #assert.eq(
@@ -335,15 +335,15 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
-    )
+        name: "Sir Austin Dimbleby",
+      ),
+    ),
   )),
-  "panicked with: \"from-address must be a string or content block.\""
+  "panicked with: \"from-address must be a string or content block.\"",
 )

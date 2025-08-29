@@ -58,9 +58,9 @@
         Senior Advisor, International Relations \
         Chairman, Global Trade Council \
       ],
-    )
+    ),
   ),
-  signature-alignment: left
+  signature-alignment: left,
 )
 
 #show: letterloom.with(
@@ -90,9 +90,9 @@
         Senior Advisor, International Relations \
         Chairman, Global Trade Council \
       ],
-    )
+    ),
   ),
-  signature-alignment: center
+  signature-alignment: center,
 )
 
 #show: letterloom.with(
@@ -122,9 +122,9 @@
         Senior Advisor, International Relations \
         Chairman, Global Trade Council \
       ],
-    )
+    ),
   ),
-  signature-alignment: right
+  signature-alignment: right,
 )
 
 #show: letterloom.with(
@@ -154,9 +154,9 @@
         Senior Advisor, International Relations \
         Chairman, Global Trade Council \
       ],
-    )
+    ),
   ),
-  signature-alignment: center
+  signature-alignment: center,
 )
 
 #show: letterloom.with(
@@ -186,9 +186,9 @@
         Senior Advisor, International Relations \
         Chairman, Global Trade Council \
       ],
-    )
+    ),
   ),
-  signature-alignment: right
+  signature-alignment: right,
 )
 
 #show: letterloom.with(
@@ -257,10 +257,10 @@
       ],
     ),
     (
-      name: "Lord Albus Dimbleby"
+      name: "Lord Albus Dimbleby",
     ),
     (
-      name: "Lady Abigail Dimbleby"
+      name: "Lady Abigail Dimbleby",
     ),
   ),
 )

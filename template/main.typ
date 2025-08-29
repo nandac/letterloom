@@ -3,19 +3,32 @@
 #import "@preview/letterloom:1.0.0": *
 
 #show: letterloom.with(
+  // Sender's contact information (name and address)
   from-name: "Sender's Name",
   from-address: [Sender's Address],
   // from-alignment: right,
+
+  // Recipient's contact information (name and address)
   to-name: "Receiver's Name",
   to-address: [Receiver's Address],
+
   // attn-name: "Attn: Receiver's Name",
   // attn-address: "Attn:",
   // attn-position: "above",
+
+  // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+
+  // Opening greeting
   salutation: "Dear Receiver's Name,",
+
+  // Letter subject line
   subject: "Subject",
+
+  // Closing phrase
   closing: "Yours sincerely,",
-  // signature-alignment: left,
+
+  // List of signatories with their names and optional signature image title and affiliation
   signatures: (
     (
       name: "Sender's Name",
@@ -23,7 +36,9 @@
       // affiliation: "Affiliation",
       // signature: image("sender-sig.png")
     ),
-  )
+  ),
+
+  // signature-alignment: left,
 
   // cc: none,
   // cc-label: "cc:",

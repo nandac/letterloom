@@ -65,17 +65,18 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     attn-name: "",
-  )), "panicked with: \"attn-name is empty.\""
+  )),
+  "panicked with: \"attn-name is empty.\"",
 )
 
 #assert.eq(
@@ -101,17 +102,18 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     attn-name: (),
-  )), "panicked with: \"attn-name must be a string or content block.\""
+  )),
+  "panicked with: \"attn-name must be a string or content block.\"",
 )
 
 #assert.eq(
@@ -137,17 +139,18 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
-    attn-name: calc.ceil(3.14)
-  )), "panicked with: \"attn-name must be a string or content block.\""
+    attn-name: calc.ceil(3.14),
+  )),
+  "panicked with: \"attn-name must be a string or content block.\"",
 )
 
 #assert.eq(
@@ -173,18 +176,19 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     attn-name: "Mr Basil Hawthorne",
     attn-label: calc.ceil(3.14)
-  )), "panicked with: \"attn-label must be a string or content block.\""
+  )),
+  "panicked with: \"attn-label must be a string or content block.\"",
 )
 
 #assert.eq(
@@ -210,18 +214,19 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     attn-name: "Mr Basil Hawthorne",
     attn-label: "",
-  )), "panicked with: \"attn-label is empty.\""
+  )),
+  "panicked with: \"attn-label is empty.\"",
 )
 
 #assert.eq(
@@ -247,18 +252,19 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     attn-name: "Mr Basil Hawthorne",
     attn-position: "north",
-  )), "panicked with: \"attn-position must be one of above or below.\""
+  )),
+  "panicked with: \"attn-position must be one of above or below.\"",
 )
 
 #assert.eq(
@@ -284,16 +290,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
     attn-name: "Mr Basil Hawthorne",
     attn-position: "",
-  )), "panicked with: \"attn-position must be one of above or below.\""
+  )),
+  "panicked with: \"attn-position must be one of above or below.\"",
 )

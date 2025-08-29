@@ -54,17 +54,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
+        name: "Sir Austin Dimbleby",
       )
     ),
   )),
-  "panicked with: \"subject is missing.\""
+  "panicked with: \"subject is missing.\"",
 )
 
 #assert.eq(
@@ -86,17 +86,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
+        name: "Sir Austin Dimbleby",
       )
     ),
   )),
-  "panicked with: \"subject is empty.\""
+  "panicked with: \"subject is empty.\"",
 )
 
 #assert.eq(
@@ -118,17 +118,17 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
   )),
-  "panicked with: \"subject is empty.\""
+  "panicked with: \"subject is empty.\"",
 )
 
 #assert.eq(
@@ -150,15 +150,15 @@
     closing: "Sincerely yours,",
     signatures: (
       (
-        name: "Lord Albus Dimbleby"
+        name: "Lord Albus Dimbleby",
       ),
       (
-        name: "Lady Abigail Dimbleby"
+        name: "Lady Abigail Dimbleby",
       ),
       (
-        name: "Sir Austin Dimbleby"
-      )
+        name: "Sir Austin Dimbleby",
+      ),
     ),
   )),
-  "panicked with: \"subject must be a string or content block.\""
+  "panicked with: \"subject must be a string or content block.\"",
 )
