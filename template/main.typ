@@ -28,7 +28,7 @@
   // Closing phrase
   closing: "Yours sincerely,",
 
-  // List of signatories with their names and optional signature image title and affiliation
+  // List of signatures with their name, optional signature image, title and affiliation
   signatures: (
     (
       name: "Sender's Name",

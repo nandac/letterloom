@@ -15,29 +15,29 @@
 // Text Element configuration
 #show heading.where(level: 1): h1 => {
   set block(above: 2em, below: 1.5em)
-  set text(weight: "semibold")
+  set text(weight: "bold")
   h1
 }
 
 #show heading.where(level: 2): h2 => {
   set block(above: 2em, below: 1.5em)
-  set text(weight: "semibold")
+  set text(weight: "bold")
   h2
 }
 
 #show heading.where(level: 3): h3 => {
   set block(above: 2em, below: 1.5em)
-  set text(weight: "semibold")
+  set text(weight: "bold")
   h3
 }
 
 // Table and figure configuration
-#show table.header: set text(weight: "semibold")
+#show table.header: set text(weight: "bold")
 #show figure: set block(breakable: true)
 
 // End of setup
 
-= `letterloom 1.0.0`
+= `letterloom v1.0.0`
 
 == Introduction
 
@@ -72,7 +72,7 @@ In the sections that follow, we will explore each parameter in detail, accompani
 
 === Getting Started
 
-To get started, here is a simple example demonstrating the essential arguments needed to use the `letterloom` package:
+Here is a simple example showing the essential arguments needed to use the `letterloom` package:
 
 ```typ
 #import "@preview/letterloom:1.0.0": *
@@ -98,7 +98,7 @@ To get started, here is a simple example demonstrating the essential arguments n
   // Closing phrase
   closing: "Yours sincerely,",
 
-  // List of signatories with their names and optional signature image title and affiliation
+  // List of signatures with their name, optional signature image, title and affiliation
   signatures: (
     (
       name: "Sender's Name",
@@ -108,6 +108,18 @@ To get started, here is a simple example demonstrating the essential arguments n
 
 // Write the body of your letter here
 ```
+
+=== Creating a New Letter Project
+
+To create a new letter project run the following command in your terminal:
+
+```bash
+typst init @preview/letterloom:1.0.0
+```
+
+This will generate a ready-to-use letter project in your current directory.
+
+Alternatively, you may create a new project directly in the #link("https://typst.app/app?template=letterloom&version=1.0.0")[Typst webapp].
 
 === Required Parameters
 
@@ -119,7 +131,7 @@ This section covers the required parameters of the `letterloom` package, which d
 
 Specifies the sender's name either as a string or content block.
 
-#text(size: 10pt)[#text(size: 10pt)[*Example:*]]
+#text(size: 10pt)[#text(size: 10pt)[*Examples:*]]
 ```typ
 // String
 from-name: "The Dimbleby Family"
@@ -127,8 +139,6 @@ from-name: "The Dimbleby Family"
 // Content block
 from-name: text(weight: "bold")[The Dimbleby Family]
 ```
-
-*Note:* By default, the sender's name and sender's address is right-aligned. You can change this using the `from-alignment` parameter, which will also align the `date` field to match the selected alignment.
 
 #v(5pt)
 
@@ -138,7 +148,7 @@ Specifies the sender's address either as a string or content block.
 
 #v(10pt)
 
-#text(size: 10pt)[#text(size: 10pt)[*Example:*]]
+#text(size: 10pt)[#text(size: 10pt)[*Examples:*]]
 ```typ
 // String
 from-address: "The Lodge"
@@ -150,7 +160,7 @@ from-address: [The Lodge \
                Bristol BS16 1GU]
 ```
 
-*Note:* By default, the sender's name and sender's address is right-aligned. You can change this using the `from-alignment` parameter, which will also align the `date` field to match the selected alignment.
+*Note:* By default, the sender's name and address are right-aligned. You may change this using the `from-alignment` parameter, which will also align the `date` field to match the desired alignment.
 
 #v(5pt)
 
@@ -158,7 +168,7 @@ from-address: [The Lodge \
 
 Specifies the recipient's name either as a string or content block.
 
-#text(size: 10pt)[*Example:*]
+#text(size: 10pt)[*Examples:*]
 ```typ
 // String
 to-name: "Evergreen Tree Surgeons"
@@ -173,7 +183,7 @@ to-name: text(weight: "bold")[Evergreen Tree Surgeons]
 
 Specifies the recipient's address either as a string or content block.
 
-#text(size: 10pt)[*Example:*]
+#text(size: 10pt)[*Examples:*]
 ```typ
 // String
 to-address: "Midtown Lane"
@@ -213,13 +223,13 @@ Specifies the greeting for the letter either as a string or content block.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-// Standard business salutation
+// Standard business greeting
 salutation: "Dear Mr Hawthorne,"
 
-// Formal salutation
+// Formal greeting
 salutation: "To Whom It May Concern,"
 
-// Personal salutation
+// Personal greeting
 salutation: "Dear John,"
 ```
 
@@ -249,13 +259,13 @@ Specifies the closing phrase of the letter either as a string or content block.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-// Formal business closing
+// Formal business closing phrase
 closing: "Yours sincerely,"
 
-// Less formal closing
+// Less formal closing phrase
 closing: "Best regards,"
 
-// Personal closing
+// Personal closing phrase
 closing: "With warm personal regards,"
 ```
 
@@ -263,7 +273,7 @@ closing: "With warm personal regards,"
 
 *`signatures`* #h(15pt) #highlight-type.array
 
-Specifies a list of signatories as an array of dictionaries, where each dictionary represents a signatory with the following keys:
+Specifies a list of signatures as an array of dictionaries, where each dictionary has the following keys:
 
 #table(
   columns: 3,
@@ -317,7 +327,7 @@ signatures: (
 )
 ```
 
-*Note:* If only one signature is given, the `signature-alignment` parameter can be used to align the signature to the left, right, or center of the page. This parameter is ignored if multiple signatures are specified.
+*Note:* If only one signature is given, the `signature-alignment` parameter may be used to align the signature to the left, right, or center of the page. This parameter is ignored if multiple signatures are specified.
 
 === Optional Parameters
 
@@ -328,6 +338,8 @@ The following optional parameters enable you to add additional fields like an at
 *`attn-name`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)
 
 Specifies the name of the recipient of the attention line either as a string or content block.
+
+#text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
 
 #text(size: 10pt)[*Example:*]
 ```typ
@@ -391,7 +403,7 @@ Specifies the label for the cc recipients list either as a string or content blo
 
 #text(size: 10pt)[*Default:* `"cc:"`]
 
-#text(size: 10pt)[*Example:*]
+#text(size: 10pt)[*Examples:*]
 ```typ
 // String
 cc-label: "Cc:"
@@ -429,7 +441,7 @@ Specifies the label for the enclosures list either as a string or content block.
 
 #text(size: 10pt)[*Default:* `"encl:"`]
 
-#text(size: 10pt)[*Example:*]
+#text(size: 10pt)[*Examples:*]
 ```typ
 // String
 enclosures-label: "P.J.:"
@@ -577,7 +589,7 @@ number-pages: true   // Page numbers from the second page onwards
 
 *Note:* Page numbers are centered at the bottom of the page, below the footer if one is specified.
 
-=== Typography Settings
+=== Typographical Settings
 
 These parameters allow you to customize the fonts used throughout the letter. Each parameter has a default font setting that can be changed as needed.
 
@@ -681,15 +693,15 @@ These parameters provide options to align specific elements and change the color
 
 *`from-alignment`* #h(15pt) #highlight-type.alignment
 
-Sets the alignment of the sender's address and date.
+Sets the alignment of the sender's  name, address and date of the letter.
 
 #text(size: 10pt)[*Default:* `right`]
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-from-alignment: left    // Left-aligned sender address
-from-alignment: right   // Right-aligned sender address (default)
-from-alignment: center  // Center-aligned sender address
+from-alignment: left    // Left-aligned sender
+from-alignment: right   // Right-aligned sender (default)
+from-alignment: center  // Center-aligned sender
 ```
 
 #v(5pt)
@@ -740,7 +752,7 @@ Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typs
 
 == Example Letter
 
-This example highlights a number of features provided by the `letterloom` package and demonstrates how to use them.
+The following example illustrates several key features of the `letterloom` package and explains how they can be applied in practice.
 
 ```typ
 #import "@preview/letterloom:1.0.0": *
@@ -775,7 +787,7 @@ This example highlights a number of features provided by the `letterloom` packag
   // Closing phrase
   closing: "Sincerely yours,",
 
-  // List of signatories with their names and optional signature image title and affiliation
+  // List of signatures with their name, optional signature image, title and affiliation
   signatures: (
     (
       name: "Lord Albus Dimbleby",
@@ -893,7 +905,7 @@ Thank you kindly.
   // Closing phrase
   closing: "Sincerely yours,",
 
-  // List of signatories with their names and optional signature image title and affiliation
+  // List of signatures with their name, optional signature image, title and affiliation
   signatures: (
     (
       name: "Lord Albus Dimbleby",

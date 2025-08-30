@@ -56,7 +56,7 @@ Here is a simple example demonstrating the essential arguments needed to use the
   // Closing phrase
   closing: "Sincerely yours,",
 
-  // List of signatories with their names and optional signature image title and affiliation
+  // List of signatures with their name, optional signature image, title and affiliation
   signatures: (
     (
       name: "Lord Albus Dimbleby",
@@ -89,6 +89,16 @@ Thank you kindly.
   <source media="(prefers-color-scheme: dark)" srcset="./thumbnail-dark.svg">
   <img src="./thumbnail-light.svg" alt ="">
 </picture>
+
+To create a new letter project run the following command in your terminal:
+
+```bash
+typst init @preview/letterloom:1.0.0
+```
+
+This will generate a ready-to-use letter project in your current directory.
+
+Alternatively, you may create a new project directly in the [Typst webapp](https://typst.app/app?template=letterloom&version=1.0.0).
 
 For a detailed overview of all options and features, consult the package's [official manual](https://raw.githubusercontent.com/typst/packages/main/packages/preview/letterloom/1.0.0/docs/manual.pdf), which provides comprehensive usage instructions and a more elaborate example.
 
