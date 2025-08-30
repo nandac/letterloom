@@ -9,8 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2025-08-30
 
+<!-- markdownlint-disable MD033 -->
 <details>
 <summary>Migration guide from v0.1.0</summary>
+<!-- markdownlint-enable MD033 -->
 
 The field structure has been refactored. Previously nested dictionaries are now represented as separate top-level fields.
 
