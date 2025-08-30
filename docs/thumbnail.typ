@@ -28,7 +28,7 @@
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
 
   // Opening greeting
-  salutation: "Dear Mr Hawthorne",
+  salutation: "Dear Mr Hawthorne,",
 
   // Letter subject line
   subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],

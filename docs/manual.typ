@@ -773,7 +773,7 @@ The following example illustrates several key features of the `letterloom` packa
                Bristol BS16 1GU],
 
   // Attention line for specific recipient (optional)
-  attn-name: "Mr Basil Hawthorne",
+  attn-name: "Mr Basil Hawthorne,",
 
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
@@ -891,7 +891,7 @@ Thank you kindly.
                Bristol BS16 1GU],
 
   // Attention line for specific recipient (optional)
-  attn-name: "Mr Basil Hawthorne",
+  attn-name: "Mr Basil Hawthorne,",
 
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
