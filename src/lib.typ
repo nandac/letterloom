@@ -13,6 +13,7 @@
   from-address: none,
   to-name: none,
   to-address: none,
+  banner: none,
   date: none,
   salutation: none,
   subject: none,
@@ -117,6 +118,8 @@
     set text(font: footnote-font, size: footnote-font-size)
     it
   }
+
+  banner;
 
   // Sender's name, address, and date block
   align(from-alignment, block[

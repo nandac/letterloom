@@ -16,6 +16,12 @@
   // attn-address: "Attn:",
   // attn-position: "above",
 
+  // Banner at the top of the letter
+  // banner: image(
+  //   "path/to/my-banner.svg",
+  //    width: 100%
+  // ),
+
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
 
