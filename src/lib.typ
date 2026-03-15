@@ -13,7 +13,6 @@
   from-address: none,
   to-name: none,
   to-address: none,
-  banner: none,
   date: none,
   salutation: none,
   subject: none,
@@ -27,6 +26,8 @@
   cc-label: "cc:",
   enclosures: none,
   enclosures-label: "encl:",
+  letterhead: none,
+  letterhead-alignment: center,
   footer: none,
   paper-size: "a4",
   margins: auto,
@@ -63,6 +64,8 @@
     cc-label: cc-label,
     enclosures: enclosures,
     enclosures-label: enclosures-label,
+    letterhead: letterhead,
+    letterhead-alignment: letterhead-alignment,
     footer: footer,
     par-leading: par-leading,
     par-spacing: par-spacing,
@@ -79,8 +82,7 @@
   let custom-footer = construct-custom-footer(
     footer: footer,
     footer-font: footer-font,
-    footer-font-size:
-    footer-font-size,
+    footer-font-size: footer-font-size,
     link-color: link-color
   )
 
@@ -119,7 +121,10 @@
     it
   }
 
-  banner;
+  // Place the letterhead (optional)
+  if letterhead != none {
+    align(letterhead-alignment)[#letterhead]
+  }
 
   // Sender's name, address, and date block
   align(from-alignment, block[
@@ -178,7 +183,6 @@
 
   // Construct and display the signatures
   construct-signatures(signatures: signatures, signature-alignment: signature-alignment)
-
 
   v(10pt)
 

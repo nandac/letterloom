@@ -1,4 +1,4 @@
-#import "@preview/letterloom:1.0.0": *
+#import "@preview/letterloom:1.1.0": *
 
 #set page(height: auto, margin: 5mm)
 
@@ -7,12 +7,12 @@
 #set page(fill: black) if theme == "dark"
 #set text(white) if theme == "dark"
 
-#import "@preview/letterloom:1.0.0": *
+#import "@preview/letterloom:1.1.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
   from-name: "The Dimbleby Family",
-  from-address: [The Lodge \
+  from-address: [The Dimbleby Estate \
                  Cheswick Village \
                  Middle Upton \
                  Bristol BS16 1GU],
@@ -54,7 +54,7 @@
 )
 
 // Letter content
-We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
+We are writing to request you to visit The Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
 
 Your specific task would be to render the grove safe to human traffic while at the same time minimizing the residual damage to the trees. You would, of course, also undertake to clear the area thereafter.
 

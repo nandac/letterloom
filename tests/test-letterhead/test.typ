@@ -1,34 +1,31 @@
-/// test-valid-case
+/// test-letterhead
 ///
 /// Synopsis:
-/// Test case where all required fields are provided with valid data to ensure
-/// the letterloom function works correctly with a complete, real-world scenario.
+/// Test case that validates the letterloom function correctly displays an optional
+/// letterhead image at the top of the letter with the specified alignment.
 ///
 /// Purpose:
-/// Validates that the letterloom function correctly processes a complete
-/// and valid letter configuration with all required fields properly set.
+/// Ensures that when `letterhead` and `letterhead-alignment` are provided, the
+/// letterhead appears above the sender block, is aligned as specified (e.g. center),
+/// and that vertical space separates it from the rest of the letter.
 ///
 /// Test Scenario:
-/// - All required fields are provided with valid data
-/// - Sender and recipient information is complete (from-name, from-address, to-name, to-address)
-/// - Date, salutation, subject, and closing are properly formatted
-/// - Multiple signatures are included with proper structure
-/// - Optional fields are provided (attn-name, attn-position, cc, enclosures as title-only strings)
-/// - Letter body content is provided
+/// - letterhead is set to an image with explicit width (e.g. 50%) so it fits the page
+/// - letterhead-alignment is set to center
+/// - All other required and optional fields are provided so the letter renders fully
 ///
 /// Expected Behavior:
-/// The function successfully generates a properly formatted letter without
-/// validation errors or panics. Output is compared to reference images.
+/// The letter renders with the letterhead at the top, centered, followed by the
+/// sender block and the rest of the letter. Layout is compared against the reference
+/// image (ref/*.png).
 ///
 /// Validation:
-/// Ensures that the letterloom function can handle a complete, real-world
-/// letter scenario and produce the expected output format. Tests the happy path
-/// with all validation rules satisfied.
+/// Visual regression: output must match the reference. Ensures letterhead placement,
+/// alignment, and spacing remain correct across changes.
 ///
 /// Note:
-/// This test serves as a baseline for all other validation and layout tests.
-/// Optional parameters (e.g. letterhead, enclosures as (title, content) pairs)
-/// are not exercised here but are supported by the implementation.
+/// The letterhead parameter accepts any content (e.g. image(...)); specifying a width
+/// (e.g. width: 100% or width: 50%) is recommended so the image fits the page.
 #import "/src/lib.typ": *
 
 #show: letterloom.with(
@@ -63,6 +60,10 @@
       name: "Sir Austin Dimbleby",
     ),
   ),
+
+  letterhead: image("letterhead.png", width: 50%),
+  letterhead-alignment: center,
+
   cc: (
     "Mr Jethro Tull",
   ),

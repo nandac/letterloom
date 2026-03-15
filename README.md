@@ -1,6 +1,6 @@
 # The `letterloom` Package
 <!-- markdownlint-disable MD033 -->
-<div align="center">Version 1.0.0</div>
+<div align="center">Version 1.1.0</div>
 
 The `letterloom` package is a user-friendly and customizable template designed to streamline the creation of professional-looking letters. Whether for personal or business correspondence, it eliminates the challenges of traditional typesetting tools like LaTeX while delivering polished and elegant results.
 
@@ -27,12 +27,12 @@ The `letterloom` package offers extensive customization options, enabling you to
 Here is a simple example demonstrating the essential arguments needed to use the letterloom package:
 
 ```typ
-#import "@preview/letterloom:1.0.0": *
+#import "@preview/letterloom:1.1.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
   from-name: "The Dimbleby Family",
-  from-address: [The Lodge \
+  from-address: [The Dimbleby Estate \
                  Cheswick Village \
                  Middle Upton \
                  Bristol BS16 1GU],
@@ -74,7 +74,7 @@ Here is a simple example demonstrating the essential arguments needed to use the
 )
 
 // Letter content
-We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
+We are writing to request you to visit The Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
 
 Your specific task would be to render the grove safe to human traffic while at the same time minimizing the residual damage to the trees. You would, of course, also undertake to clear the area thereafter.
 
@@ -93,20 +93,20 @@ Thank you kindly.
 To create a new letter project run the following command in your terminal:
 
 ```bash
-typst init @preview/letterloom:1.0.0
+typst init @preview/letterloom:1.1.0
 ```
 
 This will generate a ready-to-use letter project in your current directory.
 
-Alternatively, you may create a new project directly in the [Typst webapp](https://typst.app/app?template=letterloom&version=1.0.0).
+Alternatively, you may create a new project directly in the [Typst webapp](https://typst.app/app?template=letterloom&version=1.1.0).
 
-For a detailed overview of all options and features, consult the package's [official manual](https://raw.githubusercontent.com/typst/packages/main/packages/preview/letterloom/1.0.0/docs/manual.pdf), which provides comprehensive usage instructions and a more elaborate example.
+For a detailed overview of all options and features, consult the package's [official manual](https://raw.githubusercontent.com/typst/packages/main/packages/preview/letterloom/1.1.0/docs/manual.pdf), which provides comprehensive usage instructions and a more elaborate example.
 
 ### Development
 
 If you wish to contribute to this package you may follow the steps below to prepare your development environment:
 
-1. **Typst:** Install Typst (version 0.13.0 or higher) following the [official guide](https://github.com/typst/typst?tab=readme-ov-file#installation). Typst is the core tool required for this project.
+1. **Typst:** Install Typst (version 0.14.0 or higher) following the [official guide](https://github.com/typst/typst?tab=readme-ov-file#installation). Typst is the core tool required for this project.
 
 1. **Just:** Install [Just](https://just.systems/man/en/introduction.html), a handy command runner for executing predefined tasks. You can install it using a package manager or by downloading a pre-built binary. Refer to the [available packages](https://just.systems/man/en/packages.html) for installation instructions specific to your operating system.
 
@@ -179,7 +179,7 @@ just install-preview
 Once installed, import it into your Typst file using:
 
 ```typ
-#import "@preview/letterloom:1.0.0": *
+#import "@preview/letterloom:1.1.0": *
 ```
 
 This allows experimentation with the package before finalizing updates.
@@ -223,4 +223,4 @@ Follow these steps to release a new version of the package:
 
 ## Acknowledgments
 
-Grateful thanks to the Typst community on [Discord](https://discord.com/channels/1054443721975922748/1069937650125000807) for their invaluable guidance and support during development.
+Thanks to [stefanv](https://github.com/stefanv) for the letterhead feature in v1.1.0, and to the Typst community on [Discord](https://discord.com/channels/1054443721975922748/1069937650125000807) for their guidance and support during this package's early development.

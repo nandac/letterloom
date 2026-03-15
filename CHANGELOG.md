@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-03-16
+
+### Added
+
+- Letterhead: optional content (e.g. an image) at the top of the letter, with configurable alignment. Thanks to [stefanv](https://github.com/stefanv) for this contribution.
+
+### Changed
+
+- Enclosures support *(title, content)* pairs: the title appears in the list and the content (e.g. `image("file.pdf")`) is rendered on a separate page, in addition to title-only entries.
+
 ## [1.0.0] - 2025-08-30
 
 <!-- markdownlint-disable MD033 -->
@@ -154,3 +164,4 @@ in comparison to the previous release
 [Unreleased]: https://github.com/nandac/letterloom/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/nandac/letterloom/releases/tag/v0.1.0
 [1.0.0]: https://github.com/nandac/letterloom/releases/tag/v1.0.0
+[1.1.0]: https://github.com/nandac/letterloom/releases/tag/v1.1.0

@@ -47,7 +47,7 @@
     none,
     from-name: "The Dimbleby Family",
     from-address: [
-      The Lodge \
+      The Dimbleby Estate \
       Cheswick Village \
       Middle Upton \
       Bristol BS16 1GU
@@ -84,7 +84,7 @@
     none,
     from-name: "The Dimbleby Family",
     from-address: [
-      The Lodge \
+      The Dimbleby Estate \
       Cheswick Village \
       Middle Upton \
       Bristol BS16 1GU
@@ -121,7 +121,7 @@
     none,
     from-name: "The Dimbleby Family",
     from-address: [
-      The Lodge \
+      The Dimbleby Estate \
       Cheswick Village \
       Middle Upton \
       Bristol BS16 1GU
@@ -158,7 +158,7 @@
     none,
     from-name: "The Dimbleby Family",
     from-address: [
-      The Lodge \
+      The Dimbleby Estate \
       Cheswick Village \
       Middle Upton \
       Bristol BS16 1GU
@@ -196,7 +196,7 @@
     none,
     from-name: "The Dimbleby Family",
     from-address: [
-      The Lodge \
+      The Dimbleby Estate \
       Cheswick Village \
       Middle Upton \
       Bristol BS16 1GU
@@ -234,7 +234,7 @@
     none,
     from-name: "The Dimbleby Family",
     from-address: [
-      The Lodge \
+      The Dimbleby Estate \
       Cheswick Village \
       Middle Upton \
       Bristol BS16 1GU
@@ -272,7 +272,7 @@
     none,
     from-name: "The Dimbleby Family",
     from-address: [
-      The Lodge \
+      The Dimbleby Estate \
       Cheswick Village \
       Middle Upton \
       Bristol BS16 1GU

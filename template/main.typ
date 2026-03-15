@@ -1,6 +1,6 @@
 /// letterloom Template
 /// For more information, see the letterloom documentation and manual.
-#import "@preview/letterloom:1.0.0": *
+#import "@preview/letterloom:1.1.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
@@ -16,11 +16,8 @@
   // attn-address: "Attn:",
   // attn-position: "above",
 
-  // Banner at the top of the letter
-  // banner: image(
-  //   "path/to/my-banner.svg",
-  //    width: 100%
-  // ),
+  // letterhead: none,
+  // letterhead-alignment: center,
 
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),

@@ -144,11 +144,8 @@
     validate-string(string-data: attn-label, field-name: "attn-label")
   }
 
-  // Validate optional position field is valid
-  if attn-position != "above" {
-    if attn-position not in ("above", "below") {
-      panic("attn-position must be one of above or below.")
-    }
+  if attn-position not in ("above", "below") {
+    panic("attn-position must be one of above or below.")
   }
 }
 
@@ -168,7 +165,7 @@
   for cc-recipient in cc {
     // Validate item is a string or content block
     if type(cc-recipient) not in (str, content) {
-      panic(str("cc recipient '" + str(cc-recipient)) + "' must be a string or content block.")
+      panic("cc recipient '" + str(cc-recipient) + "' must be a string or content block.")
     }
   }
 
@@ -187,38 +184,46 @@
 }
 
 /// Validates enclosure list format (optional).
+/// Each enclosure may be:
+/// - A string or content block (title only), or
+/// - An array (title, optional content) where title is string/content and content is optional attachment (e.g. image).
 #let validate-enclosures(enclosures: none, enclosures-label: none) = {
-  // Validate encl-list field is not empty
   if enclosures in (none, (), "", []) {
     panic("enclosures are empty.")
   }
 
-  // Handle the case where only one enclosure item is given
   if type(enclosures) != array {
     enclosures = (enclosures, )
   }
 
-  // Validate each item
   for enclosure in enclosures {
-    // Validate item is a string or content block
-    if type(enclosure) not in (str, content) {
-      panic("enclosure '" + str(enclosure) + "' must be a string or content block.")
-    }
-
-    // Validate item is not empty
-    if enclosure in ("", []) {
-      panic("empty enclosure item found.")
+    if type(enclosure) == array {
+      // (title, optional content)
+      if enclosure.len() < 1 {
+        panic("enclosure must be a (title,) or (title, content) pair.")
+      }
+      let title = enclosure.at(0)
+      if type(title) not in (str, content) {
+        panic("enclosure title '" + str(title) + "' must be a string or content block.")
+      }
+      if title in ("", []) {
+        panic("enclosure title is empty.")
+      }
+    } else {
+      // Title only (string or content)
+      if type(enclosure) not in (str, content) {
+        panic("enclosure '" + str(enclosure) + "' must be a string, content block, or (title, content) pair.")
+      }
+      if enclosure in ("", []) {
+        panic("empty enclosure item found.")
+      }
     }
   }
 
-  // Validate optional label
   if enclosures-label != "encl:" {
-    // Validate label field type
     if type(enclosures-label) not in (str, content) {
       panic("enclosure label '" + str(enclosures-label) + "' must be a string or content block.")
     }
-
-    // Validate label field is not empty
     if enclosures-label in ("", []) {
       panic("enclosure label is empty.")
     }
@@ -283,6 +288,8 @@
     cc-label: "cc:",
     enclosures: none,
     enclosures-label: "encl:",
+    letterhead: none,
+    letterhead-alignment: center,
     footer: none,
     par-leading: 0.8em,
     par-spacing: 1.8em,
@@ -368,6 +375,10 @@
   // Validate signature-alignment
   if type(signature-alignment) != alignment {
     panic("signature-alignment must be a valid alignment type.")
+  }
+
+  if type(letterhead-alignment) != alignment {
+    panic("letterhead-alignment must be a valid alignment type.")
   }
 
   // Validate link-color

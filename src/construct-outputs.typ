@@ -10,10 +10,10 @@
   // Set the number of signatures per row to 3 to handle 3 or more signatures
   let sigs-per-row = 3
 
-  // Set the blank space use to fill the empty space in the grid
+  // Blank placeholder for empty grid cells when there are fewer than sigs-per-row
   let blank-space = none
 
-   // Convert the signatures to an array if only one signature is given
+  // Normalize to array when a single signature is given
   if type(signatures) != array {
     signatures = (signatures, )
   }
@@ -24,10 +24,7 @@
     sigs-per-row = signatures.len()
   }
 
-  // if there is only one signature, we set the alignment to the given alignment
-  if signatures.len() == 1 {
-    signature-alignment = signature-alignment
-  } else {
+  if signatures.len() > 1 {
     signature-alignment = left
   }
 
@@ -94,9 +91,24 @@
       enclosures = (enclosures, )
     }
 
-    // Display each item as an enumerated item
-    for enclosure in enclosures {
-      enum.item(text(enclosure))
+    // Normalize to (title, content or none) so we can handle both "title" and (title, content)
+    let items = enclosures.map(enclosure => if type(enclosure) == array {
+      (enclosure.at(0), enclosure.at(1, default: none))
+    } else {
+      (enclosure, none)
+    })
+
+    // Display description of each enclosure as an enumerated item
+    for (title, _) in items {
+      enum.item(text(title))
+    }
+
+    // Display each enclosure attachment on a separate page when content is given
+    for (title, content) in items {
+      if content != none {
+        pagebreak()
+        figure(content, caption: text(title))
+      }
     }
   }
 }

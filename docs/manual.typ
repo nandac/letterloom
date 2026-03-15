@@ -1,4 +1,4 @@
-#import "@preview/letterloom:1.0.0": *
+#import "@preview/letterloom:1.1.0": *
 #import "highlight-type.typ": highlight-type
 
 // Global Styles
@@ -37,7 +37,7 @@
 
 // End of setup
 
-= `letterloom v1.0.0`
+= `letterloom v1.1.0`
 
 == Introduction
 
@@ -48,7 +48,7 @@ The `letterloom` package is a user-friendly and customizable template designed t
 
 - *Customizable Footnotes:* Add informative footnotes with flexible formatting options.
 
-- *Enclosures and Attachments:* Clearly list additional documents included with the letter.
+- *Enclosures and Attachments:* Clearly list and optionally embed additional documents included with the letter.
 
 - *Internationalization Support:* Customize labels and text for different languages and regions.
 
@@ -75,7 +75,7 @@ In the sections that follow, we will explore each parameter in detail, accompani
 Here is a simple example showing the essential arguments needed to use the `letterloom` package:
 
 ```typ
-#import "@preview/letterloom:1.0.0": *
+#import "@preview/letterloom:1.1.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
@@ -114,12 +114,12 @@ Here is a simple example showing the essential arguments needed to use the `lett
 To create a new letter project run the following command in your terminal:
 
 ```bash
-typst init @preview/letterloom:1.0.0
+typst init @preview/letterloom:1.1.0
 ```
 
 This will generate a ready-to-use letter project in your current directory.
 
-Alternatively, you may create a new project directly in the #link("https://typst.app/app?template=letterloom&version=1.0.0")[Typst webapp].
+Alternatively, you may create a new project directly in the #link("https://typst.app/app?template=letterloom&version=1.1.0")[Typst webapp].
 
 === Required Parameters
 
@@ -151,10 +151,10 @@ Specifies the sender's address either as a string or content block.
 #text(size: 10pt)[#text(size: 10pt)[*Examples:*]]
 ```typ
 // String
-from-address: "The Lodge"
+from-address: "The Dimbleby Estate"
 
 // Content block
-from-address: [The Lodge \
+from-address: [The Dimbleby Estate \
                Cheswick Village \
                Middle Upton \
                Bristol BS16 1GU]
@@ -361,9 +361,9 @@ attn-label: "À l'attention de"
 
 #v(5pt)
 
-*`attn-position`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)
+*`attn-position`* #h(15pt) #highlight-type.str
 
-Specifies the position of the attention line depending on whether it is placed `"above"` or `"below"` the recipient's address.
+Specifies the position of the attention line: use `"above"` to place it above the recipient's address, or `"below"` to place it below.
 
 #text(size: 10pt)[*Default:* `"above"`]
 
@@ -416,22 +416,30 @@ cc-label: text(weight: "bold")[cc:]
 
 *`enclosures`* #h(15pt) #highlight-type.array
 
-Lists additional documents included with the letter as an array of strings.
+Lists additional documents included with the letter. Each item may be a string (title only, shown in the enumerated list) or a (title, content) pair: the title appears in the list and the content is shown on a separate page with the title as the caption.
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-// Single enclosure
+// Single enclosure (title only)
 enclosures: "Provenance of the Oak trees on the Dimbleby Estate."
 
-// Multiple enclosures
+// Multiple enclosures (titles only)
 enclosures: (
   "Provenance of the Oak trees on the Dimbleby Estate.",
-  "Photographs of storm damage.",
+  "Photographs of storm damaged Oak trees.",
   "Insurance claim form.",
 )
+
+// (title, content) pairs: title in list, content on its own page
+enclosures: (
+  ("Provenance of the Oak trees on the Dimbleby Estate.", image("enclosures/oak-tree-provenance.pdf")),
+  ("Photographs of storm damaged Oak trees.", image("enclosures/storm-damaged-oak-tree.jpg")),
+)
 ```
+
+*Note:* For (title, content) pairs you may use any content. The #link("https://typst.app/blog/2025/typst-0.14#pdfs-as-images")[image function] is the standard way to embed files like images and PDFs in Typst 0.14 and later.
 
 #v(5pt)
 
@@ -452,6 +460,25 @@ enclosures-label: text(weight: "bold")[encl:]
 
 #v(5pt)
 
+*`letterhead`* #h(15pt) #highlight-type.content #h(5pt) or #h(5pt) #highlight-type.function #h(5pt)
+
+Adds a letterhead at the top of the letter. Pass any content; typically you use the #link("https://typst.app/docs/reference/visualize/image/")[image function] so the graphic fits the page (e.g. `width: 100%` for full width or a percentage for a narrower band).
+
+#text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
+
+#text(size: 10pt)[*Examples:*]
+```typ
+// Letterhead at 50% width
+letterhead: image("images/letterhead.png", width: 50%),
+
+// Full-width letterhead
+letterhead: image("images/letterhead.png", width: 100%),
+```
+
+*Note:* The letterhead is displayed at the top of the letter and is center-aligned by default. You may change the alignment using the `letterhead-alignment` parameter.
+
+#v(5pt)
+
 *`footer`* #h(15pt) #highlight-type.array
 
 Specifies a list of footer elements such as URLs, email addresses and arbitrary text as an array of dictionaries.
@@ -463,7 +490,7 @@ Specifies a list of footer elements such as URLs, email addresses and arbitrary 
   rows: 2,
   stroke: none,
   inset: 3pt,
-  [`footer-text`], [#highlight-type.str #h(5pt)], [The footer text.],
+  [`footer-text`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)], [The footer text.],
   [`footer-type`], [#highlight-type.str #h(5pt)], [The type of footer element: `"url"`, `"email"` or `"string"`. If specified as `"url"` or `"email"`, it will be rendered as a clickable hyperlink. Defaults to `"string"`.],
 )
 
@@ -721,6 +748,20 @@ footnote-alignment: center // Center-aligned footnotes
 
 #v(5pt)
 
+*`letterhead-alignment`* #h(15pt) #highlight-type.alignment
+
+Specifies the alignment of the letterhead.
+
+#text(size: 10pt)[*Default:* `center`]
+
+#text(size: 10pt)[*Examples:*]
+```typ
+letterhead-alignment: left   // Left-aligned letterhead
+letterhead-alignment: right  // Right-aligned letterhead
+letterhead-alignment: center // Center-aligned letterhead
+```
+#v(5pt)
+
 *`signature-alignment`* #h(15pt) #highlight-type.alignment
 
 Specifies the alignment of the signature if only one signature is specified. If multiple signatures are specified this parameter is ignored.
@@ -755,22 +796,14 @@ Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typs
 The following example illustrates several key features of the `letterloom` package and explains how they can be applied in practice.
 
 ```typ
-#import "@preview/letterloom:1.0.0": *
+#import "@preview/letterloom:1.1.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
   from-name: "The Dimbleby Family",
-  from-address: [The Lodge \
+  from-address: [The Dimbleby Estate \
                  Cheswick Village \
-                 Middle Upton \
                  Bristol BS16 1GU],
-
-  // Recipient's contact information (name and address)
-  to-name: "Evergreen Tree Surgeons",
-  to-address: [Midtown Lane \
-               Cheswick Village \
-               Stoke Gifford \
-               Bristol BS16 1GU],
 
   // Attention line for specific recipient (optional)
   attn-name: "Mr Basil Hawthorne,",
@@ -803,11 +836,18 @@ The following example illustrates several key features of the `letterloom` packa
     ),
   ),
 
+  // Letterhead (optional)
+  letterhead: image("images/letterhead.png", width: 100%),
+  letterhead-alignment: center,
+
   // List of cc recipients (optional)
   cc: "Mr Jethro Tull",
 
-  // List of enclosures (optional)
-  enclosures: "Provenance of the Oak trees on the Dimbleby Estate.",
+  // List of enclosures (optional); (title, content) uses content so paths resolve in your document
+  enclosures: (
+    ("Photograph of storm damaged Oak trees.", image("enclosures/storm-damaged-oak-tree.jpg")),
+    ("Provenance of the Oak trees on the Dimbleby Estate.", image("enclosures/oak-tree-provenance.pdf")),
+  )
 
   // Custom footer information (optional)
   footer: (
@@ -828,7 +868,7 @@ The following example illustrates several key features of the `letterloom` packa
   paper-size: "a4",
 
   // Page margins (default: auto)
-  margins: (top: 20mm, left: 20mm, bottom: 20mm, right: 20mm),
+  margins: (top: 5mm, left: 20mm, bottom: 20mm, right: 20mm),,
 
   // Enable page numbering (default: false)
   number-pages: false,
@@ -858,13 +898,7 @@ The following example illustrates several key features of the `letterloom` packa
   link-color: maroon,
 )
 
-We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
-
-#show figure.caption: set text(font: "Libertinus Serif", size: 10pt)
-#figure(
-  image("images/storm-damaged-oak-tree.jpg", width: 80%),
-  caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
-)
+We are writing to request you to visit The Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
 
 Your specific task would be to render the grove safe to human traffic while at the same time minimizing the residual damage to the trees. You would, of course, also undertake to clear the area thereafter.
 
@@ -878,7 +912,7 @@ Thank you kindly.
 #show: letterloom.with(
   // Sender's contact information (name and address)
   from-name: "The Dimbleby Family",
-  from-address: [The Lodge \
+  from-address: [The Dimbleby Estate \
                  Cheswick Village \
                  Middle Upton \
                  Bristol BS16 1GU],
@@ -921,11 +955,18 @@ Thank you kindly.
     ),
   ),
 
+  // Letterhead (optional)
+  letterhead: image("images/letterhead.png", width: 100%),
+  letterhead-alignment: center,
+
   // List of cc recipients (optional)
   cc: "Mr Jethro Tull",
 
   // List of enclosures (optional)
-  enclosures: "Provenance of the Oak trees on the Dimbleby Estate.",
+  enclosures: (
+    ("Photograph of storm damaged Oak trees.", image("enclosures/storm-damaged-oak-tree.jpg")),
+    ("Provenance of the Oak trees on the Dimbleby Estate.", image("enclosures/oak-tree-provenance.pdf")),
+  ),
 
   // Custom footer information (optional)
   footer: (
@@ -946,7 +987,7 @@ Thank you kindly.
   paper-size: "a4",
 
   // Page margins (default: auto)
-  margins: (top: 20mm, left: 20mm, bottom: 20mm, right: 20mm),
+  margins: (top: 5mm, left: 20mm, bottom: 20mm, right: 20mm),
 
   // Enable page numbering (default: false)
   number-pages: false,
@@ -976,13 +1017,7 @@ Thank you kindly.
   link-color: maroon,
 )
 
-We are writing to request you to visit The Lodge at the Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
-
-#show figure.caption: set text(font: "Libertinus Serif", size: 10pt)
-#figure(
-  image("images/storm-damaged-oak-tree.jpg", width: 80%),
-  caption: [Storm Damaged Oak Tree.#footnote[This image was generated using #link("https://deepai.org/machine-learning-model/text2img")[DeepAI's image generator].]]
-)
+We are writing to request you to visit The Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
 
 Your specific task would be to render the grove safe to human traffic while at the same time minimizing the residual damage to the trees. You would, of course, also undertake to clear the area thereafter.
 

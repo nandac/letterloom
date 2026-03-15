@@ -1,40 +1,39 @@
-/// test-single-signature-alignment
+/// test-single-long-signature
 ///
 /// Synopsis:
-/// Test case that validates the letterloom function properly handles signature
-/// alignment parameters by testing various alignment values and signature configurations.
+/// Test case that validates the letterloom function correctly lays out a single
+/// signature with long content (multi-line title, affiliation) and various
+/// signature-alignment values.
 ///
 /// Purpose:
-/// Validates that the letterloom function correctly processes signature alignment
-/// with different signature counts and alignment values.
+/// Ensures that letters with one signatory and lengthy title/affiliation text
+/// render correctly and that signature-alignment (left, center, right) is applied.
+/// Also covers multiple signatures and invalid signature-alignment type.
 ///
 /// Test Scenario:
-/// - Single signature with center alignment
-/// - Single signature with left alignment
-/// - Single signature with right alignment
-/// - Multiple signatures with center alignment (alignment is ignored)
+/// - Single signature with long title and multi-line affiliation, left alignment
+/// - Single signature with long title and multi-line affiliation, center alignment
+/// - Single signature with long title and multi-line affiliation, right alignment
+/// - Multiple signatures (alignment forced to left)
 /// - Invalid signature-alignment type (string instead of alignment)
 ///
 /// Expected Behavior:
-/// The function should successfully generate properly formatted letters with
-/// correctly aligned signatures for valid alignment values, and panic with
-/// appropriate error messages for invalid alignment types.
+/// Letters render with correctly aligned signature blocks; invalid alignment panics.
+/// Output is compared to reference images (visual regression).
 ///
 /// Validation:
-/// Ensures that the signature alignment system works correctly for both
-/// single and multiple signatures with different alignment values.
-/// Tests both successful cases and error handling for invalid types.
+/// Visual regression: output must match reference. Ensures long signature content
+/// and alignment options behave correctly across layout changes.
 ///
 /// Note:
-/// This test validates that the signature-alignment parameter correctly
-/// controls the positioning of signatures in the letter layout.
-/// It ensures proper alignment behavior for various signature configurations.
+/// This test complements test-single-signature-alignment by focusing on long
+/// signature content and multi-page layout when applicable.
 #import "/src/lib.typ": *
 
 #show: letterloom.with(
   from-name: "The Dimbleby Family",
   from-address: [
-    The Lodge \
+    The Dimbleby Estate \
     Cheswick Village \
     Middle Upton \
     Bristol BS16 1GU
@@ -66,7 +65,7 @@
 #show: letterloom.with(
   from-name: "The Dimbleby Family",
   from-address: [
-    The Lodge \
+    The Dimbleby Estate \
     Cheswick Village \
     Middle Upton \
     Bristol BS16 1GU
@@ -98,7 +97,7 @@
 #show: letterloom.with(
   from-name: "The Dimbleby Family",
   from-address: [
-    The Lodge \
+    The Dimbleby Estate \
     Cheswick Village \
     Middle Upton \
     Bristol BS16 1GU
@@ -130,7 +129,7 @@
 #show: letterloom.with(
   from-name: "The Dimbleby Family",
   from-address: [
-    The Lodge \
+    The Dimbleby Estate \
     Cheswick Village \
     Middle Upton \
     Bristol BS16 1GU
@@ -162,7 +161,7 @@
 #show: letterloom.with(
   from-name: "The Dimbleby Family",
   from-address: [
-    The Lodge \
+    The Dimbleby Estate \
     Cheswick Village \
     Middle Upton \
     Bristol BS16 1GU
@@ -194,7 +193,7 @@
 #show: letterloom.with(
   from-name: "The Dimbleby Family",
   from-address: [
-    The Lodge \
+    The Dimbleby Estate \
     Cheswick Village \
     Middle Upton \
     Bristol BS16 1GU
@@ -231,7 +230,7 @@
 #show: letterloom.with(
   from-name: "The Dimbleby Family",
   from-address: [
-    The Lodge \
+    The Dimbleby Estate \
     Cheswick Village \
     Middle Upton \
     Bristol BS16 1GU

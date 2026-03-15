@@ -76,7 +76,7 @@
   catch(() => letterloom(
     none,
     from-name: "",
-    from-address: [The Lodge \
+    from-address: [The Dimbleby Estate \
                 Cheswick Village \
                 Middle Upton \
                 Bristol BS16 1GU],
@@ -108,7 +108,7 @@
   catch(() => letterloom(
     none,
     from-name: [],
-    from-address: [The Lodge \
+    from-address: [The Dimbleby Estate \
                 Cheswick Village \
                 Middle Upton \
                 Bristol BS16 1GU],
@@ -140,7 +140,7 @@
   catch(() => letterloom(
     none,
     from-name: 3,
-    from-address: [The Lodge \
+    from-address: [The Dimbleby Estate \
                 Cheswick Village \
                 Middle Upton \
                 Bristol BS16 1GU],
@@ -172,7 +172,7 @@
   catch(() => letterloom(
     none,
     from-name: none,
-    from-address: [The Lodge \
+    from-address: [The Dimbleby Estate \
                 Cheswick Village \
                 Middle Upton \
                 Bristol BS16 1GU],
@@ -204,7 +204,7 @@
   catch(() => letterloom(
     none,
     from-name: calc.ceil(1.2),
-    from-address: [The Lodge \
+    from-address: [The Dimbleby Estate \
                 Cheswick Village \
                 Middle Upton \
                 Bristol BS16 1GU],

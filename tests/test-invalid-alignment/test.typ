@@ -10,25 +10,28 @@
 /// alignment values.
 ///
 /// Test Scenarios:
-/// Tests two alignment parameters with invalid string values:
-/// - from-alignment: "left" (should be left, not "left")
-/// - footnote-alignment: "left" (should be left, not "left")
+/// Tests alignment parameters with invalid string values (must be Typst alignment, not string):
+/// - from-alignment: "left"
+/// - footnote-alignment: "left"
+/// - letterhead-alignment: "center"
 ///
 /// Expected Behavior:
-/// The function should panic with clear error messages indicating that
-/// alignment parameters must be of valid alignment types.
+/// The function panics with clear error messages indicating that alignment
+/// parameters must be of valid alignment types.
 ///
 /// Expected Errors:
-/// - "from-alignment must be a valid alignment type." - when from-alignment is string instead of alignment
-/// - "footnote-alignment must be a valid alignment type." - when footnote-alignment is string instead of alignment
+/// - "from-alignment must be a valid alignment type." - when from-alignment is string
+/// - "footnote-alignment must be a valid alignment type." - when footnote-alignment is string
+/// - "letterhead-alignment must be a valid alignment type." - when letterhead-alignment is string
 ///
 /// Validation:
-/// Ensures that the validation system correctly identifies type mismatches
-/// in alignment parameters and provides appropriate error feedback.
+/// Ensures that the validation system correctly rejects string values for
+/// alignment parameters (from-alignment, footnote-alignment, letterhead-alignment,
+/// signature-alignment) and requires proper Typst alignment values.
 ///
 /// Note:
-/// This test validates that alignment parameters must be proper Typst alignment
-/// values (left, right, center, etc.) rather than string representations.
+/// Alignment parameters must be Typst alignment values (e.g. left, right, center)
+/// rather than string representations like "left" or "center".
 #import "/src/lib.typ": *
 
 #assert.eq(
@@ -36,7 +39,7 @@
     none,
     from-name: "The Dimbleby Family",
     from-address: [
-      The Lodge \
+      The Dimbleby Estate \
       Cheswick Village \
       Middle Upton \
       Bristol BS16 1GU
@@ -73,7 +76,7 @@
     none,
     from-name: "The Dimbleby Family",
     from-address: [
-      The Lodge \
+      The Dimbleby Estate \
       Cheswick Village \
       Middle Upton \
       Bristol BS16 1GU
@@ -103,4 +106,41 @@
     footnote-alignment: "left",
   )),
   "panicked with: \"footnote-alignment must be a valid alignment type.\"",
+)
+
+#assert.eq(
+  catch(() => letterloom(
+    none,
+    from-name: "The Dimbleby Family",
+    from-address: [
+      The Dimbleby Estate \
+      Cheswick Village \
+      Middle Upton \
+      Bristol BS16 1GU
+    ],
+    to-name: "Evergreen Tree Surgeons",
+    to-address: [
+      Midtown Lane \
+      Cheswick Village \
+      Stoke Gifford \
+      Bristol BS16 1GU
+    ],
+    date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
+    salutation: "Dear Mr Hawthorne",
+    subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
+    closing: "Sincerely yours,",
+    signatures: (
+      (
+        name: "Lord Albus Dimbleby",
+      ),
+      (
+        name: "Lady Abigail Dimbleby",
+      ),
+      (
+        name: "Sir Austin Dimbleby",
+      ),
+    ),
+    letterhead-alignment: "center",
+  )),
+  "panicked with: \"letterhead-alignment must be a valid alignment type.\"",
 )
