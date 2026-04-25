@@ -49,12 +49,20 @@
             )
           ) + (blank-space, ) * (sigs-per-row - sigs.len()),
         // Names, affiliation row
-        ..sigs.map(signatory => stack(
-            spacing: 10pt,
-            signatory.name,
-            signatory.at("title", default: none),
-            signatory.at("affiliation", default: none)
-          )) + (blank-space, ) * (sigs-per-row - sigs.len()),
+        ..sigs.map(signatory => {
+            let title = signatory.at("title", default: none)
+            let affiliation = signatory.at("affiliation", default: none)
+            if title != none or affiliation != none {
+              stack(
+                spacing: 10pt,
+                signatory.name,
+                title,
+                affiliation
+              )
+            } else {
+              signatory.name
+            }
+          }) + (blank-space, ) * (sigs-per-row - sigs.len()),
       )
     })
   )
@@ -72,9 +80,14 @@
       cc = (cc, )
     }
 
-    // Display each recipient as an enumerated item
-    for cc-recipient in cc {
-      enum.item(text(cc-recipient))
+    if cc.len() == 1 {
+      set list(indent: 15pt, marker: "")
+      list.item(text(cc.first()))
+    } else {
+      // Display each recipient as an enumerated item
+      for cc-recipient in cc {
+        enum.item(text(cc-recipient))
+      }
     }
   }
 }
@@ -91,23 +104,29 @@
       enclosures = (enclosures, )
     }
 
-    // Normalize to (title, content or none) so we can handle both "title" and (title, content)
-    let items = enclosures.map(enclosure => if type(enclosure) == array {
-      (enclosure.at(0), enclosure.at(1, default: none))
+    if enclosures.len() == 1 {
+      set list(indent: 15pt, marker: "")
+      list.item(text(enclosures.first().description))
     } else {
-      (enclosure, none)
-    })
-
-    // Display description of each enclosure as an enumerated item
-    for (title, _) in items {
-      enum.item(text(title))
+      // Display description of each enclosure as an enumerated item
+      for enclosure in enclosures {
+        enum.item(text(enclosure.description))
+      }
     }
 
-    // Display each enclosure attachment on a separate page when content is given
-    for (title, content) in items {
-      if content != none {
-        pagebreak()
-        figure(content, caption: text(title))
+    // Display each enclosure file on a separate page when file is given
+    for enclosure in enclosures {
+      let file = enclosure.at("file", default: none)
+      if file != none {
+        let margin = enclosure.at("margin", default: 0mm)
+        let page-count = enclosure.at("pages", default: 1)
+        {
+          set page(margin: margin)
+          for i in range(1, page-count + 1) {
+            image(file, page: i, width: 100%)
+            if i < page-count { pagebreak() }
+          }
+        }
       }
     }
   }

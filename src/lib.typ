@@ -175,7 +175,6 @@
   // Body of letter
   doc
 
-  linebreak()
   v(5pt)
 
   // Closing
@@ -183,8 +182,6 @@
 
   // Construct and display the signatures
   construct-signatures(signatures: signatures, signature-alignment: signature-alignment)
-
-  v(10pt)
 
   // Construct and display the cc (optional)
   construct-cc(cc: cc, cc-label: cc-label)

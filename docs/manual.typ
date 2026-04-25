@@ -416,30 +416,45 @@ cc-label: text(weight: "bold")[cc:]
 
 *`enclosures`* #h(15pt) #highlight-type.array
 
-Lists additional documents included with the letter. Each item may be a string (title only, shown in the enumerated list) or a (title, content) pair: the title appears in the list and the content is shown on a separate page with the title as the caption.
+Lists additional documents included with the letter. Each item must be a dictionary with a required `description` field (shown in the enumerated list) and optional `file`, `margin`, and `pages` fields for embedding the file on its own page.
+
+- *`description`* (required): string or content — label shown in the enclosures list.
+- *`file`* (optional): bytes — file content loaded via `read("path", encoding: none)`.
+- *`margin`* (optional): length or dictionary of lengths (`top`, `bottom`, `left`, `right`, `x`, `y`, `rest`) — page margin for the embedded file.
+- *`pages`* (optional): integer — number of pages to embed starting from page 1, e.g. `5` renders pages 1–5. Defaults to `1`.
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-// Single enclosure (title only)
-enclosures: "Provenance of the Oak trees on the Dimbleby Estate."
+// Single enclosure (description only)
+enclosures: (description: "Provenance of the Oak trees on the Dimbleby Estate.")
 
-// Multiple enclosures (titles only)
+// Multiple enclosures (descriptions only)
 enclosures: (
-  "Provenance of the Oak trees on the Dimbleby Estate.",
-  "Photographs of storm damaged Oak trees.",
-  "Insurance claim form.",
+  (description: "Provenance of the Oak trees on the Dimbleby Estate."),
+  (description: "Photographs of storm damaged Oak trees."),
+  (description: "Insurance claim form."),
 )
 
-// (title, content) pairs: title in list, content on its own page
+// With embedded files (read bytes so paths resolve in your document)
 enclosures: (
-  ("Provenance of the Oak trees on the Dimbleby Estate.", image("enclosures/oak-tree-provenance.pdf")),
-  ("Photographs of storm damaged Oak trees.", image("enclosures/storm-damaged-oak-tree.jpg")),
+  (
+    description: "Provenance of the Oak trees on the Dimbleby Estate.",
+    file: read("enclosures/oak-tree-provenance.pdf", encoding: none),
+  ),
+  (
+    description: "Photographs of storm damaged Oak trees.",
+    file: read("enclosures/storm-damaged-oak-tree.jpg", encoding: none),
+    margin: (top: 20mm),
+  ),
+  (
+    description: "Selected pages from a report.",
+    file: read("enclosures/report.pdf", encoding: none),
+    pages: 5,
+  ),
 )
 ```
-
-*Note:* For (title, content) pairs you may use any content. The #link("https://typst.app/blog/2025/typst-0.14#pdfs-as-images")[image function] is the standard way to embed files like images and PDFs in Typst 0.14 and later.
 
 #v(5pt)
 
@@ -843,10 +858,17 @@ The following example illustrates several key features of the `letterloom` packa
   // List of cc recipients (optional)
   cc: "Mr Jethro Tull",
 
-  // List of enclosures (optional); (title, content) uses content so paths resolve in your document
+  // List of enclosures (optional)
   enclosures: (
-    ("Photograph of storm damaged Oak trees.", image("enclosures/storm-damaged-oak-tree.jpg")),
-    ("Provenance of the Oak trees on the Dimbleby Estate.", image("enclosures/oak-tree-provenance.pdf")),
+    (
+      description: "Photograph of storm damaged Oak trees.",
+      file: read("enclosures/storm-damaged-oak-tree.jpg", encoding: none),
+    ),
+    (
+      description: "Provenance of the Oak trees on the Dimbleby Estate.",
+      file: read("enclosures/oak-tree-provenance.pdf", encoding: none),
+      pages: 2,
+    ),
   )
 
   // Custom footer information (optional)
@@ -868,7 +890,7 @@ The following example illustrates several key features of the `letterloom` packa
   paper-size: "a4",
 
   // Page margins (default: auto)
-  margins: (top: 5mm, left: 20mm, bottom: 20mm, right: 20mm),,
+  margins: (top: 5mm, left: 20mm, bottom: 20mm, right: 20mm),
 
   // Enable page numbering (default: false)
   number-pages: false,
@@ -956,16 +978,24 @@ Thank you kindly.
   ),
 
   // Letterhead (optional)
-  letterhead: image("images/letterhead.png", width: 100%),
-  letterhead-alignment: center,
+  // letterhead: image("images/letterhead.png", width: 100%),
+  // letterhead-alignment: center,
 
   // List of cc recipients (optional)
   cc: "Mr Jethro Tull",
 
   // List of enclosures (optional)
   enclosures: (
-    ("Photograph of storm damaged Oak trees.", image("enclosures/storm-damaged-oak-tree.jpg")),
-    ("Provenance of the Oak trees on the Dimbleby Estate.", image("enclosures/oak-tree-provenance.pdf")),
+    (
+      description: "Photograph of storm damaged Oak trees.",
+      file: read("enclosures/storm-damaged-oak-tree.jpg", encoding: none),
+      margin: (top: 20mm)
+    ),
+    (
+      description: "Provenance of the Oak trees on the Dimbleby Estate.",
+      file: read("enclosures/oak-tree-provenance.pdf", encoding: none),
+      pages: 2
+    ),
   ),
 
   // Custom footer information (optional)
@@ -987,7 +1017,7 @@ Thank you kindly.
   paper-size: "a4",
 
   // Page margins (default: auto)
-  margins: (top: 5mm, left: 20mm, bottom: 20mm, right: 20mm),
+  margins: (top: 20mm, left: 20mm, bottom: 20mm, right: 20mm),
 
   // Enable page numbering (default: false)
   number-pages: false,

@@ -184,9 +184,11 @@
 }
 
 /// Validates enclosure list format (optional).
-/// Each enclosure may be:
-/// - A string or content block (title only), or
-/// - An array (title, optional content) where title is string/content and content is optional attachment (e.g. image).
+/// Each enclosure must be a dictionary with:
+/// - description (required): string or content
+/// - file (optional): bytes — file content loaded via read("path", encoding: none)
+/// - margin (optional): length or dictionary with keys top, bottom, left, right, x, y, or rest
+/// - pages (optional): integer — number of pages to embed, e.g. 5 renders pages 1-5
 #let validate-enclosures(enclosures: none, enclosures-label: none) = {
   if enclosures in (none, (), "", []) {
     panic("enclosures are empty.")
@@ -197,25 +199,60 @@
   }
 
   for enclosure in enclosures {
-    if type(enclosure) == array {
-      // (title, optional content)
-      if enclosure.len() < 1 {
-        panic("enclosure must be a (title,) or (title, content) pair.")
+    // Validate enclosure is a dictionary
+    if type(enclosure) != dictionary {
+      panic("enclosure must be a dictionary with a description field.")
+    }
+
+    // Validate required description field
+    if "description" not in enclosure {
+      panic("enclosure description is missing.")
+    }
+
+    let description = enclosure.at("description")
+    if type(description) not in (str, content) {
+      panic("enclosure description '" + str(description) + "' must be a string or content block.")
+    }
+    if description in ("", []) {
+      panic("enclosure description is empty.")
+    }
+
+    // Validate optional file field
+    if "file" in enclosure {
+      let file = enclosure.at("file")
+      if type(file) != bytes {
+        panic("enclosure file must be bytes loaded via read(\"path\", encoding: none).")
       }
-      let title = enclosure.at(0)
-      if type(title) not in (str, content) {
-        panic("enclosure title '" + str(title) + "' must be a string or content block.")
+    }
+
+    // Validate optional pages field
+    if "pages" in enclosure {
+      let pages = enclosure.at("pages")
+      if type(pages) != int {
+        panic("enclosure pages '" + str(pages) + "' must be an integer.")
       }
-      if title in ("", []) {
-        panic("enclosure title is empty.")
+      if pages < 1 {
+        panic("enclosure pages '" + str(pages) + "' must be at least 1.")
       }
-    } else {
-      // Title only (string or content)
-      if type(enclosure) not in (str, content) {
-        panic("enclosure '" + str(enclosure) + "' must be a string, content block, or (title, content) pair.")
-      }
-      if enclosure in ("", []) {
-        panic("empty enclosure item found.")
+    }
+
+    // Validate optional margin field
+    if "margin" in enclosure {
+      let margin = enclosure.at("margin")
+      if type(margin) == length {
+        // valid: single length applies to all sides
+      } else if type(margin) == dictionary {
+        let valid-keys = ("top", "bottom", "left", "right", "x", "y", "rest")
+        for (key, value) in margin {
+          if key not in valid-keys {
+            panic("enclosure margin key '" + key + "' is not valid. Must be one of top, bottom, left, right, x, y, or rest.")
+          }
+          if type(value) != length {
+            panic("enclosure margin value for '" + key + "' must be a length.")
+          }
+        }
+      } else {
+        panic("enclosure margin must be a length or a dictionary of lengths.")
       }
     }
   }
