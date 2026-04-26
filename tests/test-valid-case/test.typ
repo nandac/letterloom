@@ -13,7 +13,7 @@
 /// - Sender and recipient information is complete (from-name, from-address, to-name, to-address)
 /// - Date, salutation, subject, and closing are properly formatted
 /// - Multiple signatures are included with proper structure
-/// - Optional fields are provided (attn-name, attn-position, cc, enclosures as title-only strings)
+/// - Optional fields are provided (attn-name, attn-position, cc, enclosures as description dictionaries)
 /// - Letter body content is provided
 ///
 /// Expected Behavior:
@@ -27,7 +27,7 @@
 ///
 /// Note:
 /// This test serves as a baseline for all other validation and layout tests.
-/// Optional parameters (e.g. letterhead, enclosures as (title, content) pairs)
+/// Optional parameters (e.g. letterhead, enclosures with file attachments)
 /// are not exercised here but are supported by the implementation.
 #import "/src/lib.typ": *
 
@@ -67,7 +67,7 @@
     "Mr Jethro Tull",
   ),
   enclosures: (
-    "Provenance of the Oak Trees on the Dimbleby Estate",
+    (description: "Provenance of the Oak Trees on the Dimbleby Estate"),
   ),
 )
 
