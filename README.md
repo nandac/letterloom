@@ -1,6 +1,6 @@
 # The `letterloom` Package
 <!-- markdownlint-disable MD033 -->
-<div align="center">Version 1.1.0</div>
+<div align="center">Version 2.0.0</div>
 
 The `letterloom` package is a user-friendly and customizable template designed to streamline the creation of professional-looking letters. Whether for personal or business correspondence, it eliminates the challenges of traditional typesetting tools like LaTeX while delivering polished and elegant results.
 
@@ -179,7 +179,7 @@ just install-preview
 Once installed, import it into your Typst file using:
 
 ```typ
-#import "@preview/letterloom:1.1.0": *
+#import "@preview/letterloom:2.0.0": *
 ```
 
 This allows experimentation with the package before finalizing updates.
@@ -195,7 +195,7 @@ Follow these steps to release a new version of the package:
 1. **Update CHANGELOG:**
 
    * Document added features, modifications, and optionally include a migration guide for the new version in `CHANGELOG.md`.
-   * Use the guidelines given at [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+   * Use the guidelines given at [Keep a Changelog](https://keepachangelog.com/en/2.0.0/).
 
 1. **Commit Changes:**
 
@@ -223,4 +223,4 @@ Follow these steps to release a new version of the package:
 
 ## Acknowledgments
 
-Thanks to [stefanv](https://github.com/stefanv) for the letterhead feature in v1.1.0, and to the Typst community on [Discord](https://discord.com/channels/1054443721975922748/1069937650125000807) for their guidance and support during this package's early development.
+Special thanks to the Typst community on [Discord](https://discord.com/channels/1054443721975922748/1069937650125000807) for their guidance and support during this package's early development.

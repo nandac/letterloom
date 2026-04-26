@@ -7,15 +7,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.1.0] - 2026-03-16
+## [2.0.0] - 2026-04-26
 
-### Added
+<!-- markdownlint-disable MD033 -->
+<details>
+<summary>Migration guide from v1.0.0</summary>
+<!-- markdownlint-enable MD033 -->
 
-- Letterhead: optional content (e.g. an image) at the top of the letter, with configurable alignment. Thanks to [stefanv](https://github.com/stefanv) for this contribution.
+Each enclosure entry must now be a dictionary with a required `description` field, replacing the previous plain-string format. Optional fields `file`, `pages`, and `margin` allow attaching and rendering external files directly in the letter.
+
+Before
+
+```typ
+enclosures: (
+  "Provenance of the Oak Trees on the Dimbleby Estate",
+  "Map of the Dimbleby Estate",
+),
+```
+
+After
+
+```typ
+enclosures: (
+  (description: "Provenance of the Oak Trees on the Dimbleby Estate"),
+  (description: "Map of the Dimbleby Estate"),
+),
+```
+
+To attach a file that is rendered on a separate page after the letter body:
+
+```typ
+enclosures: (
+  (
+    description: "Provenance of the Oak Trees on the Dimbleby Estate",
+    file: read("provenance.pdf", encoding: none),
+    pages: 3,
+    margin: 10mm,
+  ),
+),
+```
+
+</details>
 
 ### Changed
 
-- Enclosures support *(title, content)* pairs: the title appears in the list and the content (e.g. `image("file.pdf")`) is rendered on a separate page, in addition to title-only entries.
+- Enclosures are now specified as dictionaries with a required `description` field (string or content). An optional `file` field (bytes loaded via `read("path", encoding: none)`) renders the attachment on a separate page, with `pages` (integer, default 1) controlling how many pages to render and `margin` (length or per-side dictionary) controlling page margins for the attachment.
 
 ## [1.0.0] - 2025-08-30
 
