@@ -52,6 +52,19 @@ enclosures: (
 
 </details>
 
+### Fixed
+
+- Fixed signature block spacing: no gap is added between name, title, and affiliation when optional fields are absent.
+- Fixed `footer-font-size` default in `construct-custom-footer` to match the public API default of `9pt`.
+- Fixed `cc-label` and `enclosures-label` defaults in `construct-outputs.typ` to match the public API defaults of `"cc:"` and `"encl:"`.
+- Fixed example letter in the manual missing required `to-name` and `to-address` parameters.
+
+### Added
+
+- Added Typst minimum version requirement (0.14.0 or higher) to the README and manual.
+- Added `test-attn-position-below` and `test-footer` rendered test cases.
+- Added Typst standard documentation comments to all functions in `construct-outputs.typ`.
+
 ### Changed
 
 - Enclosures are now specified as dictionaries with a required `description` field (string or content). An optional `file` field (bytes loaded via `read("path", encoding: none)`) renders the attachment on a separate page, with `pages` (integer, default 1) controlling how many pages to render and `margin` (length or per-side dictionary) controlling page margins for the attachment.
@@ -200,7 +213,7 @@ to the corresponding tag on GitHub, or the diff
 in comparison to the previous release
 -->
 
-[Unreleased]: https://github.com/nandac/letterloom/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/nandac/letterloom/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/nandac/letterloom/compare/v1.0.0...v2.0.0
+[1.0.0]: https://github.com/nandac/letterloom/compare/v0.1.0...v1.0.0
 [0.1.0]: https://github.com/nandac/letterloom/releases/tag/v0.1.0
-[1.0.0]: https://github.com/nandac/letterloom/releases/tag/v1.0.0
-[2.0.0]: https://github.com/nandac/letterloom/releases/tag/v2.0.0

@@ -12,12 +12,9 @@
   to-name: "Receiver's Name",
   to-address: [Receiver's Address],
 
-  // attn-name: "Attn: Receiver's Name",
-  // attn-address: "Attn:",
+  // attn-name: "Receiver's Name",
+  // attn-label: "Attn:",
   // attn-position: "above",
-
-  // letterhead: none,
-  // letterhead-alignment: center,
 
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),

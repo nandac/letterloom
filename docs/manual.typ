@@ -48,7 +48,7 @@ The `letterloom` package is a user-friendly and customizable template designed t
 
 - *Customizable Footnotes:* Add informative footnotes with flexible formatting options.
 
-- *Enclosures and Attachments:* Clearly list and optionally embed additional documents included with the letter.
+- *Enclosures:* Clearly list and optionally attach additional documents included with the letter.
 
 - *Internationalization Support:* Customize labels and text for different languages and regions.
 
@@ -63,6 +63,10 @@ The `letterloom` package is a user-friendly and customizable template designed t
 - Supports multilingual documents with customizable labels.
 
 Regardless of whether you are preparing a formal business correspondence, or crafting a personal letter, `letterloom` makes creating visually appealing documents both straightforward and efficient.
+
+== Requirements
+
+Typst 0.14.0 or higher is required to use this package.
 
 == Usage
 
@@ -416,12 +420,20 @@ cc-label: text(weight: "bold")[cc:]
 
 *`enclosures`* #h(15pt) #highlight-type.array
 
-Lists additional documents included with the letter. Each item must be a dictionary with a required `description` field (shown in the enumerated list) and optional `file`, `margin`, and `pages` fields for embedding the file on its own page.
+Lists additional documents included with the letter. Each item must be a dictionary with the following keys:
 
-- *`description`* (required): string or content — label shown in the enclosures list.
-- *`file`* (optional): bytes — file content loaded via `read("path", encoding: none)`.
-- *`margin`* (optional): length or dictionary of lengths (`top`, `bottom`, `left`, `right`, `x`, `y`, `rest`) — page margin for the embedded file.
-- *`pages`* (optional): integer — number of pages to embed starting from page 1, e.g. `5` renders pages 1–5. Defaults to `1`.
+#table(
+  columns: 3,
+  column-gutter: 10pt,
+  row-gutter: 5pt,
+  rows: 4,
+  stroke: none,
+  inset: 3pt,
+  [`description`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content], [Label shown in the enclosures list.],
+  [`file`], [#highlight-type.bytes #h(5pt) _optional_], [File content loaded via `read("path", encoding: none)`.],
+  [`margin`], [#highlight-type.length #h(5pt) or #h(5pt) #highlight-type.dictionary #h(5pt) _optional_], [Page margin for the embedded file. Dictionary keys: `top`, `bottom`, `left`, `right`, `x`, `y`, `rest`.],
+  [`pages`], [#highlight-type.int #h(5pt) _optional_], [Number of pages to embed starting from page 1, e.g. `5` renders pages 1–5. Defaults to `1`.],
+)
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
 
@@ -472,25 +484,6 @@ enclosures-label: "P.J.:"
 // Content block
 enclosures-label: text(weight: "bold")[encl:]
 ```
-
-#v(5pt)
-
-*`letterhead`* #h(15pt) #highlight-type.content #h(5pt) or #h(5pt) #highlight-type.function #h(5pt)
-
-Adds a letterhead at the top of the letter. Pass any content; typically you use the #link("https://typst.app/docs/reference/visualize/image/")[image function] so the graphic fits the page (e.g. `width: 100%` for full width or a percentage for a narrower band).
-
-#text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
-
-#text(size: 10pt)[*Examples:*]
-```typ
-// Letterhead at 50% width
-letterhead: image("images/letterhead.png", width: 50%),
-
-// Full-width letterhead
-letterhead: image("images/letterhead.png", width: 100%),
-```
-
-*Note:* The letterhead is displayed at the top of the letter and is center-aligned by default. You may change the alignment using the `letterhead-alignment` parameter.
 
 #v(5pt)
 
@@ -735,7 +728,7 @@ These parameters provide options to align specific elements and change the color
 
 *`from-alignment`* #h(15pt) #highlight-type.alignment
 
-Sets the alignment of the sender's  name, address and date of the letter.
+Sets the alignment of the sender's name, address and date of the letter.
 
 #text(size: 10pt)[*Default:* `right`]
 
@@ -761,20 +754,6 @@ footnote-alignment: right  // Right-aligned footnotes
 footnote-alignment: center // Center-aligned footnotes
 ```
 
-#v(5pt)
-
-*`letterhead-alignment`* #h(15pt) #highlight-type.alignment
-
-Specifies the alignment of the letterhead.
-
-#text(size: 10pt)[*Default:* `center`]
-
-#text(size: 10pt)[*Examples:*]
-```typ
-letterhead-alignment: left   // Left-aligned letterhead
-letterhead-alignment: right  // Right-aligned letterhead
-letterhead-alignment: center // Center-aligned letterhead
-```
 #v(5pt)
 
 *`signature-alignment`* #h(15pt) #highlight-type.alignment
@@ -820,6 +799,13 @@ The following example illustrates several key features of the `letterloom` packa
                  Cheswick Village \
                  Bristol BS16 1GU],
 
+  // Recipient's contact information (name and address)
+  to-name: "Evergreen Tree Surgeons",
+  to-address: [Midtown Lane \
+               Cheswick Village \
+               Stoke Gifford \
+               Bristol BS16 1GU],
+
   // Attention line for specific recipient (optional)
   attn-name: "Mr Basil Hawthorne,",
 
@@ -851,10 +837,6 @@ The following example illustrates several key features of the `letterloom` packa
     ),
   ),
 
-  // Letterhead (optional)
-  letterhead: image("images/letterhead.png", width: 100%),
-  letterhead-alignment: center,
-
   // List of cc recipients (optional)
   cc: "Mr Jethro Tull",
 
@@ -867,7 +849,7 @@ The following example illustrates several key features of the `letterloom` packa
     (
       description: "Provenance of the Oak trees on the Dimbleby Estate.",
       file: read("enclosures/oak-tree-provenance.pdf", encoding: none),
-      pages: 2,
+      pages: 3,
     ),
   )
 
@@ -977,10 +959,6 @@ Thank you kindly.
     ),
   ),
 
-  // Letterhead (optional)
-  // letterhead: image("images/letterhead.png", width: 100%),
-  // letterhead-alignment: center,
-
   // List of cc recipients (optional)
   cc: "Mr Jethro Tull",
 
@@ -994,7 +972,7 @@ Thank you kindly.
     (
       description: "Provenance of the Oak trees on the Dimbleby Estate.",
       file: read("enclosures/oak-tree-provenance.pdf", encoding: none),
-      pages: 2
+      pages: 3
     ),
   ),
 

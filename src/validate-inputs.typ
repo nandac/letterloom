@@ -325,8 +325,6 @@
     cc-label: "cc:",
     enclosures: none,
     enclosures-label: "encl:",
-    letterhead: none,
-    letterhead-alignment: center,
     footer: none,
     par-leading: 0.8em,
     par-spacing: 1.8em,
@@ -412,10 +410,6 @@
   // Validate signature-alignment
   if type(signature-alignment) != alignment {
     panic("signature-alignment must be a valid alignment type.")
-  }
-
-  if type(letterhead-alignment) != alignment {
-    panic("letterhead-alignment must be a valid alignment type.")
   }
 
   // Validate link-color

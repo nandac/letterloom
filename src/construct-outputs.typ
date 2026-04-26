@@ -6,6 +6,25 @@
 /// and formatting of these elements according to the letterloom specification.
 
 /// Constructs a signature grid layout for one or more signatories.
+///
+/// Signatures are arranged in rows of up to three columns. When more than one
+/// signature is provided, `signature-alignment` is ignored and all signatures
+/// are left-aligned. A blank placeholder is inserted into any unused grid cell
+/// so that column widths remain consistent across rows.
+///
+/// Each signature dictionary must contain:
+/// - `name` (str or content, required): The signatory's display name.
+/// - `title` (str or content, optional): The signatory's title or role.
+/// - `affiliation` (str or content, optional): The signatory's affiliation.
+/// - `signature` (content, optional): Signature image, typically an `image`.
+///   When omitted, a blank space of fixed height is reserved for a
+///   physical signature.
+///
+/// - signatures (array): One or more signature dictionaries. A single
+///   dictionary is accepted and normalized to a one-element array internally.
+/// - signature-alignment (alignment): Horizontal alignment of each signature
+///   block. Applies only when a single signature is given.
+/// -> content
 #let construct-signatures(signatures: none, signature-alignment: left) = {
   // Set the number of signatures per row to 3 to handle 3 or more signatures
   let sigs-per-row = 3
@@ -53,12 +72,10 @@
             let title = signatory.at("title", default: none)
             let affiliation = signatory.at("affiliation", default: none)
             if title != none or affiliation != none {
-              stack(
-                spacing: 10pt,
-                signatory.name,
-                title,
-                affiliation
-              )
+              let items = (signatory.name,)
+              if title != none { items.push(title) }
+              if affiliation != none { items.push(affiliation) }
+              stack(spacing: 10pt, ..items)
             } else {
               signatory.name
             }
@@ -68,8 +85,18 @@
   )
 }
 
-/// Constructs an enumerated list of cc recipients (optional).
-#let construct-cc(cc: none, cc-label: none) = {
+/// Constructs a labelled list of carbon copy recipients.
+///
+/// A single recipient (str or content) is accepted and normalized to a
+/// one-element array internally. When exactly one recipient is given, it is
+/// rendered as an undecorated list item. When multiple recipients are given,
+/// they are rendered as an enumerated list. Passing `none` suppresses the
+/// section entirely.
+///
+/// - cc (none, str, content, or array): One or more cc recipients.
+/// - cc-label (str or content): Label displayed before the recipient list.
+/// -> content
+#let construct-cc(cc: none, cc-label: "cc:") = {
   if cc != none {
     set enum(indent: 15pt)
 
@@ -92,8 +119,32 @@
   }
 }
 
-/// Constructs an enumerated list of enclosures (optional).
-#let construct-enclosures(enclosures: none, enclosures-label: none) = {
+/// Constructs a labelled list of enclosures and embeds attached files.
+///
+/// The enclosure list is rendered first, followed by each file attachment on
+/// its own page. A single enclosure dictionary is accepted and normalized to a
+/// one-element array internally. When exactly one enclosure is given, it is
+/// rendered as an undecorated list item. When multiple enclosures are given,
+/// they are rendered as an enumerated list. Passing `none` suppresses the
+/// section entirely.
+///
+/// Each enclosure dictionary must contain:
+/// - `description` (str or content, required): Label shown in the enclosure
+///   list.
+/// - `file` (bytes, optional): File content loaded via
+///   `read("path", encoding: none)`. When present, the file is rendered on a
+///   dedicated page after the letter body.
+/// - `margin` (length or dictionary, optional): Page margin for the embedded
+///   file. Dictionary keys: `top`, `bottom`, `left`, `right`, `x`, `y`,
+///   `rest`. Defaults to `0mm` when a file is attached and no margin is given.
+/// - `pages` (int, optional): Number of pages to embed starting from page 1,
+///   e.g. `5` renders pages 1–5. Defaults to `1`.
+///
+/// - enclosures (none or array): One or more enclosure dictionaries.
+/// - enclosures-label (str or content): Label displayed before the enclosure
+///   list.
+/// -> content
+#let construct-enclosures(enclosures: none, enclosures-label: "encl:") = {
   if enclosures != none {
     set enum(indent: 15pt)
 
@@ -133,11 +184,30 @@
 }
 
 
-/// Constructs a custom footer grid with specific styling for urls and emails (optional).
+/// Constructs a centred footer grid with styled URL and email hyperlinks.
+///
+/// Each footer element is rendered in a single-row grid with equal column
+/// widths separated by a fixed gutter. URL and email entries are rendered as
+/// clickable hyperlinks in `link-color`; all other entries are rendered as
+/// plain text. Passing `none` or an empty array returns an empty grid
+/// placeholder so that the footer area remains consistent.
+///
+/// Each footer element dictionary must contain:
+/// - `footer-text` (str or content, required): The text to display.
+/// - `footer-type` (str, optional): One of `"url"`, `"email"`, or
+///   `"string"`. URL and email values are wrapped in a `link`. Defaults to
+///   `"string"`.
+///
+/// - footer (none or array): One or more footer element dictionaries. A single
+///   dictionary is accepted and normalized to a one-element array internally.
+/// - footer-font (str): Font family applied to all footer text.
+/// - footer-font-size (length): Font size applied to all footer text.
+/// - link-color (color): Fill color applied to hyperlinked footer entries.
+/// -> content
 #let construct-custom-footer(
   footer: none,
   footer-font: "DejaVu Sans Mono",
-  footer-font-size: 7pt,
+  footer-font-size: 9pt,
   link-color: blue
 ) = {
   if footer not in (none, ()) {
@@ -182,7 +252,17 @@
   }
 }
 
-/// Constructs page numbering display for multi-page letters (optional).
+/// Constructs a page number display shown from the second page onwards.
+///
+/// When `number-pages` is `true`, the current page number is rendered using
+/// the default Arabic numeral style on every page after the first. When
+/// `number-pages` is `false`, an empty grid placeholder is returned so that
+/// the footer layout remains consistent regardless of whether numbering is
+/// enabled.
+///
+/// - number-pages (bool): When `true`, page numbers are displayed from the
+///   second page onwards.
+/// -> content
 #let construct-page-numbering(number-pages: false) = {
   if number-pages {
     // Construct the page numbering grid

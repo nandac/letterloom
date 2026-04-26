@@ -26,8 +26,6 @@
   cc-label: "cc:",
   enclosures: none,
   enclosures-label: "encl:",
-  letterhead: none,
-  letterhead-alignment: center,
   footer: none,
   paper-size: "a4",
   margins: auto,
@@ -64,8 +62,6 @@
     cc-label: cc-label,
     enclosures: enclosures,
     enclosures-label: enclosures-label,
-    letterhead: letterhead,
-    letterhead-alignment: letterhead-alignment,
     footer: footer,
     par-leading: par-leading,
     par-spacing: par-spacing,
@@ -119,11 +115,6 @@
     set align(footnote-alignment)
     set text(font: footnote-font, size: footnote-font-size)
     it
-  }
-
-  // Place the letterhead (optional)
-  if letterhead != none {
-    align(letterhead-alignment)[#letterhead]
   }
 
   // Sender's name, address, and date block

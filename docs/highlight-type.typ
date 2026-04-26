@@ -30,10 +30,12 @@
 /// - array: Light purple highlight for array types
 /// - auto-type: Light red highlight for auto types
 /// - bool: Light yellow highlight for boolean types
+/// - bytes: Light pink highlight for bytes types
 /// - color: Gradient highlight for color types
 /// - content: Light teal highlight for content types
 /// - dictionary: Light purple highlight for dictionary types
 /// - function: Light blue-purple highlight for function types
+/// - int: Light yellow highlight for integer types
 /// - length: Light yellow highlight for length types
 /// - none-type: Light red highlight for none types
 /// - relative: Light yellow highlight for relative types
@@ -50,6 +52,8 @@
   array: highlight(fill: rgb("#fce0ff"), radius: radius, extent: extent, top-edge: top-edge, bottom-edge: bottom-edge)[`array`],
   auto-type: highlight(fill: rgb("#ffd1ca"), radius: radius, extent: extent, top-edge: top-edge, bottom-edge: bottom-edge)[`auto`],
   bool: highlight(fill: rgb("#ffecbf"), radius: radius, extent: extent, top-edge: top-edge, bottom-edge: bottom-edge)[`bool`],
+  bytes: highlight(fill: rgb("#fcdfff"), radius: radius, extent: extent, top-edge: top-edge, bottom-edge: bottom-edge)[`bytes`],
+  int: highlight(fill: rgb("#ffecbf"), radius: radius, extent: extent, top-edge: top-edge, bottom-edge: bottom-edge)[`int`],
   color: highlight(
     fill: gradient.linear(
       angle: 7deg,

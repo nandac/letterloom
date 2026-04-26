@@ -8,7 +8,7 @@ Key Features:
 
 * **Multiple Signatures:** Effortlessly include one or more signatures for joint communications or approvals.
 * **Customizable Footnotes:** Add informative footnotes with flexible formatting options.
-* **Enclosures and Attachments:** Clearly list additional documents included with the letter.
+* **Enclosures:** Clearly list and optionally attach additional documents included with the letter.
 * **Internationalization Support:** Customize labels and text for different languages and regions.
 
 Benefits:
@@ -19,6 +19,10 @@ Benefits:
 * Supports multilingual documents with customizable labels.
 
 Regardless of whether you are preparing a formal business correspondence, or crafting a personal letter, `letterloom` makes creating visually appealing documents both straightforward and efficient.
+
+## Requirements
+
+Typst 0.14.0 or higher is required to use this package.
 
 ## Usage
 

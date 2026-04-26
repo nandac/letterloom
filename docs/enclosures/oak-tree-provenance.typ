@@ -32,6 +32,12 @@
 #show table.header: set text(weight: "bold")
 #show figure: set block(breakable: true)
 
+#align(center)[
+  #block(fill: rgb("#fff3cd"), inset: 8pt, radius: 4pt)[
+    #text(size: 9pt)[*Disclaimer:* #text(style: "italic")[This document is entirely fictitious and is provided solely as a usage example for the `letterloom` package.]]
+  ]
+]
+
 #align(center)[= Oak Tree Provenance Statement]
 
 Location: Dimbleby Estate \
