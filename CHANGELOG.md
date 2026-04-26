@@ -1,4 +1,5 @@
 # Changelog
+<!-- markdownlint-disable MD024 -->
 
 All notable changes to this project will be documented in this file.
 
@@ -15,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <!-- markdownlint-enable MD033 -->
 
 Each enclosure entry must now be a dictionary with a required `description` field, replacing the previous plain-string format. Optional fields `file`, `pages`, and `margin` allow attaching and rendering external files directly in the letter.
+
+### Enclosures
 
 Before
 
