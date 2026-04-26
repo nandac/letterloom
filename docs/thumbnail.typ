@@ -1,4 +1,4 @@
-#import "@preview/letterloom:1.1.0": *
+#import "@preview/letterloom:2.0.0": *
 
 #set page(height: auto, margin: 5mm)
 
@@ -6,8 +6,6 @@
 #let theme = sys.inputs.at("theme", default: "light")
 #set page(fill: black) if theme == "dark"
 #set text(white) if theme == "dark"
-
-#import "@preview/letterloom:1.1.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)

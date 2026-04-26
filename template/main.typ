@@ -1,6 +1,6 @@
 /// letterloom Template
 /// For more information, see the letterloom documentation and manual.
-#import "@preview/letterloom:1.1.0": *
+#import "@preview/letterloom:2.0.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)

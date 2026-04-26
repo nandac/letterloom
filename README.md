@@ -27,7 +27,7 @@ The `letterloom` package offers extensive customization options, enabling you to
 Here is a simple example demonstrating the essential arguments needed to use the letterloom package:
 
 ```typ
-#import "@preview/letterloom:1.1.0": *
+#import "@preview/letterloom:2.0.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
@@ -93,14 +93,14 @@ Thank you kindly.
 To create a new letter project run the following command in your terminal:
 
 ```bash
-typst init @preview/letterloom:1.1.0
+typst init @preview/letterloom:2.0.0
 ```
 
 This will generate a ready-to-use letter project in your current directory.
 
-Alternatively, you may create a new project directly in the [Typst webapp](https://typst.app/app?template=letterloom&version=1.1.0).
+Alternatively, you may create a new project directly in the [Typst webapp](https://typst.app/app?template=letterloom&version=2.0.0).
 
-For a detailed overview of all options and features, consult the package's [official manual](https://raw.githubusercontent.com/typst/packages/main/packages/preview/letterloom/1.1.0/docs/manual.pdf), which provides comprehensive usage instructions and a more elaborate example.
+For a detailed overview of all options and features, consult the package's [official manual](https://raw.githubusercontent.com/typst/packages/main/packages/preview/letterloom/2.0.0/docs/manual.pdf), which provides comprehensive usage instructions and a more elaborate example.
 
 ### Development
 

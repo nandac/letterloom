@@ -1,4 +1,4 @@
-#import "@preview/letterloom:1.1.0": *
+#import "@preview/letterloom:2.0.0": *
 #import "highlight-type.typ": highlight-type
 
 // Global Styles
@@ -37,7 +37,7 @@
 
 // End of setup
 
-= `letterloom v1.1.0`
+= `letterloom v2.0.0`
 
 == Introduction
 
@@ -75,7 +75,7 @@ In the sections that follow, we will explore each parameter in detail, accompani
 Here is a simple example showing the essential arguments needed to use the `letterloom` package:
 
 ```typ
-#import "@preview/letterloom:1.1.0": *
+#import "@preview/letterloom:2.0.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
@@ -114,12 +114,12 @@ Here is a simple example showing the essential arguments needed to use the `lett
 To create a new letter project run the following command in your terminal:
 
 ```bash
-typst init @preview/letterloom:1.1.0
+typst init @preview/letterloom:2.0.0
 ```
 
 This will generate a ready-to-use letter project in your current directory.
 
-Alternatively, you may create a new project directly in the #link("https://typst.app/app?template=letterloom&version=1.1.0")[Typst webapp].
+Alternatively, you may create a new project directly in the #link("https://typst.app/app?template=letterloom&version=2.0.0")[Typst webapp].
 
 === Required Parameters
 
@@ -811,7 +811,7 @@ Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typs
 The following example illustrates several key features of the `letterloom` package and explains how they can be applied in practice.
 
 ```typ
-#import "@preview/letterloom:1.1.0": *
+#import "@preview/letterloom:2.0.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
