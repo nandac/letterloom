@@ -15,7 +15,11 @@ disciplines = ["business", "communication"]
 compiler = "0.14.0"
 exclude = [
   ".github",
-  "docs",
+  "docs/enclosures",
+  "docs/highlight-type.typ",
+  "docs/images",
+  "docs/manual.typ",
+  "docs/thumbnail.typ",
   "scripts",
   "tests",
   ".typstignore",

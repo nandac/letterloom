@@ -134,10 +134,10 @@
 /// - `file` (bytes, optional): File content loaded via
 ///   `read("path", encoding: none)`. When present, the file is rendered on a
 ///   dedicated page after the letter body.
+/// - `pages` (int, optional): Number of pages to render starting from page 1.
+///   Defaults to `1`.
 /// - `margin` (length or dictionary, optional): Page margin for the embedded
 ///   file. Defaults to `0mm` on all sides when omitted.
-/// - `pages` (int, optional): Number of pages to embed starting from page 1,
-///   e.g. `5` renders pages 1–5. Defaults to `1`.
 ///
 /// - enclosures (none or array): One or more enclosure dictionaries.
 /// - enclosures-label (str or content): Label displayed before the enclosure
@@ -165,7 +165,7 @@
       }
     }
 
-    // Render each attached file on its own page(s)
+    // Render each attached file on its own page
     for enclosure in enclosures {
       let file = enclosure.at("file", default: none)
       if file != none {

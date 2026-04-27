@@ -420,7 +420,7 @@ cc-label: text(weight: "bold")[cc:]
 
 *`enclosures`* #h(15pt) #highlight-type.array
 
-Lists additional documents included with the letter. Each item must be a dictionary with the following keys:
+Specifies a list of enclosures as an array of dictionaries. Each enclosure is listed after the letter closing. When a file is provided, it is rendered on a dedicated page after the letter body. Each dictionary has the following keys:
 
 #table(
   columns: 3,
@@ -430,9 +430,9 @@ Lists additional documents included with the letter. Each item must be a diction
   stroke: none,
   inset: 3pt,
   [`description`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content], [Label shown in the enclosures list.],
-  [`file`], [#highlight-type.bytes #h(5pt) _optional_], [File content loaded via `read("path", encoding: none)`.],
+  [`file`], [#highlight-type.function #h(5pt) _optional_], [#link("https://typst.app/docs/reference/data-loading/read/")[Typst read function] specifying the path to the file and encoding. When omitted, only the description is rendered.],
+  [`pages`], [#highlight-type.int #h(5pt) _optional_], [Number of pages to render starting from page 1. Defaults to `1`.#footnote[To find the page count of a PDF, use the `pdfinfo` command from the #link("https://poppler.freedesktop.org")[Poppler] library: `pdfinfo document.pdf | grep Pages`.]],
   [`margin`], [#highlight-type.length #h(5pt) or #h(5pt) #highlight-type.dictionary #h(5pt) _optional_], [Page margin for the embedded file. Defaults to `0mm` on all sides when omitted.],
-  [`pages`], [#highlight-type.int #h(5pt) _optional_], [Number of pages to embed; `5` renders pages 1-5. Defaults to `1`.],
 )
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
@@ -454,16 +454,12 @@ enclosures: (
   (
     description: "Provenance of the Oak trees on the Dimbleby Estate.",
     file: read("enclosures/oak-tree-provenance.pdf", encoding: none),
+    pages: 3,
   ),
   (
     description: "Photographs of storm damaged Oak trees.",
     file: read("enclosures/storm-damaged-oak-tree.jpg", encoding: none),
     margin: (top: 20mm),
-  ),
-  (
-    description: "Selected pages from a report.",
-    file: read("enclosures/report.pdf", encoding: none),
-    pages: 5,
   ),
 )
 ```
@@ -499,7 +495,7 @@ Specifies a list of footer elements such as URLs, email addresses and arbitrary 
   stroke: none,
   inset: 3pt,
   [`footer-text`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)], [The footer text.],
-  [`footer-type`], [#highlight-type.str #h(5pt)], [The type of footer element: `"url"`, `"email"` or `"string"`. If specified as `"url"` or `"email"`, it will be rendered as a clickable hyperlink. Defaults to `"string"`.],
+  [`footer-type`], [#highlight-type.str #h(5pt) _optional_], [The type of footer element: `"url"`, `"email"` or `"string"`. If specified as `"url"` or `"email"`, it will be rendered as a clickable hyperlink. Defaults to `"string"`.],
 )
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
@@ -808,7 +804,7 @@ The following example illustrates several key features of the `letterloom` packa
                Bristol BS16 1GU],
 
   // Attention line for specific recipient (optional)
-  attn-name: "Mr Basil Hawthorne,",
+  attn-name: "Mr Basil Hawthorne",
 
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
@@ -931,7 +927,7 @@ Thank you kindly.
                Bristol BS16 1GU],
 
   // Attention line for specific recipient (optional)
-  attn-name: "Mr Basil Hawthorne,",
+  attn-name: "Mr Basil Hawthorne",
 
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),

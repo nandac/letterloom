@@ -68,7 +68,7 @@ enclosures: (
 
 ### Changed
 
-- Enclosures are now specified as dictionaries with a required `description` field (string or content). An optional `file` field (bytes loaded via `read("path", encoding: none)`) renders the attachment on a separate page, with `pages` (integer, default 1) controlling how many pages to render and `margin` (length or per-side dictionary) controlling page margins for the attachment.
+- Enclosures are now specified as dictionaries with a required `description` field (string or content). An optional `file` field (bytes loaded via `read("path", encoding: none)`) renders the attachment on a separate page, with `pages` (integer, default `1`) controlling how many pages to render and `margin` (length or per-side dictionary) controlling page margins for the attachment.
 
 ## [1.0.0] - 2025-08-30
 

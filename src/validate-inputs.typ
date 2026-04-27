@@ -53,51 +53,6 @@
 }
 
 
-/// Validates contact information structure (name and address).
-#let validate-contact(contact: none, field-name: none) = {
-  // Validate presence
-  if contact in (none, ()) {
-    panic(str(field-name) + " is missing.")
-  }
-
-  // Validate dictionary type
-  if type(contact) != dictionary {
-    panic(str(field-name) + " details must be a dictionary with name and address fields.")
-  }
-
-  // Validate presence of name field
-  if "name" not in contact {
-    panic(str(field-name) + " name is missing.")
-  }
-
-  let name = contact.at("name")
-  // Validate name field type
-  if type(name) not in (str, content) {
-    panic(str(field-name) + " name must be a string or content block.")
-  }
-
-  // Validate name field is not empty
-  if name in ("", []) {
-    panic(str(field-name) + " name is empty.")
-  }
-
-  // Validate presence of address field
-  if "address" not in contact {
-    panic(str(field-name) + " address is missing.")
-  }
-
-  let address = contact.at("address")
-  // Validate address field type
-  if type(address) != content {
-    panic(str(field-name) + " address must be a content block.")
-  }
-
-  // Validate address field is not empty
-  if address == [] {
-    panic(str(field-name) + " address is empty.")
-  }
-}
-
 /// Validates signature structure and content.
 #let validate-signatures(signatures: none) = {
   // Validate presence of signatures
@@ -114,7 +69,7 @@
   for signature in signatures {
     // Validate signature is a dictionary
     if type(signature) != dictionary {
-      panic("signature '" + str(signature) + "' must be a dictionary with a name field and an optional signature field.")
+      panic("signature '" + str(signature) + "' must be a dictionary with a required name field and optional signature, title, and affiliation fields.")
     }
 
     // Validate presence of name field
@@ -228,11 +183,8 @@
     // Validate optional pages field
     if "pages" in enclosure {
       let pages = enclosure.at("pages")
-      if type(pages) != int {
-        panic("enclosure pages '" + str(pages) + "' must be an integer.")
-      }
-      if pages < 1 {
-        panic("enclosure pages '" + str(pages) + "' must be at least 1.")
+      if type(pages) != int or pages < 1 {
+        panic("enclosure pages '" + str(pages) + "' must be a positive integer.")
       }
     }
 

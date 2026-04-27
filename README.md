@@ -91,7 +91,8 @@ Thank you kindly.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./thumbnail-dark.svg">
-  <img src="./thumbnail-light.svg" alt ="">
+  <img src="./thumbnail-light.svg" alt ="A fully rendered letterloom letter with all required fields">
+">
 </picture>
 
 To create a new letter project run the following command in your terminal:
@@ -104,7 +105,7 @@ This will generate a ready-to-use letter project in your current directory.
 
 Alternatively, you may create a new project directly in the [Typst webapp](https://typst.app/app?template=letterloom&version=2.0.0).
 
-For a detailed overview of all options and features, consult the package's [official manual](https://raw.githubusercontent.com/typst/packages/main/packages/preview/letterloom/2.0.0/docs/manual.pdf), which provides comprehensive usage instructions and a more elaborate example.
+For a detailed overview of all options and features, consult the package's [official manual](docs/manual.pdf), which provides comprehensive usage instructions and a more elaborate example.
 
 ## Development
 
