@@ -164,7 +164,7 @@ from-address: [The Dimbleby Estate \
                Bristol BS16 1GU]
 ```
 
-*Note:* By default, the sender's name and address are right-aligned. You may change this using the `from-alignment` parameter, which will also align the `date` field to match the desired alignment.
+*Note:* By default, the sender's name and address are right-aligned. You may change this using the `from-alignment` parameter.
 
 #v(5pt)
 
@@ -218,6 +218,8 @@ date: datetime.today().display("[weekday repr:long], [day] [month repr:long] [ye
 ```
 
 For custom formatting options, refer to #link("https://typst.app/docs/reference/foundations/datetime/#format")[Typst's datetime formatting documentation].
+
+*Note:* By default, the letter's date is right-aligned. You may change this using the `date-alignment` parameter.
 
 #v(5pt)
 
@@ -721,6 +723,19 @@ footer-font-size: 10pt  // Larger footer
 These parameters provide options to align specific elements and change the color of hyperlinks.
 
 #v(5pt)
+
+*`date-alignment`* #h(15pt) #highlight-type.alignment
+
+Sets the alignment of the letter's date.
+
+#text(size: 10pt)[*Default:* `right`]
+
+#text(size: 10pt)[*Examples:*]
+```typ
+date-alignment: left   // Left-aligned date
+date-alignment: right  // Right-aligned date (default)
+date-alignment: center // Center-aligned date
+```
 
 *`from-alignment`* #h(15pt) #highlight-type.alignment
 

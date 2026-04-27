@@ -285,6 +285,7 @@
     footer-font-size: 9pt,
     footnote-font-size: 7pt,
     from-alignment: right,
+    date-alignment: right,
     footnote-alignment: left,
     link-color: blue,
   ) = {
@@ -352,6 +353,11 @@
   // Validate from-alignment
   if type(from-alignment) != alignment {
     panic("from-alignment must be a valid alignment type.")
+  }
+
+  // Validate date-alignment
+  if type(date-alignment) != alignment {
+    panic("date-alignment must be a valid alignment type.")
   }
 
   // Validate footnote-alignment

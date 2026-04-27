@@ -39,6 +39,7 @@
   footnote-font: "Libertinus Serif",
   footnote-font-size: 7pt,
   from-alignment: right,
+  date-alignment: right,
   footnote-alignment: left,
   link-color: blue,
   doc
@@ -70,6 +71,7 @@
     footer-font-size: footer-font-size,
     footnote-font-size: footnote-font-size,
     from-alignment: from-alignment,
+    date-alignment: date-alignment,
     footnote-alignment: footnote-alignment,
     link-color: link-color,
   )
@@ -117,16 +119,40 @@
     it
   }
 
-  // Sender's name, address, and date block
-  align(from-alignment, block[
-    #set align(left)
-    #from-name
-    #linebreak()
-    #from-address
-    #linebreak()
-    #v(2pt)
-    #date
-  ])
+  // Sender's name and address block
+  if from-name != none and from-address != none {
+    align(from-alignment, block[
+      #set align(left)
+      #from-name
+      #linebreak()
+      #from-address
+    ])
+  }
+
+  // Date block — when date-alignment matches from-alignment and the sender block is
+  // present, match its width so the left edges align
+  if date != none {
+    if date-alignment == from-alignment and from-name != none and from-address != none {
+      context {
+        let from-width = measure(block[
+          #from-name
+          #linebreak()
+          #from-address
+        ]).width
+        align(date-alignment, block(width: from-width)[
+          #set align(left)
+          #v(2pt)
+          #date
+        ])
+      }
+    } else {
+      align(date-alignment, block[
+        #set align(left)
+        #v(2pt)
+        #date
+      ])
+    }
+  }
 
   // Construct the attention line (optional)
   let attn = none
