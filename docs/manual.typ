@@ -431,8 +431,8 @@ Lists additional documents included with the letter. Each item must be a diction
   inset: 3pt,
   [`description`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content], [Label shown in the enclosures list.],
   [`file`], [#highlight-type.bytes #h(5pt) _optional_], [File content loaded via `read("path", encoding: none)`.],
-  [`margin`], [#highlight-type.length #h(5pt) or #h(5pt) #highlight-type.dictionary #h(5pt) _optional_], [Page margin for the embedded file. Dictionary keys: `top`, `bottom`, `left`, `right`, `x`, `y`, `rest`.],
-  [`pages`], [#highlight-type.int #h(5pt) _optional_], [Number of pages to embed starting from page 1, e.g. `5` renders pages 1–5. Defaults to `1`.],
+  [`margin`], [#highlight-type.length #h(5pt) or #h(5pt) #highlight-type.dictionary #h(5pt) _optional_], [Page margin for the embedded file. Defaults to `0mm` on all sides when omitted.],
+  [`pages`], [#highlight-type.int #h(5pt) _optional_], [Number of pages to embed; `5` renders pages 1-5. Defaults to `1`.],
 )
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
@@ -797,6 +797,7 @@ The following example illustrates several key features of the `letterloom` packa
   from-name: "The Dimbleby Family",
   from-address: [The Dimbleby Estate \
                  Cheswick Village \
+                 Middle Upton \
                  Bristol BS16 1GU],
 
   // Recipient's contact information (name and address)
@@ -845,13 +846,14 @@ The following example illustrates several key features of the `letterloom` packa
     (
       description: "Photograph of storm damaged Oak trees.",
       file: read("enclosures/storm-damaged-oak-tree.jpg", encoding: none),
+      margin: 20mm,
     ),
     (
       description: "Provenance of the Oak trees on the Dimbleby Estate.",
       file: read("enclosures/oak-tree-provenance.pdf", encoding: none),
       pages: 3,
     ),
-  )
+  ),
 
   // Custom footer information (optional)
   footer: (
@@ -860,7 +862,7 @@ The following example illustrates several key features of the `letterloom` packa
     ),
     (
       footer-text: "dimblebyfamily@dimbleby.org",
-      footer-type: "email"
+      footer-type: "email",
     ),
     (
       footer-text: "https://dimbleby.org",
@@ -872,7 +874,7 @@ The following example illustrates several key features of the `letterloom` packa
   paper-size: "a4",
 
   // Page margins (default: auto)
-  margins: (top: 5mm, left: 20mm, bottom: 20mm, right: 20mm),
+  margins: (top: 20mm, left: 20mm, bottom: 20mm, right: 20mm),
 
   // Enable page numbering (default: false)
   number-pages: false,
@@ -967,12 +969,12 @@ Thank you kindly.
     (
       description: "Photograph of storm damaged Oak trees.",
       file: read("enclosures/storm-damaged-oak-tree.jpg", encoding: none),
-      margin: (top: 20mm)
+      margin: 20mm,
     ),
     (
       description: "Provenance of the Oak trees on the Dimbleby Estate.",
       file: read("enclosures/oak-tree-provenance.pdf", encoding: none),
-      pages: 3
+      pages: 3,
     ),
   ),
 
@@ -983,7 +985,7 @@ Thank you kindly.
     ),
     (
       footer-text: "dimblebyfamily@dimbleby.org",
-      footer-type: "email"
+      footer-type: "email",
     ),
     (
       footer-text: "https://dimbleby.org",

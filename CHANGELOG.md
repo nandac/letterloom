@@ -58,6 +58,7 @@ enclosures: (
 - Fixed `footer-font-size` default in `construct-custom-footer` to match the public API default of `9pt`.
 - Fixed `cc-label` and `enclosures-label` defaults in `construct-outputs.typ` to match the public API defaults of `"cc:"` and `"encl:"`.
 - Fixed example letter in the manual missing required `to-name` and `to-address` parameters.
+- Fixed enclosure `margin` dictionary not defaulting unspecified sides to `0mm`, causing them to inherit the outer letter page margins instead.
 
 ### Added
 

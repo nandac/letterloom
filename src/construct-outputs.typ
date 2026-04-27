@@ -135,8 +135,7 @@
 ///   `read("path", encoding: none)`. When present, the file is rendered on a
 ///   dedicated page after the letter body.
 /// - `margin` (length or dictionary, optional): Page margin for the embedded
-///   file. Dictionary keys: `top`, `bottom`, `left`, `right`, `x`, `y`,
-///   `rest`. Defaults to `0mm` when a file is attached and no margin is given.
+///   file. Defaults to `0mm` on all sides when omitted.
 /// - `pages` (int, optional): Number of pages to embed starting from page 1,
 ///   e.g. `5` renders pages 1–5. Defaults to `1`.
 ///
@@ -151,25 +150,37 @@
     // Display the label
     enclosures-label
 
+    // Normalize a bare dictionary to a one-element array
     if type(enclosures) != array {
       enclosures = (enclosures, )
     }
 
+    // Single enclosure: undecorated list item; multiple: enumerated list
     if enclosures.len() == 1 {
       set list(indent: 15pt, marker: "")
       list.item(text(enclosures.first().description))
     } else {
-      // Display description of each enclosure as an enumerated item
       for enclosure in enclosures {
         enum.item(text(enclosure.description))
       }
     }
 
-    // Display each enclosure file on a separate page when file is given
+    // Render each attached file on its own page(s)
     for enclosure in enclosures {
       let file = enclosure.at("file", default: none)
       if file != none {
-        let margin = enclosure.at("margin", default: 0mm)
+        let raw-margin = enclosure.at("margin", default: 0mm)
+        // Expand shorthand keys so every side is explicit — prevents unspecified
+        // sides from inheriting the outer letter page margins
+        let margin = if type(raw-margin) == dictionary {
+          let fallback = raw-margin.at("rest", default: 0mm)
+          (
+            top: raw-margin.at("top", default: raw-margin.at("y", default: fallback)),
+            bottom: raw-margin.at("bottom", default: raw-margin.at("y", default: fallback)),
+            left: raw-margin.at("left", default: raw-margin.at("x", default: fallback)),
+            right: raw-margin.at("right", default: raw-margin.at("x", default: fallback)),
+          )
+        } else { raw-margin }
         let page-count = enclosure.at("pages", default: 1)
         {
           set page(margin: margin)

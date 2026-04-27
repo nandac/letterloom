@@ -28,7 +28,7 @@ Typst 0.14.0 or higher is required to use this package.
 
 The `letterloom` package offers extensive customization options, enabling you to tailor your letters to suit various needs and preferences.
 
-Here is a simple example demonstrating the essential arguments needed to use the letterloom package:
+Here is a simple example showing the essential arguments needed to use the `letterloom` package:
 
 ```typ
 #import "@preview/letterloom:2.0.0": *
@@ -106,7 +106,7 @@ Alternatively, you may create a new project directly in the [Typst webapp](https
 
 For a detailed overview of all options and features, consult the package's [official manual](https://raw.githubusercontent.com/typst/packages/main/packages/preview/letterloom/2.0.0/docs/manual.pdf), which provides comprehensive usage instructions and a more elaborate example.
 
-### Development
+## Development
 
 If you wish to contribute to this package you may follow the steps below to prepare your development environment:
 
