@@ -18,6 +18,7 @@
   subject: none,
   closing: none,
   signatures: none,
+  required-fields: ("from-name", "from-address", "to-name", "to-address", "date", "salutation", "subject", "closing", "signatures"),
   signature-alignment: left,
   attn-name: none,
   attn-label: "Attn:",
@@ -55,6 +56,7 @@
     subject: subject,
     closing: closing,
     signatures: signatures,
+    required-fields: required-fields,
     signature-alignment: signature-alignment,
     attn-name: attn-name,
     attn-label: attn-label,
@@ -75,6 +77,17 @@
     footnote-alignment: footnote-alignment,
     link-color: link-color,
   )
+
+  // Shadow fields not in required-fields with none so rendering guards suppress them
+  let from-name      = if "from-name"   in required-fields { from-name }   else { none }
+  let from-address   = if "from-address" in required-fields { from-address } else { none }
+  let to-name        = if "to-name"      in required-fields { to-name }     else { none }
+  let to-address     = if "to-address"   in required-fields { to-address }  else { none }
+  let date           = if "date"         in required-fields { date }        else { none }
+  let salutation     = if "salutation"   in required-fields { salutation }  else { none }
+  let subject        = if "subject"      in required-fields { subject }     else { none }
+  let closing        = if "closing"      in required-fields { closing }     else { none }
+  let signatures     = if "signatures"   in required-fields { signatures }  else { none }
 
   // Construct the custom footer (optional)
   let custom-footer = construct-custom-footer(
@@ -120,34 +133,39 @@
   }
 
   // Sender's name and address block
-  if from-name != none and from-address != none {
+  if from-name != none or from-address != none {
     align(from-alignment, block[
-      #set align(left)
-      #from-name
-      #linebreak()
-      #from-address
+      #set align(if from-alignment == center { center } else { left })
+      #if from-name != none {
+        from-name
+        if from-address != none { linebreak() }
+      }
+      #if from-address != none { from-address }
     ])
   }
 
   // Date block — when date-alignment matches from-alignment and the sender block is
   // present, match its width so the left edges align
   if date != none {
-    if date-alignment == from-alignment and from-name != none and from-address != none {
+    if date-alignment == from-alignment and (from-name != none or from-address != none) {
       context {
-        let from-width = measure(block[
-          #from-name
-          #linebreak()
-          #from-address
-        ]).width
+        let from-content = if from-name != none and from-address != none {
+          block[#from-name #linebreak() #from-address]
+        } else if from-name != none {
+          block[#from-name]
+        } else {
+          block[#from-address]
+        }
+        let from-width = measure(from-content).width
         align(date-alignment, block(width: from-width)[
-          #set align(left)
+          #set align(if date-alignment == center { center } else { left })
           #v(2pt)
           #date
         ])
       }
     } else {
       align(date-alignment, block[
-        #set align(left)
+        #set align(if date-alignment == center { center } else { left })
         #v(2pt)
         #date
       ])
@@ -161,44 +179,54 @@
   }
 
   // Receiver's name, address and optional attention line
-  block[
-    #v(5pt)
-    #set align(left)
-    #if attn-position == "above" {
-      text(attn)
-      linebreak()
-    }
-    #to-name
-    #linebreak()
-    #to-address
-    #linebreak()
-    #if attn-position == "below" {
-      text(attn)
-      linebreak()
-    }
-  ]
-
-  v(5pt)
+  if to-name != none or to-address != none or attn != none {
+    block[
+      #v(5pt)
+      #set align(left)
+      #if attn-position == "above" and attn != none {
+        text(attn)
+        linebreak()
+      }
+      #if to-name != none {
+        to-name
+        if to-address != none or (attn-position == "below" and attn != none) { linebreak() }
+      }
+      #if to-address != none {
+        to-address
+        if attn-position == "below" and attn != none { linebreak() }
+      }
+      #if attn-position == "below" and attn != none {
+        text(attn)
+      }
+    ]
+  }
 
   // Salutation
-  text(salutation)
-
-  linebreak()
-  v(5pt)
+  if salutation != none {
+    v(5pt)
+    text(salutation)
+    linebreak()
+    v(5pt)
+  }
 
   // Subject
-  text(subject)
+  if subject != none {
+    text(subject)
+  }
 
   // Body of letter
   doc
 
-  v(5pt)
-
   // Closing
-  text(closing)
+  if closing != none {
+    v(5pt)
+    text(closing)
+  }
 
   // Construct and display the signatures
-  construct-signatures(signatures: signatures, signature-alignment: signature-alignment)
+  if signatures != none {
+    construct-signatures(signatures: signatures, signature-alignment: signature-alignment)
+  }
 
   // Construct and display the cc (optional)
   construct-cc(cc: cc, cc-label: cc-label)

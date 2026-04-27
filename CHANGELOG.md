@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added `required-fields` parameter to control which core fields are rendered. Fields excluded from the list are suppressed entirely — no blank space is left — even if values are provided. Defaults to all nine core fields, preserving backward compatibility.
+- Added `date-alignment` parameter to position the date independently from the sender block. When `date-alignment` matches `from-alignment` and the sender block is present, the date's left edge is automatically aligned with the sender block using `measure`. Defaults to `right`.
+
+### Fixed
+
+- Fixed `cc` and `enclosures` sections lacking their own leading spacing, causing them to run up against the preceding element when signatures or closing were absent.
+- Fixed sender block and date block inner content not being centred when `from-alignment` or `date-alignment` is set to `center`.
+
 ## [2.0.0] - 2026-04-26
 
 <!-- markdownlint-disable MD033 -->

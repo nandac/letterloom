@@ -100,6 +100,8 @@
   if cc != none {
     set enum(indent: 15pt)
 
+    v(5pt)
+
     // Display the label
     cc-label
 
@@ -146,6 +148,8 @@
 #let construct-enclosures(enclosures: none, enclosures-label: "encl:") = {
   if enclosures != none {
     set enum(indent: 15pt)
+
+    v(5pt)
 
     // Display the label
     enclosures-label

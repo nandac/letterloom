@@ -127,7 +127,7 @@ Alternatively, you may create a new project directly in the #link("https://typst
 
 === Required Parameters
 
-This section covers the required parameters of the `letterloom` package, which define the essential elements of the letter including the sender, recipient, date, and signature.
+This section covers the parameters that are required by default. All nine fields listed here must be provided unless you use `required-fields` to restrict which fields are rendered. Refer to the #link(<field-configuration>)[Field Configuration] section for details.
 
 #v(5pt)
 
@@ -334,6 +334,49 @@ signatures: (
 ```
 
 *Note:* If only one signature is given, the `signature-alignment` parameter may be used to align the signature to the left, right, or center of the page. This parameter is ignored if multiple signatures are specified.
+
+=== Field Configuration <field-configuration>
+
+The `required-fields` parameter controls which core fields are rendered in the letter. Excluding a field from the list suppresses it entirely — no blank space is left in its place — making it straightforward to produce letters that omit elements such as a subject line or closing phrase.
+
+#v(5pt)
+
+*`required-fields`* #h(15pt) #highlight-type.array
+
+Specifies which core fields are rendered in the letter.
+
+The valid field names are:
+
+- `"from-name"`
+- `"from-address"`
+- `"to-name"`
+- `"to-address"`
+- `"date"`
+- `"salutation"`
+- `"subject"`
+- `"closing"`
+- `"signatures"`
+
+#text(size: 10pt)[*Default:* `("from-name", "from-address", "to-name", "to-address", "date", "salutation", "subject", "closing", "signatures")`]
+
+#text(size: 10pt)[*Examples:*]
+```typ
+// Omit the subject line and closing from the letter
+required-fields: (
+  "from-name", "from-address",
+  "to-name", "to-address",
+  "date", "salutation", "signatures",
+),
+
+// Minimal letter with no salutation, subject, or closing
+required-fields: (
+  "from-name", "from-address",
+  "to-name", "to-address",
+  "date", "signatures",
+),
+```
+
+*Note:* Fields excluded from `required-fields` are suppressed at render time. Passing a value for an excluded field has no effect on the output.
 
 === Optional Parameters
 
@@ -739,7 +782,7 @@ date-alignment: center // Center-aligned date
 
 *`from-alignment`* #h(15pt) #highlight-type.alignment
 
-Sets the alignment of the sender's name, address and date of the letter.
+Sets the alignment of the sender's name and address.
 
 #text(size: 10pt)[*Default:* `right`]
 

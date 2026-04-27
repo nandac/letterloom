@@ -258,6 +258,27 @@
 }
 
 
+/// Validates the required-fields configuration array.
+#let validate-required-fields(required-fields: none) = {
+  let valid = (
+    "from-name", "from-address", "to-name", "to-address",
+    "date", "salutation", "subject", "closing", "signatures",
+  )
+
+  if type(required-fields) != array {
+    panic("required-fields must be an array of field names.")
+  }
+
+  for field in required-fields {
+    if type(field) != str {
+      panic("required-fields entry '" + str(field) + "' must be a string.")
+    }
+    if field not in valid {
+      panic("'" + field + "' is not a valid required field name.")
+    }
+  }
+}
+
 /// Main validation function that orchestrates all validations for the letterloom function.
 #let validate-inputs(
     from-name: none,
@@ -269,6 +290,7 @@
     subject: none,
     closing: none,
     signatures: none,
+    required-fields: ("from-name", "from-address", "to-name", "to-address", "date", "salutation", "subject", "closing", "signatures"),
     signature-alignment: left,
     attn-name: none,
     attn-label: "Attn:",
@@ -290,18 +312,29 @@
     link-color: blue,
   ) = {
   // =============================================================================
-  // VALIDATE REQUIRED FIELDS
+  // VALIDATE REQUIRED-FIELDS CONFIGURATION
   // =============================================================================
 
-  validate-string(string-data: from-name, field-name: "from-name")
-  validate-string(string-data: from-address, field-name: "from-address")
-  validate-string(string-data: to-name, field-name: "to-name")
-  validate-string(string-data: to-address, field-name: "to-address")
-  validate-string(string-data: date, field-name: "date")
-  validate-string(string-data: salutation, field-name: "salutation")
-  validate-string(string-data: subject, field-name: "subject")
-  validate-string(string-data: closing, field-name: "closing")
-  validate-signatures(signatures: signatures)
+  validate-required-fields(required-fields: required-fields)
+
+  // =============================================================================
+  // VALIDATE CONFIGURABLE REQUIRED FIELDS
+  // =============================================================================
+
+  validate-string(string-data: from-name, field-name: "from-name", required: "from-name" in required-fields)
+  validate-string(string-data: from-address, field-name: "from-address", required: "from-address" in required-fields)
+  validate-string(string-data: to-name, field-name: "to-name", required: "to-name" in required-fields)
+  validate-string(string-data: to-address, field-name: "to-address", required: "to-address" in required-fields)
+  validate-string(string-data: date, field-name: "date", required: "date" in required-fields)
+  validate-string(string-data: salutation, field-name: "salutation", required: "salutation" in required-fields)
+  validate-string(string-data: subject, field-name: "subject", required: "subject" in required-fields)
+  validate-string(string-data: closing, field-name: "closing", required: "closing" in required-fields)
+
+  if "signatures" in required-fields {
+    validate-signatures(signatures: signatures)
+  } else if signatures != none {
+    validate-signatures(signatures: signatures)
+  }
 
   // =============================================================================
   // VALIDATE FORMATTING PARAMETERS
