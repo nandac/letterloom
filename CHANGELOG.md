@@ -8,17 +8,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-04-30
+
 ### Added
 
-- Added `required-fields` parameter to control which core fields are rendered. Fields excluded from the list are suppressed entirely — no blank space is left — even if values are provided. Defaults to all nine core fields, preserving backward compatibility.
+- Added `required-fields` parameter to control which core fields are rendered. Fields excluded from the list are suppressed entirely — no blank space is left — even if values are provided. Defaults to all nine core fields, preserving backward compatibility. ([#3](https://github.com/nandac/letterloom/issues/3))
 - Added `date-alignment` parameter to position the date independently from the sender block. When `date-alignment` matches `from-alignment` and the sender block is present, the date's left edge is automatically aligned with the sender block using `measure`. Defaults to `right`.
+- Added `letterhead` parameter for placing a branded image flush with the physical page edges on the first page only. Subsequent pages are unaffected. Accepts a dictionary with the following keys:
+  - `file` (required): bytes loaded via `read("path", encoding: none)`
+  - `width` (optional): length, ratio (e.g. `60%`), or relative (e.g. `60% + 5mm`) — defaults to the full available width
+  - `height` (optional): length — when omitted, height scales proportionally from the width
+  - `margin` (optional): length or per-side dictionary with keys `top`, `bottom`, `left`, `right`, `x`, `y`, or `rest` — defaults to `0mm` on all sides
+  - `alignment` (optional): `left`, `center`, or `right` — defaults to `center`
 
-### Fixed
+  ([#4](https://github.com/nandac/letterloom/pull/4))
 
-- Fixed `cc` and `enclosures` sections lacking their own leading spacing, causing them to run up against the preceding element when signatures or closing were absent.
-- Fixed sender block and date block inner content not being centred when `from-alignment` or `date-alignment` is set to `center`.
-
-## [2.0.0] - 2026-04-26
+## [2.0.0] - 2026-04-28
 
 <!-- markdownlint-disable MD033 -->
 <details>
@@ -199,9 +204,9 @@ cc-label: "cc:",
 
 ### Added
 
-- Added support for aligning a signature left, center or right when only one signature is given.
+- Added support for aligning a signature left, center or right when only one signature is given. ([#1](https://github.com/nandac/letterloom/issues/1))
 
-- Added two new optional fields `title` and `affiliation` for signatures.
+- Added two new optional fields `title` and `affiliation` for signatures. ([#2](https://github.com/nandac/letterloom/issues/2))
 
 ### Changed
 
@@ -224,7 +229,8 @@ to the corresponding tag on GitHub, or the diff
 in comparison to the previous release
 -->
 
-[Unreleased]: https://github.com/nandac/letterloom/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/nandac/letterloom/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/nandac/letterloom/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/nandac/letterloom/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/nandac/letterloom/compare/v0.1.0...v1.0.0
 [0.1.0]: https://github.com/nandac/letterloom/releases/tag/v0.1.0

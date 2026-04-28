@@ -186,7 +186,7 @@
       ),
     ),
     attn-name: "Mr Basil Hawthorne",
-    attn-label: calc.ceil(3.14)
+    attn-label: calc.ceil(3.14),
   )),
   "panicked with: \"attn-label must be a string or content block.\"",
 )

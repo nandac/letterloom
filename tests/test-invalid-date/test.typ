@@ -38,15 +38,19 @@
   catch(() => letterloom(
     none,
     from-name: "The Dimbleby Family",
-    from-address: [The Dimbleby Estate \
-                Cheswick Village \
-                Middle Upton \
-                Bristol BS16 1GU],
+    from-address: [
+      The Dimbleby Estate \
+      Cheswick Village \
+      Middle Upton \
+      Bristol BS16 1GU
+    ],
     to-name: "Evergreen Tree Surgeons",
-    to-address: [Midtown Lane \
-                Cheswick Village \
-                Stoke Gifford \
-                Bristol BS16 1GU],
+    to-address: [
+      Midtown Lane \
+      Cheswick Village \
+      Stoke Gifford \
+      Bristol BS16 1GU
+    ],
     salutation: "Dear Mr Hawthorne",
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
     closing: "Sincerely yours,",
@@ -69,15 +73,19 @@
   catch(() => letterloom(
     none,
     from-name: "The Dimbleby Family",
-    from-address: [The Dimbleby Estate \
-                Cheswick Village \
-                Middle Upton \
-                Bristol BS16 1GU],
+    from-address: [
+      The Dimbleby Estate \
+      Cheswick Village \
+      Middle Upton \
+      Bristol BS16 1GU
+    ],
     to-name: "Evergreen Tree Surgeons",
-    to-address: [Midtown Lane \
-                Cheswick Village \
-                Stoke Gifford \
-                Bristol BS16 1GU],
+    to-address: [
+      Midtown Lane \
+      Cheswick Village \
+      Stoke Gifford \
+      Bristol BS16 1GU
+    ],
     date: "",
     salutation: "Dear Mr Hawthorne",
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
@@ -101,15 +109,19 @@
   catch(() => letterloom(
     none,
     from-name: "The Dimbleby Family",
-    from-address: [The Dimbleby Estate \
-                Cheswick Village \
-                Middle Upton \
-                Bristol BS16 1GU],
+    from-address: [
+      The Dimbleby Estate \
+      Cheswick Village \
+      Middle Upton \
+      Bristol BS16 1GU
+    ],
     to-name: "Evergreen Tree Surgeons",
-    to-address: [Midtown Lane \
-                Cheswick Village \
-                Stoke Gifford \
-                Bristol BS16 1GU],
+    to-address: [
+      Midtown Lane \
+      Cheswick Village \
+      Stoke Gifford \
+      Bristol BS16 1GU
+    ],
     date: [],
     salutation: "Dear Mr Hawthorne",
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
@@ -133,15 +145,19 @@
   catch(() => letterloom(
     none,
     from-name: "The Dimbleby Family",
-    from-address: [The Dimbleby Estate \
-                Cheswick Village \
-                Middle Upton \
-                Bristol BS16 1GU],
+    from-address: [
+      The Dimbleby Estate \
+      Cheswick Village \
+      Middle Upton \
+      Bristol BS16 1GU
+    ],
     to-name: "Evergreen Tree Surgeons",
-    to-address: [Midtown Lane \
-                Cheswick Village \
-                Stoke Gifford \
-                Bristol BS16 1GU],
+    to-address: [
+      Midtown Lane \
+      Cheswick Village \
+      Stoke Gifford \
+      Bristol BS16 1GU
+    ],
     date: 3,
     salutation: "Dear Mr Hawthorne",
     subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],

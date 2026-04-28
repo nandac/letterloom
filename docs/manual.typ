@@ -1,4 +1,4 @@
-#import "@preview/letterloom:2.0.0": *
+#import "@preview/letterloom:2.1.0": *
 #import "highlight-type.typ": highlight-type
 
 // Global Styles
@@ -7,7 +7,7 @@
 #set par(spacing: 1.5em)
 #set strong(delta: 200)
 
-//Customize appearance
+// Customize appearance
 #show raw: set text(font: "DejaVu Sans Mono")
 #show raw.where(block: true): set block(fill: rgb("#faebd7"), inset: 1em, radius: 0.5em, width: 100%)
 #show link: set text(fill: blue)
@@ -37,7 +37,7 @@
 
 // End of setup
 
-= `letterloom v2.0.0`
+= `letterloom v2.1.0`
 
 == Introduction
 
@@ -46,12 +46,13 @@ The `letterloom` package is a user-friendly and customizable template designed t
 *Key Features:*
 - *Multiple Signatures:* Effortlessly include one or more signatures for joint communications or approvals.
 
-- *Customizable Footnotes:* Add informative footnotes with flexible formatting options.
+- *Letterhead:* Place a branded letterhead image flush with the page edges on the first page.
 
 - *Enclosures:* Clearly list and optionally attach additional documents included with the letter.
 
-- *Internationalization Support:* Customize labels and text for different languages and regions.
+- *Customizable Footnotes:* Add informative footnotes with flexible formatting options.
 
+- *Internationalization Support:* Customize labels and text for different languages and regions.
 
 *Benefits:*
 - Simplifies the letter-writing process with an intuitive template.
@@ -70,25 +71,27 @@ Typst 0.14.0 or higher is required to use this package.
 
 == Usage
 
-The `letterloom` package offers extensive customization options, enabling you to tailor your letters to suit various needs and preferences.
-
-In the sections that follow, we will explore each parameter in detail, accompanied by practical examples demonstrating their usage.
+Each parameter is documented below with its type, default value, and examples.
 
 === Getting Started
 
 Here is a simple example showing the essential arguments needed to use the `letterloom` package:
 
 ```typ
-#import "@preview/letterloom:2.0.0": *
+#import "@preview/letterloom:2.1.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
   from-name: "Sender's Name",
-  from-address: [Sender's Address],
+  from-address: [
+    Sender's Address
+  ],
 
   // Recipient's contact information (name and address)
   to-name: "Receiver's Name",
-  to-address: [Receiver's Address],
+  to-address: [
+    Receiver's Address
+  ],
 
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
@@ -118,24 +121,24 @@ Here is a simple example showing the essential arguments needed to use the `lett
 To create a new letter project run the following command in your terminal:
 
 ```bash
-typst init @preview/letterloom:2.0.0
+typst init @preview/letterloom:2.1.0
 ```
 
 This will generate a ready-to-use letter project in your current directory.
 
-Alternatively, you may create a new project directly in the #link("https://typst.app/app?template=letterloom&version=2.0.0")[Typst webapp].
+Alternatively, you may create a new project directly in the #link("https://typst.app/app?template=letterloom&version=2.1.0")[Typst webapp].
 
 === Required Parameters
 
-This section covers the parameters that are required by default. All nine fields listed here must be provided unless you use `required-fields` to restrict which fields are rendered. Refer to the #link(<field-configuration>)[Field Configuration] section for details.
+All nine fields below are required by default. To omit any of them, use `required-fields` — see #link(<field-configuration>)[Field Configuration] for details.
 
 #v(5pt)
 
 *`from-name`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)
 
-Specifies the sender's name either as a string or content block.
+The sender's name.
 
-#text(size: 10pt)[#text(size: 10pt)[*Examples:*]]
+#text(size: 10pt)[*Examples:*]
 ```typ
 // String
 from-name: "The Dimbleby Family"
@@ -148,20 +151,22 @@ from-name: text(weight: "bold")[The Dimbleby Family]
 
 *`from-address`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)
 
-Specifies the sender's address either as a string or content block.
+The sender's address.
 
 #v(10pt)
 
-#text(size: 10pt)[#text(size: 10pt)[*Examples:*]]
+#text(size: 10pt)[*Examples:*]
 ```typ
 // String
 from-address: "The Dimbleby Estate"
 
 // Content block
-from-address: [The Dimbleby Estate \
-               Cheswick Village \
-               Middle Upton \
-               Bristol BS16 1GU]
+from-address: [
+  The Dimbleby Estate \
+  Cheswick Village \
+  Middle Upton \
+  Bristol BS16 1GU
+]
 ```
 
 *Note:* By default, the sender's name and address are right-aligned. You may change this using the `from-alignment` parameter.
@@ -170,7 +175,7 @@ from-address: [The Dimbleby Estate \
 
 *`to-name`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)
 
-Specifies the recipient's name either as a string or content block.
+The recipient's name.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -185,7 +190,7 @@ to-name: text(weight: "bold")[Evergreen Tree Surgeons]
 
 *`to-address`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)
 
-Specifies the recipient's address either as a string or content block.
+The recipient's address.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -193,17 +198,19 @@ Specifies the recipient's address either as a string or content block.
 to-address: "Midtown Lane"
 
 // Content block
-to-address: [Midtown Lane \
-             Cheswick Village \
-             Stoke Gifford \
-             Bristol BS16 1GU]
+to-address: [
+  Midtown Lane \
+  Cheswick Village \
+  Stoke Gifford \
+  Bristol BS16 1GU
+]
 ```
 
 #v(5pt)
 
 *`date`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-Specifies the letter's date either as a string or content block.
+The letter's date.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -225,7 +232,7 @@ For custom formatting options, refer to #link("https://typst.app/docs/reference/
 
 *`salutation`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-Specifies the greeting for the letter either as a string or content block.
+The opening greeting.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -243,7 +250,7 @@ salutation: "Dear John,"
 
 *`subject`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-Specifies the subject line of the letter either as a string or content block.
+The subject line.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -261,7 +268,7 @@ subject: [Re: #emph[Urgent] Tree Maintenance Request]
 
 *`closing`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content
 
-Specifies the closing phrase of the letter either as a string or content block.
+The closing phrase.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -291,7 +298,7 @@ Specifies a list of signatures as an array of dictionaries, where each dictionar
   [`name`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)], [The signatory's name.],
   [`title`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_], [The signatory's title.],
   [`affiliation`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_], [The signatory's affiliation.],
-  [`signature`], [#highlight-type.function #h(5pt) _optional_], [#link("https://typst.app/docs/reference/visualize/image/")[Typst image function] specifying the location of the signature image. If omitted, a blank space is reserved for a physical signature.],
+  [`signature`], [#highlight-type.content #h(5pt) _optional_], [#link("https://typst.app/docs/reference/visualize/image/")[Typst image function] specifying the location of the signature image. If omitted, a blank space is reserved for a physical signature.],
 )
 
 #text(size: 10pt)[*Examples:*]
@@ -300,7 +307,7 @@ Specifies a list of signatures as an array of dictionaries, where each dictionar
 signatures: (
   (
     name: "Lord Albus Dimbleby",
-    signature: image("images/albus-sig.png")
+    signature: image("images/albus-sig.png"),
   )
 )
 
@@ -320,14 +327,14 @@ signatures: (
 signatures: (
   (
     name: "Lord Albus Dimbleby",
-    signature: image("images/albus-sig.png")
+    signature: image("images/albus-sig.png"),
   ),
   (
     name: "Lady Abigail Dimbleby",
-    signature: image("images/abigail-sig.png")
+    signature: image("images/abigail-sig.png"),
   ),
   (
-    name: "Sir Austin Dimbleby"
+    name: "Sir Austin Dimbleby",
     // No signature image - space left for physical signature
   )
 )
@@ -343,7 +350,7 @@ The `required-fields` parameter controls which core fields are rendered in the l
 
 *`required-fields`* #h(15pt) #highlight-type.array
 
-Specifies which core fields are rendered in the letter.
+Controls which core fields are rendered in the letter.
 
 The valid field names are:
 
@@ -376,17 +383,75 @@ required-fields: (
 ),
 ```
 
-*Note:* Fields excluded from `required-fields` are suppressed at render time. Passing a value for an excluded field has no effect on the output.
-
 === Optional Parameters
 
-The following optional parameters enable you to add additional fields like an attention line, a list of cc recipients, a list of enclosures, and a footer to your letter if desired.
+The following optional parameters enable you to add additional fields like a letterhead image, an attention line, a list of cc recipients, a list of enclosures, and a footer to your letter if desired.
+
+#v(5pt)
+
+*`letterhead`* #h(15pt) #highlight-type.dictionary
+
+Places a letterhead image flush with the physical page edges. The letterhead is rendered on the first page only. Subsequent pages are unaffected and use the normal page margins throughout.
+
+#table(
+  columns: 3,
+  column-gutter: 10pt,
+  row-gutter: 5pt,
+  rows: 5,
+  stroke: none,
+  inset: 3pt,
+  [`file`], [#highlight-type.bytes], [#link("https://typst.app/docs/reference/data-loading/read/")[Typst read function] specifying the path to the file and encoding.],
+  [`width`], [#highlight-type.length #h(5pt) or #h(5pt) #highlight-type.ratio #h(5pt) or #h(5pt) #highlight-type.relative #h(5pt) _optional_], [Width of the image. Defaults to the full available width.],
+  [`height`], [#highlight-type.length #h(5pt) _optional_], [Height of the image. When omitted, height scales proportionally from the width.],
+  [`margin`], [#highlight-type.length #h(5pt) or #h(5pt) #highlight-type.dictionary #h(5pt) _optional_], [Inset applied between the physical page edge and the image. Defaults to `0mm` on all sides.],
+  [`alignment`], [#highlight-type.alignment #h(5pt) _optional_], [Horizontal alignment. Defaults to `center`.],
+)
+
+#text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
+
+#text(size: 10pt)[*Examples:*]
+```typ
+// Full-width letterhead with no margins (default behavior)
+letterhead: (
+  file: read("images/letterhead.png", encoding: none),
+)
+
+// Partial-width letterhead centered with spacing around it
+letterhead: (
+  file: read("images/letterhead.png", encoding: none),
+  width: 60%,
+  margin: (top: 5mm, bottom: 3mm, rest: 8mm),
+  alignment: center,
+)
+
+// Fixed-width letterhead with uniform margin
+letterhead: (
+  file: read("images/letterhead.png", encoding: none),
+  width: 120mm,
+  margin: 5mm,
+  alignment: right,
+)
+```
+
+*Notes and caveats:*
+
+- *Use `read()`, not `image()`.* The `file` key expects raw bytes loaded via `read("path", encoding: none)`. Passing a Typst `image()` call will produce a type error.
+
+- *Setting both `width` and `height` may distort the image.* If the values do not match the image's natural aspect ratio, the image will be stretched or compressed. Omit `height` to let it scale proportionally from `width`.
+
+- *Percentage widths are relative to available width.* A `width` of `100%` fills the page width minus the letterhead's left and right margins, not the full physical page width. To span the full page width with no margin, omit `width` entirely or set `margin` to `0mm`.
+
+- *Auto page margins.* When `margin` is left at its default of `auto`, letterloom derives the page margin using Typst's formula: 2.5/21 of the page's shorter dimension. If you set custom `margin`, the letterhead placement adjusts automatically.
+
+- *Custom margins with asymmetric sides.* When using a dictionary for `margin` (e.g. `margin: (top: 5mm, rest: 8mm)`), the `rest` key sets the fallback for any sides not explicitly listed.
+
+- *Image format support.* PNG, JPEG, SVG, and GIF are supported. Passing a file in an unsupported format will result in a Typst compile error.
 
 #v(5pt)
 
 *`attn-name`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)
 
-Specifies the name of the recipient of the attention line either as a string or content block.
+The attention line recipient's name.
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
 
@@ -399,7 +464,7 @@ attn-name: "Mr Basil Hawthorne"
 
 *`attn-label`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)
 
-Specifies the label for the attention line either as a string or content block.
+The label printed before the attention line name.
 
 #text(size: 10pt)[*Default:* `"Attn:"`]
 
@@ -412,7 +477,7 @@ attn-label: "À l'attention de"
 
 *`attn-position`* #h(15pt) #highlight-type.str
 
-Specifies the position of the attention line: use `"above"` to place it above the recipient's address, or `"below"` to place it below.
+Whether to place the attention line above or below the recipient's address.
 
 #text(size: 10pt)[*Default:* `"above"`]
 
@@ -423,9 +488,9 @@ attn-position: "below"
 
 #v(5pt)
 
-*`cc`* #h(15pt) #highlight-type.array
+*`cc`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) or #h(5pt) #highlight-type.array
 
-Lists carbon copy (cc) recipients as an array of strings.
+Lists carbon copy (cc) recipients as a single string or content block, or an array of them.
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
 
@@ -448,7 +513,7 @@ cc: (
 
 *`cc-label`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)
 
-Specifies the label for the cc recipients list either as a string or content block.
+The label printed before the cc list.
 
 #text(size: 10pt)[*Default:* `"cc:"`]
 
@@ -465,7 +530,7 @@ cc-label: text(weight: "bold")[cc:]
 
 *`enclosures`* #h(15pt) #highlight-type.array
 
-Specifies a list of enclosures as an array of dictionaries. Each enclosure is listed after the letter closing. When a file is provided, it is rendered on a dedicated page after the letter body. Each dictionary has the following keys:
+An array of enclosure dictionaries, listed after the letter closing. When a file is provided, it is embedded on a dedicated page after the letter body. Each dictionary has the following keys:
 
 #table(
   columns: 3,
@@ -475,8 +540,8 @@ Specifies a list of enclosures as an array of dictionaries. Each enclosure is li
   stroke: none,
   inset: 3pt,
   [`description`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content], [Label shown in the enclosures list.],
-  [`file`], [#highlight-type.function #h(5pt) _optional_], [#link("https://typst.app/docs/reference/data-loading/read/")[Typst read function] specifying the path to the file and encoding. When omitted, only the description is rendered.],
-  [`pages`], [#highlight-type.int #h(5pt) _optional_], [Number of pages to render starting from page 1. Defaults to `1`.#footnote[To find the page count of a PDF, use the `pdfinfo` command from the #link("https://poppler.freedesktop.org")[Poppler] library: `pdfinfo document.pdf | grep Pages`.]],
+  [`file`], [#highlight-type.bytes #h(5pt) _optional_], [#link("https://typst.app/docs/reference/data-loading/read/")[Typst read function] specifying the path to the file and encoding. When omitted, only the description is rendered.],
+  [`pages`], [#highlight-type.int #h(5pt) _optional_], [Number of pages to render starting from page 1. Defaults to `1` which will only render the first page.],
   [`margin`], [#highlight-type.length #h(5pt) or #h(5pt) #highlight-type.dictionary #h(5pt) _optional_], [Page margin for the embedded file. Defaults to `0mm` on all sides when omitted.],
 )
 
@@ -509,11 +574,13 @@ enclosures: (
 )
 ```
 
+*Note:* To find the page count of a PDF, you may use the `pdfinfo` command from the #link("https://poppler.freedesktop.org")[Poppler] library: `pdfinfo document.pdf | grep Pages`.
+
 #v(5pt)
 
 *`enclosures-label`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)
 
-Specifies the label for the enclosures list either as a string or content block.
+The label printed before the enclosures list.
 
 #text(size: 10pt)[*Default:* `"encl:"`]
 
@@ -530,7 +597,7 @@ enclosures-label: text(weight: "bold")[encl:]
 
 *`footer`* #h(15pt) #highlight-type.array
 
-Specifies a list of footer elements such as URLs, email addresses and arbitrary text as an array of dictionaries.
+An array of footer elements — URLs, email addresses, or plain text.
 
 #table(
   columns: 3,
@@ -540,7 +607,7 @@ Specifies a list of footer elements such as URLs, email addresses and arbitrary 
   stroke: none,
   inset: 3pt,
   [`footer-text`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)], [The footer text.],
-  [`footer-type`], [#highlight-type.str #h(5pt) _optional_], [The type of footer element: `"url"`, `"email"` or `"string"`. If specified as `"url"` or `"email"`, it will be rendered as a clickable hyperlink. Defaults to `"string"`.],
+  [`footer-type`], [#highlight-type.str #h(5pt) _optional_], [The type of footer element: `"url"`, `"email"` or `"string"`. When set to `"url"` or `"email"`, the text is rendered as a clickable hyperlink. When omitted or set to `"string"`, the text is rendered as plain text.],
 )
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
@@ -550,17 +617,17 @@ Specifies a list of footer elements such as URLs, email addresses and arbitrary 
 footer: (
   (
     // Displayed as is
-    footer-text: "+44-117-555-5555"
+    footer-text: "+44-117-555-5555",
   ),
   (
     // Displayed as a mailto: link
     footer-text: "dimblebyfamily@dimbleby.org",
-    footer-type: "email"
+    footer-type: "email",
   ),
   (
     // Displayed as a web link
     footer-text: "https://dimbleby.org",
-    footer-type: "url"
+    footer-type: "url",
   )
 )
 ```
@@ -569,21 +636,21 @@ footer: (
 
 === Document Settings
 
-Customize the letter's document settings using the parameters below. Each parameter includes a default value, which can be adjusted to fit your needs.
+Controls paper size, margins, spacing, and page numbering.
 
 #v(5pt)
 
 *`paper-size`* #h(15pt) #highlight-type.str
 
-Specifies the paper size for the letter.
+The paper size.
 
 #text(size: 10pt)[*Default:* `"a4"`]
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-paper-size: "a4"        // A4 (210 × 297 mm)
+paper-size: "a4" // A4 (210 × 297 mm)
 paper-size: "us-letter" // US Letter (8.5 × 11 in)
-paper-size: "legal"     // Legal (8.5 × 14 in)
+paper-size: "legal" // Legal (8.5 × 14 in)
 ```
 
 For more information, see #link("https://typst.app/docs/reference/layout/page/#parameters-paper")[Typst's documentation on paper sizes].
@@ -592,7 +659,7 @@ For more information, see #link("https://typst.app/docs/reference/layout/page/#p
 
 *`margins`* #h(15pt) #highlight-type.auto-type #h(5pt) or #h(5pt) #highlight-type.relative #h(5pt) or #h(5pt) #highlight-type.dictionary
 
-Defines the margins of the letter.
+The page margins.
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.auto-type]
 
@@ -613,21 +680,21 @@ margins: (top: 25mm, left: 30mm, bottom: 25mm, right: 30mm)
 
 Refer to #link("https://typst.app/docs/reference/layout/page/#parameters-margin")[Typst's margin documentation] for more information.
 
-*Note:* The default setting of #h(5pt) #highlight-type.auto-type #h(5pt) results in a 25 mm margin for the A4 paper size.
+*Note:* The default setting of #h(5pt) #highlight-type.auto-type #h(5pt) results in a 25 mm margin for A4, the package's default paper size.
 
 #v(5pt)
 
 *`par-leading`* #h(15pt) #highlight-type.length
 
-Adjusts the line spacing within paragraphs.
+Line spacing within paragraphs.
 
 #text(size: 10pt)[*Default:* `0.8em`]
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-par-leading: 0.8em  // Tight spacing
-par-leading: 1.0em  // Normal spacing
-par-leading: 1.2em  // Loose spacing
+par-leading: 0.8em // Tight spacing
+par-leading: 1.0em // Normal spacing
+par-leading: 1.2em // Loose spacing
 ```
 
 *Note:* Adjust this value to complement the chosen font and font size.
@@ -636,15 +703,15 @@ par-leading: 1.2em  // Loose spacing
 
 *`par-spacing`* #h(15pt) #highlight-type.length
 
-Controls the spacing between paragraphs.
+Spacing between paragraphs.
 
 #text(size: 10pt)[*Default:* `1.8em`]
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-par-spacing: 1.5em  // Compact paragraphs
-par-spacing: 1.8em  // Standard spacing
-par-spacing: 2.0em  // Relaxed spacing
+par-spacing: 1.5em // Compact paragraphs
+par-spacing: 1.8em // Standard spacing
+par-spacing: 2.0em // Relaxed spacing
 ```
 
 *Note:* Modify this value to match the font and font size for optimal readability.
@@ -653,21 +720,21 @@ par-spacing: 2.0em  // Relaxed spacing
 
 *`number-pages`* #h(15pt) #highlight-type.bool
 
-Toggles page numbering. If enabled, numbering starts from the second page.
+Enables page numbering, starting from the second page.
 
 #text(size: 10pt)[*Default:* `false`]
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-number-pages: false  // No page numbers
-number-pages: true   // Page numbers from the second page onwards
+number-pages: false // No page numbers
+number-pages: true // Page numbers from the second page onwards
 ```
 
 *Note:* Page numbers are centered at the bottom of the page, below the footer if one is specified.
 
 === Typographical Settings
 
-These parameters allow you to customize the fonts used throughout the letter. Each parameter has a default font setting that can be changed as needed.
+Controls the fonts and font sizes used throughout the letter.
 
 #v(5pt)
 
@@ -679,10 +746,10 @@ Sets the font used for the main body of the letter.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-main-font: "Libertinus Serif"  // Default serif font
-main-font: "Noto Serif"        // Google's Noto Serif
-main-font: "Times New Roman"   // Classic serif
-main-font: "Arial"             // Sans-serif option
+main-font: "Libertinus Serif" // Default serif font
+main-font: "Noto Serif" // Google's Noto Serif
+main-font: "Times New Roman" // Classic serif
+main-font: "Arial" // Sans-serif option
 ```
 
 #v(5pt)
@@ -695,9 +762,9 @@ Sets the font size for the main body.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-main-font-size: 10pt  // Smaller text
-main-font-size: 11pt  // Standard size
-main-font-size: 12pt  // Larger text
+main-font-size: 10pt // Smaller text
+main-font-size: 11pt // Standard size
+main-font-size: 12pt // Larger text
 ```
 
 #v(5pt)
@@ -710,9 +777,9 @@ Sets the font used for footnotes.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-footnote-font: "Libertinus Serif"  // Match main font
-footnote-font: "Noto Serif"        // Alternative serif
-footnote-font: "DejaVu Sans"       // Sans-serif option
+footnote-font: "Libertinus Serif" // Match main font
+footnote-font: "Noto Serif" // Alternative serif
+footnote-font: "DejaVu Sans" // Sans-serif option
 ```
 
 #v(5pt)
@@ -725,9 +792,9 @@ Sets the font size for footnotes.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-footnote-font-size: 6pt   // Very small
-footnote-font-size: 7pt   // Standard size
-footnote-font-size: 8pt   // Larger footnotes
+footnote-font-size: 6pt // Very small
+footnote-font-size: 7pt // Standard size
+footnote-font-size: 8pt // Larger footnotes
 ```
 
 #v(5pt)
@@ -740,10 +807,10 @@ Sets the font used for the footer.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-footer-font: "DejaVu Sans Mono"  // Monospace default
-footer-font: "Fira Mono"         // Modern monospace
-footer-font: "Courier New"       // Classic monospace
-footer-font: "Arial"             // Sans-serif option
+footer-font: "DejaVu Sans Mono" // Monospace default
+footer-font: "Fira Mono" // Modern monospace
+footer-font: "Courier New" // Classic monospace
+footer-font: "Arial" // Sans-serif option
 ```
 
 #v(5pt)
@@ -756,14 +823,14 @@ Sets the font size for the footer.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-footer-font-size: 8pt   // Smaller footer
-footer-font-size: 9pt   // Standard size
-footer-font-size: 10pt  // Larger footer
+footer-font-size: 8pt // Smaller footer
+footer-font-size: 9pt // Standard size
+footer-font-size: 10pt // Larger footer
 ```
 
 === Layout Settings
 
-These parameters provide options to align specific elements and change the color of hyperlinks.
+Controls alignment of letter elements and hyperlink color.
 
 #v(5pt)
 
@@ -775,8 +842,8 @@ Sets the alignment of the letter's date.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-date-alignment: left   // Left-aligned date
-date-alignment: right  // Right-aligned date (default)
+date-alignment: left // Left-aligned date
+date-alignment: right // Right-aligned date (default)
 date-alignment: center // Center-aligned date
 ```
 
@@ -788,9 +855,9 @@ Sets the alignment of the sender's name and address.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-from-alignment: left    // Left-aligned sender
-from-alignment: right   // Right-aligned sender (default)
-from-alignment: center  // Center-aligned sender
+from-alignment: left // Left-aligned sender
+from-alignment: right // Right-aligned sender (default)
+from-alignment: center // Center-aligned sender
 ```
 
 #v(5pt)
@@ -803,8 +870,8 @@ Specifies the alignment of the footnote separator and footnotes.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-footnote-alignment: left   // Left-aligned footnotes (default)
-footnote-alignment: right  // Right-aligned footnotes
+footnote-alignment: left // Left-aligned footnotes (default)
+footnote-alignment: right // Right-aligned footnotes
 footnote-alignment: center // Center-aligned footnotes
 ```
 
@@ -818,8 +885,8 @@ Specifies the alignment of the signature if only one signature is specified. If 
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-signature-alignment: left   // Left-aligned signature (default)
-signature-alignment: right  // Right-aligned signature
+signature-alignment: left // Left-aligned signature (default)
+signature-alignment: right // Right-aligned signature
 signature-alignment: center // Center-aligned signature
 ```
 #v(5pt)
@@ -832,34 +899,38 @@ Determines the color of hyperlinks in the letter.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-link-color: blue             // Typst's blue #0074d9 (default)
-link-color: maroon           // Typst's maroon #85144b
+link-color: blue // Typst's blue #0074d9 (default)
+link-color: maroon // Typst's maroon #85144b
 link-color: rgb(0, 100, 200) // Custom RGB color
 ```
 
 Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typst's documentation on colors] for additional details.
 
-== Example Letter
+== Comprehensive Letter Example
 
 The following example illustrates several key features of the `letterloom` package and explains how they can be applied in practice.
 
 ```typ
-#import "@preview/letterloom:2.0.0": *
+#import "@preview/letterloom:2.1.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
   from-name: "The Dimbleby Family",
-  from-address: [The Dimbleby Estate \
-                 Cheswick Village \
-                 Middle Upton \
-                 Bristol BS16 1GU],
+  from-address: [
+    The Dimbleby Estate \
+    Cheswick Village \
+    Middle Upton \
+    Bristol BS16 1GU
+  ],
 
   // Recipient's contact information (name and address)
   to-name: "Evergreen Tree Surgeons",
-  to-address: [Midtown Lane \
-               Cheswick Village \
-               Stoke Gifford \
-               Bristol BS16 1GU],
+  to-address: [
+    Midtown Lane \
+    Cheswick Village \
+    Stoke Gifford \
+    Bristol BS16 1GU
+  ],
 
   // Attention line for specific recipient (optional)
   attn-name: "Mr Basil Hawthorne",
@@ -890,6 +961,12 @@ The following example illustrates several key features of the `letterloom` packa
       name: "Sir Austin Dimbleby",
       signature: image("images/austin-sig.png"),
     ),
+  ),
+
+  // Letterhead (optional)
+  letterhead: (
+    file: read("images/letterhead.png", encoding: none),
+    margin: (bottom: 2mm, rest: 5mm),
   ),
 
   // List of cc recipients (optional)
@@ -972,17 +1049,21 @@ Thank you kindly.
 #show: letterloom.with(
   // Sender's contact information (name and address)
   from-name: "The Dimbleby Family",
-  from-address: [The Dimbleby Estate \
-                 Cheswick Village \
-                 Middle Upton \
-                 Bristol BS16 1GU],
+  from-address: [
+    The Dimbleby Estate \
+    Cheswick Village \
+    Middle Upton \
+    Bristol BS16 1GU
+  ],
 
   // Recipient's contact information (name and address)
   to-name: "Evergreen Tree Surgeons",
-  to-address: [Midtown Lane \
-               Cheswick Village \
-               Stoke Gifford \
-               Bristol BS16 1GU],
+  to-address: [
+    Midtown Lane \
+    Cheswick Village \
+    Stoke Gifford \
+    Bristol BS16 1GU
+  ],
 
   // Attention line for specific recipient (optional)
   attn-name: "Mr Basil Hawthorne",
@@ -1013,6 +1094,12 @@ Thank you kindly.
       name: "Sir Austin Dimbleby",
       signature: image("images/austin-sig.png"),
     ),
+  ),
+
+  // Letterhead (optional)
+  letterhead: (
+    file: read("images/letterhead.png", encoding: none),
+    margin: (bottom: 2mm, rest: 5mm),
   ),
 
   // List of cc recipients (optional)

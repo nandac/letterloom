@@ -27,6 +27,7 @@
   cc-label: "cc:",
   enclosures: none,
   enclosures-label: "encl:",
+  letterhead: none,
   footer: none,
   paper-size: "a4",
   margins: auto,
@@ -65,6 +66,7 @@
     cc-label: cc-label,
     enclosures: enclosures,
     enclosures-label: enclosures-label,
+    letterhead: letterhead,
     footer: footer,
     par-leading: par-leading,
     par-spacing: par-spacing,
@@ -79,15 +81,17 @@
   )
 
   // Shadow fields not in required-fields with none so rendering guards suppress them
-  let from-name      = if "from-name"   in required-fields { from-name }   else { none }
-  let from-address   = if "from-address" in required-fields { from-address } else { none }
-  let to-name        = if "to-name"      in required-fields { to-name }     else { none }
-  let to-address     = if "to-address"   in required-fields { to-address }  else { none }
-  let date           = if "date"         in required-fields { date }        else { none }
-  let salutation     = if "salutation"   in required-fields { salutation }  else { none }
-  let subject        = if "subject"      in required-fields { subject }     else { none }
-  let closing        = if "closing"      in required-fields { closing }     else { none }
-  let signatures     = if "signatures"   in required-fields { signatures }  else { none }
+  let opt(field, value) = if field in required-fields { value } else { none }
+
+  let from-name = opt("from-name", from-name)
+  let from-address = opt("from-address", from-address)
+  let to-name = opt("to-name", to-name)
+  let to-address = opt("to-address", to-address)
+  let date = opt("date", date)
+  let salutation = opt("salutation", salutation)
+  let subject = opt("subject", subject)
+  let closing = opt("closing", closing)
+  let signatures = opt("signatures", signatures)
 
   // Construct the custom footer (optional)
   let custom-footer = construct-custom-footer(
@@ -104,7 +108,7 @@
   set page(
     paper: paper-size,
     margin: margins,
-    footer: align(center, custom-footer + page-numbering)
+    footer: align(center, custom-footer + page-numbering),
   )
 
   // Set the text settings
@@ -116,7 +120,7 @@
   // Set the paragraph spacing
   set par(
     leading: par-leading, // Space between adjacent lines in a paragraph
-    spacing: par-spacing  // Space between paragraphs
+    spacing: par-spacing, // Space between paragraphs
   )
 
   // Color links to the desired color
@@ -132,105 +136,19 @@
     it
   }
 
-  // Sender's name and address block
-  if from-name != none or from-address != none {
-    align(from-alignment, block[
-      #set align(if from-alignment == center { center } else { left })
-      #if from-name != none {
-        from-name
-        if from-address != none { linebreak() }
-      }
-      #if from-address != none { from-address }
-    ])
-  }
+  construct-letterhead(letterhead: letterhead)
+  construct-sender(from-name: from-name, from-address: from-address, from-alignment: from-alignment)
+  construct-date(date: date, date-alignment: date-alignment, from-alignment: from-alignment, from-name: from-name, from-address: from-address)
+  construct-recipient(to-name: to-name, to-address: to-address, attn-name: attn-name, attn-label: attn-label, attn-position: attn-position)
+  construct-salutation(salutation: salutation)
+  construct-subject(subject: subject)
 
-  // Date block — when date-alignment matches from-alignment and the sender block is
-  // present, match its width so the left edges align
-  if date != none {
-    if date-alignment == from-alignment and (from-name != none or from-address != none) {
-      context {
-        let from-content = if from-name != none and from-address != none {
-          block[#from-name #linebreak() #from-address]
-        } else if from-name != none {
-          block[#from-name]
-        } else {
-          block[#from-address]
-        }
-        let from-width = measure(from-content).width
-        align(date-alignment, block(width: from-width)[
-          #set align(if date-alignment == center { center } else { left })
-          #v(2pt)
-          #date
-        ])
-      }
-    } else {
-      align(date-alignment, block[
-        #set align(if date-alignment == center { center } else { left })
-        #v(2pt)
-        #date
-      ])
-    }
-  }
-
-  // Construct the attention line (optional)
-  let attn = none
-  if attn-name != none {
-    attn = attn-label + " " + attn-name
-  }
-
-  // Receiver's name, address and optional attention line
-  if to-name != none or to-address != none or attn != none {
-    block[
-      #v(5pt)
-      #set align(left)
-      #if attn-position == "above" and attn != none {
-        text(attn)
-        linebreak()
-      }
-      #if to-name != none {
-        to-name
-        if to-address != none or (attn-position == "below" and attn != none) { linebreak() }
-      }
-      #if to-address != none {
-        to-address
-        if attn-position == "below" and attn != none { linebreak() }
-      }
-      #if attn-position == "below" and attn != none {
-        text(attn)
-      }
-    ]
-  }
-
-  // Salutation
-  if salutation != none {
-    v(5pt)
-    text(salutation)
-    linebreak()
-    v(5pt)
-  }
-
-  // Subject
-  if subject != none {
-    text(subject)
-  }
-
-  // Body of letter
   doc
 
-  // Closing
-  if closing != none {
-    v(5pt)
-    text(closing)
-  }
-
-  // Construct and display the signatures
+  construct-closing(closing: closing)
   if signatures != none {
     construct-signatures(signatures: signatures, signature-alignment: signature-alignment)
   }
-
-  // Construct and display the cc (optional)
   construct-cc(cc: cc, cc-label: cc-label)
-
-  // Construct and display the enclosures (optional)
   construct-enclosures(enclosures: enclosures, enclosures-label: enclosures-label)
 }

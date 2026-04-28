@@ -52,7 +52,6 @@
   }
 }
 
-
 /// Validates signature structure and content.
 #let validate-signatures(signatures: none) = {
   // Validate presence of signatures
@@ -62,7 +61,7 @@
 
   // Handle the case where only one signature is given
   if type(signatures) != array {
-    signatures = (signatures, )
+    signatures = (signatures,)
   }
 
   // Validate each signature
@@ -113,7 +112,7 @@
 
   // Handle the case where only one cc recipient is given
   if type(cc) != array {
-    cc = (cc, )
+    cc = (cc,)
   }
 
   // Validate each recipient
@@ -150,7 +149,7 @@
   }
 
   if type(enclosures) != array {
-    enclosures = (enclosures, )
+    enclosures = (enclosures,)
   }
 
   for enclosure in enclosures {
@@ -224,7 +223,7 @@
   if footer not in (none, ()) {
     // Handle the case where only one footer item is given
     if type(footer) != array {
-      footer = (footer, )
+      footer = (footer,)
     }
 
     // Validate each footer element
@@ -257,6 +256,63 @@
   }
 }
 
+/// Validates the letterhead dictionary (optional).
+///
+/// When provided, letterhead must be a dictionary with a required file key
+/// (bytes from read("path", encoding: none)) and optional keys width, height,
+/// margin, and alignment.
+#let validate-letterhead(letterhead: none) = {
+  if letterhead == none { return }
+
+  if type(letterhead) != dictionary {
+    panic("letterhead must be a dictionary with a required file key.")
+  }
+
+  if "file" not in letterhead {
+    panic("letterhead is missing the required file key.")
+  }
+
+  if type(letterhead.file) != bytes {
+    panic("letterhead.file must be bytes loaded via read(path, encoding: none).")
+  }
+
+  if "width" in letterhead {
+    if type(letterhead.width) not in (length, ratio, relative) {
+      panic("letterhead.width must be a length or percentage (e.g. 50% or 50% + 5mm).")
+    }
+  }
+
+  if "height" in letterhead {
+    if type(letterhead.height) != length {
+      panic("letterhead.height must be a length.")
+    }
+  }
+
+  if "margin" in letterhead {
+    let m = letterhead.margin
+    if type(m) == length {
+      // valid: uniform margin
+    } else if type(m) == dictionary {
+      let valid-keys = ("top", "bottom", "left", "right", "x", "y", "rest")
+      for (key, value) in m {
+        if key not in valid-keys {
+          panic("letterhead.margin key '" + key + "' is not valid. Must be one of top, bottom, left, right, x, y, or rest.")
+        }
+        if type(value) != length {
+          panic("letterhead.margin value for '" + key + "' must be a length.")
+        }
+      }
+    } else {
+      panic("letterhead.margin must be a length or a dictionary of lengths.")
+    }
+  }
+
+  if "alignment" in letterhead {
+    if letterhead.alignment not in (left, center, right) {
+      panic("letterhead.alignment must be left, center, or right.")
+    }
+  }
+}
 
 /// Validates the required-fields configuration array.
 #let validate-required-fields(required-fields: none) = {
@@ -281,36 +337,37 @@
 
 /// Main validation function that orchestrates all validations for the letterloom function.
 #let validate-inputs(
-    from-name: none,
-    from-address: none,
-    to-name: none,
-    to-address: none,
-    date: none,
-    salutation: none,
-    subject: none,
-    closing: none,
-    signatures: none,
-    required-fields: ("from-name", "from-address", "to-name", "to-address", "date", "salutation", "subject", "closing", "signatures"),
-    signature-alignment: left,
-    attn-name: none,
-    attn-label: "Attn:",
-    attn-position: "above",
-    cc: none,
-    cc-label: "cc:",
-    enclosures: none,
-    enclosures-label: "encl:",
-    footer: none,
-    par-leading: 0.8em,
-    par-spacing: 1.8em,
-    number-pages: false,
-    main-font-size: 11pt,
-    footer-font-size: 9pt,
-    footnote-font-size: 7pt,
-    from-alignment: right,
-    date-alignment: right,
-    footnote-alignment: left,
-    link-color: blue,
-  ) = {
+  from-name: none,
+  from-address: none,
+  to-name: none,
+  to-address: none,
+  date: none,
+  salutation: none,
+  subject: none,
+  closing: none,
+  signatures: none,
+  required-fields: ("from-name", "from-address", "to-name", "to-address", "date", "salutation", "subject", "closing", "signatures"),
+  signature-alignment: left,
+  attn-name: none,
+  attn-label: "Attn:",
+  attn-position: "above",
+  cc: none,
+  cc-label: "cc:",
+  enclosures: none,
+  enclosures-label: "encl:",
+  letterhead: none,
+  footer: none,
+  par-leading: 0.8em,
+  par-spacing: 1.8em,
+  number-pages: false,
+  main-font-size: 11pt,
+  footer-font-size: 9pt,
+  footnote-font-size: 7pt,
+  from-alignment: right,
+  date-alignment: right,
+  footnote-alignment: left,
+  link-color: blue,
+) = {
   // =============================================================================
   // VALIDATE REQUIRED-FIELDS CONFIGURATION
   // =============================================================================
@@ -364,6 +421,9 @@
   if enclosures != none {
     validate-enclosures(enclosures: enclosures, enclosures-label: enclosures-label)
   }
+
+  // Validate letterhead
+  validate-letterhead(letterhead: letterhead)
 
   // Validate footer
   if footer != none {

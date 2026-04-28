@@ -1,14 +1,34 @@
-#import "@preview/letterloom:2.1.0": *
-
-#set page(height: auto, margin: 5mm)
-
-// Style thumbnail for light and dark theme
-#let theme = sys.inputs.at("theme", default: "light")
-#set page(fill: black) if theme == "dark"
-#set text(white) if theme == "dark"
+/// test-letterhead
+///
+/// Synopsis:
+/// Rendering test that validates the letterhead feature places a full-width
+/// image flush with the page edges on the first page only, with content
+/// flowing normally beneath it on all pages.
+///
+/// Purpose:
+/// Ensures that construct-letterhead correctly escapes the margin box using
+/// negative dx/dy offsets, fills the full page width when no width is
+/// specified, and that subsequent pages are unaffected.
+///
+/// Test Scenario:
+/// - letterhead.file is a valid PNG loaded via read()
+/// - No width, height, margin, or alignment overrides (all defaults)
+/// - Letter body is long enough to overflow onto a second page
+///
+/// Expected Behavior:
+/// - Page 1: letterhead image spans full page width, flush with top and side
+///   edges; letter content begins below the image
+/// - Page 2+: no letterhead; normal margins apply throughout
+///
+/// Validation:
+/// Output is compared to reference images to detect regressions in placement,
+/// sizing, and page-1-only rendering.
+#import "/src/lib.typ": *
 
 #show: letterloom.with(
-  // Sender's contact information (name and address)
+  letterhead: (
+    file: read("/docs/images/letterhead.png", encoding: none),
+  ),
   from-name: "The Dimbleby Family",
   from-address: [
     The Dimbleby Estate \
@@ -16,8 +36,6 @@
     Middle Upton \
     Bristol BS16 1GU
   ],
-
-  // Recipient's contact information (name and address)
   to-name: "Evergreen Tree Surgeons",
   to-address: [
     Midtown Lane \
@@ -25,37 +43,13 @@
     Stoke Gifford \
     Bristol BS16 1GU
   ],
-
-  // Letter date (automatically set to today's date)
-  date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
-
-  // Opening greeting
+  date: "01 January 1970",
   salutation: "Dear Mr Hawthorne,",
-
-  // Letter subject line
-  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")],
-
-  // Closing phrase
+  subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees")],
   closing: "Sincerely yours,",
-
-  // List of signatures with their name, optional signature image, title and affiliation
-  signatures: (
-    (
-      name: "Lord Albus Dimbleby",
-      signature: image("images/albus-sig.png"),
-    ),
-    (
-      name: "Lady Abigail Dimbleby",
-      signature: image("images/abigail-sig.png"),
-    ),
-    (
-      name: "Sir Austin Dimbleby",
-      signature: image("images/austin-sig.png"),
-    ),
-  ),
+  signatures: ((name: "Lord Albus Dimbleby"),),
 )
 
-// Letter content
 We are writing to request you to visit The Dimbleby Estate in Cheswick Village to assess a stand of lordly Heritage Oak Trees that have stood the test of time, but whose strength might have been compromised by the wild squall that ripped through the region last week. We are keen to avoid any danger to passers by from weakened roots, branches, and sundry debris.
 
 Your specific task would be to render the grove safe to human traffic while at the same time minimizing the residual damage to the trees. You would, of course, also undertake to clear the area thereafter.

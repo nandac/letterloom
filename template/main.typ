@@ -1,16 +1,26 @@
 /// letterloom Template
 /// For more information, see the letterloom documentation and manual.
-#import "@preview/letterloom:2.0.0": *
+#import "@preview/letterloom:2.1.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
   from-name: "Sender's Name",
-  from-address: [Sender's Address],
-  // from-alignment: right,
+  from-address: [
+    Sender's Address
+  ],
 
   // Recipient's contact information (name and address)
   to-name: "Receiver's Name",
-  to-address: [Receiver's Address],
+  to-address: [
+    Receiver's Address
+  ],
+
+  // letterhead: (
+  //   file: read("images/letterhead.png", encoding: none),
+  //   // width: 60%,
+  //   // margin: (top: 5mm, bottom: 3mm, rest: 8mm),
+  //   // alignment: center,
+  // ),
 
   // attn-name: "Receiver's Name",
   // attn-label: "Attn:",
@@ -38,8 +48,6 @@
     ),
   ),
 
-  // signature-alignment: left,
-
   // cc: none,
   // cc-label: "cc:",
   // enclosures: none,
@@ -59,7 +67,10 @@
   // footnote-font: "Libertinus Serif",
   // footnote-font-size: 7pt,
 
+  // from-alignment: right,
+  // date-alignment: right,
   // footnote-alignment: left,
+  // signature-alignment: left,
   // link-color: blue,
 )
 

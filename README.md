@@ -1,14 +1,15 @@
 # The `letterloom` Package
 <!-- markdownlint-disable MD033 -->
-<div align="center">Version 2.0.0</div>
+<div align="center">Version 2.1.0</div>
 
 The `letterloom` package is a user-friendly and customizable template designed to streamline the creation of professional-looking letters. Whether for personal or business correspondence, it eliminates the challenges of traditional typesetting tools like LaTeX while delivering polished and elegant results.
 
 Key Features:
 
 * **Multiple Signatures:** Effortlessly include one or more signatures for joint communications or approvals.
-* **Customizable Footnotes:** Add informative footnotes with flexible formatting options.
+* **Letterhead:** Place a branded letterhead image flush with the page edges on the first page.
 * **Enclosures:** Clearly list and optionally attach additional documents included with the letter.
+* **Customizable Footnotes:** Add informative footnotes with flexible formatting options.
 * **Internationalization Support:** Customize labels and text for different languages and regions.
 
 Benefits:
@@ -26,27 +27,29 @@ Typst 0.14.0 or higher is required to use this package.
 
 ## Usage
 
-The `letterloom` package offers extensive customization options, enabling you to tailor your letters to suit various needs and preferences.
-
 Here is a simple example showing the essential arguments needed to use the `letterloom` package:
 
 ```typ
-#import "@preview/letterloom:2.0.0": *
+#import "@preview/letterloom:2.1.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
   from-name: "The Dimbleby Family",
-  from-address: [The Dimbleby Estate \
-                 Cheswick Village \
-                 Middle Upton \
-                 Bristol BS16 1GU],
+  from-address: [
+    The Dimbleby Estate \
+    Cheswick Village \
+    Middle Upton \
+    Bristol BS16 1GU
+  ],
 
   // Recipient's contact information (name and address)
   to-name: "Evergreen Tree Surgeons",
-  to-address: [Midtown Lane \
-               Cheswick Village \
-               Stoke Gifford \
-               Bristol BS16 1GU],
+  to-address: [
+    Midtown Lane \
+    Cheswick Village \
+    Stoke Gifford \
+    Bristol BS16 1GU
+  ],
 
   // Letter date (automatically set to today's date)
   date: datetime.today().display("[day padding:zero] [month repr:long] [year repr:full]"),
@@ -98,12 +101,12 @@ Thank you kindly.
 To create a new letter project run the following command in your terminal:
 
 ```bash
-typst init @preview/letterloom:2.0.0
+typst init @preview/letterloom:2.1.0
 ```
 
 This will generate a ready-to-use letter project in your current directory.
 
-Alternatively, you may create a new project directly in the [Typst webapp](https://typst.app/app?template=letterloom&version=2.0.0).
+Alternatively, you may create a new project directly in the [Typst webapp](https://typst.app/app?template=letterloom&version=2.1.0).
 
 For a detailed overview of all options and features, consult the package's [official manual](docs/manual.pdf), which provides comprehensive usage instructions and a more elaborate example.
 
@@ -184,7 +187,7 @@ just install-preview
 Once installed, import it into your Typst file using:
 
 ```typ
-#import "@preview/letterloom:2.0.0": *
+#import "@preview/letterloom:2.1.0": *
 ```
 
 This allows experimentation with the package before finalizing updates.
@@ -200,7 +203,7 @@ Follow these steps to release a new version of the package:
 1. **Update CHANGELOG:**
 
    * Document added features, modifications, and optionally include a migration guide for the new version in `CHANGELOG.md`.
-   * Use the guidelines given at [Keep a Changelog](https://keepachangelog.com/en/2.0.0/).
+   * Use the guidelines given at [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 1. **Commit Changes:**
 
