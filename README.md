@@ -94,8 +94,7 @@ Thank you kindly.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./thumbnail-dark.svg">
-  <img src="./thumbnail-light.svg" alt ="A fully rendered letterloom letter with all required fields">
-">
+  <img src="./thumbnail-light.svg" alt="A fully rendered letterloom letter with all required fields">
 </picture>
 
 To create a new letter project run the following command in your terminal:

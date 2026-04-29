@@ -1113,8 +1113,8 @@ Thank you kindly.
       margin: 20mm,
     ),
     (
-      description: "Provenance of the Oak trees on the Dimbleby Estate.",
-      file: read("enclosures/oak-tree-provenance.pdf", encoding: none),
+      description: "Heritage Oak Provenance Statement.",
+      file: read("enclosures/heritage-oak-provenance-statement.pdf", encoding: none),
       pages: 3,
     ),
   ),

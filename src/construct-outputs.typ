@@ -16,7 +16,7 @@
 ///   - margin (length or dictionary, optional): Inset from each page edge.
 ///     Accepts shorthand keys: top, bottom, left, right, x, y, rest.
 ///   - alignment (alignment, optional): One of left, center, or right.
-///     Defaults to left.
+///     Defaults to center.
 /// -> content
 #let construct-letterhead(letterhead: none) = {
   if letterhead != none {

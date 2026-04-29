@@ -98,7 +98,7 @@
     footer: footer,
     footer-font: footer-font,
     footer-font-size: footer-font-size,
-    link-color: link-color
+    link-color: link-color,
   )
 
   // Construct the page numbering (optional)
@@ -114,7 +114,7 @@
   // Set the text settings
   set text(
     font: main-font,
-    size: main-font-size
+    size: main-font-size,
   )
 
   // Set the paragraph spacing
