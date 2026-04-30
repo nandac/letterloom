@@ -130,7 +130,7 @@ I confirm that the information contained in this statement has been compiled fro
   [*Qualifications:*], [MA History of the Landscape (Upton Vale); Diploma in Woodland Provenance Studies (BWHA); Fellow of the Society of Woodland Provenance Consultants],
   [*For:*], [The Dimbleby Estate],
   [*Date:*], [14 March 2026],
-  [*Signature:*], [#align(left, image("sebastian-oakley-sig.png", width: 30%))],
+  [*Signature:*], [#align(left, image("sebastian-oakley-sig.svg", width: 30%))],
 )
 
 == References

@@ -1,4 +1,4 @@
-#import "@preview/letterloom:2.1.0": *
+#import "@preview/letterloom:3.0.0": *
 
 #set page(height: auto, margin: 5mm)
 
@@ -42,15 +42,15 @@
   signatures: (
     (
       name: "Lord Albus Dimbleby",
-      signature: image("images/albus-sig.png"),
+      signature: image("images/albus-sig.png", width: 40mm),
     ),
     (
       name: "Lady Abigail Dimbleby",
-      signature: image("images/abigail-sig.png"),
+      signature: image("images/abigail-sig.png", width: 40mm),
     ),
     (
       name: "Sir Austin Dimbleby",
-      signature: image("images/austin-sig.png"),
+      signature: image("images/austin-sig.png", width: 40mm),
     ),
   ),
 )

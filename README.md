@@ -1,6 +1,6 @@
 # The `letterloom` Package
 <!-- markdownlint-disable MD033 -->
-<div align="center">Version 2.1.0</div>
+<div align="center">Version 3.0.0</div>
 
 The `letterloom` package is a user-friendly and customizable template designed to streamline the creation of professional-looking letters. Whether for personal or business correspondence, it eliminates the challenges of traditional typesetting tools like LaTeX while delivering polished and elegant results.
 
@@ -30,7 +30,7 @@ Typst 0.14.0 or higher is required to use this package.
 Here is a simple example showing the essential arguments needed to use the `letterloom` package:
 
 ```typ
-#import "@preview/letterloom:2.1.0": *
+#import "@preview/letterloom:3.0.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
@@ -63,7 +63,7 @@ Here is a simple example showing the essential arguments needed to use the `lett
   // Closing phrase
   closing: "Sincerely yours,",
 
-  // List of signatures with their name, optional signature image, title and affiliation
+  // List of signatures with their name, optional signature image and affiliation
   signatures: (
     (
       name: "Lord Albus Dimbleby",
@@ -100,12 +100,12 @@ Thank you kindly.
 To create a new letter project run the following command in your terminal:
 
 ```bash
-typst init @preview/letterloom:2.1.0
+typst init @preview/letterloom:3.0.0
 ```
 
 This will generate a ready-to-use letter project in your current directory.
 
-Alternatively, you may create a new project directly in the [Typst webapp](https://typst.app/app?template=letterloom&version=2.1.0).
+Alternatively, you may create a new project directly in the [Typst webapp](https://typst.app/app?template=letterloom&version=3.0.0).
 
 For a detailed overview of all options and features, consult the package's [official manual](docs/manual.pdf), which provides comprehensive usage instructions and a more elaborate example.
 
@@ -186,7 +186,7 @@ just install-preview
 Once installed, import it into your Typst file using:
 
 ```typ
-#import "@preview/letterloom:2.1.0": *
+#import "@preview/letterloom:3.0.0": *
 ```
 
 This allows experimentation with the package before finalizing updates.

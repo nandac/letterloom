@@ -68,7 +68,7 @@
   for signature in signatures {
     // Validate signature is a dictionary
     if type(signature) != dictionary {
-      panic("signature '" + str(signature) + "' must be a dictionary with a required name field and optional signature, title, and affiliation fields.")
+      panic("signature '" + str(signature) + "' must be a dictionary with a required name field and optional signature and affiliation fields.")
     }
 
     // Validate presence of name field

@@ -87,7 +87,7 @@
     closing: "Sincerely yours,",
     signatures: ("Lord Albus Dimbleby", "Lady Abigail Dimbleby", "Sir Austin Dimbleby"),
   )),
-  "panicked with: \"signature 'Lord Albus Dimbleby' must be a dictionary with a required name field and optional signature, title, and affiliation fields.\"",
+  "panicked with: \"signature 'Lord Albus Dimbleby' must be a dictionary with a required name field and optional signature and affiliation fields.\"",
 )
 
 #assert.eq(

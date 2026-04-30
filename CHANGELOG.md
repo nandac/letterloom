@@ -8,6 +8,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-04-30
+
+### Breaking Changes
+
+- The `title` field in signature dictionaries has been removed. Merge any title or role text into the `affiliation` field, which now accepts any free-form content including multi-line blocks.
+
+  Before
+
+  ```typ
+  signatures: (
+    (
+      name: "Lord Albus Dimbleby",
+      title: "Earl of Cheswick",
+      affiliation: "Chairman of the Dimbleby Family Charitable Trust",
+    ),
+  )
+  ```
+
+  After
+
+  ```typ
+  signatures: (
+    (
+      name: "Lord Albus Dimbleby",
+      affiliation: [
+        Earl of Cheswick \
+        Chairman of the Dimbleby Family Charitable Trust
+      ],
+    ),
+  )
+  ```
+
+### Changed
+
+- Multiple signatures are now laid out using a greedy bin-packing algorithm. Signatures are packed left-to-right into rows of up to three; a signature that would overflow the available width starts a new row automatically.
+- All typographic spacing values (signature row gap, name-to-affiliation gap, cc and enclosure list indentation) are now expressed in `em` units so they scale correctly when `main-font-size` is changed.
+
 ## [2.1.0] - 2026-04-30
 
 ### Added
@@ -229,7 +266,8 @@ to the corresponding tag on GitHub, or the diff
 in comparison to the previous release
 -->
 
-[Unreleased]: https://github.com/nandac/letterloom/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/nandac/letterloom/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/nandac/letterloom/compare/v2.1.0...v3.0.0
 [2.1.0]: https://github.com/nandac/letterloom/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/nandac/letterloom/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/nandac/letterloom/compare/v0.1.0...v1.0.0

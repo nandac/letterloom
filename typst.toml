@@ -2,7 +2,7 @@
 
 [package]
 name = "letterloom"
-version = "2.1.0"
+version = "3.0.0"
 entrypoint = "src/lib.typ"
 authors = ["nandac"]
 license = "Unlicense"
@@ -15,11 +15,7 @@ disciplines = ["business", "communication"]
 compiler = "0.14.0"
 exclude = [
   ".github",
-  "docs/enclosures",
-  "docs/highlight-type.typ",
-  "docs/images",
-  "docs/manual.typ",
-  "docs/thumbnail.typ",
+  "docs/",
   "scripts",
   "tests",
   ".typstignore",
