@@ -1,6 +1,6 @@
 /// letterloom Template
 /// For more information, see the letterloom documentation and manual.
-#import "@preview/letterloom:2.1.0": *
+#import "@preview/letterloom:3.0.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
@@ -38,13 +38,13 @@
   // Closing phrase
   closing: "Yours sincerely,",
 
-  // List of signatures with their name, optional signature image, title and affiliation
+  // List of signatures with their name, optional signature image and affiliation
   signatures: (
     (
       name: "Sender's Name",
-      // title: "Title",
-      // affiliation: "Affiliation",
       // signature: image("sender-sig.png")
+      // affiliation: "Affiliation",
+
     ),
   ),
 

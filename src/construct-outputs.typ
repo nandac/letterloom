@@ -175,7 +175,7 @@
         align(date-alignment, block(width: from-width)[
           // Mirror the same inner alignment rule used in construct-sender
           #set align(if date-alignment == center { center } else { left })
-          #v(2pt) // Small visual gap between block top and date text
+          #v(0.2em) // Small visual gap between block top and date text
           #date
         ])
       }
@@ -183,7 +183,7 @@
       // Alignments differ — no width matching needed, just place the date block
       align(date-alignment, block[
         #set align(if date-alignment == center { center } else { left })
-        #v(2pt)
+        #v(0.2em)
         #date
       ])
     }
@@ -210,7 +210,7 @@
 
   if to-name != none or to-address != none or attn != none {
     block[
-      #v(5pt) // Visual gap above the recipient block
+      #v(0.5em) // Visual gap above the recipient block; em-based so it scales with main-font-size
       #set align(left) // Recipient address always left-aligned regardless of page layout
       // "above" position: attention line precedes the name and address
       #if attn-position == "above" and attn != none {
@@ -241,10 +241,10 @@
 /// -> content
 #let construct-salutation(salutation: none) = {
   if salutation != none {
-    v(5pt) // Gap above the salutation to visually separate it from the subject line
+    v(0.5em) // Gap above the salutation to visually separate it from the subject line; em-based
     text(salutation)
     linebreak()
-    v(5pt) // Gap below the salutation before the letter body begins
+    v(0.5em) // Gap below the salutation before the letter body begins; em-based
   }
 }
 
@@ -264,92 +264,152 @@
 /// -> content
 #let construct-closing(closing: none) = {
   if closing != none {
-    v(5pt) // Gap above the closing phrase to separate it from the letter body
+    v(0.5em) // Gap above the closing phrase to separate it from the letter body; em-based
     text(closing)
   }
 }
 
 /// Constructs a signature grid layout for one or more signatories.
 ///
-/// Signatures are arranged in rows of up to three columns. When more than one
-/// signature is provided, `signature-alignment` is ignored and all signatures
-/// are left-aligned. A blank placeholder is inserted into any unused grid cell
-/// so that column widths remain consistent across rows.
+/// Signatures are packed into rows of up to three columns using a greedy
+/// algorithm. For each signature the width of its widest line (name, title, or
+/// affiliation) is measured at layout time. Signatures are added to the current
+/// row as long as the total row width — the sum of measured widths plus one
+/// gutter between each adjacent pair — does not exceed the available content
+/// width and the row has fewer than three signatures. When a signature does not
+/// fit, a new row is started. `signature-alignment` applies only to rows that
+/// contain a single signature; rows with multiple signatures are left-aligned.
 ///
 /// Each signature dictionary must contain:
 /// - `name` (str or content, required): The signatory's display name.
-/// - `title` (str or content, optional): The signatory's title or role.
-/// - `affiliation` (str or content, optional): The signatory's affiliation.
+/// - `affiliation` (str or content, optional): Any text to display below the
+///   name — title, role, organization, or a combination.
 /// - `signature` (content, optional): Signature image, typically an `image`.
 ///   When omitted, a blank space of fixed height is reserved for a
 ///   physical signature.
 ///
 /// - signatures (array): One or more signature dictionaries. A single
 ///   dictionary is accepted and normalized to a one-element array internally.
-/// - signature-alignment (alignment): Horizontal alignment of each signature
-///   block. Applies only when a single signature is given.
+/// - signature-alignment (alignment): Horizontal alignment applied only when
+///   a row contains exactly one signature.
 /// -> content
 #let construct-signatures(signatures: none, signature-alignment: left) = {
-  // Maximum signatures per row; rows beyond the first reuse the same column count
-  let sigs-per-row = 3
-
-  // none is used as the blank-space filler; grid treats none as an empty cell,
-  // keeping column widths consistent when the last row is not full
-  let blank-space = none
+  let col-gutter = 40pt
 
   // Normalize a single dictionary to a one-element array
   if type(signatures) != array {
     signatures = (signatures,)
   }
 
-  // Cap columns at the actual count to avoid empty columns when fewer
-  // than 3 signatures are present
-  if signatures.len() < 3 {
-    sigs-per-row = signatures.len()
-  }
+  // context{} gives access to page.margin; layout() resolves page.width to a
+  // plain length so arithmetic with margin values never produces a relative type
+  context {
+    let m = page.margin
+    // page.margin is auto when not set; Typst computes it as 2.5/21 of the
+    // shorter page dimension (2.5 cm for A4, ~2.57 cm for US letter)
+    let default-m = 2.5 / 21 * calc.min(page.width, page.height)
+    let left-m = if m == auto { default-m } else if type(m) == dictionary { m.left } else { m }
+    let right-m = if m == auto { default-m } else if type(m) == dictionary { m.right } else { m }
 
-  // Multiple signatories are always left-aligned so columns line up cleanly;
-  // signature-alignment only applies when there is exactly one signature
-  if signatures.len() > 1 {
-    signature-alignment = left
-  }
+    layout(_ => {
+      // Total width available for signature columns including gutters
+      let available = page.width - left-m - right-m
 
-  // Outer grid: one row per chunk of sigs-per-row signatures
-  grid(
-    columns: 1,
-    rows: auto,
-    row-gutter: 10pt,
-    align: left,
-    // Split signatures into chunks and build an inner grid for each chunk
-    ..signatures.chunks(sigs-per-row).map(sigs => {
-      // Inner grid has two rows: row 0 = images, row 1 = names/title/affiliation
+      // Measure each signature's natural width as the widest of its text lines.
+      // [#item] wraps both str and content uniformly for measure().
+      let sig-widths = signatures.map(sig => {
+        let items = (sig.name,)
+        let affiliation = sig.at("affiliation", default: none)
+        if affiliation != none { items.push(affiliation) }
+        items.map(item => measure([#item]).width).fold(0pt, calc.max)
+      })
+
+      // Also measure the actual signature image widths to ensure they fit
+      let img-widths = signatures.map(sig => {
+        let sig-content = sig.at("signature", default: rect(height: 40pt, stroke: none))
+        measure(sig-content).width
+      })
+
+      // Column widths during bin-packing use the max of text and image width
+      // This ensures the bin-packing doesn't pack more than will actually fit
+      let col-actual-widths = sig-widths.zip(img-widths).map(((tw, iw)) => calc.max(tw, iw))
+
+      // Greedy bin-packing: add each signature to the current row when
+      // row-width + gutter + new-width <= available and row has < 3 sigs;
+      // otherwise flush the current row and start a new one.
+      // A signature wider than the full available width still gets its own row.
+      let rows = ()
+      let current-row = ()
+      let current-width = 0pt
+
+      for (sig, w) in signatures.zip(col-actual-widths) {
+        if current-row.len() == 0 {
+          // Always place the first signature of a new row unconditionally
+          current-row.push(sig)
+          current-width = w
+        } else if current-row.len() < 3 and current-width + col-gutter + w <= available * 1.05 {
+          // Fits: add to current row; row total grows by gutter + new width.
+          // The 5% tolerance on available accounts for leading whitespace in
+          // content blocks that measure() includes, slightly inflating widths.
+          current-row.push(sig)
+          current-width = current-width + col-gutter + w
+        } else {
+          // Does not fit: flush current row and start a new one
+          rows.push(current-row)
+          current-row = (sig,)
+          current-width = w
+        }
+      }
+      // Flush the final row
+      if current-row.len() > 0 { rows.push(current-row) }
+
+      // Outer grid: one entry per packed row
       grid(
-        columns: (1fr,) * sigs-per-row,
-        align: signature-alignment,
-        rows: 2,
-        row-gutter: 10pt,
-        column-gutter: 40pt,
-        // Row 0: signature image, or a blank rect placeholder for a hand-written signature
-        ..sigs.map(signatory =>
-          signatory.at("signature", default: rect(height: 40pt, stroke: none))
-        ) + (blank-space,) * (sigs-per-row - sigs.len()),
-        // Row 1: name, and optionally title + affiliation stacked below it
-        ..sigs.map(signatory => {
-          let title = signatory.at("title", default: none)
-          let affiliation = signatory.at("affiliation", default: none)
-          if title != none or affiliation != none {
-            // Build a vertical stack: name → title → affiliation, skipping absent fields
-            let items = (signatory.name,)
-            if title != none { items.push(title) }
-            if affiliation != none { items.push(affiliation) }
-            stack(spacing: 10pt, ..items)
-          } else {
-            signatory.name
-          }
-        }) + (blank-space,) * (sigs-per-row - sigs.len()),
+        columns: 1,
+        rows: auto,
+        row-gutter: 1em,
+        align: left,
+        ..rows.map(row => {
+          let n = row.len()
+
+          // Get the column widths for this row (already measured to be max of text + image)
+          let row-col-widths = row.map(sig => {
+            let idx = signatures.position(s => s.name == sig.name)
+            col-actual-widths.at(idx)
+          })
+
+          // Measure image heights using their natural, unconstrained size
+          let max-img-height = row.map(sig => {
+            let sig-content = sig.at("signature", default: rect(height: 40pt, stroke: none))
+            measure(sig-content).height
+          }).fold(0pt, calc.max)
+
+          grid(
+            columns: row-col-widths,
+            // top + left prevents shorter cells from being vertically centred,
+            // which would leave apparent space where a missing field would be
+            align: if n == 1 { signature-alignment + top } else { top + left },
+            column-gutter: col-gutter,
+            ..row.map(signatory => {
+              let affiliation = signatory.at("affiliation", default: none)
+              // Build the text items: name always present, affiliation only
+              // when non-empty so no blank line is left for absent fields
+              let text-items = (signatory.name,)
+              if affiliation not in (none, "", []) { text-items.push(affiliation) }
+              // Image box uses 100% to fill the column, which is now guaranteed
+              // to be at least as wide as the signature's natural width, preventing
+              // squeezing while allowing text to display without wrapping
+              stack(
+                spacing: 1em,
+                box(width: 100%, height: max-img-height, signatory.at("signature", default: rect(height: 40pt, stroke: none))),
+                stack(spacing: 1em, ..text-items),
+              )
+            }),
+          )
+        })
       )
     })
-  )
+  }
 }
 
 /// Constructs a labelled list of carbon copy recipients.
@@ -366,9 +426,9 @@
 #let construct-cc(cc: none, cc-label: "cc:") = {
   if cc != none {
     // Hoist the indent setting so it applies to all enum items emitted in this block
-    set enum(indent: 15pt)
+    set enum(indent: 1.4em)
 
-    v(5pt) // Gap above the cc section
+    v(0.5em) // Gap above the cc section; em-based so it scales with main-font-size
 
     // Display the label
     cc-label
@@ -381,7 +441,7 @@
     if cc.len() == 1 {
       // Single recipient: use a list with an empty marker to get the indent
       // without a bullet point or number
-      set list(indent: 15pt, marker: "")
+      set list(indent: 1.4em, marker: "")
       list.item(text(cc.first()))
     } else {
       // Multiple recipients: numbered enumerated list
@@ -419,9 +479,9 @@
 #let construct-enclosures(enclosures: none, enclosures-label: "encl:") = {
   if enclosures != none {
     // Hoist the indent setting so it applies to all enum items emitted in this block
-    set enum(indent: 15pt)
+    set enum(indent: 1.4em)
 
-    v(5pt) // Gap above the enclosures section
+    v(0.5em) // Gap above the enclosures section; em-based so it scales with main-font-size
 
     // Display the label
     enclosures-label
@@ -433,7 +493,7 @@
 
     // Single enclosure: undecorated list item; multiple: enumerated list
     if enclosures.len() == 1 {
-      set list(indent: 15pt, marker: "")
+      set list(indent: 1.4em, marker: "")
       list.item(text(enclosures.first().description))
     } else {
       for enclosure in enclosures {

@@ -1,4 +1,4 @@
-#import "@preview/letterloom:2.1.0": *
+#import "@preview/letterloom:3.0.0": *
 #import "highlight-type.typ": highlight-type
 
 // Global Styles
@@ -37,7 +37,7 @@
 
 // End of setup
 
-= `letterloom v2.1.0`
+= `letterloom v3.0.0`
 
 == Introduction
 
@@ -78,7 +78,7 @@ Each parameter is documented below with its type, default value, and examples.
 Here is a simple example showing the essential arguments needed to use the `letterloom` package:
 
 ```typ
-#import "@preview/letterloom:2.1.0": *
+#import "@preview/letterloom:3.0.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
@@ -105,7 +105,7 @@ Here is a simple example showing the essential arguments needed to use the `lett
   // Closing phrase
   closing: "Yours sincerely,",
 
-  // List of signatures with their name, optional signature image, title and affiliation
+  // List of signatures with their name, optional signature image and affiliation
   signatures: (
     (
       name: "Sender's Name",
@@ -121,12 +121,12 @@ Here is a simple example showing the essential arguments needed to use the `lett
 To create a new letter project run the following command in your terminal:
 
 ```bash
-typst init @preview/letterloom:2.1.0
+typst init @preview/letterloom:3.0.0
 ```
 
 This will generate a ready-to-use letter project in your current directory.
 
-Alternatively, you may create a new project directly in the #link("https://typst.app/app?template=letterloom&version=2.1.0")[Typst webapp].
+Alternatively, you may create a new project directly in the #link("https://typst.app/app?template=letterloom&version=3.0.0")[Typst webapp].
 
 === Required Parameters
 
@@ -296,9 +296,13 @@ Specifies a list of signatures as an array of dictionaries, where each dictionar
   stroke: none,
   inset: 3pt,
   [`name`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)], [The signatory's name.],
-  [`title`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_], [The signatory's title.],
-  [`affiliation`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_], [The signatory's affiliation.],
-  [`signature`], [#highlight-type.content #h(5pt) _optional_], [#link("https://typst.app/docs/reference/visualize/image/")[Typst image function] specifying the location of the signature image. If omitted, a blank space is reserved for a physical signature.],
+  [`affiliation`],
+  [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_],
+  [The signatory's title, role, and affiliation as free-form content. Use `\` to place each item on its own line.],
+
+  [`signature`],
+  [#highlight-type.content #h(5pt) _optional_],
+  [#link("https://typst.app/docs/reference/visualize/image/")[Typst image function] specifying the location of the signature image. If omitted, a blank space is reserved for a physical signature.],
 )
 
 #text(size: 10pt)[*Examples:*]
@@ -311,14 +315,14 @@ signatures: (
   )
 )
 
-// Single signature with title and affiliation
+// Single signature with affiliation
 signatures: (
   (
     name: "Sir Austin Dimbleby",
-    title: "Knight Commander of the Order of the British Empire",
     affiliation: [
+      Knight Commander of the Order of the British Empire \
       Senior Advisor, International Relations \
-      Chairman, Global Trade Council \
+      Chairman, Global Trade Council
     ],
   ),
 )
@@ -342,6 +346,8 @@ signatures: (
 
 *Note:* If only one signature is given, the `signature-alignment` parameter may be used to align the signature to the left, right, or center of the page. This parameter is ignored if multiple signatures are specified.
 
+When multiple signatures are provided, they are arranged automatically in rows of up to three, filling left-to-right. A signature that would overflow the available page width is placed on a new row. Name baselines are aligned horizontally within each row regardless of whether a signature image or affiliation is present.
+
 === Field Configuration <field-configuration>
 
 The `required-fields` parameter controls which core fields are rendered in the letter. Excluding a field from the list suppresses it entirely — no blank space is left in its place — making it straightforward to produce letters that omit elements such as a subject line or closing phrase.
@@ -364,7 +370,9 @@ The valid field names are:
 - `"closing"`
 - `"signatures"`
 
-#text(size: 10pt)[*Default:* `("from-name", "from-address", "to-name", "to-address", "date", "salutation", "subject", "closing", "signatures")`]
+#text(
+  size: 10pt,
+)[*Default:* `("from-name", "from-address", "to-name", "to-address", "date", "salutation", "subject", "closing", "signatures")`]
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -400,10 +408,22 @@ Places a letterhead image flush with the physical page edges. The letterhead is 
   rows: 5,
   stroke: none,
   inset: 3pt,
-  [`file`], [#highlight-type.bytes], [#link("https://typst.app/docs/reference/data-loading/read/")[Typst read function] specifying the path to the file and encoding.],
-  [`width`], [#highlight-type.length #h(5pt) or #h(5pt) #highlight-type.ratio #h(5pt) or #h(5pt) #highlight-type.relative #h(5pt) _optional_], [Width of the image. Defaults to the full available width.],
-  [`height`], [#highlight-type.length #h(5pt) _optional_], [Height of the image. When omitted, height scales proportionally from the width.],
-  [`margin`], [#highlight-type.length #h(5pt) or #h(5pt) #highlight-type.dictionary #h(5pt) _optional_], [Inset applied between the physical page edge and the image. Defaults to `0mm` on all sides.],
+  [`file`],
+  [#highlight-type.bytes],
+  [#link("https://typst.app/docs/reference/data-loading/read/")[Typst read function] specifying the path to the file and encoding.],
+
+  [`width`],
+  [#highlight-type.length #h(5pt) or #h(5pt) #highlight-type.ratio #h(5pt) or #h(5pt) #highlight-type.relative #h(5pt) _optional_],
+  [Width of the image. Defaults to the full available width.],
+
+  [`height`],
+  [#highlight-type.length #h(5pt) _optional_],
+  [Height of the image. When omitted, height scales proportionally from the width.],
+
+  [`margin`],
+  [#highlight-type.length #h(5pt) or #h(5pt) #highlight-type.dictionary #h(5pt) _optional_],
+  [Inset applied between the physical page edge and the image. Defaults to `0mm` on all sides.],
+
   [`alignment`], [#highlight-type.alignment #h(5pt) _optional_], [Horizontal alignment. Defaults to `center`.],
 )
 
@@ -539,10 +559,21 @@ An array of enclosure dictionaries, listed after the letter closing. When a file
   rows: 4,
   stroke: none,
   inset: 3pt,
-  [`description`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content], [Label shown in the enclosures list.],
-  [`file`], [#highlight-type.bytes #h(5pt) _optional_], [#link("https://typst.app/docs/reference/data-loading/read/")[Typst read function] specifying the path to the file and encoding. When omitted, only the description is rendered.],
-  [`pages`], [#highlight-type.int #h(5pt) _optional_], [Number of pages to render starting from page 1. Defaults to `1` which will only render the first page.],
-  [`margin`], [#highlight-type.length #h(5pt) or #h(5pt) #highlight-type.dictionary #h(5pt) _optional_], [Page margin for the embedded file. Defaults to `0mm` on all sides when omitted.],
+  [`description`],
+  [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content],
+  [Label shown in the enclosures list.],
+
+  [`file`],
+  [#highlight-type.bytes #h(5pt) _optional_],
+  [#link("https://typst.app/docs/reference/data-loading/read/")[Typst read function] specifying the path to the file and encoding. When omitted, only the description is rendered.],
+
+  [`pages`],
+  [#highlight-type.int #h(5pt) _optional_],
+  [Number of pages to render starting from page 1. Defaults to `1` which will only render the first page.],
+
+  [`margin`],
+  [#highlight-type.length #h(5pt) or #h(5pt) #highlight-type.dictionary #h(5pt) _optional_],
+  [Page margin for the embedded file. Defaults to `0mm` on all sides when omitted.],
 )
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
@@ -607,7 +638,9 @@ An array of footer elements — URLs, email addresses, or plain text.
   stroke: none,
   inset: 3pt,
   [`footer-text`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)], [The footer text.],
-  [`footer-type`], [#highlight-type.str #h(5pt) _optional_], [The type of footer element: `"url"`, `"email"` or `"string"`. When set to `"url"` or `"email"`, the text is rendered as a clickable hyperlink. When omitted or set to `"string"`, the text is rendered as plain text.],
+  [`footer-type`],
+  [#highlight-type.str #h(5pt) _optional_],
+  [The type of footer element: `"url"`, `"email"` or `"string"`. When set to `"url"` or `"email"`, the text is rendered as a clickable hyperlink. When omitted or set to `"string"`, the text is rendered as plain text.],
 )
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
@@ -911,7 +944,7 @@ Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typs
 The following example illustrates several key features of the `letterloom` package and explains how they can be applied in practice.
 
 ```typ
-#import "@preview/letterloom:2.1.0": *
+#import "@preview/letterloom:3.0.0": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
@@ -947,19 +980,19 @@ The following example illustrates several key features of the `letterloom` packa
   // Closing phrase
   closing: "Sincerely yours,",
 
-  // List of signatures with their name, optional signature image, title and affiliation
+  // List of signatures with their name, optional signature image and affiliation
   signatures: (
     (
       name: "Lord Albus Dimbleby",
-      signature: image("images/albus-sig.png"),
+      signature: image("images/albus-sig.png", width: 50mm),
     ),
     (
       name: "Lady Abigail Dimbleby",
-      signature: image("images/abigail-sig.png"),
+      signature: image("images/abigail-sig.png", width: 50mm),
     ),
     (
       name: "Sir Austin Dimbleby",
-      signature: image("images/austin-sig.png"),
+      signature: image("images/austin-sig.png", width: 50mm),
     ),
   ),
 
@@ -1080,19 +1113,19 @@ Thank you kindly.
   // Closing phrase
   closing: "Sincerely yours,",
 
-  // List of signatures with their name, optional signature image, title and affiliation
+  // List of signatures with their name, optional signature image and affiliation
   signatures: (
     (
       name: "Lord Albus Dimbleby",
-      signature: image("images/albus-sig.png"),
+      signature: image("images/albus-sig.png", width: 50mm),
     ),
     (
       name: "Lady Abigail Dimbleby",
-      signature: image("images/abigail-sig.png"),
+      signature: image("images/abigail-sig.png", width: 50mm),
     ),
     (
       name: "Sir Austin Dimbleby",
-      signature: image("images/austin-sig.png"),
+      signature: image("images/austin-sig.png", width: 50mm),
     ),
   ),
 
