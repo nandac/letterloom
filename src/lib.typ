@@ -136,9 +136,32 @@
     it
   }
 
-  construct-letterhead(letterhead: letterhead)
-  construct-sender(from-name: from-name, from-address: from-address, from-alignment: from-alignment)
-  construct-date(date: date, date-alignment: date-alignment, from-alignment: from-alignment, from-name: from-name, from-address: from-address)
+  let lh-sender-pos = if letterhead != none { letterhead.at("sender-position", default: none) } else { none }
+  if lh-sender-pos != none {
+    // Resolve the effective alignment for the sender column:
+    //   left   → force left  (default right would push text to the column's right edge,
+    //                          right next to the logo)
+    //   center → force center (address sits centered below the logo)
+    //   right  → respect from-alignment as given (default right places text flush with
+    //            the right content margin, matching the Cambridge-style layout)
+    let effective-alignment = if lh-sender-pos == left { left }
+                              else if lh-sender-pos == center { center }
+                              else { from-alignment }
+    let sender-c = construct-sender(from-name: from-name, from-address: from-address, from-alignment: effective-alignment)
+    construct-letterhead(letterhead: letterhead, sender-content: sender-c)
+  } else {
+    construct-letterhead(letterhead: letterhead)
+    construct-sender(from-name: from-name, from-address: from-address, from-alignment: from-alignment)
+  }
+  // When sender-position is set the sender is placed absolutely in the letterhead
+  // zone, not in the normal flow. Pass none for from-name/from-address so
+  // construct-date skips the sender-width-matching logic and aligns independently.
+  let (date-from-name, date-from-address) = if lh-sender-pos == center {
+    (none, none)
+  } else {
+    (from-name, from-address)
+  }
+  construct-date(date: date, date-alignment: date-alignment, from-alignment: from-alignment, from-name: date-from-name, from-address: date-from-address)
   construct-recipient(to-name: to-name, to-address: to-address, attn-name: attn-name, attn-label: attn-label, attn-position: attn-position)
   construct-salutation(salutation: salutation)
   construct-subject(subject: subject)

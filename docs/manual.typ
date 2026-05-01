@@ -348,48 +348,9 @@ signatures: (
 
 When multiple signatures are provided, they are arranged automatically in rows of up to three, filling left-to-right. A signature that would overflow the available page width is placed on a new row. Name baselines are aligned horizontally within each row regardless of whether a signature image or affiliation is present.
 
-=== Field Configuration <field-configuration>
+=== Field Configuration
 
-The `required-fields` parameter controls which core fields are rendered in the letter. Excluding a field from the list suppresses it entirely — no blank space is left in its place — making it straightforward to produce letters that omit elements such as a subject line or closing phrase.
-
-#v(5pt)
-
-*`required-fields`* #h(15pt) #highlight-type.array
-
-Controls which core fields are rendered in the letter.
-
-The valid field names are:
-
-- `"from-name"`
-- `"from-address"`
-- `"to-name"`
-- `"to-address"`
-- `"date"`
-- `"salutation"`
-- `"subject"`
-- `"closing"`
-- `"signatures"`
-
-#text(
-  size: 10pt,
-)[*Default:* `("from-name", "from-address", "to-name", "to-address", "date", "salutation", "subject", "closing", "signatures")`]
-
-#text(size: 10pt)[*Examples:*]
-```typ
-// Omit the subject line and closing from the letter
-required-fields: (
-  "from-name", "from-address",
-  "to-name", "to-address",
-  "date", "salutation", "signatures",
-),
-
-// Minimal letter with no salutation, subject, or closing
-required-fields: (
-  "from-name", "from-address",
-  "to-name", "to-address",
-  "date", "signatures",
-),
-```
+All nine fields are required by default. The `required-fields` parameter lets you suppress any of them entirely. See the #link(label("field-configuration"))[Field Configuration] appendix for the full parameter reference and examples.
 
 === Optional Parameters
 
@@ -405,7 +366,7 @@ Places a letterhead image flush with the physical page edges. The letterhead is 
   columns: 3,
   column-gutter: 10pt,
   row-gutter: 5pt,
-  rows: 5,
+  rows: 7,
   stroke: none,
   inset: 3pt,
   [`file`],
@@ -424,7 +385,17 @@ Places a letterhead image flush with the physical page edges. The letterhead is 
   [#highlight-type.length #h(5pt) or #h(5pt) #highlight-type.dictionary #h(5pt) _optional_],
   [Inset applied between the physical page edge and the image. Defaults to `0mm` on all sides.],
 
-  [`alignment`], [#highlight-type.alignment #h(5pt) _optional_], [Horizontal alignment. Defaults to `center`.],
+  [`alignment`],
+  [#highlight-type.alignment #h(5pt) _optional_],
+  [Horizontal alignment of the image. Defaults to `center`. Ignored when `sender-position` is set.],
+
+  [`sender-position`],
+  [#highlight-type.alignment #h(5pt) _optional_],
+  [Places the sender address alongside (`left` or `right`) or centered below (`center`) the logo as part of the letterhead. Omit for the default stacked layout.],
+
+  [`gap`],
+  [#highlight-type.length #h(5pt) _optional_],
+  [Space between the sender address and the letter content below. Only applies when `sender-position: center`. Defaults to `par-spacing`.],
 )
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
@@ -466,6 +437,14 @@ letterhead: (
 - *Custom margins with asymmetric sides.* When using a dictionary for `margin` (e.g. `margin: (top: 5mm, rest: 8mm)`), the `rest` key sets the fallback for any sides not explicitly listed.
 
 - *Image format support.* PNG, JPEG, SVG, and GIF are supported. Passing a file in an unsupported format will result in a Typst compile error.
+
+- *`sender-position` takes precedence over `alignment`.* When `sender-position` is set, the image side is determined by the sender position and `alignment` is ignored.
+
+- *`sender-position: left` and `center` override `from-alignment`.* For `left`, the sender is always left-aligned within its column. For `center`, it is always centered. For `right`, `from-alignment` is respected as given.
+
+- *`gap` only applies to `sender-position: center`.* It has no effect for `left`, `right`, or the default stacked layout.
+
+For a complete layout guide with working examples for each `sender-position` variant, see the #link(label("letterhead-layouts"))[Letterhead Layout Guide] appendix.
 
 #v(5pt)
 
@@ -880,6 +859,8 @@ date-alignment: right // Right-aligned date (default)
 date-alignment: center // Center-aligned date
 ```
 
+*Note:* When `date-alignment` matches `from-alignment` and a sender is present in the normal flow, the date block is width-matched to the sender block so their edges align. This coupling does not apply when `letterhead.sender-position: center`, where the sender is part of the letterhead and the date aligns independently.
+
 *`from-alignment`* #h(15pt) #highlight-type.alignment
 
 Sets the alignment of the sender's name and address.
@@ -892,6 +873,8 @@ from-alignment: left // Left-aligned sender
 from-alignment: right // Right-aligned sender (default)
 from-alignment: center // Center-aligned sender
 ```
+
+*Note:* When `letterhead.sender-position` is `left` or `center`, this parameter is overridden automatically (`left` and `center` respectively). It is only respected as given when `sender-position: right` or when no `sender-position` is set.
 
 #v(5pt)
 
@@ -939,7 +922,322 @@ link-color: rgb(0, 100, 200) // Custom RGB color
 
 Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typst's documentation on colors] for additional details.
 
-== Comprehensive Letter Example
+== Appendix A: Letterhead Layout Guide <letterhead-layouts>
+
+The `letterhead` parameter supports four distinct layouts. Three are controlled by the `sender-position` key; the fourth is the default when `sender-position` is omitted.
+
+=== Default: Sender Below
+
+The full-width letterhead image is placed flush with the physical page edges. The sender address appears in the normal content flow beneath it. This is the default when `sender-position` is omitted.
+
+```typ
+letterhead: (
+  file: read("images/letterhead.png", encoding: none),
+  width: 60%,                      // optional — defaults to full page width
+  margin: (top: 5mm, rest: 8mm),   // optional inset from page edges
+  alignment: center,               // left, center (default), or right
+),
+from-alignment: right,             // controls where the sender block sits on the page
+```
+
+=== Sender Alongside: `right`
+
+The logo is placed flush to the left page edge. The sender address fills the remaining column to the right at the same vertical position.
+
+```typ
+letterhead: (
+  file: read("images/letterhead.png", encoding: none),
+  width: 65mm,           // required in practice — sets the column split
+  sender-position: right,
+),
+// from-alignment is respected as given (default right places text
+// flush with the right content margin)
+```
+
+- `alignment` is ignored.
+- Specify `width`; omitting it defaults to full content width, leaving no room for the sender.
+
+=== Sender Alongside: `left`
+
+The logo is placed flush to the right page edge. The sender address fills the remaining column to the left.
+
+```typ
+letterhead: (
+  file: read("images/letterhead.png", encoding: none),
+  width: 65mm,
+  sender-position: left,
+),
+// from-alignment is forced to left regardless of the parameter value
+```
+
+- `alignment` is ignored.
+- `from-alignment` is always forced to `left`; setting it has no effect.
+
+=== Sender Centered Below: `center`
+
+The logo is placed flush and centered. The sender address is placed absolutely below it, also centered, forming a single decorative header block. The letter content (date, recipient, body) starts below both.
+
+```typ
+letterhead: (
+  file: read("images/letterhead.png", encoding: none),
+  width: 120mm,
+  sender-position: center,
+  gap: 8mm,              // space between sender and content; defaults to par-spacing
+),
+// from-alignment is forced to center; setting it has no effect
+// date-alignment is independent — the date aligns on its own value
+```
+
+- `alignment` is ignored; the image is always centered.
+- `gap` is specific to this layout; it has no effect on the other three.
+- The date is decoupled from the sender — `date-alignment` and `from-alignment` do not interact.
+
+== Appendix B: Field Configuration <field-configuration>
+
+The `required-fields` parameter controls which of the nine core fields are rendered in the letter. Excluding a field from the list suppresses it entirely — no blank space is left in its place.
+
+#v(5pt)
+
+*`required-fields`* #h(15pt) #highlight-type.array
+
+Controls which core fields are rendered in the letter.
+
+The valid field names are:
+
+- `"from-name"`
+- `"from-address"`
+- `"to-name"`
+- `"to-address"`
+- `"date"`
+- `"salutation"`
+- `"subject"`
+- `"closing"`
+- `"signatures"`
+
+#text(
+  size: 10pt,
+)[*Default:* `("from-name", "from-address", "to-name", "to-address", "date", "salutation", "subject", "closing", "signatures")`]
+
+=== Behavior
+
+- A field *in* `required-fields` that is not provided causes a validation error.
+- A field *not in* `required-fields` is silently suppressed — even if a value was passed for it.
+- Removing a field from the list leaves no blank line or gap; the surrounding layout closes up.
+
+=== Examples
+
+```typ
+// Omit the subject line
+required-fields: (
+  "from-name", "from-address",
+  "to-name", "to-address",
+  "date", "salutation", "closing", "signatures",
+),
+
+// Minimal letter — no salutation, subject, or closing
+required-fields: (
+  "from-name", "from-address",
+  "to-name", "to-address",
+  "date", "signatures",
+),
+
+// Date and sender omitted (e.g. reply on headed paper where these are pre-printed)
+required-fields: (
+  "to-name", "to-address",
+  "salutation", "subject", "closing", "signatures",
+),
+```
+
+== Appendix C: Signature Handling <signature-handling>
+
+Signatures are specified as an array of dictionaries. Each entry must have a `name` field; the `signature` and `affiliation` fields are optional.
+
+#table(
+  columns: 3,
+  column-gutter: 10pt,
+  row-gutter: 5pt,
+  stroke: none,
+  inset: 3pt,
+  [`name`],
+  [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content],
+  [The signatory's name. Required.],
+
+  [`signature`],
+  [#highlight-type.content #h(5pt) _optional_],
+  [A Typst `image(...)` call pointing to the signature image file. When omitted, a blank space is reserved for a physical signature.],
+
+  [`affiliation`],
+  [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_],
+  [Title, role, or organisation. Use `\` to place each item on its own line.],
+)
+
+=== Single Signature
+
+```typ
+// Name only — space reserved for physical signature
+signatures: (
+  (name: "Lord Albus Dimbleby"),
+)
+
+// With a scanned signature image
+signatures: (
+  (
+    name: "Lord Albus Dimbleby",
+    signature: image("images/albus-sig.png"),
+  ),
+)
+
+// With name and affiliation
+signatures: (
+  (
+    name: "Lord Albus Dimbleby",
+    affiliation: [
+      Lord of the Manor \
+      Cheswick Village, Bristol
+    ],
+  ),
+)
+```
+
+For a single signature the `signature-alignment` parameter controls placement:
+
+```typ
+signature-alignment: left    // default
+signature-alignment: center
+signature-alignment: right
+```
+
+=== Multiple Signatures
+
+Signatures are arranged in rows of up to three, filled left-to-right. Name baselines are aligned within each row regardless of whether a signature image or affiliation is present. `signature-alignment` is ignored when more than one signature is given.
+
+```typ
+signatures: (
+  (
+    name: "Lord Albus Dimbleby",
+    signature: image("images/albus-sig.png"),
+  ),
+  (
+    name: "Lady Abigail Dimbleby",
+    signature: image("images/abigail-sig.png"),
+  ),
+  (
+    name: "Sir Austin Dimbleby",
+    // no image — space reserved for physical signature
+  ),
+)
+```
+
+A fourth signature starts a new row automatically. There is no hard limit on the number of signatories.
+
+=== Long Affiliations
+
+When an affiliation is long it expands the signature block vertically. All blocks in the same row grow to match the tallest entry so name baselines stay aligned. Use `\` to break affiliation text onto separate lines:
+
+```typ
+signatures: (
+  (
+    name: "Sir Austin Dimbleby",
+    affiliation: [
+      Knight Commander of the Order of the British Empire \
+      Senior Advisor, International Relations \
+      Chairman, Global Trade Council
+    ],
+  ),
+  (
+    name: "Lord Albus Dimbleby",
+    // short affiliation — block expands to match Austin's height
+    affiliation: [Lord of the Manor],
+  ),
+)
+```
+
+== Appendix D: Enclosures with Embedded Documents <enclosures-embedded>
+
+Enclosures are listed after the signatures. When a `file` key is provided the document is embedded on a dedicated page immediately following the letter body.
+
+=== Description-Only Enclosures
+
+When no file is attached, the enclosure appears only as a line item in the enclosures list:
+
+```typ
+enclosures: (
+  (description: "Provenance of the Oak trees on the Dimbleby Estate."),
+  (description: "Insurance claim form."),
+)
+```
+
+=== Attaching a File
+
+Load the file as bytes using `read("path", encoding: none)`. The file is rendered on its own page(s) after the letter.
+
+```typ
+enclosures: (
+  (
+    description: "Provenance of the Oak trees on the Dimbleby Estate.",
+    file: read("enclosures/oak-tree-provenance.pdf", encoding: none),
+  ),
+)
+```
+
+=== Rendering Multiple Pages
+
+By default only the first page of a PDF is embedded. Use `pages` to render more:
+
+```typ
+enclosures: (
+  (
+    description: "Provenance statement (3 pages).",
+    file: read("enclosures/provenance.pdf", encoding: none),
+    pages: 3,    // renders pages 1–3
+  ),
+)
+```
+
+To find the page count of a PDF: `pdfinfo document.pdf | grep Pages` (requires the #link("https://poppler.freedesktop.org")[Poppler] library).
+
+=== Per-Enclosure Margins
+
+Each enclosure can carry its own page margin, either as a uniform length or a dictionary of sides:
+
+```typ
+enclosures: (
+  (
+    description: "Scanned photograph.",
+    file: read("enclosures/photo.jpg", encoding: none),
+    margin: 15mm,                        // uniform on all sides
+  ),
+  (
+    description: "Technical drawing.",
+    file: read("enclosures/drawing.pdf", encoding: none),
+    margin: (top: 20mm, rest: 10mm),     // top differs from the rest
+  ),
+)
+```
+
+Valid dictionary keys: `top`, `bottom`, `left`, `right`, `x`, `y`, `rest`.
+
+=== Mixed List
+
+Description-only and file-attached enclosures can be mixed freely:
+
+```typ
+enclosures: (
+  (description: "Insurance claim form (complete and return)."),
+  (
+    description: "Photographs of storm-damaged Oak trees.",
+    file: read("enclosures/storm-photos.jpg", encoding: none),
+    margin: (top: 20mm),
+  ),
+  (
+    description: "Heritage Oak provenance statement.",
+    file: read("enclosures/provenance.pdf", encoding: none),
+    pages: 2,
+  ),
+)
+```
+
+== Appendix E: Comprehensive Letter Example
 
 The following example illustrates several key features of the `letterloom` package and explains how they can be applied in practice.
 
@@ -1083,10 +1381,8 @@ Thank you kindly.
   // Sender's contact information (name and address)
   from-name: "The Dimbleby Family",
   from-address: [
-    The Dimbleby Estate \
-    Cheswick Village \
-    Middle Upton \
-    Bristol BS16 1GU
+    The Dimbleby Estate Cheswick Village \
+    Middle Upton Bristol BS16 1GU
   ],
 
   // Recipient's contact information (name and address)
@@ -1131,8 +1427,12 @@ Thank you kindly.
 
   // Letterhead (optional)
   letterhead: (
-    file: read("images/letterhead.png", encoding: none),
-    margin: (bottom: 2mm, rest: 5mm),
+    file: read("images/letterhead-small.png", encoding: none),
+    width: 50mm,
+    margin: (bottom: 1mm),
+    //alignment: right,
+    sender-position: center,
+    gap: 10mm,
   ),
 
   // List of cc recipients (optional)

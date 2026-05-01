@@ -312,6 +312,18 @@
       panic("letterhead.alignment must be left, center, or right.")
     }
   }
+
+  if "sender-position" in letterhead {
+    if letterhead.sender-position not in (left, center, right) {
+      panic("letterhead.sender-position must be left, center, or right.")
+    }
+  }
+
+  if "gap" in letterhead {
+    if type(letterhead.gap) != length {
+      panic("letterhead.gap must be a length (e.g. 1em, 5mm).")
+    }
+  }
 }
 
 /// Validates the required-fields configuration array.

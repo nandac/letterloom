@@ -8,6 +8,9 @@
 /// page 1. Inline place with negative dx/dy escapes the margin box; a
 /// compensating v() pushes the sender block below the image.
 ///
+/// When sender-position is "left" or "right" the image and sender are rendered
+/// side-by-side in a grid (within the margin box; no page-edge bleed).
+///
 /// - letterhead (none or dictionary): A dictionary with the following keys:
 ///   - file (bytes, required): Bytes loaded via read("path", encoding: none).
 ///   - width (auto, length, ratio, or relative, optional): Image width. Defaults
@@ -17,8 +20,13 @@
 ///     Accepts shorthand keys: top, bottom, left, right, x, y, rest.
 ///   - alignment (alignment, optional): One of left, center, or right.
 ///     Defaults to center.
+///   - sender-position (str, optional): One of "below" (default), "left", or
+///     "right". "right" places the sender to the right of the image; "left"
+///     places it to the left.
+/// - sender-content (none or content): Pre-built sender block, passed in from
+///   lib.typ when sender-position is "left" or "right".
 /// -> content
-#let construct-letterhead(letterhead: none) = {
+#let construct-letterhead(letterhead: none, sender-content: none) = {
   if letterhead != none {
     // context{} gives access to page.margin and par.spacing at layout time
     context {
@@ -29,10 +37,11 @@
       // 2.5/21 of the page's shorter dimension (2.5 cm for A4, ~2.57 cm for US letter)
       let default-m = 2.5 / 21 * calc.min(page.width, page.height)
 
-      // Extract just the top and left margins — needed to shift the image back
-      // to the physical page edge via place()'s dx/dy offsets
+      // Extract per-side margins — needed to shift image/sender back to the
+      // physical page edge via place()'s dx/dy offsets
       let top-m = if m == auto { default-m } else if type(m) == dictionary { m.top } else { m }
       let left-m = if m == auto { default-m } else if type(m) == dictionary { m.left } else { m }
+      let right-m = if m == auto { default-m } else if type(m) == dictionary { m.right } else { m }
 
       // Unpack the user-supplied letterhead dictionary
       let lh-image = letterhead.file
@@ -40,6 +49,8 @@
       let lh-height = letterhead.at("height", default: auto)
       let lh-margin = letterhead.at("margin", default: none)
       let lh-alignment = letterhead.at("alignment", default: center)
+      let lh-sender-pos = letterhead.at("sender-position", default: none)
+      let lh-gap = letterhead.at("gap", default: none)
 
       // Normalise lh-margin into a per-side dictionary (lhm) regardless of
       // whether the user supplied none, a single length, or a per-side dict.
@@ -64,6 +75,11 @@
         // Drawable width between the letterhead's own left and right margins
         let available = page.width - lhm.left - lhm.right
 
+        // Gap between the bottom of the centered header block and the first content
+        // element. Defaults to par.spacing so the visual rhythm matches normal flow.
+        // Only used by the center sender-position branch.
+        let gap = if lh-gap == none { ps } else { lh-gap }
+
         // Resolve the user's width spec (auto / ratio / relative / plain length)
         // to a concrete pixel-equivalent length
         let img-width = if lh-width == auto {
@@ -76,41 +92,114 @@
           lh-width
         }
 
-        // Build the image element; omit height so Typst scales it proportionally
-        // unless the user explicitly provided one
-        let lh-img = if lh-height == auto {
-          image(lh-image, width: img-width)
+        if lh-sender-pos in (left, right) {
+          // Flush side-by-side: both image and sender are placed absolutely so the
+          // image bleeds to the physical page edge while the sender occupies the
+          // remaining content-area column at the same vertical position.
+          // All dx values are measured from the content-area left edge (place() origin).
+          let lh-img = if lh-height == auto {
+            image(lh-image, width: img-width)
+          } else {
+            image(lh-image, width: img-width, height: lh-height)
+          }
+
+          let lh-img-height = measure(lh-img).height
+
+          let (image-dx, sender-dx, sender-width) = if lh-sender-pos == right {
+            // Image flush to the left page edge; sender fills the right column
+            let idx = -left-m + lhm.left
+            let sdx = calc.max(0pt, lhm.left + img-width - left-m)
+            let sw = page.width - left-m - right-m - sdx
+            (idx, sdx, sw)
+          } else {
+            // Image flush to the right page edge; sender fills the left column
+            let idx = page.width - left-m - lhm.right - img-width
+            let sdx = 0pt
+            let sw = calc.max(0pt, idx)
+            (idx, sdx, sw)
+          }
+
+          place(top + left, dx: image-dx, dy: -top-m + lhm.top, lh-img)
+
+          // Measure sender height first (pure — does not emit content)
+          let sender-height = if sender-content != none and sender-width > 0pt {
+            measure(block(width: sender-width, sender-content)).height
+          } else { 0pt }
+
+          // Place sender (separate statement so content emission doesn't mix with arithmetic)
+          if sender-content != none and sender-width > 0pt {
+            place(top + left, dx: sender-dx, dy: -top-m + lhm.top, block(width: sender-width, sender-content))
+          }
+
+          let advance = calc.max(lh-img-height, sender-height) + lhm.top + lhm.bottom - top-m
+          v(if advance > 0pt { advance - ps } else { -ps })
+        } else if lh-sender-pos == center {
+          // Centered header block: logo placed flush and centered (same dx as "below"
+          // center alignment), sender placed absolutely below the logo. A single v()
+          // covering both pushes the letter content (date, recipient, etc.) below the
+          // combined header unit.
+          let lh-img = if lh-height == auto {
+            image(lh-image, width: img-width)
+          } else {
+            image(lh-image, width: img-width, height: lh-height)
+          }
+
+          let lh-img-height = measure(lh-img).height
+          let dx = -left-m + lhm.left + (available - img-width) / 2
+          place(top + left, dx: dx, dy: -top-m + lhm.top, lh-img)
+
+          // Sender centered below the logo within the content area width
+          let cw = page.width - left-m - right-m
+          let sender-height = if sender-content != none {
+            measure(block(width: cw, sender-content)).height
+          } else { 0pt }
+
+          if sender-content != none {
+            place(top + left, dx: 0pt, dy: -top-m + lhm.top + lh-img-height + lhm.bottom, block(width: cw, sender-content))
+          }
+
+          let advance = lh-img-height + lhm.top + lhm.bottom + sender-height + gap - top-m
+          v(if advance > 0pt { advance - ps } else { -ps })
         } else {
-          image(lh-image, width: img-width, height: lh-height)
+          // "below" (default): place the image flush with the physical page edges
+          // and emit a compensating v() so the sender starts below the image.
+
+          // Build the image element; omit height so Typst scales it proportionally
+          // unless the user explicitly provided one
+          let lh-img = if lh-height == auto {
+            image(lh-image, width: img-width)
+          } else {
+            image(lh-image, width: img-width, height: lh-height)
+          }
+
+          // Measure the rendered image height so we can compute the vertical advance below
+          let lh-img-height = measure(lh-img).height
+
+          // Compute the horizontal offset (dx) from the content area's left edge
+          // back to where the image should start on the physical page.
+          // -left-m moves to the physical left edge; lhm.left re-applies the
+          // letterhead's own left margin; the alignment term shifts within the remainder.
+          let dx = if lh-alignment == center {
+            -left-m + lhm.left + (available - img-width) / 2
+          } else if lh-alignment == right {
+            -left-m + lhm.left + available - img-width
+          } else {
+            -left-m + lhm.left // left alignment
+          }
+
+          // Place the image absolutely at the top-left of the physical page,
+          // shifted inward by the letterhead's own margins (dy = -top-m + lhm.top)
+          place(top + left, dx: dx, dy: -top-m + lhm.top, lh-img)
+
+          // Emit vertical space so body content starts below the letterhead.
+          // advance = how far the letterhead extends below the content area's top edge.
+          // Subtracting ps cancels the par.spacing Typst would otherwise add between
+          // this block and the next (construct-sender).
+          // When advance <= 0pt the letterhead fits entirely inside the page margin,
+          // so we only need to cancel par.spacing.
+          let advance = lh-img-height + lhm.top + lhm.bottom - top-m
+          v(if advance > 0pt { advance - ps } else { -ps })
         }
-
-        // Measure the rendered image height so we can compute the vertical advance below
-        let lh-img-height = measure(lh-img).height
-
-        // Compute the horizontal offset (dx) from the content area's left edge
-        // back to where the image should start on the physical page.
-        // -left-m moves to the physical left edge; lhm.left re-applies the
-        // letterhead's own left margin; the alignment term shifts within the remainder.
-        let dx = if lh-alignment == center {
-          -left-m + lhm.left + (available - img-width) / 2
-        } else if lh-alignment == right {
-          -left-m + lhm.left + available - img-width
-        } else {
-          -left-m + lhm.left // left alignment
-        }
-
-        // Place the image absolutely at the top-left of the physical page,
-        // shifted inward by the letterhead's own margins (dy = -top-m + lhm.top)
-        place(top + left, dx: dx, dy: -top-m + lhm.top, lh-img)
-
-        // Emit vertical space so body content starts below the letterhead.
-        // advance = how far the letterhead extends below the content area's top edge.
-        // Subtracting ps cancels the par.spacing Typst would otherwise add between
-        // this block and the next (construct-sender).
-        // When advance <= 0pt the letterhead fits entirely inside the page margin,
-        // so we only need to cancel par.spacing.
-        let advance = lh-img-height + lhm.top + lhm.bottom - top-m
-        v(if advance > 0pt { advance - ps } else { -ps })
       })
     }
   }
