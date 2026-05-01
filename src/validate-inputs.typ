@@ -187,23 +187,23 @@
       }
     }
 
-    // Validate optional margin field
-    if "margin" in enclosure {
-      let margin = enclosure.at("margin")
-      if type(margin) == length {
+    // Validate optional page-inset field
+    if "page-inset" in enclosure {
+      let page-inset = enclosure.at("page-inset")
+      if type(page-inset) == length {
         // valid: single length applies to all sides
-      } else if type(margin) == dictionary {
+      } else if type(page-inset) == dictionary {
         let valid-keys = ("top", "bottom", "left", "right", "x", "y", "rest")
-        for (key, value) in margin {
+        for (key, value) in page-inset {
           if key not in valid-keys {
-            panic("enclosure margin key '" + key + "' is not valid. Must be one of top, bottom, left, right, x, y, or rest.")
+            panic("enclosure page-inset key '" + key + "' is not valid. Must be one of top, bottom, left, right, x, y, or rest.")
           }
           if type(value) != length {
-            panic("enclosure margin value for '" + key + "' must be a length.")
+            panic("enclosure page-inset value for '" + key + "' must be a length.")
           }
         }
       } else {
-        panic("enclosure margin must be a length or a dictionary of lengths.")
+        panic("enclosure page-inset must be a length or a dictionary of lengths.")
       }
     }
   }
@@ -288,28 +288,28 @@
     }
   }
 
-  if "margin" in letterhead {
-    let m = letterhead.margin
+  if "image-inset" in letterhead {
+    let m = letterhead.at("image-inset")
     if type(m) == length {
-      // valid: uniform margin
+      // valid: uniform inset
     } else if type(m) == dictionary {
       let valid-keys = ("top", "bottom", "left", "right", "x", "y", "rest")
       for (key, value) in m {
         if key not in valid-keys {
-          panic("letterhead.margin key '" + key + "' is not valid. Must be one of top, bottom, left, right, x, y, or rest.")
+          panic("letterhead.image-inset key '" + key + "' is not valid. Must be one of top, bottom, left, right, x, y, or rest.")
         }
         if type(value) != length {
-          panic("letterhead.margin value for '" + key + "' must be a length.")
+          panic("letterhead.image-inset value for '" + key + "' must be a length.")
         }
       }
     } else {
-      panic("letterhead.margin must be a length or a dictionary of lengths.")
+      panic("letterhead.image-inset must be a length or a dictionary of lengths.")
     }
   }
 
-  if "alignment" in letterhead {
-    if letterhead.alignment not in (left, center, right) {
-      panic("letterhead.alignment must be left, center, or right.")
+  if "image-alignment" in letterhead {
+    if letterhead.at("image-alignment") not in (left, center, right) {
+      panic("letterhead.image-alignment must be left, center, or right.")
     }
   }
 
@@ -319,9 +319,9 @@
     }
   }
 
-  if "gap" in letterhead {
-    if type(letterhead.gap) != length {
-      panic("letterhead.gap must be a length (e.g. 1em, 5mm).")
+  if "bottom-gap" in letterhead {
+    if type(letterhead.at("bottom-gap")) != length {
+      panic("letterhead.bottom-gap must be a length (e.g. 1em, 5mm).")
     }
   }
 }

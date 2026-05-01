@@ -2,24 +2,23 @@
 <!-- markdownlint-disable MD033 -->
 <div align="center">Version 3.0.0</div>
 
-The `letterloom` package is a user-friendly and customizable template designed to streamline the creation of professional-looking letters. Whether for personal or business correspondence, it eliminates the challenges of traditional typesetting tools like LaTeX while delivering polished and elegant results.
+The `letterloom` package is a user-friendly and customizable template designed to streamline the creation of professional-looking letters. Whether for personal or business correspondence, it consistently delivers polished and elegant results in accordance with your tastes.
 
-Key Features:
+*Key Features:*
 
-* **Multiple Signatures:** Effortlessly include one or more signatures for joint communications or approvals.
-* **Letterhead:** Place a branded letterhead image flush with the page edges on the first page.
-* **Enclosures:** Clearly list and optionally attach additional documents included with the letter.
-* **Customizable Footnotes:** Add informative footnotes with flexible formatting options.
-* **Internationalization Support:** Customize labels and text for different languages and regions.
+* *Multiple signatures:* Include one or more signatures with optional affiliations.
 
-Benefits:
+* *Letterhead:* Place a branded letterhead with several layout options for positioning.
 
-* Simplifies the letter-writing process with an intuitive template.
-* Eliminates the steep learning curve of tools like LaTeX.
-* Delivers professional-quality output without requiring technical expertise.
-* Supports multilingual documents with customizable labels.
+* *Enclosures:* List additional documents and optionally embed them as appended pages.
 
-Regardless of whether you are preparing a formal business correspondence, or crafting a personal letter, `letterloom` makes creating visually appealing documents both straightforward and efficient.
+* *Internationalization:* Customize labels and text for different languages and regions.
+
+* *Configurable fields:* Any of the nine core fields can be made optional, leaving no blank space in the layout.
+
+* *Footnotes:* Add footnotes with configurable separator alignment and font sizing.
+
+`letterloom` follows the conventions of formal business correspondence while giving you full control over typography, alignment, and optional elements. The template handles vertical spacing, page geometry, and letterhead placement automatically so the output is consistent regardless of content length and paper size.
 
 ## Requirements
 

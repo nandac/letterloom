@@ -2,7 +2,7 @@
 ///
 /// Synopsis:
 /// Test case that validates the letterloom function properly rejects invalid
-/// letterhead parameters for all keys: file, width, height, margin, and alignment.
+/// letterhead parameters for all keys: file, width, height, image-inset, and image-alignment.
 ///
 /// Purpose:
 /// Ensures that the validation system correctly identifies and reports errors
@@ -13,8 +13,8 @@
 /// - file (required): bytes loaded via read("path", encoding: none)
 /// - width (optional): length, ratio (e.g. 50%), or relative (e.g. 50% + 5mm)
 /// - height (optional): length
-/// - margin (optional): length or dictionary with valid side keys
-/// - alignment (optional): left, center, or right
+/// - image-inset (optional): length or dictionary with valid side keys
+/// - image-alignment (optional): left, center, or right
 ///
 /// Test Scenarios:
 /// - letterhead is not a dictionary
@@ -22,10 +22,10 @@
 /// - letterhead.file is not bytes
 /// - letterhead.width has an invalid type
 /// - letterhead.height has an invalid type
-/// - letterhead.margin has an invalid type
-/// - letterhead.margin has an invalid key
-/// - letterhead.margin has a non-length value
-/// - letterhead.alignment is not left, center, or right
+/// - letterhead.image-inset has an invalid type
+/// - letterhead.image-inset has an invalid key
+/// - letterhead.image-inset has a non-length value
+/// - letterhead.image-alignment is not left, center, or right
 ///
 /// Expected Errors:
 /// - "letterhead must be a dictionary with a required file key."
@@ -33,10 +33,10 @@
 /// - "letterhead.file must be bytes loaded via read(path, encoding: none)."
 /// - "letterhead.width must be a length or percentage (e.g. 50% or 50% + 5mm)."
 /// - "letterhead.height must be a length."
-/// - "letterhead.margin must be a length or a dictionary of lengths."
-/// - "letterhead.margin key 'badkey' is not valid. Must be one of top, bottom, left, right, x, y, or rest."
-/// - "letterhead.margin value for 'top' must be a length."
-/// - "letterhead.alignment must be left, center, or right."
+/// - "letterhead.image-inset must be a length or a dictionary of lengths."
+/// - "letterhead.image-inset key 'badkey' is not valid. Must be one of top, bottom, left, right, x, y, or rest."
+/// - "letterhead.image-inset value for 'top' must be a length."
+/// - "letterhead.image-alignment must be left, center, or right."
 #import "/src/lib.typ": *
 
 // Shared required fields used across all test cases
@@ -82,26 +82,26 @@
   "panicked with: \"letterhead.height must be a length.\"",
 )
 
-// letterhead.margin is an invalid type
+// letterhead.image-inset is an invalid type
 #assert.eq(
-  catch(() => letterloom(none, ..base-args, letterhead: (file: bytes((0,)), margin: "bad"))),
-  "panicked with: \"letterhead.margin must be a length or a dictionary of lengths.\"",
+  catch(() => letterloom(none, ..base-args, letterhead: (file: bytes((0,)), image-inset: "bad"))),
+  "panicked with: \"letterhead.image-inset must be a length or a dictionary of lengths.\"",
 )
 
-// letterhead.margin has an invalid key
+// letterhead.image-inset has an invalid key
 #assert.eq(
-  catch(() => letterloom(none, ..base-args, letterhead: (file: bytes((0,)), margin: (badkey: 5mm)))),
-  "panicked with: \"letterhead.margin key 'badkey' is not valid. Must be one of top, bottom, left, right, x, y, or rest.\"",
+  catch(() => letterloom(none, ..base-args, letterhead: (file: bytes((0,)), image-inset: (badkey: 5mm)))),
+  "panicked with: \"letterhead.image-inset key 'badkey' is not valid. Must be one of top, bottom, left, right, x, y, or rest.\"",
 )
 
-// letterhead.margin has a non-length value
+// letterhead.image-inset has a non-length value
 #assert.eq(
-  catch(() => letterloom(none, ..base-args, letterhead: (file: bytes((0,)), margin: (top: "bad")))),
-  "panicked with: \"letterhead.margin value for 'top' must be a length.\"",
+  catch(() => letterloom(none, ..base-args, letterhead: (file: bytes((0,)), image-inset: (top: "bad")))),
+  "panicked with: \"letterhead.image-inset value for 'top' must be a length.\"",
 )
 
-// letterhead.alignment is not left, center, or right
+// letterhead.image-alignment is not left, center, or right
 #assert.eq(
-  catch(() => letterloom(none, ..base-args, letterhead: (file: bytes((0,)), alignment: top))),
-  "panicked with: \"letterhead.alignment must be left, center, or right.\"",
+  catch(() => letterloom(none, ..base-args, letterhead: (file: bytes((0,)), image-alignment: top))),
+  "panicked with: \"letterhead.image-alignment must be left, center, or right.\"",
 )

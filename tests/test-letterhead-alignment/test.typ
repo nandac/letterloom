@@ -1,18 +1,18 @@
 /// test-letterhead-alignment
 ///
 /// Synopsis:
-/// Rendering test that validates letterhead width, margin, and alignment
+/// Rendering test that validates letterhead width, image-inset, and image-alignment
 /// options work correctly together.
 ///
 /// Purpose:
 /// Ensures that a partial-width letterhead is correctly positioned using
-/// center alignment within the margin-inset area, and that the compensating
-/// vertical space accounts for the margin correctly.
+/// center alignment within the image-inset area, and that the compensating
+/// vertical space accounts for the inset correctly.
 ///
 /// Test Scenario:
 /// - letterhead.width: 60% (partial width, narrower than page)
-/// - letterhead.margin: (top: 5mm, bottom: 3mm, rest: 8mm)
-/// - letterhead.alignment: center
+/// - letterhead.image-inset: (top: 5mm, bottom: 3mm, rest: 8mm)
+/// - letterhead.image-alignment: center
 ///
 /// Expected Behavior:
 /// The letterhead image is centered horizontally within the area defined by
@@ -29,8 +29,8 @@
   letterhead: (
     file: read("/docs/images/letterhead.png", encoding: none),
     width: 60%,
-    margin: (top: 5mm, bottom: 3mm, rest: 8mm),
-    alignment: center,
+    image-inset: (top: 5mm, bottom: 3mm, rest: 8mm),
+    image-alignment: center,
   ),
   from-name: "The Dimbleby Family",
   from-address: [

@@ -47,10 +47,10 @@
       let lh-image = letterhead.file
       let lh-width = letterhead.at("width", default: auto)
       let lh-height = letterhead.at("height", default: auto)
-      let lh-margin = letterhead.at("margin", default: none)
-      let lh-alignment = letterhead.at("alignment", default: center)
+      let lh-margin = letterhead.at("image-inset", default: none)
+      let lh-alignment = letterhead.at("image-alignment", default: center)
       let lh-sender-pos = letterhead.at("sender-position", default: none)
-      let lh-gap = letterhead.at("gap", default: none)
+      let lh-gap = letterhead.at("bottom-gap", default: none)
 
       // Normalise lh-margin into a per-side dictionary (lhm) regardless of
       // whether the user supplied none, a single length, or a per-side dict.
@@ -158,7 +158,7 @@
             place(top + left, dx: 0pt, dy: -top-m + lhm.top + lh-img-height + lhm.bottom, block(width: cw, sender-content))
           }
 
-          let advance = lh-img-height + lhm.top + lhm.bottom + sender-height + gap - top-m
+          let advance = lh-img-height + lhm.top + lhm.bottom + sender-height + gap.to-absolute() - top-m
           v(if advance > 0pt { advance - ps } else { -ps })
         } else {
           // "below" (default): place the image flush with the physical page edges
@@ -594,7 +594,7 @@
     for enclosure in enclosures {
       let file = enclosure.at("file", default: none)
       if file != none {
-        let raw-margin = enclosure.at("margin", default: 0mm)
+        let raw-margin = enclosure.at("page-inset", default: 0mm)
         // Expand shorthand keys so every side is explicit — prevents unspecified
         // sides from inheriting the outer letter page margins
         let margin = if type(raw-margin) == dictionary {
