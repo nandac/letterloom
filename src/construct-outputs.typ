@@ -504,19 +504,15 @@
 /// Constructs a labelled list of carbon copy recipients.
 ///
 /// A single recipient (str or content) is accepted and normalized to a
-/// one-element array internally. When exactly one recipient is given, it is
-/// rendered as an undecorated list item. When multiple recipients are given,
-/// they are rendered as an enumerated list. Passing `none` suppresses the
-/// section entirely.
+/// one-element array internally. All recipients are rendered as undecorated
+/// list items regardless of count. Passing `none` suppresses the section
+/// entirely.
 ///
 /// - cc (none, str, content, or array): One or more cc recipients.
 /// - cc-label (str or content): Label displayed before the recipient list.
 /// -> content
 #let construct-cc(cc: none, cc-label: "cc:") = {
   if cc != none {
-    // Hoist the indent setting so it applies to all enum items emitted in this block
-    set enum(indent: 1.4em)
-
     v(0.5em) // Gap above the cc section; em-based so it scales with main-font-size
 
     // Display the label
@@ -527,16 +523,10 @@
       cc = (cc,)
     }
 
-    if cc.len() == 1 {
-      // Single recipient: use a list with an empty marker to get the indent
-      // without a bullet point or number
-      set list(indent: 1.4em, marker: "")
-      list.item(text(cc.first()))
-    } else {
-      // Multiple recipients: numbered enumerated list
-      for cc-recipient in cc {
-        enum.item(text(cc-recipient))
-      }
+    // All recipients: undecorated list items regardless of count
+    set list(indent: 1.4em, marker: "")
+    for cc-recipient in cc {
+      list.item(text(cc-recipient))
     }
   }
 }

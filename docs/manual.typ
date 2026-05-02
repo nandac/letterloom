@@ -65,9 +65,9 @@
         set par(leading: leading, spacing: spacing)
         set align(left)
         body
-      }
-    )
-  )
+      },
+    ),
+  ),
 )
 
 // Focused preview box: renders one parameter's value at full width.
@@ -82,7 +82,7 @@
     set text(font: "Libertinus Serif", size: 11pt)
     set par(leading: 0.8em, spacing: 1.8em)
     body
-  }
+  },
 )
 
 = `letterloom v3.0.0`
@@ -109,27 +109,27 @@ The package handles all vertical spacing, page geometry, and letterhead placemen
 
 == Requirements
 
-Typst 0.14.0 or higher is required to use this package.
+This package requires Typst 0.14.0 or higher.
 
 == Usage
 
-Each parameter is documented below with its type, default value, and usage.
+Every parameter is documented below, detailing its accepted data type, default value, and practical application.
 
 === Getting Started
 
-To create a new `letterloom` project run the following command in your terminal:
+To initialize a new `letterloom` project locally, run the following command in your terminal:
 
 ```bash
 typst init @preview/letterloom:3.0.0
 ```
 
-Alternatively, you may create a new project directly in the #link("https://typst.app/app?template=letterloom&version=3.0.0")[Typst webapp].
+Alternatively, you can create a new project directly in the #link("https://typst.app/app?template=letterloom&version=3.0.0")[Typst Web App].
 
-For a full-featured example see the #link(label("comprehensive-example"))[Comprehensive Example] section.
+For a complete, full-featured demonstration, please refer to the #link(label("comprehensive-example"))[Comprehensive Example] section.
 
 === Required Parameters
 
-All the fields below are required by default. To omit any of them, see the #link(<required-fields>)[`required-fields`] parameter.
+By default, all fields listed below are mandatory. To override this behavior and omit specific fields, please refer to the #link(<required-fields>)[`required-fields`] parameter.
 
 #v(5pt)
 
@@ -158,8 +158,6 @@ from-name: text(weight: "bold")[The Dimbleby Family]
 *`from-address`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)
 
 The sender's address.
-
-#v(10pt)
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -319,7 +317,6 @@ subject: "Pruning of Heritage Oak Trees in the Dimbleby Estate"
   Pruning of Heritage Oak Trees in the Dimbleby Estate
 ]
 
-
 ```
 // Styled subject with formatting
 subject: text(weight: "bold")[#smallcaps("Pruning of Heritage Oak Trees in the Dimbleby Estate")]
@@ -371,12 +368,13 @@ Specifies a list of signatures as an array of dictionaries, where each dictionar
   [`signature`],
   [#highlight-type.content #h(5pt) _optional_],
   [A #link("https://typst.app/docs/reference/visualize/image/")[Typst `image(...)`] call pointing to the signature image file. When omitted, a blank space is reserved for a physical signature.],
+
   [`affiliation`],
   [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_],
-  [The signatory's title, role, and/or affiliation.]
+  [The signatory's title, role, and/or affiliation.],
 )
 
-#text(size: 10pt)[*Example:*]
+#text(size: 10pt)[*Examples:*]
 ```typ
 // Single signature with name and signature image
 signatures: (
@@ -388,10 +386,7 @@ signatures: (
 ```
 
 #_preview[
-  #stack(dir: ttb, spacing: 10pt,
-    box(width: 50mm, clip: true, image("images/albus-sig.png")),
-    [Lord Albus Dimbleby],
-  )
+  #stack(dir: ttb, spacing: 10pt, box(width: 50mm, clip: true, image("images/albus-sig.png")), [Lord Albus Dimbleby])
 ]
 
 *Note:* For a single signature, use #link(<signature-alignment>)[`signature-alignment`] to control placement; ignored when multiple signatures are given.
@@ -415,10 +410,7 @@ signatures: (
 ```
 
 #_preview[
-  #let _sig = (name, img) => stack(dir: ttb, spacing: 10pt,
-    box(width: 36mm, clip: true, img),
-    [#name],
-  )
+  #let _sig = (name, img) => stack(dir: ttb, spacing: 10pt, box(width: 36mm, clip: true, img), [#name])
 
   #grid(
     columns: (auto, auto, auto),
@@ -429,18 +421,19 @@ signatures: (
   )
 ]
 
-See the #link(label("signature-handling"))[Signature Handling] section for the full reference and examples.
+For full details and examples, see the #link(label("signature-handling"))[Signature Handling] section.
 
 === Optional Parameters
 
-The following optional parameters enable you to add additional fields like a letterhead image, an attention line, a list of cc recipients, a list of enclosures, and a footer to your letter if desired.
+The following parameters allow you to further customize your letter by adding features such as a letterhead, an attention line, CC recipients, enclosures, or a footer.
 
 #v(5pt)
 
 #[#metadata("") <letterhead>]
 *`letterhead`* #h(15pt) #highlight-type.dictionary
 
-Places a letterhead image flush with the edges of the physical page.
+Places the provided letterhead on the first page of the letter.
+
 #table(
   columns: 3,
   column-gutter: 10pt,
@@ -504,10 +497,17 @@ letterhead: (
 ```
 
 #let _lhp(body) = block(
-  width: 46mm, height: 40mm, clip: true, fill: white,
-  stroke: 0.5pt + luma(170), radius: 2pt, body
+  width: 46mm,
+  height: 40mm,
+  clip: true,
+  fill: white,
+  stroke: 0.5pt + luma(170),
+  radius: 2pt,
+  body,
 )
-#let _lh-lines() = stack(dir: ttb, spacing: 2pt,
+#let _lh-lines() = stack(
+  dir: ttb,
+  spacing: 2pt,
   rect(width: 24mm, height: 2pt, fill: luma(200), stroke: none, radius: 1pt),
   rect(width: 18mm, height: 2pt, fill: luma(200), stroke: none, radius: 1pt),
   rect(width: 28mm, height: 3pt, fill: luma(200), stroke: none, radius: 1pt),
@@ -519,37 +519,39 @@ letterhead: (
     column-gutter: 10pt,
     align: center,
 
-    stack(dir: ttb, spacing: 5pt,
+    stack(
+      dir: ttb,
+      spacing: 5pt,
       _lhp({
         place(top + left, rect(width: 46mm, height: 10mm, fill: luma(215), stroke: none))
         place(top + left, dx: 4mm, dy: 13mm, _lh-lines())
       }),
-      text(size: 8pt, fill: luma(100))[Full width, flush]
+      text(size: 8pt, fill: luma(100))[Full-width],
     ),
 
-    stack(dir: ttb, spacing: 5pt,
+    stack(
+      dir: ttb,
+      spacing: 5pt,
       _lhp({
-        place(top + left, dx: 9mm, dy: 2mm,
-          rect(width: 28mm, height: 9mm, fill: luma(215), stroke: none))
+        place(top + left, dx: 9mm, dy: 2mm, rect(width: 28mm, height: 9mm, fill: luma(215), stroke: none))
         place(top + left, dx: 4mm, dy: 14mm, _lh-lines())
       }),
-      text(size: 8pt, fill: luma(100))[60%, centered]
+      text(size: 8pt, fill: luma(100))[Partial-width],
     ),
 
-    stack(dir: ttb, spacing: 5pt,
+    stack(
+      dir: ttb,
+      spacing: 5pt,
       _lhp({
-        place(top + left, dx: 17mm, dy: 2mm,
-          rect(width: 27mm, height: 9mm, fill: luma(215), stroke: none))
+        place(top + left, dx: 17mm, dy: 2mm, rect(width: 27mm, height: 9mm, fill: luma(215), stroke: none))
         place(top + left, dx: 4mm, dy: 14mm, _lh-lines())
       }),
-      text(size: 8pt, fill: luma(100))[Right-aligned]
+      text(size: 8pt, fill: luma(100))[Fixed-width],
     ),
   )
 ]
 
-*Note:*  The letterhead is rendered only on the first page.
-
-For working examples of each `sender-position` variant and notes on usage, see the #link(label("letterhead-layouts"))[Letterhead Layout] section.
+For working examples of each `sender-position` variant and additional notes on usage, see the #link(label("letterhead-layouts"))[Letterhead Layout] section.
 
 #v(5pt)
 
@@ -594,43 +596,40 @@ Whether to place the attention line above or below the recipient's address.
 #text(size: 10pt)[*Default:* `"above"`]
 
 #text(size: 10pt)[*Example:*]
+
+
 ```typ
-attn-position: "below"
+ // Placed above the recipient's address (default)
+attn-position: "above"
 ```
 
-#block(breakable: false)[
-  #grid(
-    columns: (1fr, 1fr),
-    gutter: 8pt,
-    align: top,
-    align(left)[
-      #_preview[
-        #stack(dir: ttb, spacing: 10pt,
-          [Attn: Mr Basil Hawthorne],
-          text(fill: gray)[Evergreen Tree Surgeons],
-          text(fill: gray)[Midtown Lane],
-          text(fill: gray)[Cheswick Village],
-          text(fill: gray)[Stoke Gifford],
-          text(fill: gray)[Bristol BS16 1GU],
-        )
-      ]
-      #v(4pt)
-      #align(center)[#text(size: 9pt, fill: luma(100))[`above` (default)]]
-    ],
-    align(left)[
-      #_preview[
-        #stack(dir: ttb, spacing: 10pt,
-          text(fill: gray)[Evergreen Tree Surgeons],
-          text(fill: gray)[Midtown Lane],
-          text(fill: gray)[Cheswick Village],
-          text(fill: gray)[Stoke Gifford],
-          text(fill: gray)[Bristol BS16 1GU],
-          [Attn: Mr Basil Hawthorne],
-        )
-      ]
-      #v(4pt)
-      #align(center)[#text(size: 9pt, fill: luma(100))[`below`]]
-    ],
+#_preview[
+  #stack(
+    dir: ttb,
+    spacing: 10pt,
+    [Attn: Mr Basil Hawthorne],
+    text(fill: gray)[Evergreen Tree Surgeons],
+    text(fill: gray)[Midtown Lane],
+    text(fill: gray)[Cheswick Village],
+    text(fill: gray)[Stoke Gifford],
+    text(fill: gray)[Bristol BS16 1GU],
+  )
+]
+
+```typ
+attn-position: "below" // Placed below the recipient's address
+```
+
+#_preview[
+  #stack(
+    dir: ttb,
+    spacing: 10pt,
+    text(fill: gray)[Evergreen Tree Surgeons],
+    text(fill: gray)[Midtown Lane],
+    text(fill: gray)[Cheswick Village],
+    text(fill: gray)[Stoke Gifford],
+    text(fill: gray)[Bristol BS16 1GU],
+    [Attn: Mr Basil Hawthorne],
   )
 ]
 
@@ -646,7 +645,15 @@ Lists carbon copy (cc) recipients as a single string or content block, or an arr
 ```typ
 // Single cc recipient
 cc: "Mr Jethro Tull"
+```
 
+#_preview[
+  #align(left)[
+    #construct-cc(cc: "Mr Jethro Tull")
+  ]
+]
+
+```typ
 // Multiple cc recipients
 cc: (
   "Mr Jethro Tull",
@@ -665,7 +672,7 @@ cc: (
 
 *`cc-label`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)
 
-The label printed before the cc list.
+The label printed before the list of cc recipients.
 
 #text(size: 10pt)[*Default:* `"cc:"`]
 
@@ -673,25 +680,36 @@ The label printed before the cc list.
 ```typ
 // String
 cc-label: "Cc:"
+```
 
+#_preview[
+  Cc:
+  #set text(fill: luma(140))
+  #set list(indent: 1.4em, marker: "")
+  - Mr Jethro Tull
+  - Ms Sarah Green
+  - Dr Robert Brown
+]
+
+```typ
 // Content block
 cc-label: text(weight: "bold")[cc:]
 ```
 
 #_preview[
-  #stack(dir: ttb, spacing: 3pt,
-    [Cc:],
-    pad(left: 1.4em, _ph(w: 35%)),
-    pad(left: 1.4em, _ph(w: 45%)),
-    pad(left: 1.4em, _ph(w: 28%)),
-  )
+  *cc:*
+  #set text(fill: luma(140))
+  #set list(indent: 1.4em, marker: "")
+  - Mr Jethro Tull
+  - Ms Sarah Green
+  - Dr Robert Brown
 ]
 
 #v(5pt)
 
 *`enclosures`* #h(15pt) #highlight-type.array
 
-A list of enclosures an array of dictionaries with the following keys:
+A list of enclosures defined as an array of dictionaries.
 
 #table(
   columns: 3,
@@ -723,26 +741,22 @@ A list of enclosures an array of dictionaries with the following keys:
 ```typ
 // Single enclosure (description only)
 enclosures: (description: "Provenance of the Oak trees on the Dimbleby Estate.")
+```
 
+#_preview[
+  #construct-enclosures(
+    enclosures: (
+      (description: "Provenance of the Oak trees on the Dimbleby Estate."),
+    ),
+  )
+]
+
+```typ
 // Multiple enclosures (descriptions only)
 enclosures: (
   (description: "Provenance of the Oak trees on the Dimbleby Estate."),
   (description: "Photographs of storm damaged Oak trees."),
   (description: "Insurance claim form."),
-)
-
-// With embedded files (read bytes so paths resolve in your document)
-enclosures: (
-  (
-    description: "Provenance of the Oak trees on the Dimbleby Estate.",
-    file: read("enclosures/oak-tree-provenance.pdf", encoding: none),
-    pages: 3,
-  ),
-  (
-    description: "Photographs of storm damaged Oak trees.",
-    file: read("enclosures/storm-damaged-oak-tree.jpg", encoding: none),
-    page-inset: (top: 20mm),
-  ),
 )
 ```
 
@@ -772,18 +786,29 @@ The label printed before the enclosures list.
 ```typ
 // String
 enclosures-label: "enclosures:"
+```
 
+#_preview[
+  enclosures:
+  #set text(fill: luma(140))
+  #set enum(indent: 1.4em)
+  + Provenance of the Oak trees on the Dimbleby Estate.
+  + Photographs of storm damaged Oak trees.
+  + Insurance claim form.
+]
+
+```
 // Content block
 enclosures-label: text(weight: "bold")[encl:]
 ```
 
 #_preview[
-  #stack(dir: ttb, spacing: 3pt,
-    [enclosures:],
-    pad(left: 1.4em, _ph(w: 75%)),
-    pad(left: 1.4em, _ph(w: 55%)),
-    pad(left: 1.4em, _ph(w: 30%)),
-  )
+  *encl:*
+  #set text(fill: luma(140))
+  #set enum(indent: 1.4em)
+  + Provenance of the Oak trees on the Dimbleby Estate.
+  + Photographs of storm damaged Oak trees.
+  + Insurance claim form.
 ]
 
 #v(5pt)
@@ -846,7 +871,7 @@ footer: (
 #[#metadata("") <required-fields>]
 *`required-fields`* #h(15pt) #highlight-type.array
 
-An array of field name strings controlling which fields are active. Fields absent from the array are silently suppressed with no space left in the layout.
+Controls which of the default mandatory fields are active. Any field omitted from this array is silently suppressed and occupies no layout space.
 
 Valid values:
 
@@ -860,7 +885,9 @@ Valid values:
 - `"closing"`
 - `"signatures"`
 
-#text(size: 10pt)[*Default:* `("from-name", "from-address", "to-name", "to-address", "date", "salutation", "subject", "closing", "signatures")`]
+#text(
+  size: 10pt,
+)[*Default:* `("from-name", "from-address", "to-name", "to-address", "date", "salutation", "subject", "closing", "signatures")`]
 
 #text(size: 10pt)[*Examples:*]
 ```typ
@@ -889,7 +916,7 @@ required-fields: (
 
 === Document Settings
 
-Controls paper size, margins, spacing, and page numbering.
+These parameters control the foundational layout of your letter, allowing you to configure paper size, margins, spacing, and page numbering.
 
 #v(5pt)
 
@@ -960,27 +987,24 @@ par-leading: 1.2em // Loose spacing
       #lp(leading: 0.8em)[
         We are writing to request you to visit the estate to assess the Heritage Oak Trees that have stood the test of time.
       ]
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`0.8em` (default)]
+      #text(size: 9pt, fill: luma(100))[Tight spacing: `0.8em` (default)]
     ],
     align(center)[
       #lp(leading: 1.0em)[
         We are writing to request you to visit the estate to assess the Heritage Oak Trees that have stood the test of time.
       ]
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`1.0em`]
+      #text(size: 9pt, fill: luma(100))[Normal spacing: `1.0em`]
     ],
     align(center)[
       #lp(leading: 1.2em)[
         We are writing to request you to visit the estate to assess the Heritage Oak Trees that have stood the test of time.
       ]
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`1.2em`]
+      #text(size: 9pt, fill: luma(100))[Loose spacing: `1.2em`]
     ],
   )
 ]
 
-*Note:* Adjust this value to complement the chosen font and font size.
+*Note:* The right value depends on your font, size, and personal taste. Refer to #link("https://typst.app/docs/reference/model/par/#parameters-leading")[Typst's par documentation] for details.
 
 #v(5pt)
 
@@ -994,46 +1018,45 @@ Spacing between paragraphs.
 #text(size: 10pt)[*Examples:*]
 ```typ
 par-spacing: 1.5em // Compact paragraphs
-par-spacing: 1.8em // Standard spacing
+par-spacing: 1.8em // Standard spacing (default)
 par-spacing: 2.0em // Relaxed spacing
 ```
 
 #block(breakable: false)[
   #grid(
     columns: (1fr, 1fr, 1fr),
-    gutter: 8pt,
-    align: top,
-    align(center)[
-      #lp(spacing: 1.5em)[
-        We are writing to request you to visit the estate.
+    column-gutter: 8pt,
+    row-gutter: 4pt,
+    align: center,
+    lp(spacing: 1.5em)[
+      We are writing to request you to visit the estate.
 
-        Your task would be to render the grove safe.
-      ]
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`1.5em` (compact)]
-    ],
-    align(center)[
-      #lp(spacing: 1.8em)[
-        We are writing to request you to visit the estate.
+      Your task would be to render the grove safe.
 
-        Your task would be to render the grove safe.
-      ]
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`1.8em` (default)]
+      Kindly contact Mr Jethro Tull to arrange a visit.
     ],
-    align(center)[
-      #lp(spacing: 2.0em)[
-        We are writing to request you to visit the estate.
+    lp(spacing: 1.8em)[
+      We are writing to request you to visit the estate.
 
-        Your task would be to render the grove safe.
-      ]
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`2.0em` (relaxed)]
+      Your task would be to render the grove safe.
+
+      Kindly contact Mr Jethro Tull to arrange a visit.
     ],
+    lp(spacing: 2.0em)[
+      We are writing to request you to visit the estate.
+
+      Your task would be to render the grove safe.
+
+      Kindly contact Mr Jethro Tull to arrange a visit.
+    ],
+
+    block(above: 0pt, text(size: 9pt, fill: luma(100))[Compact paragraphs: `1.5em`]),
+    block(above: 0pt, text(size: 9pt, fill: luma(100))[Standard spacing: `1.8em` (default)]),
+    block(above: 0pt, text(size: 9pt, fill: luma(100))[Relaxed spacing: `2.0em`]),
   )
 ]
 
-*Note:* Modify this value to match the font and font size for optimal readability.
+Note: The right value depends on your font, size, and personal taste. Refer to #link("https://typst.app/docs/reference/model/par/#parameters-spacing")[Typst's par documentation] for details.
 
 #v(5pt)
 
@@ -1049,16 +1072,14 @@ number-pages: true // Page numbers from the second page onwards
 ```
 
 #_preview[
-  #stack(dir: ttb, spacing: 3pt, _body-ph, _body-ph)
-
   #align(center)[
-    #construct-custom-footer(
+    #text(fill: luma(140))[#construct-custom-footer(
       footer: (
         (footer-text: "+44-117-555-5555"),
-        (footer-text: "dimblebyfamily@dimbleby.org", footer-type: "email"),
-        (footer-text: "https://dimbleby.org", footer-type: "url"),
+        (footer-text: "dimblebyfamily@dimbleby.org"),
+        (footer-text: "https://dimbleby.org"),
       ),
-    )
+    )]
     #text(size: 9pt, font: "DejaVu Sans Mono")[2]
   ]
 ]
@@ -1067,7 +1088,7 @@ number-pages: true // Page numbers from the second page onwards
 
 === Typographical Settings
 
-Controls the fonts and font sizes used throughout the letter.
+These parameters govern the visual presentation of your text, allowing you to define custom font families, base sizes, and other stylistic elements used throughout the document.
 
 #v(5pt)
 
@@ -1176,9 +1197,9 @@ Sets the alignment of the letter's date.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-date-alignment: left // Left-aligned date
 date-alignment: right // Right-aligned date (default)
 date-alignment: center // Center-aligned date
+date-alignment: left // Left-aligned date
 ```
 
 #block(breakable: false)[
@@ -1188,35 +1209,26 @@ date-alignment: center // Center-aligned date
     align: top,
     align(center)[
       #lp[
-        #construct-sender(from-name: _dn, from-address: _da, from-alignment: right)
-        #construct-date(date: _dd, date-alignment: left, from-alignment: right, from-name: _dn, from-address: _da)
-      ]
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`left`]
-    ],
-    align(center)[
-      #lp[
-        #construct-sender(from-name: _dn, from-address: _da, from-alignment: right)
-        #construct-date(date: _dd, date-alignment: center, from-alignment: right, from-name: _dn, from-address: _da)
-      ]
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`center`]
-    ],
-    align(center)[
-      #lp[
-        #construct-sender(from-name: _dn, from-address: _da, from-alignment: right)
         #construct-date(date: _dd, date-alignment: right, from-alignment: right, from-name: _dn, from-address: _da)
       ]
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`right` (default)]
+      #text(size: 9pt, fill: luma(100))[Right-aligned date (default)]
+    ],
+    align(center)[
+      #lp[
+        #construct-date(date: _dd, date-alignment: center, from-alignment: right, from-name: _dn, from-address: _da)
+      ]
+      #text(size: 9pt, fill: luma(100))[Center-aligned date]
+    ],
+    align(center)[
+      #lp[
+        #construct-date(date: _dd, date-alignment: left, from-alignment: right, from-name: _dn, from-address: _da)
+      ]
+      #text(size: 9pt, fill: luma(100))[Left-aligned date]
     ],
   )
 ]
 
-*Note:* When `date-alignment` matches #link(<from-alignment>)[`from-alignment`] and a sender is present in the normal flow, the date block is width-matched to the sender block so their edges align.
-
-This coupling does not apply when `letterhead.sender-position: center`, where the sender is part of the letterhead and the date aligns independently.
-
+*Note:* When `date-alignment` matches #link(<from-alignment>)[`from-alignment`] and a sender is present in the normal flow, the date block is width-matched to the sender block so their edges align. When `letterhead.sender-position` is set, the sender moves into the letterhead and the date aligns independently of the sender.
 
 #[#metadata("") <from-alignment>]
 *`from-alignment`* #h(15pt) #highlight-type.alignment
@@ -1227,9 +1239,9 @@ Sets the alignment of the sender's name and address.
 
 #text(size: 10pt)[*Examples:*]
 ```typ
-from-alignment: left // Left-aligned sender
 from-alignment: right // Right-aligned sender (default)
 from-alignment: center // Center-aligned sender
+from-alignment: left // Left-aligned sender
 ```
 
 #block(breakable: false)[
@@ -1239,27 +1251,21 @@ from-alignment: center // Center-aligned sender
     align: top,
     align(center)[
       #lp[
-        #construct-sender(from-name: _dn, from-address: _da, from-alignment: left)
-        #construct-date(date: _dd, date-alignment: left, from-alignment: left, from-name: _dn, from-address: _da)
+        #construct-sender(from-name: _dn, from-address: _da, from-alignment: right)
       ]
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`left`]
+      #text(size: 9pt, fill: luma(100))[Right-aligned sender (default)]
     ],
     align(center)[
       #lp[
         #construct-sender(from-name: _dn, from-address: _da, from-alignment: center)
-        #construct-date(date: _dd, date-alignment: center, from-alignment: center, from-name: _dn, from-address: _da)
       ]
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`center`]
+      #text(size: 9pt, fill: luma(100))[Center-aligned sender]
     ],
     align(center)[
       #lp[
-        #construct-sender(from-name: _dn, from-address: _da, from-alignment: right)
-        #construct-date(date: _dd, date-alignment: right, from-alignment: right, from-name: _dn, from-address: _da)
+        #construct-sender(from-name: _dn, from-address: _da, from-alignment: left)
       ]
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`right` (default)]
+      #text(size: 9pt, fill: luma(100))[Left-aligned sender]
     ],
   )
 ]
@@ -1282,7 +1288,6 @@ footnote-alignment: center // Center-aligned footnotes
 ```
 
 #let _fn-preview(a) = lp[
-  #_body-ph
   #v(0.5em)
   #align(a)[
     #line(length: 30%, stroke: 0.5pt)
@@ -1297,18 +1302,15 @@ footnote-alignment: center // Center-aligned footnotes
     align: top,
     align(center)[
       #_fn-preview(left)
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`left` (default)]
+      #text(size: 9pt, fill: luma(100))[Left-aligned footnote (default)]
     ],
     align(center)[
       #_fn-preview(center)
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`center`]
+      #text(size: 9pt, fill: luma(100))[Center-aligned footnote]
     ],
     align(center)[
       #_fn-preview(right)
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`right`]
+      #text(size: 9pt, fill: luma(100))[Right-aligned footnote]
     ],
   )
 ]
@@ -1332,11 +1334,9 @@ signature-alignment: center // Center-aligned signature
 // construct-signatures reads page.width so alignment is relative to the full page,
 // not the preview box. Use a hand-built replica instead so alignment is visible.
 #let _sig-preview(a) = lp[
-  #v(0.5em)
-  Yours sincerely,
-  #align(a, pad(top: 1.5em, stack(dir: ttb, spacing: 2pt,
-    box(width: 36mm, height: 16mm, clip: true, image("images/albus-sig.png")),
-    [Lord Albus Dimbleby],
+  #align(a, stack(dir: ttb, spacing: 10pt, box(width: 50mm, clip: true, image("images/albus-sig.png")), block(
+    width: 50mm,
+    align(a)[Lord Albus Dimbleby],
   )))
 ]
 
@@ -1347,18 +1347,15 @@ signature-alignment: center // Center-aligned signature
     align: top,
     align(center)[
       #_sig-preview(left)
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`left` (default)]
+      #text(size: 9pt, fill: luma(100))[Left-aligned signature (default)]
     ],
     align(center)[
       #_sig-preview(center)
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`center`]
+      #text(size: 9pt, fill: luma(100))[Center-aligned signature]
     ],
     align(center)[
       #_sig-preview(right)
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`right`]
+      #text(size: 9pt, fill: luma(100))[Right-aligned signature]
     ],
   )
 ]
@@ -1375,7 +1372,7 @@ Determines the color of hyperlinks in the letter.
 ```typ
 link-color: blue // Typst's blue #0074d9 (default)
 link-color: maroon // Typst's maroon #85144b
-link-color: rgb(46, 111, 64) // Forest Green
+link-color: rgb(46, 111, 64) // Custom SVG color Forest Green
 ```
 
 #block(breakable: false)[
@@ -1384,25 +1381,22 @@ link-color: rgb(46, 111, 64) // Forest Green
     gutter: 8pt,
     align: top,
     align(center)[
-      #lp[
-        Contact us at #text(fill: blue)[dimbleby.org] or by post.
+      #lp(factor: 75%, width: 60mm)[
+        Contact us at #text(fill: blue)[dimbleby.org].
       ]
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`blue` (default)]
+      #text(size: 9pt, fill: luma(100))[ Typst's blue: `#0074d9` (default)]
     ],
     align(center)[
-      #lp[
-        Contact us at #text(fill: maroon)[dimbleby.org] or by post.
+      #lp(factor: 75%, width: 60mm)[
+        Contact us at #text(fill: maroon)[dimbleby.org].
       ]
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`maroon`]
+      #text(size: 9pt, fill: luma(100))[ Typst's maroon: `#85144b` ]
     ],
     align(center)[
-      #lp[
-        Contact us at #text(fill: rgb(46, 111, 64))[dimbleby.org] or by post.
+      #lp(factor: 75%, width: 60mm)[
+        Contact us at #text(fill: rgb(46, 111, 64))[dimbleby.org].
       ]
-      #v(4pt)
-      #text(size: 9pt, fill: luma(100))[`Forest Green`]
+      #text(size: 9pt, fill: luma(100))[Custom SVG color: `Forest Green`]
     ],
   )
 ]
@@ -1413,9 +1407,13 @@ Refer to #link("https://typst.app/docs/reference/visualize/color/#summary")[Typs
 
 === Multiple Signatures
 
-Signatures are arranged in rows of up to three, filled left-to-right. A signature that would overflow the available width starts a new row; there is no hard limit on the number of signatories. Name baselines are aligned within each row regardless of whether a signature image or affiliation is present. #link(<signature-alignment>)[`signature-alignment`] is ignored when more than one signature is given.
+Signatures are organized in rows with a maximum of three signatures each, filling from left to right. When the available width is exceeded, the signatures wrap to a new row. There is no limit to the total number of signatories.
 
+- *Baseline Alignment:* Within each row, name baselines are always aligned, regardless of whether a signature image or affiliation is present.
 
+- *Parameter Behavior:* The #link(<signature-alignment>)[`signature-alignment`] parameter is automatically ignored whenever more than one signature is present.
+
+#text(size: 10pt)[*Example:*]
 ```typ
 signatures: (
   (
@@ -1434,11 +1432,7 @@ signatures: (
 ```
 
 #_preview[
-  #let _sig = (name, img) => stack(dir: ttb, spacing: 0pt,
-    box(width: 36mm, height: 16mm, clip: true, img),
-    [#name],
-  )
-  #_ph(w: 43%)
+  #let _sig = (name, img) => stack(dir: ttb, spacing: 10pt, box(width: 36mm, clip: true, img), [#name])
 
   #grid(
     columns: (auto, auto, auto),
@@ -1449,11 +1443,15 @@ signatures: (
   )
 ]
 
+=== Managing Long Affiliations
 
-=== Long Affiliations
+When an affiliation exceeds the standard length, the signature block automatically expands vertically to accommodate the text.
 
-When an affiliation is long it expands the signature block vertically. All blocks in the same row grow to match the tallest entry so name baselines stay aligned. Use `\` to break affiliation text onto separate lines:
+- *Dynamic Row Height:* To maintain consistent alignment, all signature blocks within a single row will scale to match the height of the tallest entry. This ensures that the name baselines remain perfectly level across the entire row.
 
+- *Manual Line Breaks:*You can explicitly define line breaks within an affiliation by using the backslash (\) character. The `letterloom` template will respect these linebreaks, automatically calculating the necessary width and adjusting the arrangement of subsequent signatures to maintain the specified order.
+
+#text(size: 10pt)[*Example:*]
 ```typ
 signatures: (
   (
@@ -1477,13 +1475,13 @@ signatures: (
 ```
 
 #_preview[
-  #_ph(w: 43%)
-
   #grid(
     columns: (auto, auto),
     gutter: 24pt,
-    stack(dir: ttb, spacing: 2pt,
-      rect(width: 36mm, height: 16mm, fill: luma(240), stroke: 0.3pt + luma(180), radius: 1pt),
+    stack(
+      dir: ttb,
+      spacing: 2pt,
+      rect(width: 36mm, height: 16mm, stroke: none), // empty signature box
       [
         Sir Austin Dimbleby \
         Knight Commander of the British Empire \
@@ -1492,112 +1490,97 @@ signatures: (
         Senior Fellow, Royal Institute of Horticulture \
       ],
     ),
-    stack(dir: ttb, spacing: 2pt,
-      box(width: 36mm, height: 16mm, clip: true, image("images/albus-sig.png")),
-      [
-        Lord Albus Dimbleby \
-        Chairman, Dimbleby Family Trust
-      ],
-    ),
+    stack(dir: ttb, spacing: 2pt, box(width: 36mm, height: 16mm, clip: true, image("images/albus-sig.png")), [
+      Lord Albus Dimbleby \
+      Chairman, Dimbleby Family Trust
+    ]),
   )
 ]
 
 == Letterhead Layout <letterhead-layouts>
 
-The `letterhead` parameter supports four distinct layouts. The first is the default when `sender-position` is omitted. The other three are controlled by the `sender-position` key.
+The `letterloom` template offers four distinct letterhead layouts. The default full-width layout is applied when the sender-position parameter is omitted, while the other three are controlled by specifying `sender-position` as `left`, `right`, or `center`.
+
+All layouts support adding spacing to the letterhead using the `image-inset` parameter.
 
 #let _lhl(body) = block(
-  width: 46mm, height: 55mm, clip: true, fill: white,
-  stroke: 0.5pt + luma(170), radius: 2pt, body
+  width: 46mm,
+  height: 55mm,
+  clip: true,
+  fill: white,
+  stroke: 0.5pt + luma(170),
+  radius: 2pt,
+  body,
 )
-#let _sender-lines() = stack(dir: ttb, spacing: 2pt,
+#let _sender-lines() = stack(
+  dir: ttb,
+  spacing: 2pt,
   rect(width: 18mm, height: 2pt, fill: luma(200), stroke: none, radius: 1pt),
   rect(width: 14mm, height: 2pt, fill: luma(200), stroke: none, radius: 1pt),
   rect(width: 16mm, height: 2pt, fill: luma(200), stroke: none, radius: 1pt),
   rect(width: 12mm, height: 2pt, fill: luma(200), stroke: none, radius: 1pt),
 )
-#block(breakable: false)[
-  #grid(
-    columns: (1fr, 1fr),
-    row-gutter: 12pt,
-    column-gutter: 10pt,
-    align: center,
 
-    stack(dir: ttb, spacing: 5pt,
-      _lhl({
-        place(top + left, rect(width: 46mm, height: 10mm, fill: luma(215), stroke: none))
-        place(top + left, dx: 24mm, dy: 13mm, _sender-lines())
-        place(top + left, dx: 4mm, dy: 25mm, _lh-lines())
-      }),
-      text(size: 8pt, fill: luma(100))[Default]
-    ),
+=== Full-Width
 
-    stack(dir: ttb, spacing: 5pt,
-      _lhl({
-        place(top + left, rect(width: 22mm, height: 17mm, fill: luma(215), stroke: none))
-        place(top + left, dx: 25mm, dy: 2mm, _sender-lines())
-        place(top + left, dx: 4mm, dy: 21mm, _lh-lines())
-      }),
-      text(size: 8pt, fill: luma(100))[`sender-position: right`]
-    ),
+The full-width letterhead image is placed flush with the physical edges of the page. This is the default when the `sender-position` is omitted.
 
-    stack(dir: ttb, spacing: 5pt,
-      _lhl({
-        place(top + left, dx: 24mm, rect(width: 22mm, height: 17mm, fill: luma(215), stroke: none))
-        place(top + left, dx: 4mm, dy: 2mm, _sender-lines())
-        place(top + left, dx: 4mm, dy: 21mm, _lh-lines())
-      }),
-      text(size: 8pt, fill: luma(100))[`sender-position: left`]
-    ),
-
-    stack(dir: ttb, spacing: 5pt,
-      _lhl({
-        place(top + left, dx: 9mm, dy: 2mm,
-          rect(width: 28mm, height: 9mm, fill: luma(215), stroke: none))
-        place(top + left, dx: 13mm, dy: 13mm, stack(dir: ttb, spacing: 2pt,
-          rect(width: 20mm, height: 2pt, fill: luma(200), stroke: none, radius: 1pt),
-          rect(width: 16mm, height: 2pt, fill: luma(200), stroke: none, radius: 1pt),
-          rect(width: 18mm, height: 2pt, fill: luma(200), stroke: none, radius: 1pt),
-        ))
-        place(top + left, dx: 4mm, dy: 26mm, _lh-lines())
-      }),
-      text(size: 8pt, fill: luma(100))[`sender-position: center`]
-    ),
-  )
-]
-
-=== Default
-
-The full-width letterhead image is placed flush with the physical page edges. This is the default when the `sender-position` is omitted.
+#text(size: 10pt)[*Example:*]
 
 ```typ
+// Full-width letterhead with sender lines in default position
 letterhead: (
   file: read("images/letterhead.png", encoding: none),
-  image-inset: (top: 5mm, rest: 8mm),   // optional inset from page edges
-  image-alignment: center,              // left, center (default), or right
+  image-alignment: center,
 )
 ```
 
-=== Sender Alongside: `right`
+#block(breakable: false, width: 100%)[
+  #align(center)[
+    #_lhl({
+      place(top + left, rect(width: 46mm, height: 10mm, fill: luma(215), stroke: none))
+      place(top + left, dx: 24mm, dy: 13mm, _sender-lines())
+      place(top + left, dx: 4mm, dy: 25mm, _lh-lines())
+    })
+  ]
+]
 
-The letterhead image is placed flush to the left page edge. The sender address fills the remaining column to the right at the same vertical position.
+=== Sender Alongside: Right
+
+The letterhead image is placed flush to the left edge of the page. The sender address fills the remaining column to the right at the same vertical position.
+
+#text(size: 10pt)[*Example:*]
 
 ```typ
+// Letterhead with sender lines alongside on the right
 letterhead: (
   file: read("images/letterhead.png", encoding: none),
-  width: 65mm,           // required in practice — sets the column split
+  width: 65mm, // required in practice — sets the column split
   sender-position: right,
 )
 ```
 
+#block(breakable: false, width: 100%)[
+  #align(center)[
+    #_lhl({
+      place(top + left, rect(width: 22mm, height: 17mm, fill: luma(215), stroke: none))
+      place(top + left, dx: 25mm, dy: 2mm, _sender-lines())
+      place(top + left, dx: 4mm, dy: 21mm, _lh-lines())
+    })
+  ]
+]
+
 - `image-alignment` is ignored.
 - Specify `width`; omitting it defaults to full content width, leaving no room for the sender.
 
-=== Sender Alongside: `left`
+=== Sender Alongside: Left
 
-The letterhead image is placed flush to the right page edge. The sender address fills the remaining column to the left.
+The letterhead image is placed flush to the right edge of the page. The sender address fills the remaining column to the left.
+
+#text(size: 10pt)[*Example:*]
 
 ```typ
+// Letterhead with sender lines alongside on the left
 letterhead: (
   file: read("images/letterhead.png", encoding: none),
   width: 65mm,
@@ -1605,59 +1588,74 @@ letterhead: (
 )
 ```
 
+#block(breakable: false, width: 100%)[
+  #align(center)[
+    #_lhl({
+      place(top + left, dx: 24mm, rect(width: 22mm, height: 17mm, fill: luma(215), stroke: none))
+      place(top + left, dx: 4mm, dy: 2mm, _sender-lines())
+      place(top + left, dx: 4mm, dy: 21mm, _lh-lines())
+    })
+  ]
+]
+
 - `image-alignment` is ignored.
 
-=== Sender Centered Below: `center`
+=== Sender Centered Below
 
 The letterhead image is placed flush and centered. The sender address is placed absolutely below it, also centered, forming a single decorative header block. The letter content (date, recipient, body) starts below both.
 
+#text(size: 10pt)[*Example:*]
+
 ```typ
+// Letterhead with sender centered below
 letterhead: (
   file: read("images/letterhead.png", encoding: none),
   width: 120mm,
   sender-position: center,
-  bottom-gap: 8mm,       // space between sender and content; defaults to par-spacing
-),
-```
-
-- `image-alignment` is ignored; the image is always centered.
-- `bottom-gap` is specific to this layout; it has no effect on the other three.
-- The date is decoupled from the sender — #link(<date-alignment>)[`date-alignment`] and #link(<from-alignment>)[`from-alignment`] do not interact.
-
-=== Notes and Caveats
-
-- *Use `read()`, not `image()`.* The `file` key expects raw bytes loaded via `read("path", encoding: none)`. Passing a Typst `image()` call will produce a type error.
-
-- *Setting both `width` and `height` may distort the image.* If the values do not match the image's natural aspect ratio, the image will be stretched or compressed. Omit `height` to let it scale proportionally with `width`.
-
-- *Percentage widths are relative to available width.* A `width` of `100%` fills the page width minus the letterhead's left and right `image-inset`, not the full physical page width. To span the full page width with no inset, omit `width` entirely or set `image-inset` to `0mm`.
-
-- *Auto page margins.* When the #link(<margins>)[`margins`] parameter is left at its default of `auto`, letterloom derives the page margin using Typst's formula: 2.5/21 of the page's shorter dimension. If you set custom page margins, the letterhead placement adjusts automatically.
-
-- *Custom inset with asymmetric sides.* When using a dictionary for `image-inset` (e.g. `image-inset: (top: 5mm, rest: 8mm)`), the `rest` key sets the fallback for any sides not explicitly listed.
-
-- *Image format support.* PNG, JPEG, SVG, and GIF are supported. Passing a file in an unsupported format will result in a Typst compile error.
-
-== Embedding Enclosures <enclosures-embedded>
-
-Enclosures are listed after the signatures. When a `file` key is provided the document is embedded on a dedicated page immediately following the letter body.
-
-=== Description-Only Enclosures
-
-When no `file` parameter is provided, the enclosure appears only as a line item in the enclosures list:
-
-```typ
-enclosures: (
-  (description: "Provenance of the Oak trees on the Dimbleby Estate."),
-  (description: "Insurance claim form."),
+  bottom-gap: 8mm, // space between sender and content; defaults to par-spacing
 )
 ```
 
-=== Attaching a File
+#block(breakable: false, width: 100%)[
+  #align(center)[
+    #_lhl({
+      place(top + left, dx: 9mm, dy: 2mm, rect(width: 28mm, height: 9mm, fill: luma(215), stroke: none))
+      place(top + left, dx: 13mm, dy: 13mm, stack(dir: ttb, spacing: 2pt, rect(width: 20mm, height: 2pt, fill: luma(200), stroke: none, radius: 1pt), rect(width: 16mm, height: 2pt, fill: luma(200), stroke: none, radius: 1pt), rect(width: 18mm, height: 2pt, fill: luma(200), stroke: none, radius: 1pt)))
+      place(top + left, dx: 4mm, dy: 26mm, _lh-lines())
+    })
+  ]
+]
 
-Load the file as bytes using `read("path", encoding: none)`. The file is rendered on its own page(s) after the letter.
+- `image-alignment` is ignored; the image is always centered.
+- `bottom-gap` is specific to this layout; it has no effect on the other three.
+- The date is decoupled from the sender — `date-alignment` and `from-alignment` do not interact.
+
+=== Notes and Caveats
+
+- *Use `read()`, not `image()`:* The file key expects raw bytes loaded via `read("path", encoding: none)`. Passing a Typst `image()` call will produce a type error.
+
+- *Aspect ratio:* Setting both `width` and `height` may distort the image. If the values do not match the image's natural aspect ratio, the image will be stretched or compressed. Omit `height` to let it scale proportionally with `width`.
+
+- *Percentage widths:* Percentage widths are relative to the available width. A width of 100% fills the page width minus the letterhead's left and right `image-inset`, not the full physical page width. To span the full page width with no inset, omit `width` entirely or set `image-inset` to `0mm`.
+
+- *Auto page margins:* When the #link(<margins>)[`margins`] parameter is left at its default of `auto`, letterloom derives the page margin using Typst's formula: 2.5/21 of the page's shorter dimension. If you set custom page margins, the letterhead placement adjusts automatically.
+
+- *Custom inset with asymmetric sides:* When using a dictionary for `image-inset` (e.g., `(top: 5mm, rest: 8mm)`), the `rest` key sets the fallback for any sides not explicitly listed.
+
+- *Image format support:* PNG, JPEG, SVG, and GIF are supported. Passing a file in an unsupported format will result in a Typst compile error.
+
+== Embedding Enclosures <enclosures-embedded>
+
+When a `file` key is provided, the document is embedded on a dedicated page appended to the letter. The sections below detail the available options for file-embedded enclosures.
+
+=== Embedding Files
+
+To append the actual document to your letter, load the file as bytes using `read("path", encoding: none)`. The file will be rendered on a new page following the letter body.
+
+#text(size: 10pt)[*Example:*]
 
 ```typ
+// Enclosures with embedded files
 enclosures: (
   (
     description: "Photograph of storm damaged Oak trees.",
@@ -1666,43 +1664,50 @@ enclosures: (
 )
 ```
 
-=== Rendering Multiple Pages
+=== Multi-Page PDFs
 
-By default only the first page of a PDF is embedded. Use `pages` to render more:
+By default, only the first page of an embedded PDF is rendered. Use the pages key to specify how many pages to include.
+
+#text(size: 10pt)[*Example:*]
 
 ```typ
+// Enclosure with multiple pages from a PDF file
 enclosures: (
   (
     description: "Heritage Oak provenance statement.",
     file: read("enclosures/heritage-oak-provenance-statement.pdf", encoding: none),
-    pages: 3,    // renders pages 1–3
+    pages: 3, // renders pages 1–3
   ),
 )
 ```
 
-To find the page count of a PDF, you may use the `pdfinfo` command from the #link("https://poppler.freedesktop.org")[Poppler] library: `pdfinfo document.pdf | grep Pages`.
+*Terminal Tip:* To quickly find the page count of a PDF, you can use the `pdfinfo` command from the #link("https://poppler.freedesktop.org")[Poppler] library: `pdfinfo document.pdf | grep Pages`.
 
-=== Per-Enclosure Page Inset
+=== Page Insets
 
-Each enclosure can carry its own page inset, either as a uniform length or a dictionary of sides:
+You can customize the margins for each embedded enclosure using `page-inset`. This accepts either a uniform length or a dictionary to target specific sides (valid keys: `top`, `bottom`, `left`, `right`, `x`, `y`, `rest`).
+
+#text(size: 10pt)[*Example:*]
 
 ```typ
+// Enclosure with custom page insets
 enclosures: (
   (
     description: "Photograph of storm damaged Oak trees.",
     file: read("enclosures/storm-damaged-oak-tree.jpg", encoding: none),
-    page-inset: 15mm,                        // uniform on all sides
+    page-inset: 15mm, // uniform on all sides
   ),
 )
 ```
 
-Valid dictionary keys: `top`, `bottom`, `left`, `right`, `x`, `y`, `rest`.
-
 === Mixed List
 
-Description-only and file-attached enclosures can be mixed freely:
+You can freely mix description-only line items and embedded files within the same list.
+
+#text(size: 10pt)[*Example:*]
 
 ```typ
+// Mixed list of enclosures with descriptions and embedded files
 enclosures: (
   (description: "Insurance claim form (complete and return)."),
   (
@@ -1718,11 +1723,14 @@ enclosures: (
 )
 ```
 
-A working demonstration of enclosures is shown in the #link(label("comprehensive-example"))[Comprehensive Example] section.
+A fully working demonstration of enclosures can be found in the #link(label("comprehensive-example"))[Comprehensive Example] section.
 
 == Comprehensive Example <comprehensive-example>
 
-The following example illustrates most of the key features of the `letterloom` template explained above. It is not intended as a template for real-world use but rather as a demonstration of how the various parameters interact in practice to produce a complex, richly formatted letter.
+The example below demonstrates the core capabilities of the `letterloom` template in action.
+
+*Note:* This is not intended as a ready-to-use template for everyday correspondence. Instead, it serves as a technical showcase, illustrating how various parameters interact to produce a complex, richly formatted letter.
+
 
 ```typ
 #import "@preview/letterloom:3.0.0": *
