@@ -34,14 +34,6 @@
     ),
   ),
 
-  // Letterhead image (optional)
-  // letterhead: (
-  //   file: read("images/letterhead.png", encoding: none),
-  //   // width: 60%,
-  //   // image-inset: (top: 5mm, rest: 0mm),
-  //   // image-alignment: center,
-  // ),
-
   // Attention line (optional)
   // attn-name: "Receiver's Name",
 
@@ -52,16 +44,6 @@
   // enclosures: (
   //   (description: "Document title"),
   // ),
-
-  // Footer (optional)
-  // footer: (
-  //   (footer-text: "+00-000-000-0000"),
-  //   (footer-text: "email@example.com", footer-type: "email"),
-  //   (footer-text: "https://example.com", footer-type: "url"),
-  // ),
-
-  // Page numbering from page 2 onwards (optional)
-  // number-pages: true,
 )
 
 // Write the body of your letter here
