@@ -24,18 +24,23 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: Install just and tytanic
+      - name: Install just
         uses: taiki-e/install-action@v2
         with:
-          tool: just,tytanic@${{ matrix.typst-version.tytanic }}
+          tool: just
 
       - name: Setup typst
         id: setup-typst
-        uses: typst-community/setup-typst@v3
+        uses: typst-community/setup-typst@v4
         with:
           typst-version: ${{ matrix.typst-version.typst }}
+
+      - name: Setup tytanic
+        uses: typst-community/setup-tytanic@v1
+        with:
+          tytanic-version: ${{ matrix.typst-version.tytanic }}
 
       - name: Run test suite
         run: just test
@@ -53,6 +58,4 @@ jobs:
 
       - name: Build docs
         if: ${{ matrix.typst-version.doc }}
-        run: |
-          just install-preview
-          just doc
+        run: just doc
