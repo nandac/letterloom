@@ -2,23 +2,25 @@
 <!-- markdownlint-disable MD033 -->
 <div align="center">Version 3.0.0</div>
 
-The `letterloom` package is a user-friendly and customizable template designed to streamline the creation of professional-looking letters. Whether for personal or business correspondence, it consistently delivers polished and elegant results in accordance with your tastes.
+Meet `letterloom`, a highly customizable and user-friendly template designed to streamline the creation of professional correspondence. Whether you are drafting a formal business proposal or a personal note, `letterloom` ensures your letters are consistently polished, elegant, and tailored to your exact preferences.
 
-*Key Features:*
+## Key Features
 
-* *Multiple signatures:* Include one or more signatures with optional affiliations.
+* **Multiple Signatures:** Seamlessly support single or multiple signatures, complete with optional titles and affiliations.
 
-* *Letterhead:* Place a branded letterhead with several layout options for positioning.
+* **Custom Letterheads:** Easily integrate branded letterheads with flexible layout and positioning options.
 
-* *Enclosures:* List additional documents and optionally embed them as appended pages.
+* **Smart Enclosures:** List attached documents within the letter, and optionally embed them as appended pages.
 
-* *Internationalization:* Customize labels and text for different languages and regions.
+* **Customizable Labels:** Fully adapt labels and text to suit your needs.
 
-* *Configurable fields:* Any of the nine core fields can be made optional, leaving no blank space in the layout.
+* **Configurable Fields:** Gain complete control over your document structure — every required field can be toggled as optional.
 
-* *Footnotes:* Add footnotes with configurable separator alignment and font sizing.
+## How It Works
 
-`letterloom` follows the conventions of formal business correspondence while giving you full control over typography, alignment, and optional elements. The template handles vertical spacing, page geometry, and letterhead placement automatically so the output is consistent regardless of content length and paper size.
+Out of the box, `letterloom` adheres to the strict conventions of formal English business correspondence, intelligently structuring the sender address, date, recipient, subject, body, closing, and signatures. However, it also grants you ultimate control over typography, alignment, and optional elements.
+
+The package handles all vertical spacing, page geometry, and letterhead placement automatically. This ensures a flawless, consistent layout regardless of your content's length or the paper size used.
 
 ## Requirements
 

@@ -8,27 +8,26 @@
 /// Validates that the letterloom function correctly processes signature alignment
 /// with different signature counts and alignment values.
 ///
-/// Test Scenario:
-/// - Single signature with center alignment
-/// - Single signature with left alignment
-/// - Single signature with right alignment
-/// - Multiple signatures with center alignment (alignment is ignored)
-/// - Invalid signature-alignment type (string instead of alignment)
+/// Test Scenarios:
+/// 1. Single signature (Lord Albus Dimbleby), signature-alignment: center
+/// 2. Single signature (Lord Albus Dimbleby), signature-alignment: left
+/// 3. Single signature (Lord Albus Dimbleby), signature-alignment: right
+/// 4. Single signature (Sir Austin Dimbleby), signature-alignment: center
+/// 5. Three signatures, signature-alignment: center (alignment ignored for multiple)
+/// 6. Two signatures, signature-alignment: center (alignment ignored for multiple)
+/// 7. Invalid signature-alignment type (string "left" instead of alignment value)
 ///
 /// Expected Behavior:
-/// The function should successfully generate properly formatted letters with
-/// correctly aligned signatures for valid alignment values, and panic with
-/// appropriate error messages for invalid alignment types.
+/// Scenarios 1–6 produce visual output compared against reference images.
+/// Scenario 7 panics with an error message indicating the type mismatch.
+///
+/// Expected Errors:
+/// - "signature-alignment must be a valid alignment type." - when a string is passed
 ///
 /// Validation:
-/// Ensures that the signature alignment system works correctly for both
-/// single and multiple signatures with different alignment values.
-/// Tests both successful cases and error handling for invalid types.
-///
-/// Note:
-/// This test validates that the signature-alignment parameter correctly
-/// controls the positioning of signatures in the letter layout.
-/// It ensures proper alignment behavior for various signature configurations.
+/// Ensures signature-alignment is applied correctly for single signatures across
+/// all three alignment values, that it is correctly ignored for multiple signatures,
+/// and that passing a string instead of a Typst alignment value is rejected.
 #import "/src/lib.typ": *
 
 #show: letterloom.with(

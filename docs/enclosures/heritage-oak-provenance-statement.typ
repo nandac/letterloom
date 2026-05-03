@@ -34,8 +34,9 @@
 
 #align(center)[
   #block(fill: rgb("#fff3cd"), inset: 8pt, radius: 4pt)[
-    #text(size: 9pt)[*Disclaimer:* #text(style: "italic")[This document is entirely fictitious and is provided solely as a usage example for the `letterloom` package.]]
-  ]
+    #text(
+      size: 10pt,
+    )[*Disclaimer:* _This document and its references are entirely fictitious, created solely to demonstrate the `letterloom` package. Any resemblance to real persons, places, or events is purely coincidental. This content is for illustrative purposes only and contains no factual information._]]
 ]
 
 #align(center)[= Heritage Oak Provenance Statement]
@@ -44,12 +45,9 @@
   columns: 2,
   row-gutter: 8pt,
   column-gutter: 20pt,
-  [*Reference:* DEPS-2026-OAK-001],
-  [*Date:* 14 March 2026],
-  [*Site:* Dimbleby Estate, Middle Upton, Bristol BS16 1GU],
-  [*Prepared for:* The Dimbleby Family],
-  [*Species:* English Oak (_Quercus robur_)],
-  [*Specimens:* OT-01 to OT-06 (six trees)],
+  [*Reference:* DEPS-2026-OAK-001], [*Date:* 14 March 2026],
+  [*Site:* Dimbleby Estate, Middle Upton, Bristol BS16 1GU], [*Prepared for:* The Dimbleby Family],
+  [*Species:* English Oak (_Quercus robur_)], [*Specimens:* OT-01 to OT-06 (six trees)],
 )
 
 == Introduction
@@ -127,7 +125,9 @@ I confirm that the information contained in this statement has been compiled fro
   gutter: 6pt,
   [*Prepared by:*], [Mr Sebastian Oakley, MA, Dip. WP, FSWPC],
   [*Position:*], [Woodland Historian and Provenance Consultant],
-  [*Qualifications:*], [MA History of the Landscape (Upton Vale); Diploma in Woodland Provenance Studies (BWHA); Fellow of the Society of Woodland Provenance Consultants],
+  [*Qualifications:*],
+  [MA History of the Landscape (Upton Vale); Diploma in Woodland Provenance Studies (BWHA); Fellow of the Society of Woodland Provenance Consultants],
+
   [*For:*], [The Dimbleby Estate],
   [*Date:*], [14 March 2026],
   [*Signature:*], [#align(left, image("sebastian-oakley-sig.svg", width: 30%))],

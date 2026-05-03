@@ -13,7 +13,7 @@
 /// - description (required): string or content
 /// - file (optional): bytes loaded via read("path", encoding: none)
 /// - pages (optional): integer >= 1
-/// - margin (optional): length or dictionary with valid side keys
+/// - page-inset (optional): length or dictionary with valid side keys
 ///
 /// Test Scenarios:
 /// - enclosures field is empty string or empty tuple

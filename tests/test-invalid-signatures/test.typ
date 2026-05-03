@@ -23,7 +23,7 @@
 ///
 /// Expected Errors:
 /// - "signatures are missing." - when signatures field is not provided
-/// - "signature 'Lord Albus Dimbleby' must be a dictionary with a name field and an optional signature field." - when signature is not a dictionary
+/// - "signature 'Lord Albus Dimbleby' must be a dictionary with a required name field and optional signature and affiliation fields." - when signature is not a dictionary
 /// - "signature name is missing." - when name field is not present in signature dictionary
 /// - "signature name '3' must be a string or content block." - when name field has wrong type
 /// - "signature name is empty." - when name field is empty string or content block

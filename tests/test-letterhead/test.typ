@@ -12,7 +12,8 @@
 ///
 /// Test Scenario:
 /// - letterhead.file is a valid PNG loaded via read()
-/// - No width, height, margin, or alignment overrides (all defaults)
+/// - letterhead.image-inset: (top: 5mm, rest: 5mm)
+/// - No width, height, or alignment overrides (all other defaults)
 /// - Letter body is long enough to overflow onto a second page
 ///
 /// Expected Behavior:
@@ -28,6 +29,7 @@
 #show: letterloom.with(
   letterhead: (
     file: read("/docs/images/letterhead.png", encoding: none),
+    image-inset: (top: 5mm, rest: 5mm),
   ),
   from-name: "The Dimbleby Family",
   from-address: [

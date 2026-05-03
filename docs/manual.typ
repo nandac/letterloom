@@ -105,7 +105,7 @@ Meet `letterloom`, a highly customizable and user-friendly template designed to 
 
 Out of the box, `letterloom` adheres to the strict conventions of formal English business correspondence, intelligently structuring the sender address, date, recipient, subject, body, closing, and signatures. However, it also grants you ultimate control over typography, alignment, and optional elements.
 
-The package handles all vertical spacing, page geometry, and letterhead placement automatically. This ensures a flawless, consistent layout regardless of your content's length or the paper size used.
+The template handles all vertical spacing, page geometry, and letterhead placement automatically. This ensures a flawless, consistent layout regardless of your content's length or the paper size used.
 
 == Requirements
 
@@ -468,6 +468,10 @@ Places the provided letterhead on the first page of the letter.
   [`bottom-gap`],
   [#highlight-type.length #h(5pt) _optional_],
   [Space between the sender address and the letter content below when `sender-position` is `center`. Defaults to #link(<par-spacing>)[`par-spacing`].],
+
+  [`sender-valign`],
+  [#highlight-type.alignment #h(5pt) _optional_],
+  [Vertical alignment of the sender address relative to the image when `sender-position` is `left` or `right`. Accepts `top`, `horizon`, or `bottom`. Defaults to `horizon` (vertically centred). Has no effect when `sender-position` is `center` or omitted.],
 )
 
 #text(size: 10pt)[*Default:* #h(5pt) #highlight-type.none-type]
@@ -1455,45 +1459,80 @@ When an affiliation exceeds the standard length, the signature block automatical
 ```typ
 signatures: (
   (
-    name: "Sir Austin Dimbleby",
+    name: "Lord Albus Dimbleby",
+    signature: image("albus-sig.png", width: 40mm),
     affiliation: [
-      Knight Commander of the British Empire \
-      Chairman, Dimbleby Estate \
-      General Secretary, Dimbleby Family Trust \
-      Senior Fellow, Royal Institute of Horticulture \
+      Earl of Cheswick \
+      Chairman of the Dimbleby Family Charitable Trust \
+      President of the Royal Horticultural Society \
     ],
-    // no signature provided so empty space is reserved
   ),
   (
-    name: "Lord Albus Dimbleby",
-    // short affiliation — block expands to match Sir Austin Dimbleby's height
+    name: "Lady Abigail Dimbleby",
+    signature: image("abigail-sig.png", width: 40mm),
     affiliation: [
-      Chairman, Dimbleby Family Trust
+      Countess of Cheswick
     ],
+    // shorter affiliation — block expands to match Lord Albus's height
+  ),
+  (
+    name: "Sir Austin Dimbleby",
+    signature: image("austin-sig.png", width: 40mm),
+    affiliation: [
+      Knight Commander of the Order of the British Empire \
+      Chairman of the Dimbleby Estate \
+      Secretary of the Dimbleby Family Charitable Trust \
+      Senior Fellow of the Royal Geographical Society \
+    ],
+    // wide affiliation forces this onto its own row
   ),
 )
 ```
 
 #_preview[
-  #grid(
-    columns: (auto, auto),
-    gutter: 24pt,
-    stack(
-      dir: ttb,
-      spacing: 2pt,
-      rect(width: 36mm, height: 16mm, stroke: none), // empty signature box
-      [
-        Sir Austin Dimbleby \
-        Knight Commander of the British Empire \
-        Chairman, Dimbleby Estate \
-        General Secretary, Dimbleby Family Trust \
-        Senior Fellow, Royal Institute of Horticulture \
-      ],
+  #stack(
+    spacing: 1em,
+    grid(
+      columns: (auto, auto),
+      column-gutter: 24pt,
+      align: top + left,
+      stack(
+        spacing: 1em,
+        box(width: 40mm, image("images/albus-sig.png", width: 40mm)),
+        stack(
+          spacing: 1em,
+          [Lord Albus Dimbleby],
+          [
+            Earl of Cheswick \
+            Chairman of the Dimbleby Family Charitable Trust \
+            President of the Royal Horticultural Society \
+          ],
+        ),
+      ),
+      stack(
+        spacing: 1em,
+        box(width: 40mm, image("images/abigail-sig.png", width: 40mm)),
+        stack(
+          spacing: 1em,
+          [Lady Abigail Dimbleby],
+          [Countess of Cheswick],
+        ),
+      ),
     ),
-    stack(dir: ttb, spacing: 2pt, box(width: 36mm, height: 16mm, clip: true, image("images/albus-sig.png")), [
-      Lord Albus Dimbleby \
-      Chairman, Dimbleby Family Trust
-    ]),
+    stack(
+      spacing: 1em,
+      box(width: 40mm, image("images/austin-sig.png", width: 40mm)),
+      stack(
+        spacing: 1em,
+        [Sir Austin Dimbleby],
+        [
+          Knight Commander of the Order of the British Empire \
+          Chairman of the Dimbleby Estate \
+          Secretary of the Dimbleby Family Charitable Trust \
+          Senior Fellow of the Royal Geographical Society \
+        ],
+      ),
+    ),
   )
 ]
 
@@ -1547,16 +1586,17 @@ letterhead: (
 
 === Sender Alongside: Right
 
-The letterhead image is placed flush to the left edge of the page. The sender address fills the remaining column to the right at the same vertical position.
+The letterhead image is placed flush to the left edge of the page. The sender address fills the remaining column to the right, vertically centred relative to the image by default.
 
 #text(size: 10pt)[*Example:*]
 
 ```typ
-// Letterhead with sender lines alongside on the right
+// Letterhead with sender alongside on the right, vertically centred (default)
 letterhead: (
   file: read("images/letterhead.png", encoding: none),
   width: 65mm, // required in practice — sets the column split
   sender-position: right,
+  sender-valign: horizon, // top, horizon (default), or bottom
 )
 ```
 
@@ -1564,7 +1604,7 @@ letterhead: (
   #align(center)[
     #_lhl({
       place(top + left, rect(width: 22mm, height: 17mm, fill: luma(215), stroke: none))
-      place(top + left, dx: 25mm, dy: 2mm, _sender-lines())
+      place(top + left, dx: 25mm, dy: 6mm, _sender-lines())
       place(top + left, dx: 4mm, dy: 21mm, _lh-lines())
     })
   ]
@@ -1572,19 +1612,21 @@ letterhead: (
 
 - `image-alignment` is ignored.
 - Specify `width`; omitting it defaults to full content width, leaving no room for the sender.
+- `sender-valign` controls the vertical position of the sender relative to the image: `top`, `horizon` (default), or `bottom`.
 
 === Sender Alongside: Left
 
-The letterhead image is placed flush to the right edge of the page. The sender address fills the remaining column to the left.
+The letterhead image is placed flush to the right edge of the page. The sender address fills the remaining column to the left, vertically centred relative to the image by default.
 
 #text(size: 10pt)[*Example:*]
 
 ```typ
-// Letterhead with sender lines alongside on the left
+// Letterhead with sender alongside on the left, vertically centred (default)
 letterhead: (
   file: read("images/letterhead.png", encoding: none),
   width: 65mm,
   sender-position: left,
+  sender-valign: horizon, // top, horizon (default), or bottom
 )
 ```
 
@@ -1592,13 +1634,14 @@ letterhead: (
   #align(center)[
     #_lhl({
       place(top + left, dx: 24mm, rect(width: 22mm, height: 17mm, fill: luma(215), stroke: none))
-      place(top + left, dx: 4mm, dy: 2mm, _sender-lines())
+      place(top + left, dx: 4mm, dy: 6mm, _sender-lines())
       place(top + left, dx: 4mm, dy: 21mm, _lh-lines())
     })
   ]
 ]
 
 - `image-alignment` is ignored.
+- `sender-valign` controls the vertical position of the sender relative to the image: `top`, `horizon` (default), or `bottom`.
 
 === Sender Centered Below
 
@@ -1627,7 +1670,7 @@ letterhead: (
 ]
 
 - `image-alignment` is ignored; the image is always centered.
-- `bottom-gap` is specific to this layout; it has no effect on the other three.
+- `bottom-gap` controls the space between the sender address and the letter content below; it has no effect on the other three layouts.
 - The date is decoupled from the sender — `date-alignment` and `from-alignment` do not interact.
 
 === Notes and Caveats

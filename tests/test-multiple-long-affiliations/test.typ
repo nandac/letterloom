@@ -49,6 +49,7 @@
   signatures: (
     (
       name: "Lord Albus Dimbleby",
+      signature: image("../../docs/images/albus-sig.png", width: 40mm),
       affiliation: [
         Earl of Cheswick \
         Chairman of the Dimbleby Family Charitable Trust \
@@ -58,13 +59,21 @@
     ),
     (
       name: "Lady Abigail Dimbleby",
+      signature: image("../../docs/images/abigail-sig.png", width: 40mm),
       affiliation: [
-        Countess of Cheswick \
-        Director of the Dimbleby Family Charitable Trust \
-        Trustee of the National Trust \
-        Fellow of the Linnean Society
+        Countess of Cheswick
       ],
     ),
+    (
+      name: "Sir Austin Dimbleby",
+      signature: image("../../docs/images/austin-sig.png", width: 40mm),
+      affiliation: [
+        Knight Commander of the British Empire \
+        Vice Chairman of the Dimbleby Estate \
+        Direct of the Dimbleby Family Charitable Trust \
+        Senior Fellow of the Royal Geographical Society
+      ],
+    )
   ),
 )
 

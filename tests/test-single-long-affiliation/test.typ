@@ -1,33 +1,41 @@
-/// test-single-long-signature
+/// test-single-long-affiliation
 ///
 /// Synopsis:
-/// Test case that validates the letterloom function correctly lays out a single
-/// signature with long content (multi-line title, affiliation) and various
-/// signature-alignment values.
+/// Rendering test that validates correct layout of signatures with long
+/// affiliation text across all signature-alignment values and multi-signatory
+/// arrangements where one signatory carries a long affiliation.
 ///
 /// Purpose:
-/// Ensures that letters with one signatory and lengthy title/affiliation text
-/// render correctly and that signature-alignment (left, center, right) is applied.
-/// Also covers multiple signatures and invalid signature-alignment type.
+/// Ensures that lengthy affiliation text (4-line affiliation with signature
+/// image, or 2-line affiliation without image) renders correctly and that the
+/// signature-alignment parameter is applied as expected for single signatures.
+/// Also verifies that multi-signatory rows handle one signatory with a long
+/// affiliation regardless of their position in the list.
 ///
-/// Test Scenario:
-/// - Single signature with long title and multi-line affiliation, left alignment
-/// - Single signature with long title and multi-line affiliation, center alignment
-/// - Single signature with long title and multi-line affiliation, right alignment
-/// - Multiple signatures (alignment forced to left)
-/// - Invalid signature-alignment type (string instead of alignment)
+/// Test Scenarios:
+/// 1. Single signature with 4-line affiliation and signature image,
+///    signature-alignment: left
+/// 2. Single signature with 2-line affiliation (no image),
+///    signature-alignment: center
+/// 3. Single signature with 2-line affiliation (no image),
+///    signature-alignment: right
+/// 4. Single signature with 2-line affiliation (no image),
+///    signature-alignment: center
+/// 5. Single signature with 2-line affiliation (no image),
+///    signature-alignment: right
+/// 6. Three signatories: two without affiliation followed by one with
+///    2-line affiliation (default signature-alignment)
+/// 7. Three signatories: one with 2-line affiliation followed by two
+///    without affiliation (default signature-alignment)
 ///
 /// Expected Behavior:
-/// Letters render with correctly aligned signature blocks; invalid alignment panics.
-/// Output is compared to reference images (visual regression).
+/// All scenarios produce visual output compared against reference images.
+/// Signature blocks align correctly for each signature-alignment value.
+/// In multi-signatory rows, all name baselines remain level regardless of
+/// which signatory carries the long affiliation.
 ///
 /// Validation:
-/// Visual regression: output must match reference. Ensures long signature content
-/// and alignment options behave correctly across layout changes.
-///
-/// Note:
-/// This test complements test-single-signature-alignment by focusing on long
-/// signature content and multi-page layout when applicable.
+/// Visual regression only — output must match reference images.
 #import "/src/lib.typ": *
 
 #show: letterloom.with(
@@ -52,10 +60,12 @@
   signatures: (
     (
       name: "Sir Austin Dimbleby, KBE",
-      title: "Knight Commander of the Order of the British Empire",
+      signature: image("../../docs/images/austin-sig.png", width: 50mm),
       affiliation: [
-        Senior Advisor, International Relations \
-        Chairman, Global Trade Council \
+        Knight Commander of the British Empire \
+        Chairman, Dimbleby Estate \
+        General Secretary, Dimbleby Family Trust \
+        Senior Fellow, Royal Institute of Horticulture \
       ],
     ),
   ),
@@ -84,7 +94,6 @@
   signatures: (
     (
       name: "Sir Austin Dimbleby, KBE",
-      title: "Knight Commander of the Order of the British Empire",
       affiliation: [
         Senior Advisor, International Relations \
         Chairman, Global Trade Council \
@@ -116,7 +125,6 @@
   signatures: (
     (
       name: "Sir Austin Dimbleby, KBE",
-      title: "Knight Commander of the Order of the British Empire",
       affiliation: [
         Senior Advisor, International Relations \
         Chairman, Global Trade Council \
@@ -148,7 +156,6 @@
   signatures: (
     (
       name: "Sir Austin Dimbleby, KBE",
-      title: "Knight Commander of the Order of the British Empire",
       affiliation: [
         Senior Advisor, International Relations \
         Chairman, Global Trade Council \
@@ -180,7 +187,6 @@
   signatures: (
     (
       name: "Sir Austin Dimbleby, KBE",
-      title: "Knight Commander of the Order of the British Empire",
       affiliation: [
         Senior Advisor, International Relations \
         Chairman, Global Trade Council \
@@ -218,7 +224,6 @@
     ),
     (
       name: "Sir Austin Dimbleby, KBE",
-      title: "Knight Commander of the Order of the British Empire",
       affiliation: [
         Senior Advisor, International Relations \
         Chairman, Global Trade Council \
@@ -249,7 +254,6 @@
   signatures: (
     (
       name: "Sir Austin Dimbleby, KBE",
-      title: "Knight Commander of the Order of the British Empire",
       affiliation: [
         Senior Advisor, International Relations \
         Chairman, Global Trade Council \

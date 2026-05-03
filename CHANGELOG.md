@@ -40,6 +40,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   )
   ```
 
+### Added
+
+- Extended the `letterhead` dictionary with three new optional keys for placing the sender address inside the letterhead zone on the first page:
+  - `sender-position`: `left`, `center`, or `right` — places the sender block to the left of the image, centered below it, or to the right of the image respectively.
+  - `sender-valign`: `top`, `horizon` (default), or `bottom` — controls the vertical alignment of the sender column relative to the image height. Applies only when `sender-position` is `left` or `right`.
+  - `bottom-gap`: length — adds extra space between the bottom of the letterhead zone (image + sender) and the first letter element below it (date, recipient). Applies only when `sender-position` is `center`.
+
+  ([#5](https://github.com/nandac/letterloom/issues/5))
+
 ### Changed
 
 - Multiple signatures are now laid out using a greedy bin-packing algorithm. Signatures are packed left-to-right into rows of up to three; a signature that would overflow the available width starts a new row automatically.
