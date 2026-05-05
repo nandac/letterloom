@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [3.0.0] - 2026-04-30
+## [3.0.0] - 2026-05-07
 
 ### Breaking Changes
 
@@ -54,7 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Multiple signatures are now laid out using a greedy bin-packing algorithm. Signatures are packed left-to-right into rows of up to three; a signature that would overflow the available width starts a new row automatically.
 - All typographic spacing values (signature row gap, name-to-affiliation gap, cc and enclosure list indentation) are now expressed in `em` units so they scale correctly when `main-font-size` is changed.
 
-## [2.1.0] - 2026-04-30
+## [2.1.0] - 2026-05-04
 
 ### Added
 
