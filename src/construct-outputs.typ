@@ -730,10 +730,15 @@
           // Look up each signatory's pre-measured column width by position.
           // This preserves the text+image max already computed above rather
           // than re-measuring inside the render loop.
-          let row-col-widths = row.map(sig => {
-            let idx = signatures.position(s => s.name == sig.name)
-            col-actual-widths.at(idx)
-          })
+          //  If there is only 1 column then apply the signature align to the page width.
+          let row-col-widths = if n == 1 {
+            (available,)
+          } else {
+            row.map(sig => {
+              let idx = signatures.position(s => s.name == sig.name)
+              col-actual-widths.at(idx)
+            })
+          }
 
           // Uniform image-box height for all cells in this row. Every cell's
           // signature box is sized to max-img-height so that when images
