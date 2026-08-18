@@ -1726,6 +1726,8 @@ enclosures: (
 
 *Terminal Tip:* To quickly find the page count of a PDF, you can use the `pdfinfo` command from the #link("https://poppler.freedesktop.org")[Poppler] library: `pdfinfo document.pdf | grep Pages`.
 
+*Note:* If a PDF you are embedding contains annotations, print it to a new file before embedding — this flattens all layers into the page content. Annotations live in a separate layer that Typst's `image()` function does not render, since it only rasterizes the page's underlying content stream.
+
 === Page Insets
 
 You can customize the margins for each embedded enclosure using `page-inset`. This accepts either a uniform length or a dictionary to target specific sides (valid keys: `top`, `bottom`, `left`, `right`, `x`, `y`, `rest`).
