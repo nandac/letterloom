@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.1] - 2026-08-22
+
+### Fixed
+
+- Fixed single-signature alignment so that when only one signature is given, it aligns across the full page width instead of using its previously measured column width. ([#6](https://github.com/nandac/letterloom/pull/6))
+
+### Documentation
+
+- Added a note on embedding annotated PDFs as enclosures: print the PDF to a new file before embedding to flatten annotation layers into the page content, since Typst's `image()` function only rasterizes the underlying content stream. ([#6](https://github.com/nandac/letterloom/pull/6))
+
 ## [3.0.0] - 2026-05-07
 
 ### Breaking Changes
@@ -275,7 +285,8 @@ to the corresponding tag on GitHub, or the diff
 in comparison to the previous release
 -->
 
-[Unreleased]: https://github.com/nandac/letterloom/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/nandac/letterloom/compare/v3.0.1...HEAD
+[3.0.1]: https://github.com/nandac/letterloom/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/nandac/letterloom/compare/v2.1.0...v3.0.0
 [2.1.0]: https://github.com/nandac/letterloom/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/nandac/letterloom/compare/v1.0.0...v2.0.0

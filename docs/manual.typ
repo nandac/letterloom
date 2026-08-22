@@ -1,4 +1,4 @@
-#import "@preview/letterloom:3.0.0": *
+#import "@preview/letterloom:3.0.1": *
 #import "highlight-type.typ": highlight-type
 
 // Global Styles
@@ -85,7 +85,7 @@
   },
 )
 
-= `letterloom v3.0.0`
+= `letterloom v3.0.1`
 
 Meet `letterloom`, a highly customizable and user-friendly template designed to streamline the creation of professional correspondence. Whether you are drafting a formal business proposal or a personal note, `letterloom` ensures your letters are consistently polished, elegant, and tailored to your exact preferences.
 
@@ -120,10 +120,10 @@ Every parameter is documented below, detailing its accepted data type, default v
 To initialize a new `letterloom` project locally, run the following command in your terminal:
 
 ```bash
-typst init @preview/letterloom:3.0.0
+typst init @preview/letterloom:3.0.1
 ```
 
-Alternatively, you can create a new project directly in the #link("https://typst.app/app?template=letterloom&version=3.0.0")[Typst Web App].
+Alternatively, you can create a new project directly in the #link("https://typst.app/app?template=letterloom&version=3.0.1")[Typst Web App].
 
 For a complete, full-featured demonstration, please refer to the #link(label("comprehensive-example"))[Comprehensive Example] section.
 
@@ -1724,9 +1724,9 @@ enclosures: (
 )
 ```
 
-*Terminal Tip:* To quickly find the page count of a PDF, you can use the `pdfinfo` command from the #link("https://poppler.freedesktop.org")[Poppler] library: `pdfinfo document.pdf | grep Pages`.
+*Note:* To embed a PDF with annotations, you must first flatten it by printing it to a new PDF. Otherwise, Typst's `image()` function will not render the annotations, as it only rasterizes the page's underlying content stream.
 
-*Note:* If a PDF you are embedding contains annotations, print it to a new file before embedding — this flattens all layers into the page content. Annotations live in a separate layer that Typst's `image()` function does not render, since it only rasterizes the page's underlying content stream.
+*Terminal Tip:* To quickly find the page count of a PDF, you can use the `pdfinfo` command from the #link("https://poppler.freedesktop.org")[Poppler] library: `pdfinfo document.pdf | grep Pages`.
 
 === Page Insets
 
@@ -1778,7 +1778,7 @@ The example below demonstrates the core capabilities of the `letterloom` templat
 
 
 ```typ
-#import "@preview/letterloom:3.0.0": *
+#import "@preview/letterloom:3.0.1": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)

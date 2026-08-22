@@ -1,4 +1,4 @@
-#import "@preview/letterloom:3.0.0": *
+#import "@preview/letterloom:3.0.1": *
 
 #set page(height: auto, margin: 5mm)
 

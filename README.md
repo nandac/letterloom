@@ -1,6 +1,6 @@
 # The `letterloom` Package
 <!-- markdownlint-disable MD033 -->
-<div align="center">Version 3.0.0</div>
+<div align="center">Version 3.0.1</div>
 
 Meet `letterloom`, a highly customizable and user-friendly template designed to streamline the creation of professional correspondence. Whether you are drafting a formal business proposal or a personal note, `letterloom` ensures your letters are consistently polished, elegant, and tailored to your exact preferences.
 
@@ -31,7 +31,7 @@ Typst 0.14.0 or higher is required to use this package.
 Here is a simple example showing the essential arguments needed to use the `letterloom` package:
 
 ```typ
-#import "@preview/letterloom:3.0.0": *
+#import "@preview/letterloom:3.0.1": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
@@ -101,12 +101,12 @@ Thank you kindly.
 To create a new letter project run the following command in your terminal:
 
 ```bash
-typst init @preview/letterloom:3.0.0
+typst init @preview/letterloom:3.0.1
 ```
 
 This will generate a ready-to-use letter project in your current directory.
 
-Alternatively, you may create a new project directly in the [Typst webapp](https://typst.app/app?template=letterloom&version=3.0.0).
+Alternatively, you may create a new project directly in the [Typst webapp](https://typst.app/app?template=letterloom&version=3.0.1).
 
 For a detailed overview of all options and features, consult the package's [official manual](docs/manual.pdf), which provides comprehensive usage instructions and a more elaborate example.
 
@@ -187,7 +187,7 @@ just install-preview
 Once installed, import it into your Typst file using:
 
 ```typ
-#import "@preview/letterloom:3.0.0": *
+#import "@preview/letterloom:3.0.1": *
 ```
 
 This allows experimentation with the package before finalizing updates.
