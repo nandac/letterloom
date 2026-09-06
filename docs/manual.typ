@@ -367,7 +367,7 @@ Specifies a list of signatures as an array of dictionaries, where each dictionar
   [`name`], [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)], [The signatory's name.],
   [`signature`],
   [#highlight-type.content #h(5pt) _optional_],
-  [A #link("https://typst.app/docs/reference/visualize/image/")[Typst `image(...)`] call pointing to the signature image file. When omitted, a blank space is reserved for a physical signature.],
+  [A #link("https://typst.app/docs/reference/visualize/image/")[Typst `image(...)`] call pointing to the signature image file. When omitted, a blank space is reserved for a physical signature. Size it with an absolute unit (`mm`, `cm`, `pt`, `in`) rather than a percentage — see the note in #link(label("signature-handling"))[Signature Handling].],
 
   [`affiliation`],
   [#highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt) _optional_],
@@ -1416,6 +1416,8 @@ Signatures are organized in rows with a maximum of three signatures each, fillin
 - *Baseline Alignment:* Within each row, name baselines are always aligned, regardless of whether a signature image or affiliation is present.
 
 - *Parameter Behavior:* The #link(<signature-alignment>)[`signature-alignment`] parameter is automatically ignored whenever more than one signature is present.
+
+- *Sizing Signature Images:* Use an absolute unit (`mm`, `cm`, `pt`, `in`) for a signature's `image(...)` width, e.g. `image("albus-sig.png", width: 40mm)`. A percentage width (e.g. `width: 30%`) is resolved against the full printable page width, not the column it ends up packed into — so with more than one signature per row it renders smaller than the percentage suggests. This only matches expectations when there is exactly one signature, since that row always spans the full page width.
 
 #text(size: 10pt)[*Example:*]
 ```typ

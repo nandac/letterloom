@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed signature images sized with a ratio (e.g. `width: 30%`) being invisible to the bin-packing measurement step, which previously treated them as 0pt wide and collapsed their column to the signatory's name-text width. Ratio-sized images now resolve against the full printable page width.
+
+### Documentation
+
+- Documented that a signature's `image(...)` width should use an absolute unit (`mm`, `cm`, `pt`, `in`) rather than a percentage, since a percentage is resolved against the full page width rather than the (narrower) column it is packed into whenever more than one signature shares a row.
+
 ## [3.0.1] - 2026-08-22
 
 ### Fixed

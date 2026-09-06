@@ -632,6 +632,15 @@
 /// signature-alignment applies only to single-signature rows. Multi-signature
 /// rows are always left-aligned.
 ///
+/// A signature image sized with a ratio (e.g. width: 30%) resolves against
+/// the full printable page width, not the packed column. For a single
+/// signature this matches what is actually rendered (its column is always
+/// the full page width — see RENDERING below), so ratio widths are
+/// reliable there. In a multi-signature row the rendered column is
+/// narrower than the page, so a ratio-sized image renders smaller than its
+/// ratio would suggest; use an absolute unit (mm, cm, pt) for predictable
+/// sizing whenever more than one signature shares a row.
+///
 /// - signatures (none or array): One or more signatory dictionaries. Returns
 ///   immediately when none, following the same guard pattern as other functions.
 /// - signature-alignment (alignment): Alignment for single-signature rows.
@@ -664,6 +673,13 @@
       // columns and the gutters between them.
       let available = page.width - left-m - right-m
 
+      // measure()'s width parameter requires a plain length, but available is
+      // typed "relative" whenever page.margin was read directly (i.e. margin
+      // is not auto) rather than derived from the default-m calculation
+      // above. .length extracts the absolute component, which is safe here
+      // since page margins in this module are always absolute, never a ratio.
+      let available-length = if type(available) == length { available } else { available.length }
+
       // STEP 1 — Measure each signature's natural text width.
       // [#item] wraps both str and content in a content block so measure()
       // handles them uniformly. The width is the max across name and affiliation
@@ -679,9 +695,17 @@
       // transparent rect with a fixed height; measure() returns its natural
       // width (0pt for a rect with no explicit width, so the image wins when
       // present).
+      //
+      // width: available-length is passed so that a signature image sized
+      // with a ratio (e.g. image(..., width: 30%)) resolves against the
+      // printable page width instead of measure()'s default unbounded
+      // region, which cannot resolve ratios and silently returns 0pt for
+      // them. Without this, a ratio-sized image would be invisible to
+      // bin-packing and shrink to whatever width the signatory's name text
+      // happens to be.
       let img-widths = signatures.map(sig => {
         let sig-content = sig.at("signature", default: rect(height: 40pt, stroke: none))
-        measure(sig-content).width
+        measure(sig-content, width: available-length).width
       })
 
       // Column width for bin-packing = max(text width, image width). This
@@ -745,9 +769,13 @@
           // differ in height (or some cells have a placeholder), the name
           // baseline is the same vertical distance from the top of the cell
           // across all columns in the row.
+          // width: available-length for the same reason as the img-widths
+          // measurement above: a ratio-sized image's auto height is derived
+          // from its resolved width, so it must be measured against a
+          // concrete width to come out correct rather than collapsing to 0pt.
           let max-img-height = row.map(sig => {
             let sig-content = sig.at("signature", default: rect(height: 40pt, stroke: none))
-            measure(sig-content).height
+            measure(sig-content, width: available-length).height
           }).fold(0pt, calc.max)
 
           grid(
