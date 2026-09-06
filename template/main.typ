@@ -1,4 +1,4 @@
-#import "@preview/letterloom:3.0.1": *
+#import "@preview/letterloom:3.0.2": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)

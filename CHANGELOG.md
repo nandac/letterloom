@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.2] - 2026-09-06
+
 ### Fixed
 
 - Fixed signature images sized with a ratio (e.g. `width: 30%`) being invisible to the bin-packing measurement step, which previously treated them as 0pt wide and collapsed their column to the signatory's name-text width. Ratio-sized images now resolve against the full printable page width.
@@ -293,7 +295,8 @@ to the corresponding tag on GitHub, or the diff
 in comparison to the previous release
 -->
 
-[Unreleased]: https://github.com/nandac/letterloom/compare/v3.0.1...HEAD
+[Unreleased]: https://github.com/nandac/letterloom/compare/v3.0.2...HEAD
+[3.0.2]: https://github.com/nandac/letterloom/compare/v3.0.1...v3.0.2
 [3.0.1]: https://github.com/nandac/letterloom/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/nandac/letterloom/compare/v2.1.0...v3.0.0
 [2.1.0]: https://github.com/nandac/letterloom/compare/v2.0.0...v2.1.0

@@ -1,4 +1,4 @@
-#import "@preview/letterloom:3.0.1": *
+#import "@preview/letterloom:3.0.2": *
 #import "highlight-type.typ": highlight-type
 
 // Global Styles
@@ -85,7 +85,7 @@
   },
 )
 
-= `letterloom v3.0.1`
+= `letterloom v3.0.2`
 
 Meet `letterloom`, a highly customizable and user-friendly template designed to streamline the creation of professional correspondence. Whether you are drafting a formal business proposal or a personal note, `letterloom` ensures your letters are consistently polished, elegant, and tailored to your exact preferences.
 
@@ -120,10 +120,10 @@ Every parameter is documented below, detailing its accepted data type, default v
 To initialize a new `letterloom` project locally, run the following command in your terminal:
 
 ```bash
-typst init @preview/letterloom:3.0.1
+typst init @preview/letterloom:3.0.2
 ```
 
-Alternatively, you can create a new project directly in the #link("https://typst.app/app?template=letterloom&version=3.0.1")[Typst Web App].
+Alternatively, you can create a new project directly in the #link("https://typst.app/app?template=letterloom&version=3.0.2")[Typst Web App].
 
 For a complete, full-featured demonstration, please refer to the #link(label("comprehensive-example"))[Comprehensive Example] section.
 
@@ -1780,7 +1780,7 @@ The example below demonstrates the core capabilities of the `letterloom` templat
 
 
 ```typ
-#import "@preview/letterloom:3.0.1": *
+#import "@preview/letterloom:3.0.2": *
 
 #show: letterloom.with(
   // Sender's contact information (name and address)
