@@ -243,12 +243,15 @@
             place(top + left, dx: sender-dx, dy: sender-dy, block(width: sender-width, sender-content))
           }
 
-          // Advance the flow cursor past the taller of the two placed blocks.
-          // advance is the distance from the content-area top edge to the
-          // bottom of whichever block is taller, plus lhm.bottom padding.
-          // Subtracting ps cancels the par.spacing that Typst would normally
-          // insert between this block and the next element in the flow.
-          let advance = calc.max(lh-img-height, sender-height) + lhm.top + lhm.bottom - top-m
+          // Advance the flow cursor past both placed blocks: to the image
+          // bottom plus lhm.bottom, or one par.spacing below the sender, as
+          // in the normal-flow layout. advance is measured from the
+          // content-area top edge. Subtracting ps cancels the par.spacing
+          // that Typst would normally insert before the next flow element.
+          let advance = calc.max(
+            lh-img-height + lhm.top + lhm.bottom - top-m,
+            if sender-height > 0pt { sender-dy + sender-height + ps.to-absolute() } else { 0pt },
+          )
           v(if advance > 0pt { advance - ps } else { -ps })
 
         // =====================================================================
