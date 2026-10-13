@@ -3,7 +3,7 @@
 /// Synopsis:
 /// Test case that validates the letterloom function properly handles invalid
 /// sender contact parameters by testing type validation and content validation
-/// for the `from-name` and `from-address` fields.
+/// for the `from-name`, `from-address`, `from-email` and `from-phone` fields.
 ///
 /// Purpose:
 /// Ensures that the validation system correctly identifies and reports errors
@@ -21,6 +21,10 @@
 /// - from-address field has invalid type (number instead of string/content)
 /// - from-address field has invalid type (none value)
 /// - from-address field has invalid type (function result instead of string/content)
+/// - from-email field is empty string
+/// - from-email field has invalid type (number instead of string/content)
+/// - from-phone field is empty content block
+/// - from-phone field has invalid type (number instead of string/content)
 ///
 /// Expected Behavior:
 /// The function should panic with clear, descriptive error messages indicating
@@ -33,6 +37,10 @@
 /// - "from-address is empty." - when from-address field is empty content block
 /// - "from-address must be a string or content block." - when from-address field has wrong type
 /// - "from-address is missing." - when from-address field is none
+/// - "from-email is empty." - when from-email field is empty string
+/// - "from-email must be a string or content block." - when from-email field has wrong type
+/// - "from-phone is empty." - when from-phone field is empty content block
+/// - "from-phone must be a string or content block." - when from-phone field has wrong type
 ///
 /// Validation:
 /// Ensures that the contact validation system properly enforces the requirement
@@ -376,4 +384,72 @@
     ),
   )),
   "panicked with: \"from-address must be a string or content block.\"",
+)
+
+#assert.eq(
+  catch(() => letterloom(
+    none,
+    from-name: "The Dimbleby Family",
+    from-address: "The Dimbleby Estate",
+    from-email: "",
+    to-name: "Evergreen Tree Surgeons",
+    to-address: "Midtown Lane",
+    date: "01 January 1970",
+    salutation: "Dear Mr Hawthorne",
+    subject: "Pruning of Heritage Oak Trees",
+    closing: "Sincerely yours,",
+    signatures: ((name: "Lord Albus Dimbleby"),),
+  )),
+  "panicked with: \"from-email is empty.\"",
+)
+
+#assert.eq(
+  catch(() => letterloom(
+    none,
+    from-name: "The Dimbleby Family",
+    from-address: "The Dimbleby Estate",
+    from-email: 1,
+    to-name: "Evergreen Tree Surgeons",
+    to-address: "Midtown Lane",
+    date: "01 January 1970",
+    salutation: "Dear Mr Hawthorne",
+    subject: "Pruning of Heritage Oak Trees",
+    closing: "Sincerely yours,",
+    signatures: ((name: "Lord Albus Dimbleby"),),
+  )),
+  "panicked with: \"from-email must be a string or content block.\"",
+)
+
+#assert.eq(
+  catch(() => letterloom(
+    none,
+    from-name: "The Dimbleby Family",
+    from-address: "The Dimbleby Estate",
+    from-phone: [],
+    to-name: "Evergreen Tree Surgeons",
+    to-address: "Midtown Lane",
+    date: "01 January 1970",
+    salutation: "Dear Mr Hawthorne",
+    subject: "Pruning of Heritage Oak Trees",
+    closing: "Sincerely yours,",
+    signatures: ((name: "Lord Albus Dimbleby"),),
+  )),
+  "panicked with: \"from-phone is empty.\"",
+)
+
+#assert.eq(
+  catch(() => letterloom(
+    none,
+    from-name: "The Dimbleby Family",
+    from-address: "The Dimbleby Estate",
+    from-phone: 1,
+    to-name: "Evergreen Tree Surgeons",
+    to-address: "Midtown Lane",
+    date: "01 January 1970",
+    salutation: "Dear Mr Hawthorne",
+    subject: "Pruning of Heritage Oak Trees",
+    closing: "Sincerely yours,",
+    signatures: ((name: "Lord Albus Dimbleby"),),
+  )),
+  "panicked with: \"from-phone must be a string or content block.\"",
 )
