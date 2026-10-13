@@ -425,7 +425,33 @@ For full details and examples, see the #link(label("signature-handling"))[Signat
 
 === Optional Parameters
 
-The following parameters allow you to further customize your letter by adding features such as a letterhead, an attention line, CC recipients, enclosures, or a footer.
+The following parameters allow you to further customize your letter by adding features such as sender contact details, a letterhead, an attention line, CC recipients, enclosures, or a footer.
+
+#v(5pt)
+
+*`from-email`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)
+
+The sender's email address, shown below the sender's address. A string is shown in monospace and links to `mailto:`. A content block is shown as given.
+
+#text(size: 10pt)[*Example:*]
+```typ
+from-email: "estate@dimbleby.org"
+```
+
+#_preview(align(right, link("mailto:estate@dimbleby.org", raw("estate@dimbleby.org"))))
+
+#v(5pt)
+
+*`from-phone`* #h(15pt) #highlight-type.str #h(5pt) or #h(5pt) #highlight-type.content #h(5pt)
+
+The sender's phone number, shown below the sender's email address.
+
+#text(size: 10pt)[*Example:*]
+```typ
+from-phone: "+44 117 496 0000"
+```
+
+#_preview(align(right, [+44 117 496 0000]))
 
 #v(5pt)
 

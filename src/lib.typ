@@ -29,6 +29,10 @@
 /// - doc (content): The letter body supplied by the show rule.
 ///
 /// Optional letter elements:
+/// - from-email (none, str, or content): Sender's email, shown below the
+///   address. A string renders as a monospace mailto: link.
+/// - from-phone (none, str, or content): Sender's phone number, shown below
+///   the email.
 /// - attn-name / attn-label / attn-position: Attention line configuration.
 /// - cc / cc-label: Carbon copy recipients and label.
 /// - enclosures / enclosures-label: Enclosure list and label.
@@ -67,6 +71,8 @@
   closing: none,
   signatures: none,
   required-fields: ("from-name", "from-address", "to-name", "to-address", "date", "salutation", "subject", "closing", "signatures"),
+  from-email: none,
+  from-phone: none,
   signature-alignment: left,
   attn-name: none,
   attn-label: "Attn:",
@@ -113,6 +119,8 @@
     closing: closing,
     signatures: signatures,
     required-fields: required-fields,
+    from-email: from-email,
+    from-phone: from-phone,
     signature-alignment: signature-alignment,
     attn-name: attn-name,
     attn-label: attn-label,
@@ -154,6 +162,15 @@
   let subject        = opt("subject",      subject)
   let closing        = opt("closing",      closing)
   let signatures     = opt("signatures",   signatures)
+
+  // Email and phone are extra sender lines below the address, so the header
+  // and the date width matching treat them as part of from-address.
+  let from-lines = (
+    from-address,
+    if type(from-email) == str { link("mailto:" + from-email, raw(from-email)) } else { from-email },
+    from-phone,
+  ).filter(x => x != none)
+  let from-address = if from-lines.len() > 0 { from-lines.join(linebreak()) } else { none }
 
   // =========================================================================
   // STEP 3 — BUILD FOOTER CONTENT

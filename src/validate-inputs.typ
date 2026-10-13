@@ -585,8 +585,8 @@
 ///      spacing values. These are always required regardless of required-fields
 ///      because they affect the document layout unconditionally.
 ///
-///   4. optional letter elements       — attn, cc, enclosures, letterhead,
-///      footer. Each is guarded by a none check so its validator is only
+///   4. optional letter elements       — from-email, from-phone, attn, cc,
+///      enclosures, letterhead, footer. Each is guarded by a none check so its validator is only
 ///      invoked when the caller has supplied a value. validate-letterhead is
 ///      the exception: it includes its own internal none guard and is called
 ///      unconditionally for clarity.
@@ -608,6 +608,8 @@
   closing: none,
   signatures: none,
   required-fields: ("from-name", "from-address", "to-name", "to-address", "date", "salutation", "subject", "closing", "signatures"),
+  from-email: none,
+  from-phone: none,
   signature-alignment: left,
   attn-name: none,
   attn-label: "Attn:",
@@ -690,6 +692,9 @@
   // exception: it guards itself internally and is called unconditionally here
   // for readability.
   // ===========================================================================
+
+  validate-string(string-data: from-email, field-name: "from-email", required: false)
+  validate-string(string-data: from-phone, field-name: "from-phone", required: false)
 
   if attn-name != none {
     validate-attn(attn-name: attn-name, attn-label: attn-label, attn-position: attn-position)
